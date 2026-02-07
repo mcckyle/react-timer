@@ -1,0 +1,27 @@
+/* Filename: src/components/TimerDisplay/TimerDisplay.css */
+
+/* ====================================
+   TIMERDISPLAY STYLES.
+======================================= */
+.timer-display {
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+
+    font-size: clamp(5rem, 20vw, 50rem);
+    line-height: 0.95;
+
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+
+    color: #d4af37;
+    text-shadow: 0 0 18px rgba(212, 175, 55, 0.28);
+
+    transition: color 0.35s ease;
+}
+
+/* ====================================
+   TIMERDISPLAY REDUCED MOTION STYLES.
+======================================= */
+@media (prefers-reduced-motion: reduce) {
+    .timer-display { transition: none; }
+}

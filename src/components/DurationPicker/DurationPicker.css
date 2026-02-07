@@ -1,0 +1,35 @@
+/* Filename: src/components/DurationPicker/DurationPicker.css */
+
+/* ====================================
+   DURATIONPICKER STYLES.
+======================================= */
+.duration-picker {
+    display: inline-flex;
+    gap: 0.5rem;
+    padding: 0.25rem;
+}
+
+/* ====================================
+   DURATIONPICKER PILL STYLES.
+======================================= */
+.duration-pill {
+    appearance: none;
+    background: transparent;
+
+    border: 1.5px solid rgba(212, 175, 55, 0.35);
+    border-radius: 9999px;
+    padding: 0.4rem 0.9rem;
+
+    font-family: "Inter", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+
+    color: #d4af37;
+    cursor: pointer;
+
+    transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.2s ease;
+}
+.duration-pill:hover { border-color: rgba(212, 175, 55, 0.75); }
+.duration-pill.active { background: rgba(212, 175, 55, 0.14); border-color: #d4af37; }
+.duration-pill:focus-visible { outline: none; box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.35); }
+.duration-pill:active { transform: scale(0.96); }

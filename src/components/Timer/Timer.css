@@ -1,0 +1,37 @@
+/* Filename: src/components/Timer/Timer.css */
+
+/* ====================================
+   TIMER ROOT LAYOUT STYLES.
+======================================= */
+.timer {
+    min-height: 100dvh;
+    width: 100%;
+
+    display: grid;
+    grid-template-rows: auto 1fr auto auto;
+    place-items: center;
+
+    padding: clamp(2rem, 6vw, 4rem);
+    text-align: center;
+}
+
+/* ====================================
+   TIMER HEADER (DURATION) STYLES.
+======================================= */
+.timer-header { margin-bottom: 1.5rem; }
+
+/* ====================================
+   TIMER CORE DISPLAY STYLES.
+ ======================================= */
+.timer-core { display: grid; place-items: center; width: 100%; }
+
+/* ====================================
+   TIMER CONTROLS STYLES.
+======================================= */
+.timer-controls { margin-top: 1.75rem; }
+
+/* ====================================
+   TIMER HISTORY STYLES.
+======================================= */
+.timer-history { margin-top: 2.5rem; opacity: 0.7; transition: opacity 0.25s ease; }
+.timer-history:hover { opacity: 0.9; }

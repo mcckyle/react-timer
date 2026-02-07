@@ -1,0 +1,35 @@
+/* Filename: src/index.css */
+
+/* ====================================
+   GLOBAL BASELINE STYLES.
+======================================= */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #root
+{
+  min-height: 100%;
+  margin: 0;
+
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+
+  font-variant-numeric: tabular-nums lining-nums;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body { background: transparent; overscroll-behavior: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; }
+
+/* ====================================
+   REDUCED MOTION MEDIA QUERY STYLES.
+======================================= */
+@media (prefers-reduced-motion: reduce)
+{
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

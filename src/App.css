@@ -1,0 +1,53 @@
+/* Filename: src/App.css */
+
+/* ====================================
+   APP ROOT CONTAINER STYLES.
+======================================= */
+.app
+{
+  display: grid;
+  place-items: center;
+
+  min-height: 100dvh;
+  width: 100vw;
+
+  background: radial-gradient(circle at 50% 42%, #1a1b21, #06070b);
+  color: #f5f6f8;
+
+  overflow: hidden;
+  position: relative; /* Removes scrollbars... */
+  isolation: isolate;
+
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* ====================================
+   AMBIENT BACKGROUND PRESENCE STYLES.
+======================================= */
+.app::before
+{
+  content: "";
+  position: absolute;
+  inset: -40%;
+  z-index: -1;
+
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(212, 175, 55, 0.025),
+    transparent 70%
+  );
+
+  opacity: 0.01;
+  filter: blur(240px);
+
+  animation: drift 520s ease-in-out infinite alternate;
+}
+
+/* ====================================
+   APP ANIMATIONS STYLES.
+======================================= */
+@keyframes drift
+{
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(0.35%, -0.45%) scale(1.01); }
+}
