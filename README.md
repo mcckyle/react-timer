@@ -113,4 +113,4 @@ This project was made possible thanks to the open-source community and the follo
 - [React](https://react.dev) - A modern library designed specifically for building fast, interactive UIs.
 - [Vite](https://vitejs.dev/) - Next-generation frontend tooling with lightning-fast dev server and build optimizations.
 
-Special thanks to the broader open-source ecosystem for inspiration, guidance, and tools that empower developers to create and share freely.
+Special thanks to the broader open-source ecosystem for the tools that empower developers to create and share freely.

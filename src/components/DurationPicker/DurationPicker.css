@@ -1,7 +1,7 @@
 /* Filename: src/components/DurationPicker/DurationPicker.css */
 
 /* ====================================
-   DURATIONPICKER STYLES.
+   DURATIONPICKER CONTAINER STYLES.
 ======================================= */
 .duration-picker {
     display: inline-flex;
@@ -30,6 +30,6 @@
     transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.2s ease;
 }
 .duration-pill:hover { border-color: rgba(212, 175, 55, 0.75); }
-.duration-pill.active { background: rgba(212, 175, 55, 0.14); border-color: #d4af37; }
 .duration-pill:focus-visible { outline: none; box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.35); }
+.duration-pill.active { background: rgba(212, 175, 55, 0.14); border-color: #d4af37; }
 .duration-pill:active { transform: scale(0.96); }

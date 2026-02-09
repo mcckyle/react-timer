@@ -8,7 +8,7 @@
     width: 100%;
 
     display: grid;
-    grid-template-rows: auto 1fr auto auto;
+    grid-template-rows: minmax(2.75rem, auto) 1fr auto minmax(3rem, auto);
     place-items: center;
 
     padding: clamp(2rem, 6vw, 4rem);
@@ -16,13 +16,21 @@
 }
 
 /* ====================================
-   TIMER HEADER (DURATION) STYLES.
+   TIMER HEADER (DURATION PICKER) STYLES.
 ======================================= */
-.timer-header { margin-bottom: 1.5rem; }
+.timer-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.9;
+
+  transition: opacity 0.25s ease;
+}
+.timer-header:empty { visibility: hidden; }
 
 /* ====================================
    TIMER CORE DISPLAY STYLES.
- ======================================= */
+======================================= */
 .timer-core { display: grid; place-items: center; width: 100%; }
 
 /* ====================================
@@ -33,5 +41,5 @@
 /* ====================================
    TIMER HISTORY STYLES.
 ======================================= */
-.timer-history { margin-top: 2.5rem; opacity: 0.7; transition: opacity 0.25s ease; }
-.timer-history:hover { opacity: 0.9; }
+.timer-history { margin-top: 2.5rem; opacity: 0.65; transition: opacity 0.25s ease; }
+.timer-history:hover { opacity: 0.85; }

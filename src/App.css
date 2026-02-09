@@ -33,7 +33,7 @@
 
   background: radial-gradient(
     circle at 50% 45%,
-    rgba(212, 175, 55, 0.025),
+    rgba(212, 175, 55, 0.02),
     transparent 70%
   );
 
@@ -49,5 +49,5 @@
 @keyframes drift
 {
   from { transform: translate(0, 0) scale(1); }
-  to { transform: translate(0.35%, -0.45%) scale(1.01); }
+  to { transform: translate(0.3%, -0.4%) scale(1.01); }
 }
