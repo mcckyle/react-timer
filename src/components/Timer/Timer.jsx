@@ -1,6 +1,6 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 8 February 2026
+//Date: 9 February 2026
 //Description: This file contains the parent timer component for the React timer project.
 
 import { useTimer, DEFAULT_DURATION } from "../../hooks/useTimer";
@@ -12,12 +12,13 @@ import "./Timer.css";
 
 export default function Timer()
 {
-  const { duration, setDuration, timeLeft, setTimeLeft, running, start, pause, reset, pastTimers, } = useTimer();
+  const { duration, setDuration, timeLeft, setTimeLeft, running, start, pause, reset, pastTimers, clearPastTimers } = useTimer();
+  const showDurationPicker = ! running;
 
   return (
       <section className="timer" aria-label="Timer">
-        <header className="timer-header">
-          { ! running && (
+        {showDurationPicker && (
+          <header className="timer-header">
             <DurationPicker
               duration={duration}
               onSelect={value => {
@@ -25,8 +26,8 @@ export default function Timer()
                 setTimeLeft(value);
               }}
             />
-          )}
-        </header>
+          </header>
+        )}
 
         <main className="timer-core">
           <TimerDisplay timeLeft={timeLeft} />
@@ -42,9 +43,11 @@ export default function Timer()
           />
         </nav>
 
-        <footer className="timer-history">
-          <PastTimers timers={pastTimers} />
-        </footer>
+        {pastTimers.length > 0 && (
+          <footer className="timer-history">
+            <PastTimers timers={pastTimers} onClear={clearPastTimers} />
+          </footer>
+        )}
       </section>
   );
 };

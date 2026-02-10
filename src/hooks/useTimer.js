@@ -1,6 +1,6 @@
 //File name: useTimer.js
 //Author: Kyle McColgan
-//Date: 6 February 2026
+//Date: 9 February 2026
 //Description: This file contains the custom timekeeping hook for the React timer project.
 
 import { useEffect, useState, useRef, useCallback } from "react";
@@ -16,6 +16,7 @@ export function useTimer()
 
     const intervalRef = useRef(null);
     const lastTickRef = useRef(0);
+    const completedRef = useRef(false);
 
     //Hydrate past timers once...
     useEffect(() => {
@@ -35,12 +36,22 @@ export function useTimer()
     };
 
     const complete = useCallback(() => {
+        if (completedRef.current)
+        {
+            return;
+        }
+
+        completedRef.current = true;
         setRunning(false);
         stopInterval();
 
+        const completedTimer = {
+            duration,
+            completedAt: Date.now(),
+        };
 
         setPastTimers(prev => {
-            const updated = [...prev, duration];
+            const updated = [completedTimer, ...prev];
             try
             {
                 localStorage.setItem("pastTimers", JSON.stringify(updated));
@@ -65,6 +76,11 @@ export function useTimer()
             lastTickRef.current = now;
 
             setTimeLeft(prev => {
+                if (completedRef.current)
+                {
+                    return prev;
+                }
+
                 const next = prev - delta;
 
                 if (next <= 0)
@@ -86,6 +102,7 @@ export function useTimer()
             setTimeLeft(duration);
         }
 
+        completedRef.current = false;
         setRunning(true);
     };
 
@@ -97,6 +114,14 @@ export function useTimer()
         setTimeLeft(duration);
     };
 
+    const clearPastTimers = useCallback(() => {
+        setPastTimers([]);
+        try
+        {
+            localStorage.removeItem("pastTimers");
+        } catch {}
+    }, []);
+
     return {
         duration,
         setDuration,
@@ -107,5 +132,6 @@ export function useTimer()
         pause,
         reset,
         pastTimers,
+        clearPastTimers,
     };
 }

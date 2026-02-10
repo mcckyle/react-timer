@@ -1,0 +1,23 @@
+/* Filename: src/components/TimeField/TimeField.css */
+
+/* ====================================
+   TIMEFIELD STYLES.
+======================================= */
+.time-field {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.15rem;
+}
+
+.time-field input {
+    width: 3ch;
+    background: transparent;
+    border: none;
+    outline: none;
+
+    font-family: "Inter", sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: right;
+    color: #d4af37;
+}

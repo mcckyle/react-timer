@@ -1,20 +1,11 @@
 //File name: TimerDisplay.jsx
 //Author: Kyle McColgan
-//Date: 6 February 2026
+//Date: 9 February 2026
 //Description: This file contains the time display for the React timer project.
 
 import { useMemo } from "react";
+import { formatTime } from "../../utils/formatTime";
 import "./TimerDisplay.css";
-
-const formatTime = ms => {
-    const totalSeconds = Math.ceil(ms / 1000);
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60;
-
-    const pad = n => (n < 10 ? "0" + n : n);
-
-    return `${pad(minutes)}:${pad(seconds)}`;
-};
 
 export default function TimerDisplay({ timeLeft })
 {

@@ -3,7 +3,7 @@
 /* ====================================
    TIMERCONTROLS STYLES.
 ======================================= */
-.timer-controls { display: flex; gap: 1rem; margin-top: 1.75rem; }
+.timer-controls { display: flex; gap: 1.2rem; margin-top: 2rem; justify-content: center; }
 
 /* ====================================
    TIMERCONTROLS BASE BUTTON STYLES.
@@ -13,25 +13,47 @@
     background: transparent;
 
     border-radius: 9999px;
-    padding: 0.65rem 1.6rem;
+    padding: 0.75rem 1.8rem;
 
     font-family: "Inter", system-ui, sans-serif;
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
 
-    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    transition: background 0.25s ease,
+                color 0.25s ease,
+                border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                transform 0.2s ease;
 }
-.timer-control.primary { border: 2px solid #d4af37; color: #d4af37; box-shadow: 0 0 6px rgba(212, 175, 55, 0.2); }
-.timer-control.primary:hover:not(:disabled) { background: #d4af37; color: #1b1c22; transform: translateY(-1px); box-shadow: 0 4px 18px rgba(212, 175, 55, 0.35); }
+.timer-control.primary {
+    border: 2px solid #d4af37;
+    color: #d4af37;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.25);
+    background: rgba(212, 175, 55, 0.03);
+}
+.timer-control.primary:hover:not(:disabled) {
+    background: #d4af37;
+    color: #1b1c22;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(212, 175, 55, 0.35);
+}
+.timer-control.primary:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 3px 12px rgba(212, 175, 55, 0.25);
+}
 
-.timer-control.secondary { border: 1.5px solid rgba(212, 175, 55, 0.35); color: rgba(212, 175, 55, 0.75); }
-.timer-control.secondary:hover:not(:disabled) { border-color: #d4af37; color: #d4af37; transform: translateY(-1px); }
+.timer-control.secondary {
+    border: 1.5px solid rgba(212, 175, 55, 0.35);
+    color: rgba(212, 175, 55, 0.75);
+    background: rgba(212, 175, 55, 0.01);
+}
+.timer-control.secondary:active:not(:disabled) { transform: translateY(-1px); }
 .timer-control:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
 
 /* ====================================
    TIMERCONTROLS REDUCED MOTION STYLES.
 ======================================= */
 @media (prefers-reduced-motion: reduce) {
-    .timer-control { transition: none; }
+    .timer-control { transform: none; transition: none; }
 }

@@ -8,11 +8,13 @@
     width: 100%;
 
     display: grid;
-    grid-template-rows: minmax(2.75rem, auto) 1fr auto minmax(3rem, auto);
+    grid-template-rows: min-content 1fr auto min-content;
     place-items: center;
 
     padding: clamp(2rem, 6vw, 4rem);
     text-align: center;
+
+    transition: all 0.35s ease;
 }
 
 /* ====================================
@@ -22,24 +24,47 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.9;
+  opacity: 0.95;
 
-  transition: opacity 0.25s ease;
+  transition: opacity 0.3s ease, transform 0.25s ease;
 }
-.timer-header:empty { visibility: hidden; }
+.timer-header:empty { display: none; }
+.timer-header { animation: fadeIn 0.35s ease forwards; }
 
 /* ====================================
    TIMER CORE DISPLAY STYLES.
 ======================================= */
-.timer-core { display: grid; place-items: center; width: 100%; }
+.timer-core { display: grid; place-items: center; width: 100%; transition: transform 0.2s ease; }
+.timer-core:has(time.timer-display:empty) { transform: scale(0.95); }
 
 /* ====================================
    TIMER CONTROLS STYLES.
 ======================================= */
-.timer-controls { margin-top: 1.75rem; }
+.timer-controls {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 
 /* ====================================
    TIMER HISTORY STYLES.
 ======================================= */
-.timer-history { margin-top: 2.5rem; opacity: 0.65; transition: opacity 0.25s ease; }
-.timer-history:hover { opacity: 0.85; }
+.timer-history {
+  margin-top: 2.5rem;
+  opacity: 0.65;
+  font-size: 0.82rem;
+
+  transition: opacity 0.3s ease, transform 0.25s ease;
+}
+.timer-history:hover { opacity: 0.85; transform: translateY(-2px); }
+
+/* ====================================
+   TIMER ANIMATIONS STYLES.
+======================================= */
+@keyframes fadeIn
+{
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
