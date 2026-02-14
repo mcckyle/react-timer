@@ -5,26 +5,48 @@
 ======================================= */
 .app
 {
+  min-height: 100dvh;
   display: grid;
   place-items: center;
+  padding: clamp(2rem, 6vh, 4rem);
 
-  min-height: 100dvh;
-  width: 100vw;
-
-  background: radial-gradient(circle at 50% 42%, #1a1b21, #06070b);
-  color: #f5f6f8;
-
+  color: var(--text-dark);
+  background: var(--bg-dark);
+  position: relative;
   overflow: hidden;
-  position: relative; /* Removes scrollbars... */
-  isolation: isolate;
+}
 
-  transition: background 0.4s ease, color 0.4s ease;
+/* ====================================
+   SIMPLE ATMOSPEHRIC GLOW STYLES.
+======================================= */
+.app::before
+{
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(
+    700px circle at 50% 30%,
+    rgba(212, 175, 55, 0.06),
+    transparent 60%
+  );
+
+  pointer-events: none;
+}
+
+/* ====================================
+   APP LIGHT MODE STYLES.
+======================================= */
+@media (prefers-color-scheme: light)
+{
+  .app { color: var(--text-light); background: var(--bg-light); }
+  .app::before { background: radial-gradient(700px circle at 50% 30%, rgba(212, 175, 55, 0.08), transparent 60%); }
 }
 
 /* ====================================
    AMBIENT BACKGROUND PRESENCE STYLES.
 ======================================= */
-.app::before
+/*.app::before
 {
   content: "";
   position: absolute;
@@ -41,13 +63,13 @@
   filter: blur(240px);
 
   animation: drift 520s ease-in-out infinite alternate;
-}
+}*/
 
 /* ====================================
    APP ANIMATIONS STYLES.
 ======================================= */
-@keyframes drift
+/*@keyframes drift
 {
   from { transform: translate(0, 0) scale(1); }
   to { transform: translate(0.3%, -0.4%) scale(1.01); }
-}
+}*/

@@ -3,57 +3,72 @@
 /* ====================================
    TIMERCONTROLS STYLES.
 ======================================= */
-.timer-controls { display: flex; gap: 1.2rem; margin-top: 2rem; justify-content: center; }
+.timer-controls
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(1rem, 4vw, 2rem);
+    padding-block: clamp(1.5rem, 4vh, 3rem);
+}
 
 /* ====================================
    TIMERCONTROLS BASE BUTTON STYLES.
 ======================================= */
-.timer-control {
+.timer-control
+{
     appearance: none;
     background: transparent;
 
-    border-radius: 9999px;
-    padding: 0.75rem 1.8rem;
+    border-radius: var(--radius-pill);
+    padding: 0.75rem 2rem;
 
     font-family: "Inter", system-ui, sans-serif;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
+    letter-spacing: 0.015em;
+
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    color: rgba(212, 175, 55, 0.9);
     cursor: pointer;
 
     transition: background 0.25s ease,
                 color 0.25s ease,
-                border-color 0.25s ease,
-                box-shadow 0.25s ease,
-                transform 0.2s ease;
-}
-.timer-control.primary {
-    border: 2px solid #d4af37;
-    color: #d4af37;
-    box-shadow: 0 0 8px rgba(212, 175, 55, 0.25);
-    background: rgba(212, 175, 55, 0.03);
-}
-.timer-control.primary:hover:not(:disabled) {
-    background: #d4af37;
-    color: #1b1c22;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 22px rgba(212, 175, 55, 0.35);
-}
-.timer-control.primary:active:not(:disabled) {
-    transform: translateY(0);
-    box-shadow: 0 3px 12px rgba(212, 175, 55, 0.25);
-}
+                transform 0.15s ease,
+                border-color 0.25s ease;
 
-.timer-control.secondary {
-    border: 1.5px solid rgba(212, 175, 55, 0.35);
-    color: rgba(212, 175, 55, 0.75);
-    background: rgba(212, 175, 55, 0.01);
 }
-.timer-control.secondary:active:not(:disabled) { transform: translateY(-1px); }
-.timer-control:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
+.timer-control.primary
+{
+    background: rgba(212, 175, 55, 0.08);
+    border-color: rgba(212, 175, 55, 0.65);
+    color: var(--accent);
+}
+.timer-control.primary:hover:not(:disabled)
+{
+    background: var(--accent);
+    color: #1b1c22;
+    transform: translateY(-1px);
+}
+.timer-control.primary:active:not(:disabled) { transform: translateY(0); }
+
+.timer-control.secondary
+{
+    background: transparent;
+    color: rgba(212, 175, 55, 0.75);
+}
+.timer-control.secondary:hover:not(:disabled)
+{
+    background: rgba(212, 175, 55, 0.08);
+    transform: translateY(-1px);
+}
+.timer-control.secondary:active:not(:disabled) { transform: translateY(0); }
+.timer-control:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 
 /* ====================================
    TIMERCONTROLS REDUCED MOTION STYLES.
 ======================================= */
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce)
+{
     .timer-control { transform: none; transition: none; }
 }

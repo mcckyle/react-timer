@@ -1,90 +1,91 @@
 /* Filename: src/components/DurationPicker/DurationPicker.css */
 
 /* ====================================
-   DURATIONPICKER CONTAINER STYLES.
+   DURATIONPICKER ROOT CONTAINER STYLES.
 ======================================= */
-.duration-picker {
+.duration-picker
+{
+    width: 100%;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.85rem;
+
+    gap: 1.5rem;
 }
 
 /* ====================================
-   DURATIONPICKER PRESET BUTTON ROW STYLES.
+   DURATIONPICKER PRESET ROW STYLES.
 ======================================= */
-.duration-presets {
-    display: inline-flex;
-    gap: 0.6rem;
+.duration-presets
+{
+    display: flex;
     flex-wrap: wrap;
     justify-content: center;
+
+    gap: 0.75rem;
 }
 
 /* ====================================
    DURATIONPICKER PRESET PILL BUTTONS STYLES.
 ======================================= */
-.duration-pill {
+.duration-pill
+{
     appearance: none;
-    background: rgba(212, 175, 55, 0.05);
 
-    border: 1.5px solid rgba(212, 175, 55, 0.35);
-    border-radius: 9999px;
     padding: 0.5rem 1.1rem;
+    border-radius: var(--radius-pill);
 
-    font-family: "Inter", sans-serif;
-    font-size: 0.9rem;
+    border: 1px solid var(--accent-soft);
+    background: transparent;
+
+    font-size: 0.85rem;
     font-weight: 500;
     letter-spacing: 0.04em;
-    color: #d4af37;
+    color: var(--accent-muted);
     cursor: pointer;
 
-    transition: background 0.25s ease,
-                transform 0.15s ease,
-                box-shadow 0.25s ease;
+    transition: background var(--duration-fast) var(--ease-standard),
+                border-color var(--duration-fast) var(--ease-standard),
+                color var(--duration-fast) var(--ease-standard);
 }
-.duration-pill:hover:not(.active) { background: rgba(212, 175, 55, 0.08); }
-.duration-pill.active {
-    background: rgba(212, 175, 55, 0.2);
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
-    transform: scale(1.05);
-}
+.duration-pill:hover:not(.is-active) { background: var(--accent-soft); border-color: var(--accent-muted); }
+.duration-pill.is-active { background: var(--accent-soft); border-color: var(--accent-muted); color: var(--accent); }
 
 /* ====================================
    DURATIONPICKER CUSTOM TIME STRIP STYLES.
 ======================================= */
-.duration-custom {
+.duration-custom
+{
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: 0.6rem;
 
-    padding: 0.4rem 0.85rem;
-    border-radius: 9999px;
-    border: 1px solid rgba(212, 175, 55, 0.35);
+    padding: 0.55rem 1.1rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--accent-soft);
     background: rgba(212, 175, 55, 0.04);
+
+    transition: border-color var(--duration-fast) var(--ease-standard),
+                background var(--duration-fast) var(--ease-standard);
 }
+.duration-custom:focus-within { border-color: var(--accent-muted); background: var(--accent-soft); }
 
-/* Used somewhere in this file... */
-.time-unit { font-size: 0.75rem; color: rgba(212, 175, 55, 0.65); }
-
-/* Remove number input spinners. */
+/* ====================================
+   DURATIONPICKER NUMBER INPUT NORMALIZATION.
+======================================== */
 .time-field input::-webkit-outer-spin-button,
-.time-field input::-webkit-inner-spin-button {
+.time-field input::-webkit-inner-spin-button
+{
     -webkit-appearance: none;
     margin: 0;
 }
-.time-field input[type="number"] {
-    appearance: textfield;
-}
+.time-field input[type="number"] { appearance: textfield; }
 
 /* ====================================
    DURATIONPICKER REDUCED MOTION MEDIA QUERY STYLES.
 ======================================= */
 @media (prefers-reduced-motion: reduce)
 {
-    .duration-pill
-    {
-        box-shadow: none !important;
-        transform: none !important;
-        transition: none;
-    }
+    .duration-pill, .duration-custom  { transition: none; }
 }

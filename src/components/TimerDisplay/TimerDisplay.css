@@ -3,41 +3,40 @@
 /* ====================================
    TIMERDISPLAY STYLES.
 ======================================= */
-.timer-display {
-    font-family: "JetBrains Mono", monospace;
-    font-weight: 700;
-
-    font-size: clamp(6rem, 20vw, 16rem);
-    line-height: 0.9;
-
-    letter-spacing: -0.025em;
-    font-variant-numeric: tabular-nums;
-
-    color: #d4af37;
-    text-shadow: 0 0 8px rgba(212, 175, 55, 0.4),
-                 0 0 20px rgba(212, 175, 55, 0.25),
-                 0 0 40px rgba(212, 175, 55, 0.12);
-
-    transition: color 0.35s ease, text-shadow 0.35s ease, transform 0.25s ease;
-
-    animation: pulse 2.5s ease-in-out infinite alternate;
+.timer-display-wrapper
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-block: clamp(2rem, 6vh, 4rem);
 }
 
 /* ====================================
-   TIMERDISPLAY ANIMATION STYLES.
+   TIMERDISPLAY MAIN TIMER TEXT STYLES.
 ======================================= */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.02); }
+.timer-display
+{
+    display: flex;
+    gap: 0.25em;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+
+    font-size: clamp(5.5rem, 16vw, 20rem);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+
+    color: var(--accent);
+    text-shadow: 0 0 6px rgba(212, 175, 55, 0.18),
+                 0 0 20px rgba(212, 175, 55, 0.08);
+
+    transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.2s ease;
 }
 
 /* ====================================
    TIMERDISPLAY REDUCED MOTION STYLES.
 ======================================= */
-@media (prefers-reduced-motion: reduce){
-    .timer-display {
-        transform: none;
-        transition: none;
-        animation: none;
-    }
+@media (prefers-reduced-motion: reduce)
+{
+    .timer-display { transition: none; }
 }

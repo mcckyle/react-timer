@@ -1,6 +1,6 @@
 #Filename: deploy.yml
 #Author: Kyle McColgan
-#Date: 6 February 2026
+#Date: 12 February 2026
 #Description: This file contains the GitHub Actions Workflow and GitHub Pages deployment processes for the React timer project.
 
 name: Deploy to GitHub Pages
@@ -32,8 +32,8 @@ jobs:
       - name: Build the project
         run: npm run build  # Vite outputs to ./dist directory.
 
-      # - name: Execute test cases
-      #   run: npm test
+      - name: Execute test cases
+        run: npm test
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

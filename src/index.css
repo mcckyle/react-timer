@@ -1,26 +1,63 @@
 /* Filename: src/index.css */
 
 /* ====================================
-   GLOBAL BASELINE STYLES.
+   CORE DESIGN TOKENS
+======================================= */
+:root
+{
+  --accent: #d4af37;
+  --accent-soft: rgba(212, 175, 55, 0.08);
+  --accent-muted: rgba(212, 175, 55, 0.6);
+
+  --bg-dark: #0b0c11;
+  --bg-dark-secondary: #101218;
+  --bg-light: #f7f7f5;
+  --bg-light-secondary: #ffffff;
+
+  --text-dark: #f4f5f7;
+  --text-light: #111217;
+
+  --radius-pill: 9999px;
+  --max-width: 640px;
+
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+}
+
+
+/* ====================================
+   BASE RESET STYLES.
 ======================================= */
 *, *::before, *::after { box-sizing: border-box; }
 
 html, body, #root
 {
-  min-height: 100%;
+  height: 100%;
   margin: 0;
+}
+html { color-scheme: light dark; background: var(--bg-dark); }
 
+body
+{
   font-family: "Inter", system-ui, -apple-system, sans-serif;
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.55;
 
   font-variant-numeric: tabular-nums lining-nums;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background: transparent;
+  color: inherit;
 }
 
-body { background: transparent; overscroll-behavior: none; touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; }
+@media (prefers-color-scheme: light)
+{
+  html { background: var(--bg-light); }
+}
 
 /* ====================================
    REDUCED MOTION MEDIA QUERY STYLES.

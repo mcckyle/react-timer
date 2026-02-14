@@ -3,4 +3,17 @@
 /* ====================================
    TIMESEPARATOR STYLES.
 ======================================= */
-.time-separator { font-size: 0.9rem; color: rgba(212, 175, 55, 0.5); }
+.time-separator
+{
+   display: inline-block;
+
+   font-size: 1em;
+   line-height: 1;
+   margin-inline: 0.35rem;
+
+   color: rgba(212, 175, 55, 0.45);
+   user-select: none;
+   pointer-events: none;
+
+   transition: opacity 150ms ease;
+}

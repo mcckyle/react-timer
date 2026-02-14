@@ -60,6 +60,14 @@ react-timer/
 │   │   │   ├── TimerDisplay.jsx
 │   │   │   └── TimerDisplay.css
 │   │   │
+│   │   ├── TimeField/
+│   │   │   ├── TimeField.jsx
+│   │   │   └── TimeField.css
+│   │   │
+│   │   ├── TimerSeparator/
+│   │   │   ├── TimerSeparator.jsx
+│   │   │   └── TimerSeparator.css
+│   │   │
 │   │   ├── TimerControls/
 │   │   │   ├── TimerControls.jsx
 │   │   │   └── TimerControls.css
@@ -71,6 +79,9 @@ react-timer/
 │   │   └── DurationPicker/
 │   │       ├── DurationPicker.jsx
 │   │       └── DurationPicker.css
+│   │
+│   ├── __tests__/
+│   │   └── useTimer.test.jsx
 │   │
 │   ├── hooks/            # Custom React hooks.
 │   │   └── useTimer.js
@@ -85,6 +96,8 @@ react-timer/
 ├── README.md             # Project overview, instructions, and documentation.
 ├── eslint.config.js      # ESLint configuration.
 ├── index.html            # HTML entry point.
+├── babel.config.cjs      # Babel config for Jest.
+├── jest.config.js        # Jest testing configuration.
 ├── vite.config.js        # Vite config for build and development.
 ├── package.json          # Project metadata, dependencies, and scripts.
 └── package-lock.json     # Exact versions of installed dependencies.
@@ -102,7 +115,7 @@ react-timer/
 ## 📄 License
 
 This project is licensed under the [MIT License](./LICENSE).
-Feel free to use it as inspiration, extend it for your own projects, or contribute improvements back to the community.
+Feel free to extend it for your own projects, or contribute improvements back to the community.
 
 ---
 
