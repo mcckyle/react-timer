@@ -5,19 +5,17 @@
 ======================================= */
 :root
 {
-  /* Accents. */
+  /* Accent System. */
   --accent: #d4af37;
   --accent-soft: rgba(212, 175, 55, 0.08);
   --accent-muted: rgba(212, 175, 55, 0.6);
 
   /* Dark Theme. */
   --bg-dark: #0b0c11;
-  --bg-dark-secondary: #101218;
   --text-dark: #f4f5f7;
 
   /* Light Theme. */
   --bg-light: #f7f7f5;
-  --bg-light-secondary: #ffffff;
   --text-light: #111217;
 
   /* Semantic Layer. */
@@ -25,12 +23,11 @@
   --app-text: var(--text-dark);
 
   --radius-pill: 9999px;
-  --max-width: 640px;
+  --max-width: 680px;
 
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
   --duration-fast: 150ms;
-  --duration-base: 250ms;
-  --duration-slow: 400ms;
+  --duration-standard: 250ms;
 }
 
 
@@ -45,12 +42,11 @@ html, body, #root
   margin: 0;
 }
 html { color-scheme: light dark; background: var(--app-bg); }
-
 body
 {
   font-family: "Inter", system-ui, -apple-system, sans-serif;
   font-size: 16px;
-  line-height: 1.55;
+  line-height: 1.6;
 
   font-variant-numeric: tabular-nums lining-nums;
   text-rendering: optimizeLegibility;
@@ -75,8 +71,7 @@ body
 {
   *, *::before, *::after
   {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation: none !important;
+    transition: none !important;
   }
 }

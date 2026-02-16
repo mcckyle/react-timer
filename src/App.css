@@ -8,7 +8,7 @@
   min-height: 100dvh;
   display: grid;
   place-items: center;
-  padding: clamp(2rem, 6vh, 4rem);
+  padding: clamp(2rem, 6vh, 5rem);
 
   position: relative;
   isolation: isolate; /* Prevents glow bleed. */
@@ -16,6 +16,18 @@
 
   background: var(--app-bg);
   color: var(--app-text);
+}
+
+/* ====================================
+   APP CONTENT CONTAINER STYLES.
+======================================= */
+.app-inner
+{
+  width: 100%;
+  max-width: var(--max-width);
+
+  display: grid;
+  gap: clamp(2rem, 6vh, 4rem);
 }
 
 /* ====================================
@@ -28,9 +40,9 @@
   inset: 0;
 
   background: radial-gradient(
-    900px circle at 50% 28%,
+    800px circle at 50% 22%,
     var(--accent-soft),
-    transparent 65%
+    transparent 70%
   );
 
   pointer-events: none;
