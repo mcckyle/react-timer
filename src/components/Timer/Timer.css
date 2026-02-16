@@ -6,13 +6,13 @@
 .timer
 {
     width: 100%;
-    max-width: 560px;
+    max-width: var(--max-width);
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    place-items: center;
+    margin-inline: auto;
 
-    gap: clamp(2.25rem, 6vw, 3.5rem);
+    gap: clamp(2.5rem, 7vh, 4rem);
 }
 
 /* ====================================
@@ -28,15 +28,14 @@
 /* ====================================
    TIMER BODY ( DISPLAY + CONTROLS ) STYLES.
 ======================================= */
-.timer-body
+.timer-main
 {
   width: 100%;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  place-items: center;
 
-  gap: clamp(2rem, 5vw, 3rem);
+  gap: clamp(2rem, 5vw, 3.5rem);
 }
 
 /* ====================================
@@ -46,4 +45,5 @@
 {
   width: 100%;
   max-width: 420px;
+  margin-inline: auto;
 }

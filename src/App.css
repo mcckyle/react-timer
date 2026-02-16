@@ -10,10 +10,12 @@
   place-items: center;
   padding: clamp(2rem, 6vh, 4rem);
 
-  color: var(--text-dark);
-  background: var(--bg-dark);
   position: relative;
+  isolation: isolate; /* Prevents glow bleed. */
   overflow: hidden;
+
+  background: var(--app-bg);
+  color: var(--app-text);
 }
 
 /* ====================================
@@ -26,22 +28,23 @@
   inset: 0;
 
   background: radial-gradient(
-    700px circle at 50% 30%,
-    rgba(212, 175, 55, 0.06),
-    transparent 60%
+    900px circle at 50% 28%,
+    var(--accent-soft),
+    transparent 65%
   );
 
   pointer-events: none;
+  z-index: -1;
 }
 
 /* ====================================
    APP LIGHT MODE STYLES.
 ======================================= */
-@media (prefers-color-scheme: light)
+/*@media (prefers-color-scheme: light)
 {
   .app { color: var(--text-light); background: var(--bg-light); }
   .app::before { background: radial-gradient(700px circle at 50% 30%, rgba(212, 175, 55, 0.08), transparent 60%); }
-}
+}*/
 
 /* ====================================
    AMBIENT BACKGROUND PRESENCE STYLES.

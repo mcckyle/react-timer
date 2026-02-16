@@ -1,6 +1,6 @@
 //File name: DurationPicker.jsx
 //Author: Kyle McColgan
-//Date: 13 February 2026
+//Date: 14 February 2026
 //Description: This file contains the time duration picker for the React timer project.
 
 import { useEffect, useState, useRef } from "react";
@@ -50,13 +50,6 @@ export default function DurationPicker({ duration, onSelect })
     emitDuration(hours, minutes, seconds);
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter")
-    {
-      handleCommit();
-    }
-  };
-
   return (
       <div
         className="duration-picker"
@@ -81,7 +74,12 @@ export default function DurationPicker({ duration, onSelect })
           })}
       </div>
 
-      <div className="duration-custom" onKeyDown={handleKeyDown}>
+      <div
+        className="duration-custom"
+        onKeyDown={(e) => {
+          if (e.key === "Enter") handleCommit();
+        }}
+      >
         <TimeField
           label="h"
           value={hours}

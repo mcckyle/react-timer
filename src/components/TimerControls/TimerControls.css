@@ -1,15 +1,17 @@
 /* Filename: src/components/TimerControls/TimerControls.css */
 
 /* ====================================
-   TIMERCONTROLS STYLES.
+   TIMERCONTROLS CONTROLS WRAPPER STYLES.
 ======================================= */
 .timer-controls
 {
-    display: flex;
+    display: grid;
+    grid-auto-flow: column;
     justify-content: center;
     align-items: center;
-    gap: clamp(1rem, 4vw, 2rem);
-    padding-block: clamp(1.5rem, 4vh, 3rem);
+
+    gap: clamp(1.25rem, 4vw, 2.5rem);
+    padding-block: clamp(2rem, 5vh, 3.5rem);
 }
 
 /* ====================================
@@ -21,54 +23,61 @@
     background: transparent;
 
     border-radius: var(--radius-pill);
-    padding: 0.75rem 2rem;
+    padding: 0.8rem 2.25rem;
 
     font-family: "Inter", system-ui, sans-serif;
     font-size: 1rem;
     font-weight: 600;
-    letter-spacing: 0.015em;
+    letter-spacing: 0.02em;
 
-    border: 1px solid rgba(212, 175, 55, 0.4);
-    color: rgba(212, 175, 55, 0.9);
+    border: 1px solid var(--accent-soft);
+    color: var(--accent-muted);
     cursor: pointer;
 
-    transition: background 0.25s ease,
-                color 0.25s ease,
-                transform 0.15s ease,
-                border-color 0.25s ease;
+    transition: background var(--duration-fast) var(--ease-standard),
+                color var(--duration-fast) var(--ease-standard),
+                border-color var(--duration-fast) var(--ease-standard),
+                box-shadow var(--duration-fast) var(--ease-standard);
 
 }
+
+/* ====================================
+   TIMERCONTROLS PRIMARY BUTTON STYLES.
+======================================= */
 .timer-control.primary
 {
-    background: rgba(212, 175, 55, 0.08);
-    border-color: rgba(212, 175, 55, 0.65);
+    border-color: var(--accent-muted);
     color: var(--accent);
 }
 .timer-control.primary:hover:not(:disabled)
 {
     background: var(--accent);
     color: #1b1c22;
-    transform: translateY(-1px);
+    box-shadow: 0 4px 18px rgba(212, 175, 55, 0.15);
 }
-.timer-control.primary:active:not(:disabled) { transform: translateY(0); }
 
+/* ====================================
+   TIMERCONTROLS SECONDARY BUTTON STYLES.
+======================================= */
 .timer-control.secondary
 {
-    background: transparent;
-    color: rgba(212, 175, 55, 0.75);
+    color: var(--accent-muted);
 }
 .timer-control.secondary:hover:not(:disabled)
 {
-    background: rgba(212, 175, 55, 0.08);
-    transform: translateY(-1px);
+    background: var(--accent-soft);
+    border-color: var(--accent-muted);
 }
-.timer-control.secondary:active:not(:disabled) { transform: translateY(0); }
-.timer-control:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+
+/* ====================================
+   TIMERCONTROLS DISABLED BUTTON STYLES.
+======================================= */
+.timer-control:disabled { opacity: 0.35; cursor: not-allowed; }
 
 /* ====================================
    TIMERCONTROLS REDUCED MOTION STYLES.
 ======================================= */
 @media (prefers-reduced-motion: reduce)
 {
-    .timer-control { transform: none; transition: none; }
+    .timer-control { transition: none; }
 }

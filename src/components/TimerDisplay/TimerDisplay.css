@@ -6,9 +6,9 @@
 .timer-display-wrapper
 {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    padding-block: clamp(2rem, 6vh, 4rem);
+    display: grid;
+    place-items: center;
+    padding-block: clamp(2.5rem, 8vh, 6rem);
 }
 
 /* ====================================
@@ -16,21 +16,20 @@
 ======================================= */
 .timer-display
 {
-    display: flex;
-    gap: 0.25em;
     font-family: "JetBrains Mono", monospace;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
 
-    font-size: clamp(5.5rem, 16vw, 20rem);
-    line-height: 0.92;
-    letter-spacing: -0.02em;
+    font-size: clamp(5.5rem, 15vw, 18rem);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    text-align: center;
 
     color: var(--accent);
-    text-shadow: 0 0 6px rgba(212, 175, 55, 0.18),
-                 0 0 20px rgba(212, 175, 55, 0.08);
+    text-shadow: 0 0 4px rgba(212, 175, 55, 0.12);
 
-    transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.2s ease;
+    transition: color var(--duration-standard) var(--ease-standard),
+                text-shadow var(--duration-standard) var(--ease-standard);
 }
 
 /* ====================================

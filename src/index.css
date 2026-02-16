@@ -5,17 +5,24 @@
 ======================================= */
 :root
 {
+  /* Accents. */
   --accent: #d4af37;
   --accent-soft: rgba(212, 175, 55, 0.08);
   --accent-muted: rgba(212, 175, 55, 0.6);
 
+  /* Dark Theme. */
   --bg-dark: #0b0c11;
   --bg-dark-secondary: #101218;
+  --text-dark: #f4f5f7;
+
+  /* Light Theme. */
   --bg-light: #f7f7f5;
   --bg-light-secondary: #ffffff;
-
-  --text-dark: #f4f5f7;
   --text-light: #111217;
+
+  /* Semantic Layer. */
+  --app-bg: var(--bg-dark);
+  --app-text: var(--text-dark);
 
   --radius-pill: 9999px;
   --max-width: 640px;
@@ -37,7 +44,7 @@ html, body, #root
   height: 100%;
   margin: 0;
 }
-html { color-scheme: light dark; background: var(--bg-dark); }
+html { color-scheme: light dark; background: var(--app-bg); }
 
 body
 {
@@ -47,16 +54,18 @@ body
 
   font-variant-numeric: tabular-nums lining-nums;
   text-rendering: optimizeLegibility;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
   background: transparent;
-  color: inherit;
+  color: var(--app-text);
 }
+.noscript { padding: 2rem; text-align: center; font-family: system-ui, sans-serif; color: var(--app-text); }
 
 @media (prefers-color-scheme: light)
 {
-  html { background: var(--bg-light); }
+  :root { --app-bg: var(--bg-light); --app-text: var(--text-light); }
 }
 
 /* ====================================

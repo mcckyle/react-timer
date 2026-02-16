@@ -7,11 +7,10 @@
 {
     width: 100%;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    justify-items: center;
 
-    gap: 1.5rem;
+    gap: 1.75rem;
 }
 
 /* ====================================
@@ -33,24 +32,26 @@
 {
     appearance: none;
 
-    padding: 0.5rem 1.1rem;
+    padding: 0.55rem 1.25rem;
     border-radius: var(--radius-pill);
 
     border: 1px solid var(--accent-soft);
     background: transparent;
 
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 500;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     color: var(--accent-muted);
     cursor: pointer;
 
     transition: background var(--duration-fast) var(--ease-standard),
                 border-color var(--duration-fast) var(--ease-standard),
-                color var(--duration-fast) var(--ease-standard);
+                color var(--duration-fast) var(--ease-standard),
+                transform var(--duration-fast) var(--ease-standard);
 }
-.duration-pill:hover:not(.is-active) { background: var(--accent-soft); border-color: var(--accent-muted); }
+.duration-pill:hover:not(.is-active) { background: var(--accent-soft); border-color: var(--accent-muted); transform: translateY(-1px); }
 .duration-pill.is-active { background: var(--accent-soft); border-color: var(--accent-muted); color: var(--accent); }
+.duration-pill:active:not(.is-active) { transform: translateY(0); }
 
 /* ====================================
    DURATIONPICKER CUSTOM TIME STRIP STYLES.
@@ -59,28 +60,18 @@
 {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.65rem;
 
-    padding: 0.55rem 1.1rem;
+    padding: 0.6rem 1.25rem;
     border-radius: var(--radius-pill);
     border: 1px solid var(--accent-soft);
-    background: rgba(212, 175, 55, 0.04);
+    background: rgba(212, 175, 55, 0.035);
 
     transition: border-color var(--duration-fast) var(--ease-standard),
-                background var(--duration-fast) var(--ease-standard);
+                background var(--duration-fast) var(--ease-standard),
+                box-shadow var(--duration-fast) var(--ease-standard);
 }
-.duration-custom:focus-within { border-color: var(--accent-muted); background: var(--accent-soft); }
-
-/* ====================================
-   DURATIONPICKER NUMBER INPUT NORMALIZATION.
-======================================== */
-.time-field input::-webkit-outer-spin-button,
-.time-field input::-webkit-inner-spin-button
-{
-    -webkit-appearance: none;
-    margin: 0;
-}
-.time-field input[type="number"] { appearance: textfield; }
+.duration-custom:focus-within { border-color: var(--accent-muted); background: var(--accent-soft); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.08); }
 
 /* ====================================
    DURATIONPICKER REDUCED MOTION MEDIA QUERY STYLES.
