@@ -1,16 +1,21 @@
 //File name: PastTimers.jsx
 //Author: Kyle McColgan
-//Date: 19 February 2026
+//Date: 21 February 2026
 //Description: This file contains the past timers component for the React timer project.
 
 import { formatDuration } from "../../utils/formatDuration";
 import "./PastTimers.css";
 
-const formatTime = (timestamp) =>
-  new Date(timestamp).toLocaleTimeString([], {
+const formatTime = (date) =>
+  date.toLocaleTimeString([], {
     hour: "numeric",
     minute: "2-digit",
   });
+
+const toValidDate = (value) => {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? null : date;
+};
 
 export default function PastTimers({ timers, onClear })
 {
@@ -38,20 +43,27 @@ export default function PastTimers({ timers, onClear })
               No completed timers yet
             </li>
         ) : (
-          timers.map((timer, i) => (
-            <li key={i} className="past-timer-item">
-              <span className="past-timer-duration">
-                {formatDuration(timer.duration)}
-              </span>
-              <time
-                className="past-timer-time"
-                dateTime={new Date(timer.completedAt).toISOString()}
-              >
-                {formatTime(timer.completedAt)}
-              </time>
-            </li>
-          ))
-        )}
+          timers.map((timer, i) => {
+            const completedDate = toValidDate(timer.completedAt);
+
+            return (
+              <li key={i} className="past-timer-item">
+                <span className="past-timer-duration">
+                  {formatDuration(timer.duration)}
+                </span>
+
+                {completedDate && (
+                  <time
+                    className="past-timer-time"
+                    dateTime={completedDate.toISOString()}
+                  >
+                    {formatTime(completedDate)}
+                  </time>
+                )}
+              </li>
+            );
+        })
+      )}
       </ul>
     </aside>
   );

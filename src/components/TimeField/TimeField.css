@@ -6,9 +6,8 @@
 .time-field
 {
     display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    position: relative;
+    align-items: baseline;
+    gap: 0.55rem;
 }
 
 /* ====================================
@@ -23,18 +22,18 @@
     outline: none;
 
     font-family: "JetBrains Mono", monospace;
-    font-variant-numeric: tabular-nums lining-nums;
-    font-size: 1.15rem;
+    font-variant-numeric: tabular-nums;
+    font-size: 1.2rem;
     font-weight: 700;
 
     text-align: center;
-    line-height: 1;
+    line-height: 1.1;
     color: var(--accent-muted);
 
     transition: color var(--duration-fast) var(--ease-standard),
-                text-shadow var(--duration-fast) var(--ease-standard);
+                transform var(--duration-fast) var(--ease-standard);
 }
-.time-field input:focus { color: var(--accent); text-shadow: 0 0 4px rgba(212, 175, 55, 0.25); }
+.time-field input:focus { color: var(--accent); transform: translateY(-1px); }
 
 /* ====================================
    TIMEFIELD NUMBER INPUT NORMALIZATION.
@@ -54,13 +53,10 @@
 {
     font-size: 0.65rem;
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
 
-    opacity: 0.6;
+    opacity: 0.55;
     user-select: none;
-
-    display: flex;
-    align-items: flex-start;
-    padding-top: 2px;
+    line-height: 1;
 }

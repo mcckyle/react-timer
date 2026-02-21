@@ -16,7 +16,7 @@
 }
 
 /* ====================================
-   APP INNER CONTAINER STYLES.
+   APP INNER LAYOUT STYLES.
 ======================================= */
 .app-inner
 {
@@ -26,7 +26,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(2.5rem, 6vh, 4.5rem);
+  gap: clamp(3rem, 7vh, 5rem);
 }
 
 /* ====================================
@@ -39,11 +39,12 @@
   inset: 0;
 
   background: radial-gradient(
-    800px circle at 50% 18%,
+    900px circle at 50% 12%,
     var(--accent-soft),
     transparent 65%
   );
 
+  opacity: 0.9;
   pointer-events: none;
   z-index: -1;
 }
@@ -55,7 +56,10 @@
 {
   padding: 2rem;
   text-align: center;
+
   font-family: system-ui, sans-serif;
+  font-size: 0.95rem;
+
   background: var(--surface-subtle);
   border-radius: var(--radius);
   color: var(--text);

@@ -6,13 +6,13 @@
 .timer
 {
     width: 100%;
-    max-width: 620px;
+    max-width: 640px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    gap: clamp(3rem, 7vh, 5rem);
+    gap: clamp(3.5rem, 8vh, 6rem);
 }
 
 /* ====================================
@@ -31,9 +31,16 @@
 ======================================= */
 .timer-duration
 {
-  opacity: 0.9;
+  opacity: 0.85;
 
   transition: opacity var(--duration-standard) var(--ease-standard);
+}
+.timer-core-wrapper
+{
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
 }
 
 /* ====================================
@@ -42,18 +49,24 @@
 .timer-core
 {
   width: 100%;
-  max-width: 520px;
+  max-width: 540px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  gap: clamp(2.75rem, 5vh, 3.75rem);
-  padding: clamp(2.25rem, 5vh, 3.5rem);
+  gap: clamp(3rem, 6vh, 4.25rem);
+  padding: clamp(2.5rem, 5vh, 4rem);
 
-  border-radius: var(--radius);
+  border-radius: calc(var(--radius) + 4px);
   background: var(--surface);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35),
+              0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+
+  transition: transform var(--duration-standard) var(--ease-standard),
+              box-shadow var(--duration-standard) var(--ease-standard);
 }
 
 /* ====================================
@@ -62,5 +75,17 @@
 .timer-history
 {
   width: 100%;
-  max-width: 460px;
+  max-width: 480px;
+  opacity: 0.95;
+}
+
+/* Hover Lift For Desktop Styles. */
+@media (hover: hover)
+{
+  .timer-core:hover
+  {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.45),
+                0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  }
 }

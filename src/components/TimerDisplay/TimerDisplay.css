@@ -10,7 +10,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-block: clamp(1rem, 4vh, 3rem);
+
+    padding-block: clamp(1.5rem, 5vh, 3.5rem);
 }
 
 /* ====================================
@@ -21,24 +22,20 @@
     display: inline-block;
 
     font-family: "JetBrains Mono", monospace;
-    font-variant-numeric: tabular-nums lining-nums;
+    font-variant-numeric: tabular-nums;
     font-weight: 700;
 
-    font-size: clamp(5rem, 14vw, 16rem);
-    line-height: 0.88;
-    letter-spacing: -0.035em;
+    font-size: clamp(4.5rem, 12vw, 14rem);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
     text-align: center;
     white-space: nowrap;
 
     color: var(--accent);
-    text-shadow: 0 0 4px rgba(212, 175, 55, 0.15);
+    min-width: 6ch; /* Prevent Horizontal Shift When Hours Appear. */
 
-    transition: color var(--duration-fast) var(--ease-standard),
-                text-shadow var(--duration-fast) var(--ease-standard);
+    transition: color var(--duration-fast) var(--ease-standard);
 }
-
-/* Glow Effect When The Timer Is Active Styles. */
-.timer-display.active { text-shadow: 0 0 10px rgba(212, 175, 55, 0.35); }
 
 /* ====================================
    TIMERDISPLAY REDUCED MOTION STYLES.
