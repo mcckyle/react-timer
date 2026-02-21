@@ -1,6 +1,6 @@
 //File name: DurationPicker.jsx
 //Author: Kyle McColgan
-//Date: 14 February 2026
+//Date: 20 February 2026
 //Description: This file contains the time duration picker for the React timer project.
 
 import { useEffect, useState, useRef } from "react";
@@ -42,43 +42,36 @@ export default function DurationPicker({ duration, onSelect })
     }
   };
 
-  const handleChange = (setter, value) => {
-    setter(Math.max(0, Number(value) || 0));
-  };
-
-  const handleCommit = () => {
-    emitDuration(hours, minutes, seconds);
-  };
+  const handleCommit = () => emitDuration(hours, minutes, seconds);
+  const handleChange = (setter, value) => setter(Math.max(0, Number(value) || 0));
 
   return (
-      <div
-        className="duration-picker"
-        role="group"
-        aria-label="Select duration"
-      >
-        <div className="duration-presets">
-          {PRESETS.map(({ label, ms }) => {
-            const isActive = duration === ms;
+    <div
+      className="duration-picker"
+      role="group"
+      aria-label="Select duration"
+    >
+      <div className="duration-presets">
+        {PRESETS.map(({ label, ms }) => {
+          const isActive = duration === ms;
 
-            return (
-              <button
-                key={label}
-                type="button"
-                className={`duration-pill${isActive ? " is-active" : ""}`}
-                aria-pressed={isActive}
-                onClick={() => onSelect(ms)}
-              >
-                {label}
-              </button>
-            );
-          })}
+          return (
+            <button
+              key={label}
+              type="button"
+              className={`duration-pill${isActive ? " is-active" : ""}`}
+              aria-pressed={isActive}
+              onClick={() => onSelect(ms)}
+            >
+              {label}
+            </button>
+          );
+        })}
       </div>
 
       <div
         className="duration-custom"
-        onKeyDown={(e) => {
-          if (e.key === "Enter") handleCommit();
-        }}
+        onKeyDown={(e) => e.key === "Enter" && handleCommit()}
       >
         <TimeField
           label="h"
@@ -101,6 +94,6 @@ export default function DurationPicker({ duration, onSelect })
           onBlur={handleCommit}
         />
       </div>
-    </div>
+  </div>
   );
 }

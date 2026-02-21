@@ -6,17 +6,26 @@
 .time-separator
 {
    display: inline-block;
-   align-items: center;
 
    font-family: "JetBrains Mono", monospace;
-   font-variant-numeric: tabular-nums;
+   font-variant-numeric: tabular-nums lining-nums;
 
-   font-size: 1.05rem;
-   font-weight: 500;
+   font-size: 1.15rem;
+   font-weight: 700;
    line-height: 1;
-   transform: translateY(-0.02em);
 
-   color: var(--accent-soft);
+   color: var(--accent-muted);
+   opacity: 0.6;
+
    user-select: none;
    pointer-events: none;
+
+   transition: color var(--duration-fast) var(--ease-standard),
+               text-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.time-field input:focus + .time-separator,
+.time-separator:focus-within {
+   color: var(--accent);
+   text-shadow: 0 0 4px rgba(212, 175, 55, 0.25);
 }

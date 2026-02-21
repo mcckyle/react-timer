@@ -6,10 +6,19 @@
 .past-timers
 {
     width: 100%;
-    max-width: 420px;
+    max-width: 440px;
 
-    display: grid;
-    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+
+    padding: 2rem;
+    border-radius: 20px;
+    background: rgba(15, 15, 15, 0.9);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+
+    transition: background var(--duration-fast) var(--ease-standard);
 }
 
 /* ====================================
@@ -19,17 +28,18 @@
 {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
 }
 
 .past-timers-title
 {
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
 
-    color: var(--accent-soft);
+    opacity: 0.6;
+    margin: 0;
 }
 
 .past-timers-clear
@@ -39,16 +49,19 @@
     border: none;
     padding: 0;
 
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     font-weight: 500;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
 
     color: var(--accent-muted);
     cursor: pointer;
 
-    transition: color var(--duration-fast) var(--ease-standard);
+    transition: color var(--duration-fast) var(--ease-standard),
+                transform var(--duration-fast) var(--ease-standard),
+                opacity var(--duration-fast) var(--ease-standard);
 }
-.past-timers-clear:hover { color: var(--accent); }
+.past-timers-clear:hover { color: var(--accent); transform: translateY(-1px); }
+.past-timers-clear:active { transform: translateY(0); }
 
 /* ====================================
    PASTTIMERS LIST STYLES.
@@ -59,8 +72,9 @@
     margin: 0;
     padding: 0;
 
-    display: grid;
-    gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
 }
 
 /* ====================================
@@ -68,36 +82,40 @@
 ======================================= */
 .past-timer-item
 {
-    display: grid;
-    grid-template-columns: auto auto;
+    display: flex;
     justify-content: space-between;
     align-items: baseline;
 
-    padding-block: 0.45rem;
-    border-bottom: 1px solid var(--accent-soft);
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-pill);
+    cursor: default;
+
+    transition: background var(--duration-fast) var(--ease-standard),
+                transform var(--duration-fast) var(--ease-standard);
 }
-.past-timer-item:last-child { border-bottom: none; }
+.past-timer-item:hover { background: rgba(212, 175, 55, 0.08); transform: translateY(-1px); }
 
 .past-timer-duration
 {
     font-family: "JetBrains Mono", monospace;
     font-variant-numeric: tabular-nums;
-    font-size: 0.95rem;
+
+    font-size: 1rem;
     font-weight: 600;
 
     color: var(--accent);
 }
-.past-timer-time { font-size: 0.78rem; font-weight: 500; color: var(--accent-soft); }
+.past-timer-time { font-size: 0.8rem; font-weight: 500; opacity: 0.55; }
 
 /* ====================================
    PASTTIMERS EMPTY STATE STYLES.
 ======================================= */
 .past-timer-empty
 {
-    font-size: 0.85rem;
     text-align: center;
-    padding-block: 0.75rem;
-    color: var(--accent-soft);
+    padding: 1.25rem 0;
+    font-size: 0.9rem;
+    opacity: 0.55;
 }
 
 /* ====================================
@@ -105,5 +123,5 @@
 ======================================= */
 @media (prefers-reduced-motion: reduce)
 {
-    .past-timers-clear { transition: none; }
+    .past-timers-clear, .past-timer-item { transition: none; }
 }

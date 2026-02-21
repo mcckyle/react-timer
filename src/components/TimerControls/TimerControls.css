@@ -5,13 +5,11 @@
 ======================================= */
 .timer-controls
 {
-    display: grid;
-    grid-auto-flow: column;
+    display: flex;
     justify-content: center;
     align-items: center;
 
-    gap: clamp(1.25rem, 4vw, 2.5rem);
-    padding-block: clamp(2rem, 5vh, 3.5rem);
+    gap: clamp(1.25rem, 4vw, 2rem);
 }
 
 /* ====================================
@@ -20,25 +18,26 @@
 .timer-control
 {
     appearance: none;
-    background: transparent;
-
     border-radius: var(--radius-pill);
-    padding: 0.8rem 2.25rem;
+    border: 1px solid var(--accent-soft);
+    background: transparent;
+    padding: 0.85rem 2.25rem;
 
     font-family: "Inter", system-ui, sans-serif;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 600;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
 
-    border: 1px solid var(--accent-soft);
+
     color: var(--accent-muted);
     cursor: pointer;
 
     transition: background var(--duration-fast) var(--ease-standard),
                 color var(--duration-fast) var(--ease-standard),
                 border-color var(--duration-fast) var(--ease-standard),
+                transform var(--duration-fast) var(--ease-standard),
                 box-shadow var(--duration-fast) var(--ease-standard);
-
 }
 
 /* ====================================
@@ -46,33 +45,33 @@
 ======================================= */
 .timer-control.primary
 {
-    border-color: var(--accent-muted);
+    border-color: var(--accent);
     color: var(--accent);
 }
 .timer-control.primary:hover:not(:disabled)
 {
     background: var(--accent);
-    color: #1b1c22;
-    box-shadow: 0 4px 18px rgba(212, 175, 55, 0.15);
+    color: #0b0c11;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(212, 175, 55, 0.15);
 }
+.timer-control.primary:active:not(:disabled) { transform: translateY(0); }
 
 /* ====================================
    TIMERCONTROLS SECONDARY BUTTON STYLES.
 ======================================= */
-.timer-control.secondary
-{
-    color: var(--accent-muted);
-}
 .timer-control.secondary:hover:not(:disabled)
 {
     background: var(--accent-soft);
     border-color: var(--accent-muted);
+    transform: translateY(-1px);
 }
+.timer-control.secondary:active:not(:disabled) { transform: translateY(0); }
 
 /* ====================================
    TIMERCONTROLS DISABLED BUTTON STYLES.
 ======================================= */
-.timer-control:disabled { opacity: 0.35; cursor: not-allowed; }
+.timer-control:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
 
 /* ====================================
    TIMERCONTROLS REDUCED MOTION STYLES.

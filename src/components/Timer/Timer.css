@@ -6,44 +6,61 @@
 .timer
 {
     width: 100%;
-    max-width: var(--max-width);
+    max-width: 620px;
 
-    display: grid;
-    place-items: center;
-    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    gap: clamp(2.5rem, 7vh, 4rem);
+    gap: clamp(3rem, 7vh, 5rem);
 }
 
 /* ====================================
-   TIMER HEADER (DURATION PICKER) STYLES.
+   TIMER SECTIONS STYLES.
 ======================================= */
-.timer-header
+.timer-section
 {
   width: 100%;
+
   display: flex;
   justify-content: center;
 }
 
 /* ====================================
-   TIMER BODY ( DISPLAY + CONTROLS ) STYLES.
+   TIMER DURATION PICKER SECTION STYLES.
 ======================================= */
-.timer-main
+.timer-duration
 {
-  width: 100%;
+  opacity: 0.9;
 
-  display: grid;
-  place-items: center;
-
-  gap: clamp(2rem, 5vw, 3.5rem);
+  transition: opacity var(--duration-standard) var(--ease-standard);
 }
 
 /* ====================================
-   TIMER HISTORY STYLES.
+   TIMER CORE (DISPLAY + CONTROLS) STYLES.
+======================================= */
+.timer-core
+{
+  width: 100%;
+  max-width: 520px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: clamp(2.75rem, 5vh, 3.75rem);
+  padding: clamp(2.25rem, 5vh, 3.5rem);
+
+  border-radius: var(--radius);
+  background: var(--surface);
+  backdrop-filter: blur(10px);
+}
+
+/* ====================================
+   TIMER HISTORY SECTION STYLES.
 ======================================= */
 .timer-history
 {
   width: 100%;
-  max-width: 420px;
-  margin-inline: auto;
+  max-width: 460px;
 }

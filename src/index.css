@@ -7,29 +7,26 @@
 {
   /* Accent System. */
   --accent: #d4af37;
-  --accent-soft: rgba(212, 175, 55, 0.08);
-  --accent-muted: rgba(212, 175, 55, 0.6);
+  --accent-soft: color-mix(in srgb, var(--accent) 12%, transparent);
+  --accent-muted: color-mix(in srgb, var(--accent) 65%, transparent);
 
-  /* Dark Theme. */
-  --bg-dark: #0b0c11;
-  --text-dark: #f4f5f7;
+  /* Surfaces. */
+  --bg: #0b0c11;
+  --text: #f4f5f7;
+  --surface: color-mix(in srgb, var(--text) 4%, var(--bg));
+  --surface-subtle: color-mix(in srgb, var(--text) 2%, var(--bg));
+  --border-subtle: color-mix(in srgb, var(--text) 10%, transparent);
 
-  /* Light Theme. */
-  --bg-light: #f7f7f5;
-  --text-light: #111217;
-
-  /* Semantic Layer. */
-  --app-bg: var(--bg-dark);
-  --app-text: var(--text-dark);
-
+  /* Layout. */
+  --max-width: 720px;
+  --radius: 18px;
   --radius-pill: 9999px;
-  --max-width: 680px;
 
+  /* Motion. */
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
-  --duration-fast: 150ms;
-  --duration-standard: 250ms;
+  --duration-fast: 140ms;
+  --duration-standard: 240ms;
 }
-
 
 /* ====================================
    BASE RESET STYLES.
@@ -41,37 +38,29 @@ html, body, #root
   height: 100%;
   margin: 0;
 }
-html { color-scheme: light dark; background: var(--app-bg); }
+html { color-scheme: light dark; background: var(--bg); }
 body
 {
   font-family: "Inter", system-ui, -apple-system, sans-serif;
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.55;
 
-  font-variant-numeric: tabular-nums lining-nums;
+  font-variant-numeric: tabular-nums;
   text-rendering: optimizeLegibility;
-
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 
   background: transparent;
-  color: var(--app-text);
+  color: var(--text);
 }
-.noscript { padding: 2rem; text-align: center; font-family: system-ui, sans-serif; color: var(--app-text); }
 
 @media (prefers-color-scheme: light)
 {
-  :root { --app-bg: var(--bg-light); --app-text: var(--text-light); }
-}
-
-/* ====================================
-   REDUCED MOTION MEDIA QUERY STYLES.
-======================================= */
-@media (prefers-reduced-motion: reduce)
-{
-  *, *::before, *::after
+  :root
   {
-    animation: none !important;
-    transition: none !important;
+    --bg: #f7f7f5;
+    --text: #111217;
+    --surface: color-mix(in srgb, var(--text) 4%, var(--bg));
+    --surface-subtle: color-mix(in srgb, var(--text) 2%, var(--bg));
+    --border-subtle: color-mix(in srgb, var(--text) 12%, transparent);
   }
 }

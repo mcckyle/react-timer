@@ -6,9 +6,11 @@
 .timer-display-wrapper
 {
     width: 100%;
-    display: grid;
-    place-items: center;
-    padding-block: clamp(2.5rem, 8vh, 6rem);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-block: clamp(1rem, 4vh, 3rem);
 }
 
 /* ====================================
@@ -16,21 +18,27 @@
 ======================================= */
 .timer-display
 {
-    font-family: "JetBrains Mono", monospace;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
+    display: inline-block;
 
-    font-size: clamp(5.5rem, 15vw, 18rem);
-    line-height: 0.9;
-    letter-spacing: -0.03em;
+    font-family: "JetBrains Mono", monospace;
+    font-variant-numeric: tabular-nums lining-nums;
+    font-weight: 700;
+
+    font-size: clamp(5rem, 14vw, 16rem);
+    line-height: 0.88;
+    letter-spacing: -0.035em;
     text-align: center;
+    white-space: nowrap;
 
     color: var(--accent);
-    text-shadow: 0 0 4px rgba(212, 175, 55, 0.12);
+    text-shadow: 0 0 4px rgba(212, 175, 55, 0.15);
 
-    transition: color var(--duration-standard) var(--ease-standard),
-                text-shadow var(--duration-standard) var(--ease-standard);
+    transition: color var(--duration-fast) var(--ease-standard),
+                text-shadow var(--duration-fast) var(--ease-standard);
 }
+
+/* Glow Effect When The Timer Is Active Styles. */
+.timer-display.active { text-shadow: 0 0 10px rgba(212, 175, 55, 0.35); }
 
 /* ====================================
    TIMERDISPLAY REDUCED MOTION STYLES.

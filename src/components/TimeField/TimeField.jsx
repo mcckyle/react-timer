@@ -1,6 +1,6 @@
 //File name: TimeField.jsx
 //Author: Kyle McColgan
-//Date: 14 February 2026
+//Date: 20 February 2026
 //Description: This file contains the time field for the React timer project.
 
 import "./TimeField.css";
@@ -22,9 +22,7 @@ export default function TimeField({ label, value, onChange, onBlur })
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onBlur={onBlur}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") onBlur();
-        }}
+        onKeyDown={(e) => { if (e.key === "Enter") onBlur(); }}
         onWheel={(e) => e.currentTarget.blur()}
         aria-label={`${label} value`}
       />

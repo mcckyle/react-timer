@@ -6,32 +6,31 @@
 .app
 {
   min-height: 100dvh;
+
   display: grid;
   place-items: center;
-  padding: clamp(2rem, 6vh, 5rem);
 
+  padding: clamp(2rem, 6vh, 5rem);
   position: relative;
   isolation: isolate; /* Prevents glow bleed. */
-  overflow: hidden;
-
-  background: var(--app-bg);
-  color: var(--app-text);
 }
 
 /* ====================================
-   APP CONTENT CONTAINER STYLES.
+   APP INNER CONTAINER STYLES.
 ======================================= */
 .app-inner
 {
   width: 100%;
   max-width: var(--max-width);
 
-  display: grid;
-  gap: clamp(2rem, 6vh, 4rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2.5rem, 6vh, 4.5rem);
 }
 
 /* ====================================
-   SIMPLE ATMOSPEHRIC GLOW STYLES.
+   APP SIMPLE ATMOSPEHRIC GLOW STYLES.
 ======================================= */
 .app::before
 {
@@ -40,9 +39,9 @@
   inset: 0;
 
   background: radial-gradient(
-    800px circle at 50% 22%,
+    800px circle at 50% 18%,
     var(--accent-soft),
-    transparent 70%
+    transparent 65%
   );
 
   pointer-events: none;
@@ -50,41 +49,26 @@
 }
 
 /* ====================================
-   APP LIGHT MODE STYLES.
+   APP NOSCRIPT MESSAGE STYLES.
 ======================================= */
-/*@media (prefers-color-scheme: light)
+.noscript
 {
-  .app { color: var(--text-light); background: var(--bg-light); }
-  .app::before { background: radial-gradient(700px circle at 50% 30%, rgba(212, 175, 55, 0.08), transparent 60%); }
-}*/
+  padding: 2rem;
+  text-align: center;
+  font-family: system-ui, sans-serif;
+  background: var(--surface-subtle);
+  border-radius: var(--radius);
+  color: var(--text);
+}
 
 /* ====================================
-   AMBIENT BACKGROUND PRESENCE STYLES.
+   APP REDUCED MOTION MEDIA QUERY STYLES.
 ======================================= */
-/*.app::before
+@media (prefers-reduced-motion: reduce)
 {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  z-index: -1;
-
-  background: radial-gradient(
-    circle at 50% 45%,
-    rgba(212, 175, 55, 0.02),
-    transparent 70%
-  );
-
-  opacity: 0.01;
-  filter: blur(240px);
-
-  animation: drift 520s ease-in-out infinite alternate;
-}*/
-
-/* ====================================
-   APP ANIMATIONS STYLES.
-======================================= */
-/*@keyframes drift
-{
-  from { transform: translate(0, 0) scale(1); }
-  to { transform: translate(0.3%, -0.4%) scale(1.01); }
-}*/
+  *, *::before, *::after
+  {
+    animation: none !important;
+    transition: none !important;
+  }
+}
