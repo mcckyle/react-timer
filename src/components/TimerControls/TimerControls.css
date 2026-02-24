@@ -9,7 +9,7 @@
     justify-content: center;
     align-items: center;
 
-    gap: clamp(1.5rem, 4vw, 2.5rem);
+    gap: clamp(1.5rem, 4vw, 2.25rem);
 }
 
 /* ====================================
@@ -20,31 +20,32 @@
     appearance: none;
     border-radius: var(--radius-pill);
     border: 1px solid var(--border-subtle);
-    background: transparent;
-    padding: 0.9rem 2.5rem;
+    padding: 0.85rem 2.4rem;
 
     font-family: "Inter", system-ui, sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
 
+    background: transparent;
     color: var(--accent-muted);
     cursor: pointer;
 
     transition: background var(--duration-fast) var(--ease-standard),
                 color var(--duration-fast) var(--ease-standard),
                 border-color var(--duration-fast) var(--ease-standard),
-                box-shadow var(--duration-fast) var(--ease-standard);
+                transform var(--duration-fast) var(--ease-standard);
 }
 
 /* ====================================
    TIMERCONTROLS PRIMARY BUTTON STYLES.
 ======================================= */
-.timer-control.primary
+.timer-control.is-primary
 {
+    background: var(--accent);
     border-color: var(--accent);
-    color: var(--accent);
+    color: #0b0c11;
 }
 .timer-control.primary:hover:not(:disabled)
 {
@@ -53,21 +54,32 @@
 
     box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15);
 }
-.timer-control.primary:active:not(:disabled) { box-shadow: 0 4px 12px rgba(212, 175, 55, 0.12); }
+.timer-control:active:not(:disabled) { transform: translateY(0); }
 
 /* ====================================
    TIMERCONTROLS SECONDARY BUTTON STYLES.
 ======================================= */
-.timer-control.secondary:hover:not(:disabled)
+.timer-control.is-secondary
 {
-    background: var(--accent-soft);
-    border-color: var(--accent-muted);
+    background: transparent;
+    border-color: var(--border-subtle);
 }
 
 /* ====================================
    TIMERCONTROLS DISABLED BUTTON STYLES.
 ======================================= */
-.timer-control:disabled { opacity: 0.35; cursor: not-allowed; box-shadow: none; }
+.timer-control:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+
+/* TimerControls Hover Lift For Desktop Styles. */
+@media (hover: hover)
+{
+    .timer-control.is-primary:hover:not(:disabled) { transform: translateY(-1px); }
+    .timer-control.is-secondary:hover:not(:disabled)
+    {
+        background: var(--surface-subtle);
+        border-color: var(--border-subtle);
+    }
+}
 
 /* ====================================
    TIMERCONTROLS REDUCED MOTION STYLES.

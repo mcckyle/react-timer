@@ -7,8 +7,8 @@
 {
   /* Accent System. */
   --accent: #d4af37;
-  --accent-soft: color-mix(in srgb, var(--accent) 12%, transparent);
-  --accent-muted: color-mix(in srgb, var(--accent) 65%, transparent);
+  --accent-soft: color-mix(in srgb, var(--accent) 10%, transparent);
+  --accent-muted: color-mix(in srgb, var(--accent) 60%, transparent);
 
   /* Base Colors. */
   --bg: #0b0c11;
@@ -30,16 +30,11 @@
 }
 
 /* ====================================
-   BASE RESET STYLES.
+   GLOBAL RESET STYLES.
 ======================================= */
 *, *::before, *::after { box-sizing: border-box; }
-
-html, body, #root
-{
-  height: 100%;
-  margin: 0;
-}
-html { color-scheme: light dark; background: var(--bg); }
+html, body, #root { height: 100%; margin: 0; }
+html { background: var(--bg); }
 body
 {
   font-family: "Inter", system-ui, -apple-system, sans-serif;
@@ -55,6 +50,9 @@ body
   color: var(--text);
 }
 
+/* ====================================
+   GLOBAL LIGHT MODE STYLES.
+======================================= */
 @media (prefers-color-scheme: light)
 {
   :root

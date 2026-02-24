@@ -6,16 +6,16 @@
 .time-field
 {
     display: inline-flex;
-    align-items: baseline;
-    gap: 0.55rem;
+    align-items: center;
+    gap: 0.4rem;
 }
 
 /* ====================================
    TIMEFIELD NUMERIC INPUT STYLES.
 ======================================= */
 .time-field input {
-    width: 4ch;
-    min-width: 4ch;
+    width: 3.5ch;
+    min-width: 3.5ch;
 
     background: transparent;
     border: none;
@@ -23,17 +23,16 @@
 
     font-family: "JetBrains Mono", monospace;
     font-variant-numeric: tabular-nums;
-    font-size: 1.2rem;
-    font-weight: 700;
+    font-weight: 600;
+    font-size: 1.15rem;
+    line-height: 1;
 
     text-align: center;
-    line-height: 1.1;
     color: var(--accent-muted);
 
-    transition: color var(--duration-fast) var(--ease-standard),
-                transform var(--duration-fast) var(--ease-standard);
+    transition: color var(--duration-fast) var(--ease-standard);
 }
-.time-field input:focus { color: var(--accent); transform: translateY(-1px); }
+.time-field input:focus { color: var(--accent); }
 
 /* ====================================
    TIMEFIELD NUMBER INPUT NORMALIZATION.
@@ -51,12 +50,28 @@
 ======================================= */
 .time-unit
 {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     font-weight: 500;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
 
-    opacity: 0.55;
+    opacity: 0.6;
     user-select: none;
     line-height: 1;
+}
+
+/* ====================================
+   TIMEFIELD SCREEN READERS ONLY LABEL STYLES.
+======================================= */
+.sr-only
+{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }

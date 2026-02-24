@@ -3,36 +3,23 @@
 /* ====================================
    TIMERDISPLAY STYLES.
 ======================================= */
-.timer-display-wrapper
-{
-    width: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding-block: clamp(1.5rem, 5vh, 3.5rem);
-}
-
-/* ====================================
-   TIMERDISPLAY MAIN TIMER TEXT STYLES.
-======================================= */
 .timer-display
 {
     display: inline-block;
 
     font-family: "JetBrains Mono", monospace;
     font-variant-numeric: tabular-nums;
-    font-weight: 700;
+    font-weight: 600;
 
-    font-size: clamp(4.5rem, 12vw, 14rem);
-    line-height: 0.92;
-    letter-spacing: -0.04em;
+    font-size: clamp(5rem, 11vw, 15rem);
+    line-height: 0.9;
+    letter-spacing: -0.035em;
     text-align: center;
     white-space: nowrap;
 
     color: var(--accent);
-    min-width: 6ch; /* Prevent Horizontal Shift When Hours Appear. */
+    min-width: 8ch; /* Stabilizes Width When Hours Appear. */
+    padding-block: clamp(1.75rem, 5vh, 3.5rem);
 
     transition: color var(--duration-fast) var(--ease-standard);
 }

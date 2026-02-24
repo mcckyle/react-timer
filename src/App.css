@@ -12,7 +12,6 @@
 
   padding: clamp(2rem, 6vh, 5rem);
   position: relative;
-  isolation: isolate; /* Prevents glow bleed. */
 }
 
 /* ====================================
@@ -39,12 +38,12 @@
   inset: 0;
 
   background: radial-gradient(
-    900px circle at 50% 12%,
+    800px circle at 50% 10%,
     var(--accent-soft),
-    transparent 65%
+    transparent 70%
   );
 
-  opacity: 0.9;
+  opacity: 0.6;
   pointer-events: none;
   z-index: -1;
 }
@@ -61,6 +60,7 @@
   font-size: 0.95rem;
 
   background: var(--surface-subtle);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
   color: var(--text);
 }
@@ -68,11 +68,11 @@
 /* ====================================
    APP REDUCED MOTION MEDIA QUERY STYLES.
 ======================================= */
-@media (prefers-reduced-motion: reduce)
+/*@media (prefers-reduced-motion: reduce)
 {
   *, *::before, *::after
   {
     animation: none !important;
     transition: none !important;
   }
-}
+}*/

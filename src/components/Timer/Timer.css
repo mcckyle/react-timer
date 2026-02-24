@@ -12,35 +12,7 @@
     flex-direction: column;
     align-items: center;
 
-    gap: clamp(3.5rem, 8vh, 6rem);
-}
-
-/* ====================================
-   TIMER SECTIONS STYLES.
-======================================= */
-.timer-section
-{
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-}
-
-/* ====================================
-   TIMER DURATION PICKER SECTION STYLES.
-======================================= */
-.timer-duration
-{
-  opacity: 0.85;
-
-  transition: opacity var(--duration-standard) var(--ease-standard);
-}
-.timer-core-wrapper
-{
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
+    gap: clamp(4rem, 8vh, 6rem);
 }
 
 /* ====================================
@@ -49,43 +21,39 @@
 .timer-core
 {
   width: 100%;
-  max-width: 540px;
+  max-width: 560px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  gap: clamp(3rem, 6vh, 4.25rem);
-  padding: clamp(2.5rem, 5vh, 4rem);
+  gap: clamp(3rem, 6vh, 4rem);
+  padding: clamp(3rem, 6vh, 4rem);
 
-  border-radius: calc(var(--radius) + 4px);
+  border-radius: calc(var(--radius) + 6px);
   background: var(--surface);
-  backdrop-filter: blur(12px);
   border: 1px solid var(--border-subtle);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35),
-              0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
 
   transition: transform var(--duration-standard) var(--ease-standard),
               box-shadow var(--duration-standard) var(--ease-standard);
 }
 
 /* ====================================
-   TIMER HISTORY SECTION STYLES.
+   TIMER PAST TIMERS STYLES.
 ======================================= */
-.timer-history
+.timer > :last-child
 {
   width: 100%;
   max-width: 480px;
-  opacity: 0.95;
 }
 
-/* Hover Lift For Desktop Styles. */
+/* Timer Hover Lift For Desktop Styles. */
 @media (hover: hover)
 {
   .timer-core:hover
   {
-    transform: translateY(-2px);
-    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.45),
-                0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+    transform: translateY(-3px);
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
   }
 }

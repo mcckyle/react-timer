@@ -1,6 +1,6 @@
 # react-timer
 
-A simple, modern timer app built with **React** and **Vite**. Designed for focus, simplicity, and speed.
+A simple, modern timer app built with **React** and **Vite**. Designed for focus and clarity.
 
 ---
 
