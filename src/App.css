@@ -9,9 +9,11 @@
 
   display: grid;
   place-items: center;
-
-  padding: clamp(2rem, 6vh, 5rem);
   position: relative;
+  isolation: isolate;
+  padding: max(2rem, env(safe-area-inset-top))
+           clamp(2rem, 6vh, 5rem)
+           max(2rem, env(safe-area-inset-bottom));
 }
 
 /* ====================================
@@ -25,7 +27,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(3rem, 7vh, 5rem);
+  gap: clamp(2.5rem, 6vh, 4rem);
 }
 
 /* ====================================
@@ -38,12 +40,12 @@
   inset: 0;
 
   background: radial-gradient(
-    800px circle at 50% 10%,
+    1000px circle at 50% 6%,
     var(--accent-soft),
     transparent 70%
   );
 
-  opacity: 0.6;
+  opacity: 0.4;
   pointer-events: none;
   z-index: -1;
 }
@@ -53,9 +55,11 @@
 ======================================= */
 .noscript
 {
-  padding: 2rem;
-  text-align: center;
+  max-width: 480px;
+  margin: 3rem auto;
+  padding: 1.5rem 1.75rem;
 
+  text-align: center;
   font-family: system-ui, sans-serif;
   font-size: 0.95rem;
 

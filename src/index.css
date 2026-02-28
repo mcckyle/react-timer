@@ -7,21 +7,25 @@
 {
   /* Accent System. */
   --accent: #d4af37;
-  --accent-soft: color-mix(in srgb, var(--accent) 10%, transparent);
-  --accent-muted: color-mix(in srgb, var(--accent) 60%, transparent);
+  --accent-soft: color-mix(in srgb, var(--accent) 14%, transparent);
+  --accent-muted: color-mix(in srgb, var(--accent) 55%, transparent);
 
   /* Base Colors. */
   --bg: #0b0c11;
   --text: #f4f5f7;
 
   --surface: color-mix(in srgb, var(--text) 4%, var(--bg));
-  --surface-subtle: color-mix(in srgb, var(--text) 2%, var(--bg));
-  --border-subtle: color-mix(in srgb, var(--text) 10%, transparent);
+  --surface-secondary: color-mix(in srgb, var(--text) 7%, var(--bg));
+  --surface-subtle: color-mix(in srgb, var(--text) 3%, var(--bg));
+  --border-subtle: color-mix(in srgb, var(--text) 14%, transparent);
 
   /* Layout. */
   --max-width: 720px;
-  --radius: 18px;
+  --radius: 20px;
   --radius-pill: 9999px;
+
+  /* Shadows. */
+  --shadow-soft: 0 14px 40px -14px rgba(0, 0, 0, 0.4);
 
   /* Motion. */
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
@@ -39,7 +43,7 @@ body
 {
   font-family: "Inter", system-ui, -apple-system, sans-serif;
   font-size: 16px;
-  line-height: 1.55;
+  line-height: 1.6;
 
   font-variant-numeric: tabular-nums;
   text-rendering: optimizeLegibility;
@@ -61,7 +65,9 @@ body
     --text: #111217;
 
     --surface: color-mix(in srgb, var(--text) 4%, var(--bg));
+    --surface-secondary: color-mix(in srgb, var(--text) 7%, var(--bg));
     --surface-subtle: color-mix(in srgb, var(--text) 2%, var(--bg));
-    --border-subtle: color-mix(in srgb, var(--text) 12%, transparent);
+    --border-subtle: color-mix(in srgb, var(--text) 14%, transparent);
+    --shadow-soft: 0 18px 50px -18px rgba(0, 0, 0, 0.08);
   }
 }

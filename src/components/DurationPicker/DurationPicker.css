@@ -11,7 +11,7 @@
     flex-direction: column;
     align-items: center;
 
-    gap: clamp(1.75rem, 4vh, 2.75rem);
+    gap: clamp(1.75rem, 4vh, 2.5rem);
 }
 
 /* ====================================
@@ -35,10 +35,10 @@
     border: 1px solid var(--border-subtle);
     background: transparent;
 
-    padding: 0.6rem 1.4rem;
+    padding: 0.65rem 1.5rem;
     border-radius: var(--radius-pill);
 
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -51,8 +51,8 @@
                 color var(--duration-fast) var(--ease-standard),
                 transform var(--duration-fast) var(--ease-standard);
 }
+.duration-pill.is-active { background: var(--surface-secondary); border-color: var(--accent); color: var(--accent); }
 .duration-pill:active:not(.is-active) { transform: translateY(0); }
-.duration-pill.is-active { background: var(--surface); border-color: var(--accent); color: var(--accent); }
 
 /* ====================================
    DURATIONPICKER CUSTOM TIME STRIP STYLES.
@@ -72,7 +72,7 @@
                 background var(--duration-fast) var(--ease-standard),
                 box-shadow var(--duration-fast) var(--ease-standard);
 }
-.duration-custom:focus-within { border-color: var(--accent); background: var(--surface); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent); }
+.duration-custom:focus-within { border-color: var(--accent); background: var(--surface-secondary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent); }
 
 /* DurationPicker Hover Lift For Desktop Styles. */
 @media (hover: hover)

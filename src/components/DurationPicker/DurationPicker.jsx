@@ -1,6 +1,6 @@
 //File name: DurationPicker.jsx
 //Author: Kyle McColgan
-//Date: 23 February 2026
+//Date: 25 February 2026
 //Description: This file contains the time duration picker for the React timer project.
 
 import { useEffect, useState, useRef } from "react";
@@ -49,9 +49,9 @@ export default function DurationPicker({ duration, onSelect })
     <div
       className="duration-picker"
       role="group"
-      aria-label="Select duration"
+      aria-label="Select timer duration"
     >
-      <nav className="duration-presets">
+      <nav className="duration-presets" aria-label="Preset durations">
         {PRESETS.map(({ label, ms }) => {
           const isActive = duration === ms;
 
