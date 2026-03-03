@@ -5,23 +5,26 @@
 ======================================= */
 .timer-display
 {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
     font-family: "JetBrains Mono", monospace;
     font-variant-numeric: tabular-nums;
     font-weight: 600;
 
-    font-size: clamp(5rem, 11vw, 15rem);
-    line-height: 0.9;
-    letter-spacing: -0.035em;
+    font-size: clamp(4.5rem, 10vw, 14rem);
+    line-height: 1;
+    letter-spacing: -0.025em;
     text-align: center;
     white-space: nowrap;
 
     color: var(--accent);
-    min-width: 8ch; /* Stabilizes Width When Hours Appear. */
-    padding-block: clamp(1.75rem, 5vh, 3.5rem);
+    padding-block: clamp(1.5rem, 4vh, 3rem);
+    user-select: none;
 
-    transition: color var(--duration-fast) var(--ease-standard);
+    transition: color var(--duration-fast) var(--ease-standard),
+                opacity var(--duration-fast) var(--ease-standard);
 }
 
 /* ====================================

@@ -6,15 +6,25 @@
 .timer
 {
   width: 100%;
-  max-width: 680px;
+  max-width: 640px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  gap: clamp(3rem, 7vh, 5rem);
-  padding: 0 1rem;
+  gap: clamp(3rem, 8vh, 5.5rem);
+  padding-inline: 1rem;
   text-align: center;
+}
+
+/* ====================================
+   TIMER HEADER STYLES.
+======================================= */
+.timer-header
+{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 /* ====================================
@@ -24,18 +34,29 @@
 {
   margin: 0;
 
-  font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+  font-size: clamp(1rem, 2vw, 1.25rem);
   font-weight: 500;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 
-  color: var(--text);
-  opacity: 0.65;
+  opacity: 0.55;
+  color: var(--accent-muted);
 }
-.timer-duration { width: 100%; max-width: 520px; display: flex; justify-content: center; }
 
 /* ====================================
-   TIMER CORE (DISPLAY + CONTROLS) STYLES.
+   TIMER DURATION PICKER WRAPPER STYLES.
+======================================= */
+.timer-duration
+{
+  width: 100%;
+  max-width: 480px;
+
+  display: flex;
+  justify-content: center;
+}
+
+/* ====================================
+   TIMER CORE CONTAINER STYLES.
 ======================================= */
 .timer-core
 {
@@ -50,29 +71,37 @@
   gap: clamp(2.5rem, 6vh, 3.5rem);
   padding: clamp(2.5rem, 5vh, 3.5rem);
 
-  border-radius: calc(var(--radius) + 4px);
-  background: var(--surface-secondary);
+  border-radius: calc(var(--radius) + 8px);
+  background: linear-gradient(to bottom, var(--surface-secondary), var(--surface));
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
 
   transition: transform var(--duration-standard) var(--ease-standard),
-              box-shadow var(--duration-standard) var(--ease-standard),
-              background var(--duration-standard) var(--ease-standard);
+              box-shadow var(--duration-standard) var(--ease-standard);
 }
 
 /* ====================================
    TIMER HISTORY WRAPPER STYLES.
 ======================================= */
-.timer-history { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 1.5rem; }
+.timer-history
+{
+  width: 100%;
+  max-width: 500px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
 
 /* Timer Hover Lift For Desktop Styles. */
 @media (hover: hover)
 {
-  .timer-core:hover { transform: translateY(-3px); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45); }
+  .timer-core:hover { transform: translateY(-3px); box-shadow: 0 20px 64px -18px rgba(0, 0, 0, 0.42); }
 }
 
 /* Timer Media Query Styles. */
 @media (max-width: 480px)
 {
-  .timer-core { padding: clamp(2rem, 5vh, 2.5rem); gap: 2rem; }
+  .timer { gap: 2.75rem; }
+  .timer-core { padding: 2rem; gap: 2rem; }
 }

@@ -7,16 +7,16 @@
 {
   /* Accent System. */
   --accent: #d4af37;
-  --accent-soft: color-mix(in srgb, var(--accent) 14%, transparent);
-  --accent-muted: color-mix(in srgb, var(--accent) 55%, transparent);
+  --accent-soft: color-mix(in srgb, var(--accent) 12%, transparent);
+  --accent-muted: color-mix(in srgb, var(--accent) 50%, transparent);
 
   /* Base Colors. */
   --bg: #0b0c11;
   --text: #f4f5f7;
 
   --surface: color-mix(in srgb, var(--text) 4%, var(--bg));
-  --surface-secondary: color-mix(in srgb, var(--text) 7%, var(--bg));
-  --surface-subtle: color-mix(in srgb, var(--text) 3%, var(--bg));
+  --surface-secondary: color-mix(in srgb, var(--text) 6%, var(--bg));
+  --surface-subtle: color-mix(in srgb, var(--text) 2%, var(--bg));
   --border-subtle: color-mix(in srgb, var(--text) 14%, transparent);
 
   /* Layout. */
@@ -25,7 +25,7 @@
   --radius-pill: 9999px;
 
   /* Shadows. */
-  --shadow-soft: 0 14px 40px -14px rgba(0, 0, 0, 0.4);
+  --shadow-soft: 0 16px 44px -18px rgba(0, 0, 0, 0.45);
 
   /* Motion. */
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
@@ -38,7 +38,7 @@
 ======================================= */
 *, *::before, *::after { box-sizing: border-box; }
 html, body, #root { height: 100%; margin: 0; }
-html { background: var(--bg); }
+html { background: var(--bg); color-scheme: dark light; }
 body
 {
   font-family: "Inter", system-ui, -apple-system, sans-serif;
@@ -53,6 +53,7 @@ body
   background: transparent;
   color: var(--text);
 }
+h1, h2, h3, h4 { margin: 0; font-weight: 500; line-height: 1.2; }
 
 /* ====================================
    GLOBAL LIGHT MODE STYLES.
@@ -65,9 +66,9 @@ body
     --text: #111217;
 
     --surface: color-mix(in srgb, var(--text) 4%, var(--bg));
-    --surface-secondary: color-mix(in srgb, var(--text) 7%, var(--bg));
+    --surface-secondary: color-mix(in srgb, var(--text) 6%, var(--bg));
     --surface-subtle: color-mix(in srgb, var(--text) 2%, var(--bg));
     --border-subtle: color-mix(in srgb, var(--text) 14%, transparent);
-    --shadow-soft: 0 18px 50px -18px rgba(0, 0, 0, 0.08);
+    --shadow-soft: 0 18px 48px -20px rgba(0, 0, 0, 0.08);
   }
 }

@@ -6,16 +6,16 @@
 .time-field
 {
     display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
+    align-items: baseline;
+    gap: 0.5rem;
 }
 
 /* ====================================
    TIMEFIELD NUMERIC INPUT STYLES.
 ======================================= */
 .time-field input {
-    width: 3.5ch;
-    min-width: 3.5ch;
+    width: 3ch;
+    min-width: 3ch;
 
     background: transparent;
     border: none;
@@ -24,15 +24,16 @@
     font-family: "JetBrains Mono", monospace;
     font-variant-numeric: tabular-nums;
     font-weight: 600;
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     line-height: 1;
 
     text-align: center;
     color: var(--accent-muted);
 
-    transition: color var(--duration-fast) var(--ease-standard);
+    transition: color var(--duration-fast) var(--ease-standard),
+                transform var(--duration-fast) var(--ease-standard);
 }
-.time-field input:focus { color: var(--accent); }
+.time-field input:focus { color: var(--accent); transform: translateY(-1px); }
 
 /* ====================================
    TIMEFIELD NUMBER INPUT NORMALIZATION.
@@ -50,12 +51,12 @@
 ======================================= */
 .time-unit
 {
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
 
-    opacity: 0.6;
+    opacity: 0.55;
     user-select: none;
     line-height: 1;
 }

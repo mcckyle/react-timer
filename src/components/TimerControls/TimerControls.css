@@ -1,15 +1,15 @@
 /* Filename: src/components/TimerControls/TimerControls.css */
 
 /* ====================================
-   TIMERCONTROLS CONTROLS WRAPPER STYLES.
+   TIMERCONTROLS WRAPPER STYLES.
 ======================================= */
 .timer-controls
 {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
-    gap: clamp(1.5rem, 4vw, 2.25rem);
+    gap: clamp(1.25rem, 3vw, 2rem);
 }
 
 /* ====================================
@@ -18,24 +18,27 @@
 .timer-control
 {
     appearance: none;
-    border-radius: var(--radius-pill);
     border: 1px solid var(--border-subtle);
-    padding: 0.85rem 2.4rem;
+    border-radius: var(--radius-pill);
+
+    padding: 0.85rem 2.2rem;
 
     font-family: "Inter", system-ui, sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
 
     background: transparent;
     color: var(--accent-muted);
     cursor: pointer;
+    user-select: none;
 
     transition: background var(--duration-fast) var(--ease-standard),
                 color var(--duration-fast) var(--ease-standard),
                 border-color var(--duration-fast) var(--ease-standard),
-                transform var(--duration-fast) var(--ease-standard);
+                transform var(--duration-fast) var(--ease-standard),
+                box-shadow var(--duration-fast) var(--ease-standard);
 }
 
 /* ====================================
@@ -47,14 +50,6 @@
     border-color: var(--accent);
     color: #0b0c11;
 }
-.timer-control.primary:hover:not(:disabled)
-{
-    background: var(--accent);
-    color: #0b0c11;
-
-    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15);
-}
-.timer-control:active:not(:disabled) { transform: translateY(0); }
 
 /* ====================================
    TIMERCONTROLS SECONDARY BUTTON STYLES.
@@ -62,18 +57,28 @@
 .timer-control.is-secondary
 {
     background: transparent;
-    border-color: var(--border-subtle);
 }
 
 /* ====================================
    TIMERCONTROLS DISABLED BUTTON STYLES.
 ======================================= */
-.timer-control:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+.timer-control:active:not(:disabled)
+{
+    transform: translateY(0);
+    box-shadow: none;
+}
+.timer-control:disabled
+{
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
 
 /* TimerControls Hover Lift For Desktop Styles. */
 @media (hover: hover)
 {
-    .timer-control.is-primary:hover:not(:disabled) { transform: translateY(-1px); }
+    .timer-control.is-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); }
     .timer-control.is-secondary:hover:not(:disabled)
     {
         background: var(--surface-subtle);

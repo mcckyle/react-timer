@@ -11,7 +11,7 @@
     flex-direction: column;
     align-items: center;
 
-    gap: clamp(1.75rem, 4vh, 2.5rem);
+    gap: clamp(1.75rem, 4vh, 2.75rem);
 }
 
 /* ====================================
@@ -35,12 +35,12 @@
     border: 1px solid var(--border-subtle);
     background: transparent;
 
-    padding: 0.65rem 1.5rem;
+    padding: 0.65rem 1.6rem;
     border-radius: var(--radius-pill);
 
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 500;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
 
     color: var(--accent-muted);
@@ -52,7 +52,7 @@
                 transform var(--duration-fast) var(--ease-standard);
 }
 .duration-pill.is-active { background: var(--surface-secondary); border-color: var(--accent); color: var(--accent); }
-.duration-pill:active:not(.is-active) { transform: translateY(0); }
+.duration-pill:active{ transform: translateY(1px); }
 
 /* ====================================
    DURATIONPICKER CUSTOM TIME STRIP STYLES.
@@ -61,18 +61,18 @@
 {
     display: inline-flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.25rem;
 
-    padding: 0.9rem 2rem;
+    padding: 1rem 2.25rem;
     border-radius: var(--radius-pill);
     border: 1px solid var(--border-subtle);
-    background: var(--surface-subtle);
+    background: linear-gradient(to bottom, var(--surface-subtle), var(--surface));
 
     transition: border-color var(--duration-fast) var(--ease-standard),
-                background var(--duration-fast) var(--ease-standard),
-                box-shadow var(--duration-fast) var(--ease-standard);
+                box-shadow var(--duration-fast) var(--ease-standard),
+                transform var(--duration-fast) var(--ease-standard);
 }
-.duration-custom:focus-within { border-color: var(--accent); background: var(--surface-secondary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent); }
+.duration-custom:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 14%, transparent); }
 
 /* DurationPicker Hover Lift For Desktop Styles. */
 @media (hover: hover)
@@ -81,7 +81,7 @@
     {
         background: var(--surface-subtle);
         border-color: var(--border-subtle);
-        transform: translateY(-1px);
+        transform: translateY(-2px);
     }
 }
 

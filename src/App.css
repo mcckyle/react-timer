@@ -1,7 +1,7 @@
 /* Filename: src/App.css */
 
 /* ====================================
-   APP ROOT CONTAINER STYLES.
+   APP ROOT LAYOUT STYLES.
 ======================================= */
 .app
 {
@@ -9,25 +9,13 @@
 
   display: grid;
   place-items: center;
-  position: relative;
-  isolation: isolate;
+
   padding: max(2rem, env(safe-area-inset-top))
-           clamp(2rem, 6vh, 5rem)
+           clamp(2rem, 6vw, 5rem)
            max(2rem, env(safe-area-inset-bottom));
-}
 
-/* ====================================
-   APP INNER LAYOUT STYLES.
-======================================= */
-.app-inner
-{
-  width: 100%;
-  max-width: var(--max-width);
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(2.5rem, 6vh, 4rem);
+  isolation: isolate;
+  position: relative;
 }
 
 /* ====================================
@@ -40,12 +28,12 @@
   inset: 0;
 
   background: radial-gradient(
-    1000px circle at 50% 6%,
+    900px circle at 50% 6%,
     var(--accent-soft),
-    transparent 70%
+    transparent 72%
   );
 
-  opacity: 0.4;
+  opacity: 0.28;
   pointer-events: none;
   z-index: -1;
 }
@@ -60,13 +48,11 @@
   padding: 1.5rem 1.75rem;
 
   text-align: center;
-  font-family: system-ui, sans-serif;
   font-size: 0.95rem;
 
   background: var(--surface-subtle);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
-  color: var(--text);
 }
 
 /* ====================================

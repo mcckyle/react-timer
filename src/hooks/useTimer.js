@@ -1,6 +1,6 @@
 //File name: useTimer.js
 //Author: Kyle McColgan
-//Date: 9 February 2026
+//Date: 2 March 2026
 //Description: This file contains the custom timekeeping hook for the React timer project.
 
 import { useEffect, useState, useRef, useCallback } from "react";
@@ -27,18 +27,21 @@ export function useTimer()
             {
                 setPastTimers(JSON.parse(stored));
             }
-        } catch {}
+        } catch { /* silent. */ }
     }, []);
 
-    const stopInterval = () => {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-    };
+    const stopInterval = useCallback(() => {
+        if (intervalRef.current)
+        {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+        }
+    }, []);
 
     const complete = useCallback(() => {
         if (completedRef.current)
         {
-            return;
+            return; //Prevents double-completion.
         }
 
         completedRef.current = true;
@@ -50,15 +53,15 @@ export function useTimer()
             completedAt: Date.now(),
         };
 
-        setPastTimers(prev => {
+        setPastTimers((prev) => {
             const updated = [completedTimer, ...prev];
             try
             {
                 localStorage.setItem("pastTimers", JSON.stringify(updated));
-            } catch {}
+            } catch { /* silent. */ }
             return updated;
         });
-    }, [duration]);
+    }, [duration, stopInterval]);
 
     //Countdown loop.
     useEffect(() => {
@@ -75,12 +78,7 @@ export function useTimer()
             const delta = now - lastTickRef.current;
             lastTickRef.current = now;
 
-            setTimeLeft(prev => {
-                if (completedRef.current)
-                {
-                    return prev;
-                }
-
+            setTimeLeft((prev) => {
                 const next = prev - delta;
 
                 if (next <= 0)
@@ -94,32 +92,30 @@ export function useTimer()
         }, 50);
 
         return stopInterval;
-    }, [running, complete]);
+    }, [running, complete, stopInterval]);
 
-    const start = () => {
-        if (timeLeft <= 0)
-        {
-            setTimeLeft(duration);
-        }
-
-        completedRef.current = false;
+    const start = useCallback(() => {
+        setTimeLeft((prev) => (prev <= 0 ? duration : prev));
+        completedRef.current = false; //Reset for a new run.
         setRunning(true);
-    };
+    }, [duration]);
 
-    const pause = () => setRunning(false);
+    const pause = useCallback(() => {
+        setRunning(false);
+    }, []);
 
-    const reset = () => {
+    const reset = useCallback(() => {
         stopInterval();
         setRunning(false);
         setTimeLeft(duration);
-    };
+    }, [duration, stopInterval]);
 
     const clearPastTimers = useCallback(() => {
         setPastTimers([]);
         try
         {
             localStorage.removeItem("pastTimers");
-        } catch {}
+        } catch { /* silent. */ }
     }, []);
 
     return {

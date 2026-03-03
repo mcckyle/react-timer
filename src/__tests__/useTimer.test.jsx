@@ -1,10 +1,10 @@
 //File name: useTimer.test.jsx
 //Author: Kyle McColgan
-//Date: 12 February 2026
-//Description: This file contains the unit test suite for the Timer project useTimer hook.
+//Date: 2 March 2026
+//Description: This file contains the unit test suite for the Timer React project useTimer hook.
 
 import React from "react";
-import { renderHook, act } from "@testing-library/react";
+import { renderHook, act, waitFor } from "@testing-library/react";
 import { useTimer, DEFAULT_DURATION } from "../hooks/useTimer.js";
 
 describe("useTimer hook", () => {
@@ -91,18 +91,23 @@ describe("useTimer hook", () => {
         expect(result.current.running).toBe(false);
     });
 
-    //Test #7 - TODO....
-    test("7. adds completed timer to pastTimers", () => {
+    //Test #7
+    test("7. adds completed timer to pastTimers", async () => {
         const { result } = renderHook(() => useTimer());
 
         act(() => result.current.start());
 
+        //Advance fake timers by full duration plus a buffer.
         act(() => {
             currentTime += DEFAULT_DURATION + 100;
             jest.advanceTimersByTime(DEFAULT_DURATION + 100);
         });
 
-        expect(result.current.pastTimers.length).toBe(1);
+        //Wait for `pastTimers` to update.
+        await waitFor(() => {
+            expect(result.current.pastTimers.length).toBe(1);
+        });
+
         expect(result.current.pastTimers[0].duration).toBe(DEFAULT_DURATION);
     });
 
