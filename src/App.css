@@ -14,8 +14,26 @@
            clamp(2rem, 6vw, 5rem)
            max(2rem, env(safe-area-inset-bottom));
 
-  isolation: isolate;
   position: relative;
+  isolation: isolate;
+
+  background: var(--bg);
+  color: var(--text);
+
+  transition: background var(--duration-standard) var(--ease-standard);
+}
+
+/* ====================================
+   APP CONTENT CONTAINER STYLES.
+======================================= */
+.app-content
+{
+  width: 100%;
+  max-width: var(--max-width);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ====================================
@@ -28,12 +46,12 @@
   inset: 0;
 
   background: radial-gradient(
-    900px circle at 50% 6%,
+    800px circle at 50% 10%,
     var(--accent-soft),
     transparent 72%
   );
 
-  opacity: 0.28;
+  opacity: 0.18;
   pointer-events: none;
   z-index: -1;
 }
@@ -43,16 +61,21 @@
 ======================================= */
 .noscript
 {
-  max-width: 480px;
+  max-width: 460px;
   margin: 3rem auto;
-  padding: 1.5rem 1.75rem;
+  padding: 1.4rem 1.6rem;
 
   text-align: center;
   font-size: 0.95rem;
+  font-weight: 500;
+
+  color: var(--text);
 
   background: var(--surface-subtle);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
+
+  box-shadow: var(--shadow-soft);
 }
 
 /* ====================================

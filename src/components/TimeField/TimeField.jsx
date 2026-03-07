@@ -1,17 +1,28 @@
 //File name: TimeField.jsx
 //Author: Kyle McColgan
-//Date: 23 February 2026
-//Description: This file contains the time field for the React timer project.
+//Date: 6 March 2026
+//Description: This file contains the time field for the timer React project.
 
 import "./TimeField.css";
 
 export default function TimeField({ label, value, onChange, onBlur })
 {
   const id = `time-${label}`;
+  const labelId = `${id}-label`;
+
+  const handleChange = (e) => {
+    const v = e.target.value;
+    onChange(v === "" ? 0 : v);
+  };
+
+  const handleWheel = (e) =>
+  {
+    e.currentTarget.blur();
+  };
 
   return (
     <div className="time-field">
-      <label htmlFor={id} className="sr-only">
+      <label id={labelId} htmlFor={id} className="sr-only">
         {label} value
       </label>
 
@@ -23,11 +34,12 @@ export default function TimeField({ label, value, onChange, onBlur })
         inputMode="numeric"
         autoComplete="off"
         pattern="[0-9]*"
+        aria-label={labelId}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={handleChange}
         onBlur={onBlur}
         onKeyDown={(e) => e.key === "Enter" && onBlur()}
-        onWheel={(e) => e.currentTarget.blur()}
+        onWheel={handleWheel}
       />
       <span className="time-unit" aria-hidden="true">{label}</span>
     </div>

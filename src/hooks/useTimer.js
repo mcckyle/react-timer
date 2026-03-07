@@ -1,11 +1,13 @@
 //File name: useTimer.js
 //Author: Kyle McColgan
-//Date: 2 March 2026
-//Description: This file contains the custom timekeeping hook for the React timer project.
+//Date: 6 March 2026
+//Description: This file contains the custom timekeeping hook for the timer React project.
 
 import { useEffect, useState, useRef, useCallback } from "react";
 
 export const DEFAULT_DURATION = 10 * 1000; //10 seconds (milliseconds).
+const STORAGE_KEY = "pastTimers";
+const MAX_HISTORY = 50;
 
 export function useTimer()
 {
@@ -22,20 +24,27 @@ export function useTimer()
     useEffect(() => {
         try
         {
-            const stored = localStorage.getItem("pastTimers");
+            const stored = localStorage.getItem(STORAGE_KEY);
             if (stored)
             {
-                setPastTimers(JSON.parse(stored));
+                const parsed = JSON.parse(stored);
+
+                if (Array.isArray(parsed))
+                {
+                    setPastTimers(JSON.parse(stored));
+                }
             }
         } catch { /* silent. */ }
     }, []);
 
     const stopInterval = useCallback(() => {
-        if (intervalRef.current)
+        if ( ! intervalRef.current)
         {
-            clearInterval(intervalRef.current);
-            intervalRef.current = null;
+            return;
         }
+
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
     }, []);
 
     const complete = useCallback(() => {
@@ -45,8 +54,8 @@ export function useTimer()
         }
 
         completedRef.current = true;
-        setRunning(false);
         stopInterval();
+        setRunning(false);
 
         const completedTimer = {
             duration,
@@ -54,10 +63,10 @@ export function useTimer()
         };
 
         setPastTimers((prev) => {
-            const updated = [completedTimer, ...prev];
+            const updated = [completedTimer, ...prev].slice(0, MAX_HISTORY);
             try
             {
-                localStorage.setItem("pastTimers", JSON.stringify(updated));
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
             } catch { /* silent. */ }
             return updated;
         });
@@ -72,6 +81,11 @@ export function useTimer()
         }
 
         lastTickRef.current = Date.now();
+
+        if (intervalRef.current)
+        {
+            return;
+        }
 
         intervalRef.current = setInterval(() => {
             const now = Date.now();
@@ -95,8 +109,8 @@ export function useTimer()
     }, [running, complete, stopInterval]);
 
     const start = useCallback(() => {
-        setTimeLeft((prev) => (prev <= 0 ? duration : prev));
         completedRef.current = false; //Reset for a new run.
+        setTimeLeft((prev) => (prev <= 0 ? duration : prev));
         setRunning(true);
     }, [duration]);
 
@@ -106,6 +120,7 @@ export function useTimer()
 
     const reset = useCallback(() => {
         stopInterval();
+        completedRef.current = false;
         setRunning(false);
         setTimeLeft(duration);
     }, [duration, stopInterval]);
@@ -114,7 +129,7 @@ export function useTimer()
         setPastTimers([]);
         try
         {
-            localStorage.removeItem("pastTimers");
+            localStorage.removeItem(STORAGE_KEY);
         } catch { /* silent. */ }
     }, []);
 

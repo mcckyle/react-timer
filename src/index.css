@@ -54,6 +54,7 @@ body
   color: var(--text);
 }
 h1, h2, h3, h4 { margin: 0; font-weight: 500; line-height: 1.2; }
+::selection { background: var(--accent-soft); }
 
 /* ====================================
    GLOBAL LIGHT MODE STYLES.

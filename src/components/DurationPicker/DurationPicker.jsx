@@ -1,7 +1,7 @@
 //File name: DurationPicker.jsx
 //Author: Kyle McColgan
-//Date: 25 February 2026
-//Description: This file contains the time duration picker for the React timer project.
+//Date: 6 March 2026
+//Description: This file contains the time duration picker for the timer React project.
 
 import { useEffect, useState, useRef } from "react";
 import TimeField from "../TimeField/TimeField.jsx";
@@ -21,7 +21,7 @@ export default function DurationPicker({ duration, onSelect })
   const [seconds, setSeconds] = useState(0);
   const prevDurationRef = useRef(duration);
 
-  /* Sync external duration only if it actually changes. */
+  /* Sync external duration only when it actually changes. */
   useEffect(() => {
     if (duration !== prevDurationRef.current)
     {
@@ -43,7 +43,11 @@ export default function DurationPicker({ duration, onSelect })
   };
 
   const handleCommit = () => emitDuration(hours, minutes, seconds);
-  const handleChange = (setter, value) => setter(Math.max(0, Number(value) || 0));
+  const handleChange = (setter, value) =>
+  {
+    const parsed = Math.max(0, parseInt(value, 10) || 0);
+    setter(parsed);
+  };
 
   return (
     <div
@@ -69,8 +73,10 @@ export default function DurationPicker({ duration, onSelect })
         })}
       </nav>
 
-      <div
+      <section
         className="duration-custom"
+        aria-label="Custom duration"
+        aria-live="polite"
         onKeyDown={(e) => e.key === "Enter" && handleCommit()}
       >
         <TimeField
@@ -93,7 +99,7 @@ export default function DurationPicker({ duration, onSelect })
           onChange={(v) => handleChange(setSeconds, v)}
           onBlur={handleCommit}
         />
-      </div>
+      </section>
   </div>
   );
 }

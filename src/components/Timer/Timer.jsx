@@ -1,7 +1,7 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 28 February 2026
-//Description: This file contains the parent timer component for the React timer project.
+//Date: 6 March 2026
+//Description: This file contains the parent timer component for the timer React project.
 
 import { useTimer, DEFAULT_DURATION } from "../../hooks/useTimer";
 import DurationPicker from "../DurationPicker/DurationPicker.jsx";
@@ -22,22 +22,18 @@ export default function Timer()
 
   return (
       <section className="timer" aria-labelledby="focus-timer-heading">
-        <header className="timer-header">
-          <h1 id="focus-timer-heading" className="timer-heading">
-            Focus Timer
-          </h1>
-        </header>
+        <h1 id="focus-timer-heading" className="timer-heading">
+          Focus Timer
+        </h1>
 
         {showDurationPicker && (
-          <div className="timer-duration">
-            <DurationPicker
-              duration={duration}
-              onSelect={handleSelectDuration}
-            />
-          </div>
+          <DurationPicker
+            duration={duration}
+            onSelect={handleSelectDuration}
+          />
         )}
 
-        <div className="timer-core" role="region" aria-live="polite">
+        <div className="timer-core">
           <TimerDisplay timeLeft={timeLeft} />
           <TimerControls
             running={running}

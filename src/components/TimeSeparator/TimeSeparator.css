@@ -6,20 +6,30 @@
 .time-separator
 {
    display: inline-flex;
+   align-items: baseline;
+   justify-content: center;
 
-   font-family: "JetBrains Mono", monospace;
-   font-variant-numeric: tabular-nums;
+   font-family: inherit;
+   font-variant-numeric: inherit;
 
-   font-size: 1.2rem;
    font-weight: 600;
+   font-size: 1.25rem;
    line-height: 1;
 
    color: var(--accent-muted);
-   opacity: 0.5;
+   opacity: 0.45;
 
    user-select: none;
    pointer-events: none;
 
    transition: color var(--duration-fast) var(--ease-standard),
                opacity var(--duration-fast) var(--ease-standard);
+}
+
+/* ====================================
+   TIMESEPARATOR REDUCED MOTION MEDIA QUERY STYLES.
+======================================= */
+@media (prefers-reduced-motion: reduce)
+{
+   .time-separator  { transition: none; }
 }

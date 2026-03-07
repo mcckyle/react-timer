@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: center;
 
-    gap: clamp(1.25rem, 3vw, 2rem);
+    gap: clamp(1.4rem, 3vw, 2rem);
 }
 
 /* ====================================
@@ -18,10 +18,9 @@
 .timer-control
 {
     appearance: none;
+    padding: 0.8rem 2.1rem;
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-pill);
-
-    padding: 0.85rem 2.2rem;
 
     font-family: "Inter", system-ui, sans-serif;
     font-size: 0.8rem;
@@ -35,8 +34,8 @@
     user-select: none;
 
     transition: background var(--duration-fast) var(--ease-standard),
-                color var(--duration-fast) var(--ease-standard),
                 border-color var(--duration-fast) var(--ease-standard),
+                color var(--duration-fast) var(--ease-standard),
                 transform var(--duration-fast) var(--ease-standard),
                 box-shadow var(--duration-fast) var(--ease-standard);
 }
@@ -62,28 +61,24 @@
 /* ====================================
    TIMERCONTROLS DISABLED BUTTON STYLES.
 ======================================= */
+.timer-control:disabled
+{
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
 .timer-control:active:not(:disabled)
 {
     transform: translateY(0);
-    box-shadow: none;
-}
-.timer-control:disabled
-{
-    opacity: 0.4;
-    cursor: not-allowed;
-    transform: none;
     box-shadow: none;
 }
 
 /* TimerControls Hover Lift For Desktop Styles. */
 @media (hover: hover)
 {
-    .timer-control.is-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); }
-    .timer-control.is-secondary:hover:not(:disabled)
-    {
-        background: var(--surface-subtle);
-        border-color: var(--border-subtle);
-    }
+    .timer-control.is-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 10px 26px -10px rgba(0, 0, 0, 0.35); }
+    .timer-control.is-secondary:hover:not(:disabled) { background: var(--surface-subtle); }
 }
 
 /* ====================================
