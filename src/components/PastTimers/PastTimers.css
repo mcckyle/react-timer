@@ -6,13 +6,13 @@
 .past-timers
 {
     width: 100%;
-    max-width: 460px;
+    max-width: 440px;
 
     display: flex;
     flex-direction: column;
-    gap: 1.4rem;
+    gap: 1.25rem;
 
-    padding: 1.9rem;
+    padding: 1.75rem;
     border-radius: var(--radius);
 
     background: var(--surface-subtle);
@@ -33,7 +33,7 @@
 {
     margin: 0;
 
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     font-weight: 600;
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -70,7 +70,7 @@
 
     display: flex;
     flex-direction: column;
-    gap: 0.45rem;
+    gap: 0.4rem;
 }
 
 /* ====================================
@@ -82,11 +82,13 @@
     align-items: center;
     justify-content: space-between;
 
-    padding: 0.55rem 0.75rem;
+    padding: 0.6rem 0.75rem;
     border-radius: var(--radius-pill);
 
-    transition: background var(--duration-fast) var(--ease-standard);
+    transition: background var(--duration-fast) var(--ease-standard),
+                transform var(--duration-fast) var(--ease-standard);
 }
+.past-timer-item + .past-timer-item { border-top: 1px solid var(--border-subtle); }
 
 .past-timer-duration
 {
@@ -116,7 +118,7 @@
 @media (hover: hover)
 {
     .past-timers-clear:hover { color: var(--accent); }
-    .past-timer-item:hover { background: var(--surface); }
+    .past-timer-item:hover { background: var(--surface); transform: translateY(-1px); }
 }
 
 /* ====================================

@@ -13,14 +13,14 @@
     font-variant-numeric: tabular-nums;
     font-weight: 600;
 
-    font-size: clamp(4.75rem, 10vw, 13rem);
+    font-size: clamp(4.5rem, 10vw, 12.5rem);
     line-height: 1;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.03em;
     text-align: center;
     white-space: nowrap;
 
     color: var(--accent);
-    padding-block: clamp(1.5rem, 4vh, 3rem);
+    padding-block: clamp(1.25rem, 4vh, 2.75rem);
     user-select: none;
 }
 
@@ -32,7 +32,7 @@
     overflow: hidden; /* hides exiting digits. */
 }
 .timer-digit { display: inline-block; }
-.timer-separator { display: inline-block; opacity: 0.5; margin-inline: 0.05em; color: var(--accent-muted); }
+.timer-separator { display: inline-block; margin-inline: 0.05em; color: var(--accent-muted); opacity: 0.55; }
 
 /* ====================================
    TIMERDISPLAY REDUCED MOTION STYLES.

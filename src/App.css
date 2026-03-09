@@ -10,9 +10,9 @@
   display: grid;
   place-items: center;
 
-  padding: max(2rem, env(safe-area-inset-top))
-           clamp(2rem, 6vw, 5rem)
-           max(2rem, env(safe-area-inset-bottom));
+  padding: max(2.4rem, env(safe-area-inset-top))
+           clamp(2rem, 6vw, 4rem)
+           max(2.4rem, env(safe-area-inset-bottom));
 
   position: relative;
   isolation: isolate;
@@ -20,20 +20,8 @@
   background: var(--bg);
   color: var(--text);
 
-  transition: background var(--duration-standard) var(--ease-standard);
-}
-
-/* ====================================
-   APP CONTENT CONTAINER STYLES.
-======================================= */
-.app-content
-{
-  width: 100%;
-  max-width: var(--max-width);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  transition: background var(--duration-standard) var(--ease-standard),
+              color var(--duration-standard) var(--ease-standard);
 }
 
 /* ====================================
@@ -46,12 +34,12 @@
   inset: 0;
 
   background: radial-gradient(
-    800px circle at 50% 10%,
+    900px circle at 50% -10%,
     var(--accent-soft),
     transparent 72%
   );
 
-  opacity: 0.18;
+  opacity: 0.22;
   pointer-events: none;
   z-index: -1;
 }

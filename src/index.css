@@ -8,7 +8,7 @@
   /* Accent System. */
   --accent: #d4af37;
   --accent-soft: color-mix(in srgb, var(--accent) 12%, transparent);
-  --accent-muted: color-mix(in srgb, var(--accent) 50%, transparent);
+  --accent-muted: color-mix(in srgb, var(--accent) 40%, transparent);
 
   /* Base Colors. */
   --bg: #0b0c11;

@@ -1,6 +1,6 @@
 //File name: useTimer.js
 //Author: Kyle McColgan
-//Date: 6 March 2026
+//Date: 8 March 2026
 //Description: This file contains the custom timekeeping hook for the timer React project.
 
 import { useEffect, useState, useRef, useCallback } from "react";
@@ -25,26 +25,20 @@ export function useTimer()
         try
         {
             const stored = localStorage.getItem(STORAGE_KEY);
-            if (stored)
+            const parsed = stored ? JSON.parse(stored) : null;
+            if (Array.isArray(parsed))
             {
-                const parsed = JSON.parse(stored);
-
-                if (Array.isArray(parsed))
-                {
-                    setPastTimers(JSON.parse(stored));
-                }
+                setPastTimers(parsed);
             }
         } catch { /* silent. */ }
     }, []);
 
     const stopInterval = useCallback(() => {
-        if ( ! intervalRef.current)
+        if (intervalRef.current)
         {
-            return;
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
         }
-
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
     }, []);
 
     const complete = useCallback(() => {
@@ -81,11 +75,6 @@ export function useTimer()
         }
 
         lastTickRef.current = Date.now();
-
-        if (intervalRef.current)
-        {
-            return;
-        }
 
         intervalRef.current = setInterval(() => {
             const now = Date.now();

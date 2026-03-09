@@ -5,9 +5,7 @@
 ======================================= */
 .time-separator
 {
-   display: inline-flex;
-   align-items: baseline;
-   justify-content: center;
+   display: inline-block;
 
    font-family: inherit;
    font-variant-numeric: inherit;

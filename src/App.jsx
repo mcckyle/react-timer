@@ -1,6 +1,6 @@
 //File name: App.jsx
 //Author: Kyle McColgan
-//Date: 6 March 2026
+//Date: 8 March 2026
 //Description: This file contains the App component for the timer React project.
 
 import Timer from "./components/Timer/Timer.jsx";
@@ -10,9 +10,7 @@ function App()
 {
   return (
     <main className="app">
-      <section className="app-content">
-        <Timer/>
-      </section>
+      <Timer/>
     </main>
   );
 }

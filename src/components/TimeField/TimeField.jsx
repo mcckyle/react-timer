@@ -1,6 +1,6 @@
 //File name: TimeField.jsx
 //Author: Kyle McColgan
-//Date: 6 March 2026
+//Date: 8 March 2026
 //Description: This file contains the time field for the timer React project.
 
 import "./TimeField.css";
@@ -10,15 +10,33 @@ export default function TimeField({ label, value, onChange, onBlur })
   const id = `time-${label}`;
   const labelId = `${id}-label`;
 
-  const handleChange = (e) => {
-    const v = e.target.value;
-    onChange(v === "" ? 0 : v);
-  };
-
-  const handleWheel = (e) =>
+  function handleChange(e)
   {
+    const raw = e.target.value;
+
+    if (raw === "")
+    {
+      onChange(0);
+      return;
+    }
+
+    const parsed = Math.max(0, parseInt(raw, 10) || 0);
+    onChange(parsed);
+  }
+
+  function handleWheel(e)
+  {
+    /* Prevent scroll wheel increment. */
     e.currentTarget.blur();
-  };
+  }
+
+  function handleKeyDown(e)
+  {
+    if (e.key === "Enter")
+    {
+      onBlur();
+    }
+  }
 
   return (
     <div className="time-field">
@@ -29,16 +47,18 @@ export default function TimeField({ label, value, onChange, onBlur })
       <input
         id={id}
         type="number"
+
         min="0"
         step="1"
+
         inputMode="numeric"
         autoComplete="off"
         pattern="[0-9]*"
-        aria-label={labelId}
+        aria-labelledby={labelId}
         value={value}
         onChange={handleChange}
         onBlur={onBlur}
-        onKeyDown={(e) => e.key === "Enter" && onBlur()}
+        onKeyDown={handleKeyDown}
         onWheel={handleWheel}
       />
       <span className="time-unit" aria-hidden="true">{label}</span>

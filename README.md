@@ -80,6 +80,11 @@ react-timer/
 │   │       ├── DurationPicker.jsx
 │   │       └── DurationPicker.css
 │   │
+│   ├── utils/
+│   │   ├── formatTime.jsx
+│   │   ├── formatDuration.jsx
+│   │   └── splitDuration.jsx
+│   │
 │   ├── __tests__/
 │   │   └── useTimer.test.jsx
 │   │

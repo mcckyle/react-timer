@@ -1,7 +1,7 @@
 /* Filename: src/components/TimerControls/TimerControls.css */
 
 /* ====================================
-   TIMERCONTROLS WRAPPER STYLES.
+   TIMERCONTROLS CONTROLS WRAPPER STYLES.
 ======================================= */
 .timer-controls
 {
@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: center;
 
-    gap: clamp(1.4rem, 3vw, 2rem);
+    gap: clamp(1.25rem, 3vw, 1.8rem);
 }
 
 /* ====================================
@@ -18,7 +18,7 @@
 .timer-control
 {
     appearance: none;
-    padding: 0.8rem 2.1rem;
+    padding: 0.75rem 2rem;
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-pill);
 
@@ -73,11 +73,16 @@
     transform: translateY(0);
     box-shadow: none;
 }
+.timer-controls:focus-visible
+{
+    outline: none;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+}
 
 /* TimerControls Hover Lift For Desktop Styles. */
 @media (hover: hover)
 {
-    .timer-control.is-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 10px 26px -10px rgba(0, 0, 0, 0.35); }
+    .timer-control.is-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.35); }
     .timer-control.is-secondary:hover:not(:disabled) { background: var(--surface-subtle); }
 }
 

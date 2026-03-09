@@ -1,9 +1,10 @@
 //File name: DurationPicker.jsx
 //Author: Kyle McColgan
-//Date: 6 March 2026
+//Date: 8 March 2026
 //Description: This file contains the time duration picker for the timer React project.
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
+import { splitDuration } from "../../utils/splitDuration.jsx";
 import TimeField from "../TimeField/TimeField.jsx";
 import TimeSeparator from "../TimeSeparator/TimeSeparator.jsx";
 import "./DurationPicker.css";
@@ -16,21 +17,17 @@ const PRESETS  = [
 
 export default function DurationPicker({ duration, onSelect })
 {
-  const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(0);
-  const prevDurationRef = useRef(duration);
+  const { hours: h, minutes: m, seconds: s } = splitDuration(duration);
+  const [hours, setHours] = useState(h);
+  const [minutes, setMinutes] = useState(m);
+  const [seconds, setSeconds] = useState(s);
 
-  /* Sync external duration only when it actually changes. */
+  /* Sync the duration only when it changes externally. */
   useEffect(() => {
-    if (duration !== prevDurationRef.current)
-    {
-      prevDurationRef.current = duration;
-      const totalSeconds = Math.floor(duration / 1000);
-      setHours(Math.floor(totalSeconds / 3600));
-      setMinutes(Math.floor((totalSeconds % 3600) / 60));
-      setSeconds(totalSeconds % 60);
-    }
+    const { hours, minutes, seconds } = splitDuration(duration);
+    setHours(hours);
+    setMinutes(minutes);
+    setSeconds(seconds);
   }, [duration]);
 
   const emitDuration = (h, m, s) => {
@@ -50,21 +47,21 @@ export default function DurationPicker({ duration, onSelect })
   };
 
   return (
-    <div
+    <section
       className="duration-picker"
       role="group"
       aria-label="Select timer duration"
     >
       <nav className="duration-presets" aria-label="Preset durations">
         {PRESETS.map(({ label, ms }) => {
-          const isActive = duration === ms;
+          const active = duration === ms;
 
           return (
             <button
               key={label}
               type="button"
-              className={`duration-pill${isActive ? " is-active" : ""}`}
-              aria-pressed={isActive}
+              className={`duration-pill${active ? " is-active" : ""}`}
+              aria-pressed={active}
               onClick={() => onSelect(ms)}
             >
               {label}
@@ -73,11 +70,13 @@ export default function DurationPicker({ duration, onSelect })
         })}
       </nav>
 
-      <section
+      <div
         className="duration-custom"
         aria-label="Custom duration"
-        aria-live="polite"
-        onKeyDown={(e) => e.key === "Enter" && handleCommit()}
+        onKeyDown={(e) =>
+          {
+            if (e.key === "Enter") handleCommit();
+          }}
       >
         <TimeField
           label="h"
@@ -99,7 +98,7 @@ export default function DurationPicker({ duration, onSelect })
           onChange={(v) => handleChange(setSeconds, v)}
           onBlur={handleCommit}
         />
-      </section>
-  </div>
+      </div>
+  </section>
   );
 }
