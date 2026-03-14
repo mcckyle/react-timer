@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: center;
 
-    gap: clamp(1.25rem, 3vw, 1.8rem);
+    gap: clamp(1.2rem, 2.8vw, 1.8rem);
 }
 
 /* ====================================
@@ -18,14 +18,14 @@
 .timer-control
 {
     appearance: none;
-    padding: 0.75rem 2rem;
+    padding: 0.72rem 2rem;
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-pill);
 
-    font-family: "Inter", system-ui, sans-serif;
-    font-size: 0.8rem;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
     font-weight: 600;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
 
     background: transparent;
@@ -47,7 +47,9 @@
 {
     background: var(--accent);
     border-color: var(--accent);
-    color: #0b0c11;
+    color: var(--bg);
+
+    box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.4);
 }
 
 /* ====================================
@@ -59,30 +61,39 @@
 }
 
 /* ====================================
-   TIMERCONTROLS DISABLED BUTTON STYLES.
+   TIMERCONTROLS ACTIVE PRESS STYLES.
+======================================= */
+.timer-control:active:not(:disabled)
+{
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+/* ====================================
+   TIMERCONTROLS DISABLED STATE STYLES.
 ======================================= */
 .timer-control:disabled
 {
     opacity: 0.45;
     cursor: not-allowed;
+
     transform: none;
     box-shadow: none;
 }
-.timer-control:active:not(:disabled)
-{
-    transform: translateY(0);
-    box-shadow: none;
-}
-.timer-controls:focus-visible
+
+/* ====================================
+   TIMERCONTROLS FOCUS ACCESSIBILITY STYLES.
+======================================= */
+.timer-control:focus-visible
 {
     outline: none;
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
 /* TimerControls Hover Lift For Desktop Styles. */
 @media (hover: hover)
 {
-    .timer-control.is-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.35); }
+    .timer-control.is-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.45); }
     .timer-control.is-secondary:hover:not(:disabled) { background: var(--surface-subtle); }
 }
 

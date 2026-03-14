@@ -1,51 +1,57 @@
 //File name: TimerDisplay.jsx
 //Author: Kyle McColgan
-//Date: 8 March 2026
+//Date: 13 March 2026
 //Description: This file contains the time display for the timer React project.
 
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
+import { useMemo } from "react";
 import { formatTime } from "../../utils/formatTime";
 import "./TimerDisplay.css";
 
 export default function TimerDisplay({ timeLeft })
 {
-    const display = formatTime(timeLeft);
-    const characters = display.split("");
+  //Only update the display when the second changes.
+  const seconds = Math.ceil(timeLeft / 1000);
+  const display = useMemo(() => formatTime(seconds * 1000), [seconds]);
+  const characters = [...display];
 
-    return (
-      <time
-        className="timer-display"
-        role="timer"
-        aria-live="off"
-        aria-atomic="true"
-        dateTime={display}
-      >
-        {characters.map((char, index) =>
+  return (
+    <time
+      className="timer-display"
+      role="timer"
+      aria-live="off"
+      aria-atomic="true"
+      dateTime={display}
+    >
+      {characters.map((char, index) =>
+      {
+        if (char === ":")
         {
-          const isSeparator = char === ":";
-
           return (
-            <span key={index} className="timer-digit-wrapper">
-              {isSeparator ? (
-                <span className="timer-separator">{char}</span>
-              ) : (
-                <AnimatePresence mode="popLayout">
-                  <motion.span
-                    layout
-                    key={`${index}-${char}`}
-                    initial={{ y: -16, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: 16, opacity: 0 }}
-                    transition={{ duration: 0.18, ease: [0.25, 0.1, 0.25, 1] }}
-                    className="timer-digit"
-                  >
-                    {char}
-                  </motion.span>
-                </AnimatePresence>
-              )}
+            <span
+              key={`sep-${index}`}
+              className="timer-separator"
+              aria-hidden="true"
+            >
+              :
             </span>
           );
-        })}
-      </time>
-    );
+        }
+
+        return (
+          <span key={`digit-${index}`} className="timer-digit-wrapper">
+            <motion.span
+              key={`${index}-${char}`}
+              className="timer-digit"
+              initial={{ y: -12, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
+            >
+              {char}
+            </motion.span>
+          </span>
+        );
+      })}
+    </time>
+  );
 }

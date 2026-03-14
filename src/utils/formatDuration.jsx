@@ -1,7 +1,7 @@
 //File name: formatDuration.jsx
 //Author: Kyle McColgan
-//Date: 9 February 2026
-//Description: This file contains a custom time formatting helper function built for the React timer project.
+//Date: 10 March 2026
+//Description: This file contains a custom time formatting helpers built for the timer React project.
 
 export function formatDuration(ms)
 {
@@ -20,4 +20,18 @@ export function formatDuration(ms)
     }
 
     return `${s}s`;
+}
+
+export function formatTime(date)
+{
+    return date.toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "2-digit",
+    });
+}
+
+export function toValidDate(value)
+{
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? null : date;
 }

@@ -11,7 +11,7 @@
   place-items: center;
 
   padding: max(2.4rem, env(safe-area-inset-top))
-           clamp(2rem, 6vw, 4rem)
+           clamp(1.8rem, 5vw, 4rem)
            max(2.4rem, env(safe-area-inset-bottom));
 
   position: relative;
@@ -25,7 +25,7 @@
 }
 
 /* ====================================
-   APP SIMPLE ATMOSPEHRIC GLOW STYLES.
+   APP SIMPLE ATMOSPEHRIC BACKGROUND GLOW STYLES.
 ======================================= */
 .app::before
 {
@@ -36,10 +36,10 @@
   background: radial-gradient(
     900px circle at 50% -10%,
     var(--accent-soft),
-    transparent 72%
+    transparent 70%
   );
 
-  opacity: 0.22;
+  opacity: 0.2;
   pointer-events: none;
   z-index: -1;
 }

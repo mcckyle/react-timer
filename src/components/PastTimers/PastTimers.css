@@ -6,13 +6,13 @@
 .past-timers
 {
     width: 100%;
-    max-width: 440px;
+    max-width: 420px;
 
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1rem;
 
-    padding: 1.75rem;
+    padding: 1.4rem;
     border-radius: var(--radius);
 
     background: var(--surface-subtle);
@@ -33,12 +33,11 @@
 {
     margin: 0;
 
-    font-size: 0.72rem;
+    font-size: 0.70rem;
     font-weight: 600;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-
-    opacity: 0.55;
+    color: var(--text-muted);
 }
 
 .past-timers-clear
@@ -82,17 +81,16 @@
     align-items: center;
     justify-content: space-between;
 
-    padding: 0.6rem 0.75rem;
+    padding: 0.6rem 0.8rem;
     border-radius: var(--radius-pill);
 
     transition: background var(--duration-fast) var(--ease-standard),
                 transform var(--duration-fast) var(--ease-standard);
 }
-.past-timer-item + .past-timer-item { border-top: 1px solid var(--border-subtle); }
 
 .past-timer-duration
 {
-    font-family: "JetBrains Mono", monospace;
+    font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
 
     font-size: 0.95rem;
@@ -100,7 +98,7 @@
 
     color: var(--accent);
 }
-.past-timer-time { font-size: 0.75rem; font-weight: 500; opacity: 0.6; }
+.past-timer-time { font-size: 0.72rem; font-weight: 500; color: var(--text-muted); }
 
 /* ====================================
    PASTTIMERS EMPTY STATE STYLES.
@@ -108,10 +106,10 @@
 .past-timer-empty
 {
     text-align: center;
-    padding: 1.4rem 0;
+    padding: 1.2rem 0;
 
     font-size: 0.85rem;
-    opacity: 0.5;
+    color: var(--text-muted);
 }
 
 /* PastTimers Hover Lift For Desktop Styles. */

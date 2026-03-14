@@ -1,6 +1,6 @@
 //File name: TimerControls.jsx
 //Author: Kyle McColgan
-//Date: 8 March 2026
+//Date: 13 March 2026
 //Description: This file contains the timer controls for the timer React project.
 
 import "./TimerControls.css";
@@ -13,20 +13,19 @@ export default function TimerControls({
     resetDisabled,
 })
 {
+  const primaryAction = running ? onPause : onStart;
   const primaryLabel = running ? "Pause" : "Start";
-  const handlePrimary = running ? onPause : onStart;
 
   return (
     <section
       className="timer-controls"
       role="group"
       aria-label="Timer controls"
-      aria-live="off"
     >
       <button
         type="button"
         className="timer-control is-primary"
-        onClick={handlePrimary}
+        onClick={primaryAction}
         aria-pressed={running}
       >
         {primaryLabel}

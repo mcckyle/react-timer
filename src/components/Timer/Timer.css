@@ -6,13 +6,13 @@
 .timer
 {
   width: 100%;
-  max-width: 680px;
+  max-width: var(--max-width);
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  gap: clamp(2.75rem, 7vh, 5rem);
+  gap: clamp(2.6rem, 6vh, 4.5rem);
   text-align: center;
 }
 
@@ -30,13 +30,13 @@
 ======================================= */
 .timer-heading
 {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
 
   color: var(--accent-muted);
-  opacity: 0.75;
+  opacity: 0.7;
   user-select: none;
 }
 
@@ -52,16 +52,46 @@
   flex-direction: column;
   align-items: center;
 
-  gap: clamp(2rem, 5vh, 3rem);
-  padding: clamp(2.25rem, 4vh, 3rem);
+  gap: clamp(1.8rem, 4vh, 2.6rem);
+  padding: clamp(2.2rem, 4vh, 3rem);
 
   border-radius: calc(var(--radius) + 6px);
   background: linear-gradient(180deg, var(--surface-secondary), var(--surface));
   border: 1px solid var(--border-subtle);
-  box-shadow: 0 10px 26px -12px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow-soft);
 
   transition: transform var(--duration-standard) var(--ease-standard),
               box-shadow var(--duration-standard) var(--ease-standard);
+}
+
+/* ====================================
+   TIMER HISTORY TOGGLE STYLES.
+======================================= */
+.timer-history-toggle
+{
+  display: flex;
+  justify-content: center;
+}
+.timer-history-button
+{
+  appearance: none;
+  border: 1px solid var(--border-subtle);
+  background: transparent;
+
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--radius-pill);
+
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+
+  color: var(--accent-muted);
+  cursor: pointer;
+
+  transition: background var(--duration-fast) var(--ease-standard),
+              border-color var(--duration-fast) var(--ease-standard),
+              transform var(--duration-fast) var(--ease-standard);
 }
 
 /* ====================================
@@ -70,17 +100,26 @@
 .timer-history
 {
   width: 100%;
-  max-width: 520px;
+  max-width: 540px;
 
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+
+  animation: timer-history-reveal 260ms var(--ease-standard);
 }
 
 /* Timer Desktop Hover Lift Styles. */
 @media (hover: hover)
 {
-  .timer-core:hover { transform: translateY(-2px); box-shadow: 0 18px 50px -18px rgba(0, 0, 0, 0.45), 0 6px 16px rgba(0, 0, 0, 0.3); }
+  .timer-core:hover { transform: translateY(-3px); box-shadow: 0 20px 48px -20px rgba(0, 0, 0, 0.55); }
+  .timer-history-button:hover { background: var(--surface-subtle); transform: translateY(-1px); }
+}
+
+@keyframes timer-history-reveal
+{
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ====================================
@@ -88,6 +127,6 @@
 ======================================= */
 @media (max-width: 480px)
 {
-  .timer { gap: 2.5rem; }
-  .timer-core { padding: 2rem; gap: 1.8rem; }
+  .timer { gap: 2.4rem; }
+  .timer-core { padding: 2rem; gap: 1.6rem; }
 }

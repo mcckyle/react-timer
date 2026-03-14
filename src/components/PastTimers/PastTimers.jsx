@@ -1,29 +1,21 @@
 //File name: PastTimers.jsx
 //Author: Kyle McColgan
-//Date: 8 March 2026
+//Date: 13 March 2026
 //Description: This file contains the past timers component for the timer React project.
 
-import { formatDuration } from "../../utils/formatDuration";
+import { formatDuration, formatTime, toValidDate } from "../../utils/formatDuration";
 import "./PastTimers.css";
-
-const formatTime = (date) =>
-  date.toLocaleTimeString([], {
-    hour: "numeric",
-    minute: "2-digit",
-  });
-
-const toValidDate = (value) => {
-  const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? null : date;
-};
 
 export default function PastTimers({ timers, onClear })
 {
   const hasTimers = timers.length > 0;
 
   return (
-    <aside className="past-timers" aria-label="Completed timers">
-
+    <aside
+      className="past-timers"
+      aria-label="Completed timers"
+      aria-live="polite"
+    >
      {hasTimers && (
        <header className="past-timers-header">
          <h2 className="past-timers-title">Completed</h2>
@@ -38,16 +30,16 @@ export default function PastTimers({ timers, onClear })
       )}
 
       <ul className="past-timers-list">
-        { ! hasTimers ? (
+        {!hasTimers ? (
           <li className="past-timer-empty">
             No completed timers yet
           </li>
         ) : (
-          timers.map((timer) => {
+          timers.map((timer, index) => {
             const completedDate = toValidDate(timer.completedAt);
 
             return (
-              <li key={timer.completedAt} className="past-timer-item">
+              <li key={timer.completedAt ?? index} className="past-timer-item">
                 <span className="past-timer-duration">
                   {formatDuration(timer.duration)}
                 </span>

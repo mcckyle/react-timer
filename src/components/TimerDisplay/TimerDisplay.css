@@ -9,35 +9,48 @@
     align-items: center;
     justify-content: center;
 
-    font-family: "JetBrains Mono", monospace;
+    font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
     font-weight: 600;
 
-    font-size: clamp(4.5rem, 10vw, 12.5rem);
+    font-size: clamp(4.5rem, 9vw, 12rem);
     line-height: 1;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.035em;
     text-align: center;
     white-space: nowrap;
 
     color: var(--accent);
-    padding-block: clamp(1.25rem, 4vh, 2.75rem);
+    padding-block: clamp(1.4rem, 4vh, 2.8rem);
     user-select: none;
 }
 
-/* Each Digit Wrapper Ensures Spacing Remains Consistent. */
+/* ====================================
+   TIMERDISPLAY DIGIT WRAPPER STYLES.
+======================================= */
 .timer-digit-wrapper
 {
-    display: inline-block;
-    min-width: 1ch; /* keeps monospace alignment. */
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 0.62em; /* stable digit width. */
+    height: 1em;
     overflow: hidden; /* hides exiting digits. */
 }
-.timer-digit { display: inline-block; }
-.timer-separator { display: inline-block; margin-inline: 0.05em; color: var(--accent-muted); opacity: 0.55; }
+.timer-digit { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; will-change: transform, opacity; }
+.timer-separator { margin-inline: 0.08em; color: var(--accent-muted); opacity: 0.55; }
 
 /* ====================================
    TIMERDISPLAY REDUCED MOTION STYLES.
 ======================================= */
 @media (prefers-reduced-motion: reduce)
 {
-    .timer-digit { transition: none !important; animation: none !important; }
+    .timer-digit
+    {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
 }
