@@ -10,12 +10,13 @@
   display: grid;
   place-items: center;
 
-  padding: max(2.4rem, env(safe-area-inset-top))
-           clamp(1.8rem, 5vw, 4rem)
-           max(2.4rem, env(safe-area-inset-bottom));
+  padding: max(2rem, env(safe-area-inset-top))
+           clamp(1.25rem, 4vw, 3rem)
+           max(2rem, env(safe-area-inset-bottom));
 
   position: relative;
   isolation: isolate;
+  overflow: hidden;
 
   background: var(--bg);
   color: var(--text);
@@ -25,23 +26,27 @@
 }
 
 /* ====================================
-   APP SIMPLE ATMOSPEHRIC BACKGROUND GLOW STYLES.
+   APP ATMOSPEHRIC BACKGROUND GLOW STYLES.
 ======================================= */
+.app::before, .app::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: -1; }
 .app::before
 {
-  content: "";
-  position: absolute;
-  inset: 0;
-
   background: radial-gradient(
-    900px circle at 50% -10%,
+    72rem circle at 50% -12%,
     var(--accent-soft),
-    transparent 70%
+    transparent 62%
   );
-
-  opacity: 0.2;
-  pointer-events: none;
-  z-index: -1;
+  opacity: 0.34;
+}
+/* App Depth Layer Styles. */
+.app::after
+{
+  background: radial-gradient(
+    42rem circle at 50% 112%,
+    var(--surface-secondary),
+    transparent 68%
+  );
+  opacity: 0.42;
 }
 
 /* ====================================
@@ -49,31 +54,29 @@
 ======================================= */
 .noscript
 {
-  max-width: 460px;
+  max-width: 28rem;
   margin: 3rem auto;
-  padding: 1.4rem 1.6rem;
+  padding: 1rem 1.2rem;
 
   text-align: center;
   font-size: 0.95rem;
   font-weight: 500;
+  line-height: 1.5;
 
   color: var(--text);
 
-  background: var(--surface-subtle);
+  background: linear-gradient(180deg, var(--surface-secondary), var(--surface));
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
-
   box-shadow: var(--shadow-soft);
 }
 
 /* ====================================
-   APP REDUCED MOTION MEDIA QUERY STYLES.
+   APP MEDIA QUERY STYLES.
 ======================================= */
-/*@media (prefers-reduced-motion: reduce)
+@media (max-width: 480px)
 {
-  *, *::before, *::after
-  {
-    animation: none !important;
-    transition: none !important;
-  }
-}*/
+  .app { padding: max(1.25rem, env(safe-area-inset-top)) 1rem max(1.25rem, env(safe-area-inset-bottom)); }
+  .app::before { opacity: 0.28; }
+  .app::after { opacity: 0.34; }
+}

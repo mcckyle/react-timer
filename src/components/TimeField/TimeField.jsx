@@ -1,6 +1,6 @@
 //File name: TimeField.jsx
 //Author: Kyle McColgan
-//Date: 10 March 2026
+//Date: 20 March 2026
 //Description: This file contains the time field for the timer React project.
 
 import "./TimeField.css";
@@ -20,7 +20,7 @@ export default function TimeField({ label, value, onChange, onBlur })
       return;
     }
 
-    const parsed = Math.max(0, parseInt(raw, 10) || 0);
+    const parsed = Math.max(0, Number.parseInt(raw, 10) || 0);
     onChange(parsed);
   }
 

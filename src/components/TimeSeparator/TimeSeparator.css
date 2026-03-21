@@ -11,19 +11,26 @@
 
    font-family: inherit;
    font-variant-numeric: inherit;
-
+   font-size: 1.3rem;
    font-weight: 600;
-   font-size: 1.28rem;
    line-height: 1;
 
    color: var(--accent-muted);
-   opacity: 0.45;
+   opacity: 0.4;
 
    user-select: none;
    pointer-events: none;
 
    transition: color var(--duration-fast) var(--ease-standard),
                opacity var(--duration-fast) var(--ease-standard);
+}
+
+/* ====================================
+   TIMESEPARATOR MEDIA QUERY STYLES.
+======================================= */
+@media (max-width: 480px)
+{
+   .time-separator { font-size: 1.2rem; }
 }
 
 /* ====================================

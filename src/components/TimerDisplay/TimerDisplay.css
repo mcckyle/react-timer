@@ -9,19 +9,23 @@
     align-items: center;
     justify-content: center;
 
+    max-width: 100%;
+
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
     font-weight: 600;
 
-    font-size: clamp(4.5rem, 9vw, 12rem);
-    line-height: 1;
-    letter-spacing: -0.035em;
+    font-size: clamp(6rem, 20vw, 30rem);
+    line-height: 0.88;
+    letter-spacing: -0.05em;
     text-align: center;
     white-space: nowrap;
 
     color: var(--accent);
-    padding-block: clamp(1.4rem, 4vh, 2.8rem);
+    padding-block: clamp(1.2rem, 4vh, 2.8rem);
+
     user-select: none;
+    text-rendering: optimizeLegibility;
 }
 
 /* ====================================
@@ -34,13 +38,42 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    flex: 0 0 auto;
 
     width: 0.62em; /* stable digit width. */
     height: 1em;
     overflow: hidden; /* hides exiting digits. */
 }
 .timer-digit { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; will-change: transform, opacity; }
-.timer-separator { margin-inline: 0.08em; color: var(--accent-muted); opacity: 0.55; }
+
+/* ====================================
+   TIMERDISPLAY SEPARATOR STYLES.
+======================================= */
+.timer-separator
+{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+
+    margin-inline: 0.045em;
+
+    color: var(--accent-muted);
+    opacity: 0.5;
+    transform: translateY(-0.03em);
+
+    user-select: none;
+    pointer-events: none;
+}
+
+/* ====================================
+   TIMERDISPLAY MEDIA QUERY STYLES.
+======================================= */
+@media (max-width: 480px)
+{
+    .timer-display { letter-spacing: -0.045em; padding-block: 1rem; }
+    .timer-separator { margin-inline: 0.04em; }
+}
 
 /* ====================================
    TIMERDISPLAY REDUCED MOTION STYLES.
@@ -52,5 +85,7 @@
         opacity: 1 !important;
         transform: none !important;
         transition: none !important;
+        will-change: auto;
     }
+    .timer-separator { transform: none; }
 }

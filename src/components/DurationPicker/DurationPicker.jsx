@@ -1,6 +1,6 @@
 //File name: DurationPicker.jsx
 //Author: Kyle McColgan
-//Date: 13 March 2026
+//Date: 20 March 2026
 //Description: This file contains the time duration picker for the timer React project.
 
 import { useEffect, useState } from "react";
@@ -17,20 +17,20 @@ const PRESETS  = [
 
 export default function DurationPicker({ duration, onSelect })
 {
-  const split = splitDuration(duration);
-  const [hours, setHours] = useState(split.hours);
-  const [minutes, setMinutes] = useState(split.minutes);
-  const [seconds, setSeconds] = useState(split.seconds);
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
 
   /* Sync only when the duration changes externally. */
   useEffect(() => {
-    const { hours, minutes, seconds } = splitDuration(duration);
-    setHours(hours);
-    setMinutes(minutes);
-    setSeconds(seconds);
+    const split = splitDuration(duration);
+    setHours(split.hours);
+    setMinutes(split.minutes);
+    setSeconds(split.seconds);
   }, [duration]);
 
-  const emitDuration = (h, m, s) => {
+  const emitDuration = (h, m, s) =>
+  {
     const ms = ((h * 3600) + (m * 60) + s) * 1000;
 
     if (ms > 0)
@@ -75,25 +75,11 @@ export default function DurationPicker({ duration, onSelect })
         aria-label="Custom duration"
         onKeyDown={(e) => e.key === "Enter" && commit()}
       >
-        <TimeField
-          label="h"
-          value={hours}
-          onChange={handleChange(setHours)}
-          onBlur={commit}
-        />
+        <TimeField label="h" value={hours} onChange={handleChange(setHours)} onBlur={commit} />
         <TimeSeparator />
-        <TimeField
-          label="m"
-          value={minutes}
-          onChange={handleChange(setMinutes)}
-          onBlur={commit}
-        />
+        <TimeField label="m" value={minutes} onChange={handleChange(setMinutes)} onBlur={commit} />
         <TimeSeparator />
-        <TimeField
-          label="s"
-          value={seconds}
-          onChange={handleChange(setSeconds)}
-          onBlur={commit}
+        <TimeField label="s" value={seconds} onChange={handleChange(setSeconds)} onBlur={commit}
         />
       </div>
   </section>

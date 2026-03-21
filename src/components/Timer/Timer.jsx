@@ -1,6 +1,6 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 13 March 2026
+//Date: 20 March 2026
 //Description: This file contains the parent timer component for the timer React project.
 
 import { useState } from "react";
@@ -16,15 +16,17 @@ export default function Timer()
   const { duration, setDuration, timeLeft, setTimeLeft, running, start, pause, reset, pastTimers, clearPastTimers } = useTimer();
   const [showHistory, setShowHistory] = useState(false);
   const isIdle = !running;
-  const resetDisabled = timeLeft === DEFAULT_DURATION && !running;
   const hasHistory = pastTimers.length > 0;
+  const resetDisabled = timeLeft === DEFAULT_DURATION && !running;
 
-  const handleSelectDuration = (value) => {
+  const handleSelectDuration = (value) =>
+  {
     setDuration(value);
     setTimeLeft(value);
   };
 
-  const toggleHistory = () => {
+  const toggleHistory = () =>
+  {
     setShowHistory((prev) => !prev);
   };
 
@@ -55,30 +57,32 @@ export default function Timer()
       </div>
 
       {hasHistory && (
-        <div className="timer-history-toggle">
-          <button
-            type="button"
-            className="timer-history-button"
-            onClick={toggleHistory}
-            aria-expanded={showHistory}
-            aria-controls="timer-history"
-          >
-            {showHistory
-              ? "Hide History"
-              : `Show History (${pastTimers.length})`}
-          </button>
-        </div>
-      )}
+        <>
+          <div className="timer-history-toggle">
+            <button
+              type="button"
+              className="timer-history-button"
+              onClick={toggleHistory}
+              aria-expanded={showHistory}
+              aria-controls="timer-history"
+            >
+              {showHistory
+                ? "Hide History"
+                : `Show History (${pastTimers.length})`}
+            </button>
+          </div>
 
-        {(showHistory) && (hasHistory) && (
-          <section
-            id="timer-history"
-            className="timer-history"
-            aria-label="Completed timers"
-          >
-            <PastTimers timers={pastTimers} onClear={clearPastTimers} />
-          </section>
-        )}
+          {showHistory && (
+            <section
+              id="timer-history"
+              className="timer-history"
+              aria-label="Completed timers"
+            >
+              <PastTimers timers={pastTimers} onClear={clearPastTimers} />
+            </section>
+          )}
+        </>
+      )}
     </section>
   );
 };

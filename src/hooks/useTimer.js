@@ -1,6 +1,6 @@
 //File name: useTimer.js
 //Author: Kyle McColgan
-//Date: 13 March 2026
+//Date: 20 March 2026
 //Description: This file contains the custom timekeeping hook for the timer React project.
 
 import { useEffect, useState, useRef, useCallback } from "react";
@@ -9,6 +9,28 @@ export const DEFAULT_DURATION = 10 * 1000; //10 seconds (milliseconds).
 const STORAGE_KEY = "pastTimers";
 const RUNNING_TIMER_KEY = "runningTimer";
 const MAX_HISTORY = 50;
+
+const requestRAF =
+  typeof requestAnimationFrame !== "undefined"
+    ? requestAnimationFrame
+    : (cb) => setTimeout(cb, 16);
+
+const cancelRAF =
+  typeof cancelAnimationFrame !== "undefined"
+    ? cancelAnimationFrame
+    : (id) => clearTimeout(id);
+
+function safeParse(value)
+{
+    try
+    {
+        return JSON.parse(value);
+    }
+    catch
+    {
+        return null;
+    }
+}
 
 export function useTimer()
 {
@@ -23,76 +45,63 @@ export function useTimer()
     const lastSecondRef = useRef(null);
     const timeLeftRef = useRef(timeLeft);
 
-    useEffect(() => {
+    //Keep ref in sync.
+    useEffect(() =>
+    {
         timeLeftRef.current = timeLeft;
     }, [timeLeft]);
 
-    const cancelRAF = typeof cancelAnimationFrame !== "undefined"
-      ? cancelAnimationFrame
-      : () => {};
-
-    const requestRAF = typeof requestAnimationFrame !== "undefined"
-      ? requestAnimationFrame
-      : (cb) => setTimeout(cb, 16);
-
     //Hydrate past timers once...
-    useEffect(() => {
-        try
-        {
-            const stored = localStorage.getItem(STORAGE_KEY);
-            const parsed = stored ? JSON.parse(stored) : null;
+    useEffect(() =>
+    {
+        const parsed = safeParse(localStorage.getItem(STORAGE_KEY));
 
-            if (Array.isArray(parsed))
-            {
-                setPastTimers(parsed.slice(0, MAX_HISTORY));
-            }
-        } catch { /* silent fail (corrupt storage). */ }
+        if (Array.isArray(parsed))
+        {
+            setPastTimers(parsed.slice(0, MAX_HISTORY));
+        }
     }, []);
 
     //Restore running timer (if one exists).
-    useEffect(() => {
-        try
+    useEffect(() =>
+    {
+        const parsed = safeParse(localStorage.getItem(RUNNING_TIMER_KEY));
+
+        if ((!parsed?.start) || (!parsed?.duration))
         {
-            const stored = localStorage.getItem(RUNNING_TIMER_KEY);
-
-            if (!stored)
-            {
-                return;
-            }
-
-            const parsed = JSON.parse(stored);
-
-            if ( (!parsed?.start) || (!parsed?.duration))
-            {
-                return;
-            }
-
-            const elapsed = Date.now() - parsed.start;
-            const remaining = parsed.duration - elapsed;
-
-            if (remaining <= 0)
-            {
-                complete(parsed.duration);
-                return;
-            }
-
-            startTimestampRef.current = parsed.start;
-            setDuration(parsed.duration);
-            setTimeLeft(remaining);
-            setRunning(true);
+            return;
         }
-        catch {}
+
+        const elapsed = Date.now() - parsed.start;
+        const remaining = parsed.duration - elapsed;
+
+        if (remaining <= 0)
+        {
+            complete(parsed.duration);
+            return;
+        }
+
+        startTimestampRef.current = parsed.start;
+        setDuration(parsed.duration);
+        setTimeLeft(remaining);
+        setRunning(true);
     }, []);
 
-    const complete = useCallback((completedDuration = duration) => {
+    const complete = useCallback((completedDuration = duration) =>
+    {
         if (completedRef.current)
         {
             return; //Prevents double-completion.
         }
 
         completedRef.current = true;
-        cancelRAF(rafRef.current)
-        rafRef.current = null;
+
+        if (rafRef.current != null)
+        {
+            cancelRAF(rafRef.current)
+            rafRef.current = null;
+        }
+
         setRunning(false);
         localStorage.removeItem(RUNNING_TIMER_KEY);
 
@@ -101,8 +110,10 @@ export function useTimer()
             completedAt: Date.now(),
         };
 
-        setPastTimers((prev) => {
+        setPastTimers((prev) =>
+        {
             const updated = [completedTimer, ...prev].slice(0, MAX_HISTORY);
+
             try
             {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
@@ -113,7 +124,8 @@ export function useTimer()
     }, [duration]);
 
     //Animation Frame Loop.
-    const tick = useCallback(() => {
+    const tick = useCallback(() =>
+    {
         if (!startTimestampRef.current)
         {
             return;
@@ -137,10 +149,12 @@ export function useTimer()
             setTimeLeft(remaining);
         }
 
-        rafRef.current = requestRAF(() => tick());
+        rafRef.current = requestRAF(tick);
     }, [duration, complete]);
 
-    useEffect(() => {
+    //Run loop control.
+    useEffect(() =>
+    {
         if (!running)
         {
             return;
@@ -148,15 +162,19 @@ export function useTimer()
 
         rafRef.current = requestRAF(tick);
 
-        return () => {
+        return () =>
+        {
             if (rafRef.current != null)
             {
                 cancelRAF(rafRef.current);
+                rafRef.current = null;
             }
         };
     }, [running, tick]);
 
-    const start = useCallback(() => {
+    //Actions.
+    const start = useCallback(() =>
+    {
         completedRef.current = false; //Reset for a new run.
         const startTime = Date.now() - (duration - timeLeft);
         startTimestampRef.current = startTime;
@@ -171,39 +189,41 @@ export function useTimer()
         setRunning(true);
     }, [duration, timeLeft]);
 
-    const pause = useCallback(() => {
+    const pause = useCallback(() =>
+    {
         setRunning(false);
-        cancelAnimationFrame(rafRef.current);
 
-        try
+        if (rafRef.current != null)
         {
-            localStorage.removeItem(RUNNING_TIMER_KEY);
+            cancelRAF(rafRef.current);
+            rafRef.current = null;
         }
-        catch {}
+
+        localStorage.removeItem(RUNNING_TIMER_KEY);
 
         startTimestampRef.current = Date.now() - (duration - timeLeft);
     }, [duration, timeLeft]);
 
-    const reset = useCallback(() => {
-        cancelAnimationFrame(rafRef.current);
+    const reset = useCallback(() =>
+    {
+        if (rafRef.current != null)
+        {
+            cancelRAF(rafRef.current);
+            rafRef.current = null;
+        }
+
         completedRef.current = false;
         startTimestampRef.current = null;
+
         setRunning(false);
         setTimeLeft(duration);
-
-        try
-        {
-            localStorage.removeItem(RUNNING_TIMER_KEY);
-        }
-        catch {}
+        localStorage.removeItem(RUNNING_TIMER_KEY);
     }, [duration]);
 
-    const clearPastTimers = useCallback(() => {
+    const clearPastTimers = useCallback(() =>
+    {
         setPastTimers([]);
-        try
-        {
-            localStorage.removeItem(STORAGE_KEY);
-        } catch { /* Silent. */ }
+        localStorage.removeItem(STORAGE_KEY);
     }, []);
 
     return {

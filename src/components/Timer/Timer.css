@@ -12,7 +12,7 @@
   flex-direction: column;
   align-items: center;
 
-  gap: clamp(2.6rem, 6vh, 4.5rem);
+  gap: clamp(2.25rem, 5vh, 4rem);
   text-align: center;
 }
 
@@ -23,6 +23,7 @@
 {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 /* ====================================
@@ -30,38 +31,48 @@
 ======================================= */
 .timer-heading
 {
-  font-size: 0.72rem;
+  margin: 0;
+
+  font-size: 0.68rem;
   font-weight: 600;
-  letter-spacing: 0.26em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 
   color: var(--accent-muted);
-  opacity: 0.7;
+  opacity: 0.68;
   user-select: none;
 }
 
 /* ====================================
-   TIMER CORE CARD STYLES.
+   TIMER CORE PANEL STYLES.
 ======================================= */
 .timer-core
 {
-  width: 100%;
-  max-width: 560px;
+  width: min(100%, 35rem);
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  gap: clamp(1.8rem, 4vh, 2.6rem);
-  padding: clamp(2.2rem, 4vh, 3rem);
+  gap: clamp(1.8rem, 4vh, 2.75rem);
+  padding: clamp(2rem, 4vw, 3rem);
 
-  border-radius: calc(var(--radius) + 6px);
-  background: linear-gradient(180deg, var(--surface-secondary), var(--surface));
+  border-radius: calc(var(--radius) + 10px);
   border: 1px solid var(--border-subtle);
+
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--surface-secondary) 88%, transparent),
+    color-mix(in srgb, var(--surface) 96%, transparent)
+  );
   box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 
   transition: transform var(--duration-standard) var(--ease-standard),
-              box-shadow var(--duration-standard) var(--ease-standard);
+              box-shadow var(--duration-standard) var(--ease-standard),
+              border-color var(--duration-fast) var(--ease-standard),
+              background var(--duration-standard) var(--ease-standard);
 }
 
 /* ====================================
@@ -71,49 +82,55 @@
 {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 .timer-history-button
 {
   appearance: none;
+  min-height: 2.5rem;
+  padding: 0.55rem 1rem;
+
   border: 1px solid var(--border-subtle);
-  background: transparent;
-
-  padding: 0.55rem 1.1rem;
   border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--surface-subtle) 70%, transparent);
 
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+  line-height: 1;
 
   color: var(--accent-muted);
   cursor: pointer;
+  user-select: none;
 
   transition: background var(--duration-fast) var(--ease-standard),
               border-color var(--duration-fast) var(--ease-standard),
-              transform var(--duration-fast) var(--ease-standard);
+              color var(--duration-fast) var(--ease-standard),
+              transform var(--duration-fast) var(--ease-standard),
+              box-shadow var(--duration-fast) var(--ease-standard);
 }
+.timer-history-button:focus-visible { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
 
 /* ====================================
-   TIMER HISTORY WRAPPER STYLES.
+   TIMER HISTORY PANEL STYLES.
 ======================================= */
 .timer-history
 {
-  width: 100%;
-  max-width: 540px;
+  width: min(100%, 33.75rem);
 
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
 
-  animation: timer-history-reveal 260ms var(--ease-standard);
+  animation: timer-history-reveal 220ms var(--ease-standard);
 }
 
 /* Timer Desktop Hover Lift Styles. */
 @media (hover: hover)
 {
-  .timer-core:hover { transform: translateY(-3px); box-shadow: 0 20px 48px -20px rgba(0, 0, 0, 0.55); }
-  .timer-history-button:hover { background: var(--surface-subtle); transform: translateY(-1px); }
+  .timer-core:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 18%, var(--border-subtle)); box-shadow: 0 24px 56px -24px rgba(0, 0, 0, 0.55); }
+  .timer-history-button:hover { background: var(--surface); border-color: color-mix(in srgb, var(--accent) 28%, transparent); color: var(--accent); transform: translateY(-1px); }
 }
 
 @keyframes timer-history-reveal
@@ -127,6 +144,16 @@
 ======================================= */
 @media (max-width: 480px)
 {
-  .timer { gap: 2.4rem; }
-  .timer-core { padding: 2rem; gap: 1.6rem; }
+  .timer { gap: 2rem; }
+  .timer-core { width: 100%; gap: 1.5rem; padding: 1.5rem 1.1rem; border-radius: calc(var(--radius) + 6px); }
+  .timer-history { width: 100%; }
+  .timer-history-button { min-height: 2.35rem; padding-inline: 0.9rem; letter-spacing: 0.14em; }
+}
+
+/* ====================================
+   TIMER REDUCED MOTION STYLES.
+======================================= */
+@media (prefers-reduced-motion: reduce)
+{
+  .timer-core, .timer-history-button, .timer-history { transition: none; animation: none; }
 }
