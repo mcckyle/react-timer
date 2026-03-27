@@ -7,7 +7,7 @@
 {
     display: inline-flex;
     align-items: baseline;
-    gap: 0.32rem;
+    gap: 0.28rem;
 
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
@@ -18,8 +18,8 @@
 ======================================= */
 .time-field input
 {
-    width: 3ch;
-    min-width: 3ch;
+    width: 2.8ch;
+    min-width: 2.8ch;
     padding: 0;
 
     border: none;
@@ -27,7 +27,7 @@
     outline: none;
 
     font-family: inherit;
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 600;
     line-height: 1;
     text-align: center;
@@ -55,15 +55,13 @@
 ======================================= */
 .time-unit
 {
-    font-size: 0.62rem;
+    font-size: 0.58rem;
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    line-height: 1;
 
     color: var(--text-muted);
-    user-select: none;
-    pointer-events: none;
+    opacity: 0.7;
 }
 
 /* ====================================
@@ -87,6 +85,5 @@
 ======================================= */
 @media (max-width: 480px)
 {
-    .time-field { gap: 0.28rem; }
-    .time-field input { font-size: 1.2rem; }
+    .time-field input { font-size: 1.15rem; }
 }

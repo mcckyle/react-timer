@@ -1,0 +1,128 @@
+/* Filename: src/components/VisualTimer/VisualTimer.css */
+
+/* ====================================
+   VISUALTIMER ROOT STYLES.
+======================================= */
+.visual-timer
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    padding-block: clamp(1.8rem, 5vh, 3.5rem);
+}
+
+/* ====================================
+   VISUALTIMER HOURGLASS CONTAINER STYLES.
+======================================= */
+.hourglass
+{
+    position: relative;
+    width: clamp(110px, 16vw, 200px);
+    height: clamp(150px, 24vw, 280px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hourglass::before
+{
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    border-radius: 50% / 36%;
+    border: 1px solid var(--border-subtle);
+
+    opacity: 0.28;
+    pointer-events: none;
+}
+
+/* ====================================
+   VISUALTIMER SAND BASE STYLES.
+======================================= */
+.sand
+{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 68%;
+
+    background: linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--accent) 70%, white),
+        var(--accent)
+    );
+    opacity: 0.85;
+}
+
+/* ====================================
+   VISUALTIMER TOP SAND (DEPLETING) STYLES.
+======================================= */
+.sand.top
+{
+    top: 0;
+    height: calc(50% * var(--progress-eased));
+
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
+    opacity: calc(0.2 + var(--progress) * 0.6);
+}
+
+/* ====================================
+   VISUALTIMER BOTTOM SAND (FILLING) STYLES.
+======================================= */
+.sand.bottom
+{
+    bottom: 0;
+    height: calc(50% * var(--progress-inverse));
+
+    clip-path: polygon(0 100%, 100% 100%, 50% 0);
+    opacity: calc(0.25 + var(--progress-inverse) * 0.7);
+}
+
+/* ====================================
+   VISUALTIMER FLOW STREAM STYLES.
+======================================= */
+.sand.flow
+{
+    top: 50%;
+    width: 3.5%;
+    height: calc(40% * var(--progress-inverse));
+
+    border-radius: 999px;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        color-mix(in srgb, var(--accent) 80%, white),
+        transparent
+    );
+
+    transform: translate(-50%, -50%);
+    opacity: calc(0.1 + var(--progress-inverse) * 0.6);
+
+    animation: sand-flow 1.6s ease-in-out infinite;
+}
+
+/* ====================================
+   VISUALTIMER FLOW ANIMATION STYLES.
+======================================= */
+@keyframes sand-flow
+{
+    0% { transform: translate(-50%, -51%); }
+    50% { transform: translate(-50%, -49%); }
+    100% { transform: translate(-50%, -51%); }
+}
+
+/* ====================================
+   VISUALTIMER MEDIA QUERY STYLES.
+======================================= */
+@media (max-width: 480px)
+{
+    .visual-timer { padding-block: 1.6rem; }
+}
+
+@media (prefers-reduced-motion: reduce)
+{
+    .sand.flow { animation: none; }
+}

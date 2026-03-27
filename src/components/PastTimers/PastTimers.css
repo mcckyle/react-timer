@@ -5,17 +5,16 @@
 ======================================= */
 .past-timers
 {
-    width: 100%;
-    max-width: 420px;
+    width: min(100%, 26rem);
 
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
+    gap: 0.75rem;
 
-    padding: 1.2rem 1.2rem;
-    border-radius: calc(var(--radius) - 2px);
+    padding: 0.9rem 0.9rem;
+    border-radius: var(--radius);
 
-    background: linear-gradient(to bottom,var(--surface-subtle), var(--surface));
+    background: color-mix(in srgb, var(--surface) 85%, transparent);
     border: 1px solid var(--border-subtle);
 }
 
@@ -31,34 +30,34 @@
 
 .past-timers-title
 {
-    margin: 0;
-
-    font-size: 0.68rem;
+    font-size: 0.64rem;
     font-weight: 600;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--text-muted);
-    opacity: 0.7;
+    opacity: 0.55;
 }
 
 .past-timers-clear
 {
     appearance: none;
-    background: none;
+    background: transparent;
     border: none;
     padding: 0;
 
-    font-size: 0.68rem;
+    font-size: 0.64rem;
     font-weight: 500;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
 
-    color: var(--accent-muted);
+    color: var(--text-muted);
+    opacity: 0.55;
     cursor: pointer;
 
     transition: color var(--duration-fast) var(--ease-standard),
                 opacity var(--duration-fast) var(--ease-standard);
 }
+.past-timers-clear:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);}
 
 /* ====================================
    PASTTIMERS LIST STYLES.
@@ -71,7 +70,6 @@
 
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
 }
 
 /* ====================================
@@ -83,11 +81,11 @@
     align-items: center;
     justify-content: space-between;
 
-    padding: 0.55rem 0.75rem;
+    padding: 0.55rem 0.6rem;
     border-radius: var(--radius-pill);
 
     transition: background var(--duration-fast) var(--ease-standard),
-                transform var(--duration-fast) var(--ease-standard);
+                transform 120ms var(--ease-standard);
 }
 
 .past-timer-duration
@@ -95,12 +93,12 @@
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
 
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     font-weight: 600;
 
     color: var(--accent);
 }
-.past-timer-time { font-size: 0.68rem; font-weight: 500; color: var(--accent-muted); opacity: 0.6; }
+.past-timer-time { font-size: 0.64rem; font-weight: 500; color: var(--text-muted); opacity: 0.5; }
 
 /* ====================================
    PASTTIMERS EMPTY STATE STYLES.
@@ -108,18 +106,18 @@
 .past-timer-empty
 {
     text-align: center;
-    padding: 1.1rem 0;
+    padding: 0.9rem 0;
 
-    font-size: 0.82rem;
-    color: var(--accent-muted);
-    opacity: 0.6;
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    opacity: 0.5;
 }
 
 /* PastTimers Hover Lift For Desktop Styles. */
 @media (hover: hover)
 {
-    .past-timers-clear:hover { color: var(--accent); opacity: 1; }
-    .past-timer-item:hover { background: var(--surface-secondary); transform: translateY(-1px); }
+    .past-timers-clear:hover { color: var(--accent); opacity: 0.9; }
+    .past-timer-item:hover { background: color-mix(in srgb, var(--accent) 6%, transparent); transform: translateY(-1px); }
 }
 
 /* ====================================

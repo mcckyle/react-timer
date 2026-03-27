@@ -21,32 +21,30 @@
   background: var(--bg);
   color: var(--text);
 
-  transition: background var(--duration-standard) var(--ease-standard),
-              color var(--duration-standard) var(--ease-standard);
+  transition: var(--transition-standard);
 }
 
 /* ====================================
    APP ATMOSPEHRIC BACKGROUND GLOW STYLES.
 ======================================= */
-.app::before, .app::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: -1; }
 .app::before
 {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
   background: radial-gradient(
-    72rem circle at 50% -12%,
+    70rem circle at 50% -10%,
     var(--accent-soft),
-    transparent 62%
-  );
-  opacity: 0.34;
-}
-/* App Depth Layer Styles. */
-.app::after
-{
-  background: radial-gradient(
-    42rem circle at 50% 112%,
+    transparent 60%
+  ),
+  radial-gradient(
+    50rem circle at 50% 110%,
     var(--surface-secondary),
-    transparent 68%
+    transparent 70%
   );
-  opacity: 0.42;
+  opacity: 0.32;
 }
 
 /* ====================================
@@ -65,10 +63,11 @@
 
   color: var(--text);
 
-  background: linear-gradient(180deg, var(--surface-secondary), var(--surface));
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
   box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(10px);
 }
 
 /* ====================================
@@ -77,6 +76,6 @@
 @media (max-width: 480px)
 {
   .app { padding: max(1.25rem, env(safe-area-inset-top)) 1rem max(1.25rem, env(safe-area-inset-bottom)); }
-  .app::before { opacity: 0.28; }
-  .app::after { opacity: 0.34; }
+  .app::before { opacity: 0.24; }
+  .app::after { opacity: 0.3; }
 }

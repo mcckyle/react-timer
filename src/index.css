@@ -5,21 +5,27 @@
 ======================================= */
 :root
 {
-  /* Accent System. */
-  --accent: #d4af37;
-  --accent-soft: color-mix(in srgb, var(--accent) 10%, transparent);
-  --accent-muted: color-mix(in srgb, var(--accent) 34%, transparent);
+  /* Dynamic Accent System. */
+  --accent-hue: 220; /* Base hue (fallback when the timer is not active). */
+  --ambient-hue: var(--accent-hue); /* Live hue (Timer can override this). */
+
+  /* Core color. */
+  --accent: hsl(var(--ambient-hue) 85% 60%);
+
+  /* Derived tones. */
+  --accent-soft: hsl(var(--ambient-hue) 85% 60% / 0.10);
+  --accent-muted: hsl(var(--ambient-hue) 85% 60% / 0.55);
 
   /* Base Colors. */
   --bg: #0b0c11;
   --text: #f4f5f7;
-  --text-muted: color-mix(in srgb, var(--text) 58%, transparent);
+  --text-muted: color-mix(in srgb, var(--text) 56%, transparent);
 
   /* Surface Colors. */
-  --surface: color-mix(in srgb, var(--text) 4%, var(--bg));
-  --surface-secondary: color-mix(in srgb, var(--text) 6%, var(--bg));
-  --surface-subtle: color-mix(in srgb, var(--text) 2%, var(--bg));
-  --border-subtle: color-mix(in srgb, var(--text) 12%, transparent);
+  --surface: color-mix(in srgb, var(--bg) 94%, var(--accent) 6%);
+  --surface-secondary: color-mix(in srgb, var(--bg) 92%, var(--accent) 8%);
+  --surface-subtle: color-mix(in srgb, var(--bg) 96%, var(--accent) 4%);
+  --border-subtle: color-mix(in srgb, var(--text) 10%, var(--accent) 6%);
 
   /* Fonts. */
   --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -37,6 +43,9 @@
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
   --duration-fast: 140ms;
   --duration-standard: 240ms;
+  --transition-standard: background var(--duration-standard) var(--ease-standard),             color var(--duration-standard) var(--ease-standard),
+                         border-color var(--duration-standard) var(--ease-standard),
+                         box-shadow var(--duration-standard) var(--ease-standard);
 }
 
 /* ====================================
@@ -44,13 +53,15 @@
 ======================================= */
 *, *::before, *::after { box-sizing: border-box; }
 html, body, #root { height: 100%; margin: 0; }
-html { background: var(--bg); color-scheme: dark light; scroll-behavior: smooth; }
+html { background: var(--bg); color-scheme: dark light; scroll-behavior: smooth; height: 100%; overflow-x: hidden; }
 body
 {
   min-width: 320px;
+  min-height: 100dvh;
   font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.6;
+  letter-spacing: -0.01em;
 
   font-variant-numeric: tabular-nums;
   text-rendering: optimizeLegibility;
@@ -63,7 +74,7 @@ body
 button, input, textarea, select { font: inherit; }
 img, picture, svg, canvas { display: block; max-width: 100%; }
 h1, h2, h3, h4, p { margin: 0; }
-h1, h2, h3, h4 { font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; }
+h1, h2, h3, h4 { font-weight: 500; line-height: 1.15; letter-spacing: -0.025em; }
 ::selection { background: var(--accent-soft); }
 :focus-visible { outline: none; }
 
@@ -76,7 +87,7 @@ h1, h2, h3, h4 { font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; }
   {
     --bg: #f7f7f5;
     --text: #111217;
-    --text-muted: color-mix(in srgb, var(--text) 52%, transparent);
+    --text-muted: color-mix(in srgb, var(--text) 50%, transparent);
 
     --surface: color-mix(in srgb, var(--text) 4%, var(--bg));
     --surface-secondary: color-mix(in srgb, var(--text) 6%, var(--bg));

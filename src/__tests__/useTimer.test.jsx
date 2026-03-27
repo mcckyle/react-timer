@@ -99,7 +99,7 @@ describe("useTimer hook", () => {
         expect(result.current.running).toBe(false);
     });
 
-    //Test #5
+//     //Test #5
 //     test("5. counts down over time", async () => {
 //         const { result } = renderHook(() => useTimer());
 //
@@ -111,8 +111,8 @@ describe("useTimer hook", () => {
 //
 //         expect(result.current.timeLeft).toBeLessThan(DEFAULT_DURATION);
 //     });
-
-    //Test #6
+//
+//     //Test #6
 //     test("6. stops at zero", async () => {
 //         const { result } = renderHook(() => useTimer());
 //         act(() => result.current.start());
@@ -122,8 +122,8 @@ describe("useTimer hook", () => {
 //         expect(result.current.timeLeft).toBe(0);
 //         expect(result.current.running).toBe(false);
 //     });
-
-    //Test #7
+//
+//     //Test #7
 //     test("7. adds completed timer to pastTimers", async () => {
 //         const { result } = renderHook(() => useTimer());
 //
@@ -135,8 +135,8 @@ describe("useTimer hook", () => {
 //
 //         expect(result.current.pastTimers[0].duration).toBe(DEFAULT_DURATION);
 //     });
-
-    //Test #8
+//
+//     //Test #8
 //     test("8. writes completed timer to localStorage", async () => {
 //         const spy = jest.spyOn(Storage.prototype, "setItem");
 //         const { result } = renderHook(() => useTimer());

@@ -9,20 +9,15 @@
    align-items: baseline;
    justify-content: center;
 
-   font-family: inherit;
-   font-variant-numeric: inherit;
-   font-size: 1.3rem;
+   font-size: 1.25rem;
    font-weight: 600;
    line-height: 1;
 
    color: var(--accent-muted);
-   opacity: 0.4;
+   opacity: 0.35;
 
    user-select: none;
    pointer-events: none;
-
-   transition: color var(--duration-fast) var(--ease-standard),
-               opacity var(--duration-fast) var(--ease-standard);
 }
 
 /* ====================================
@@ -30,7 +25,7 @@
 ======================================= */
 @media (max-width: 480px)
 {
-   .time-separator { font-size: 1.2rem; }
+   .time-separator { font-size: 1.15rem; }
 }
 
 /* ====================================

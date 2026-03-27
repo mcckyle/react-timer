@@ -15,18 +15,17 @@
     font-variant-numeric: tabular-nums;
     font-weight: 600;
 
-    font-size: clamp(6rem, 20vw, 30rem);
-    line-height: 0.88;
-    letter-spacing: -0.05em;
+    font-size: clamp(5rem, 17vw, 26rem);
+    line-height: 0.9;
+    letter-spacing: -0.045em;
     text-align: center;
     white-space: nowrap;
 
-    color: var(--accent);
-    padding-block: clamp(1.2rem, 4vh, 2.8rem);
-
+    color: color-mix(in srgb, var(--accent) 88%, white);
+    padding-block: clamp(0.9rem, 3vh, 2rem);
     user-select: none;
-    text-rendering: optimizeLegibility;
 }
+.timer.is-complete .timer-display { animation: timer-complete-settle 320ms var(--ease-standard); }
 
 /* ====================================
    TIMERDISPLAY DIGIT WRAPPER STYLES.
@@ -44,7 +43,7 @@
     height: 1em;
     overflow: hidden; /* hides exiting digits. */
 }
-.timer-digit { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; will-change: transform, opacity; }
+.timer-digit { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
 
 /* ====================================
    TIMERDISPLAY SEPARATOR STYLES.
@@ -54,16 +53,25 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    flex: 0 0 auto;
 
     margin-inline: 0.045em;
 
-    color: var(--accent-muted);
+    color: var(--text-muted);
     opacity: 0.5;
-    transform: translateY(-0.03em);
+    transform: translateY(-0.015em);
 
     user-select: none;
     pointer-events: none;
+}
+
+/* ====================================
+   TIMERDISPLAY ANIMATIONS STYLES.
+======================================= */
+@keyframes timer-complete-settle
+{
+    0% { transform: scale(1); }
+    35% { transform: scale(1.025); }
+    100% { transform: scale(1); }
 }
 
 /* ====================================
@@ -71,8 +79,8 @@
 ======================================= */
 @media (max-width: 480px)
 {
-    .timer-display { letter-spacing: -0.045em; padding-block: 1rem; }
-    .timer-separator { margin-inline: 0.04em; }
+    .timer-display { font-size: clamp(4.2rem, 16vw, 18rem); letter-spacing: -0.04em; padding-block: 0.8rem; }
+    .timer-separator { margin-inline: 0.035em; }
 }
 
 /* ====================================
@@ -84,8 +92,7 @@
     {
         opacity: 1 !important;
         transform: none !important;
-        transition: none !important;
-        will-change: auto;
+        filter: none !important;
     }
     .timer-separator { transform: none; }
 }

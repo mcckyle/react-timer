@@ -1,6 +1,6 @@
 //File name: useTimer.js
 //Author: Kyle McColgan
-//Date: 20 March 2026
+//Date: 27 March 2026
 //Description: This file contains the custom timekeeping hook for the timer React project.
 
 import { useEffect, useState, useRef, useCallback } from "react";
@@ -40,16 +40,9 @@ export function useTimer()
     const [pastTimers, setPastTimers] = useState([]);
 
     const rafRef = useRef(null);
-    const startTimestampRef = useRef(null);
+    const startRef = useRef(null);
     const completedRef = useRef(false);
     const lastSecondRef = useRef(null);
-    const timeLeftRef = useRef(timeLeft);
-
-    //Keep ref in sync.
-    useEffect(() =>
-    {
-        timeLeftRef.current = timeLeft;
-    }, [timeLeft]);
 
     //Hydrate past timers once...
     useEffect(() =>
@@ -81,7 +74,7 @@ export function useTimer()
             return;
         }
 
-        startTimestampRef.current = parsed.start;
+        startRef.current = parsed.start;
         setDuration(parsed.duration);
         setTimeLeft(remaining);
         setRunning(true);
@@ -96,42 +89,42 @@ export function useTimer()
 
         completedRef.current = true;
 
-        if (rafRef.current != null)
+        if (rafRef.current)
         {
-            cancelRAF(rafRef.current)
+            cancelRAF(rafRef.current);
             rafRef.current = null;
         }
 
         setRunning(false);
         localStorage.removeItem(RUNNING_TIMER_KEY);
 
-        const completedTimer = {
+        const entry = {
             duration: completedDuration,
             completedAt: Date.now(),
         };
 
         setPastTimers((prev) =>
         {
-            const updated = [completedTimer, ...prev].slice(0, MAX_HISTORY);
+            const next = [entry, ...prev].slice(0, MAX_HISTORY);
 
             try
             {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
             } catch { /* silent storage failure. */ }
 
-            return updated;
+            return next;
         });
     }, [duration]);
 
     //Animation Frame Loop.
     const tick = useCallback(() =>
     {
-        if (!startTimestampRef.current)
+        if (!startRef.current)
         {
             return;
         }
 
-        const elapsed = Date.now() - startTimestampRef.current;
+        const elapsed = Date.now() - startRef.current;
         const remaining = duration - elapsed;
 
         if (remaining <= 0)
@@ -141,11 +134,12 @@ export function useTimer()
             return;
         }
 
-        const currentSecond = Math.ceil(remaining / 1000);
+        const second = Math.ceil(remaining / 1000);
 
-        if ( (lastSecondRef.current !== currentSecond) || (timeLeftRef.current === duration) )
+        //Always update on first frame OR when second changes.
+        if ( (lastSecondRef.current !== second) || (lastSecondRef.current !== second))
         {
-            lastSecondRef.current = currentSecond;
+            lastSecondRef.current = second;
             setTimeLeft(remaining);
         }
 
@@ -164,11 +158,11 @@ export function useTimer()
 
         return () =>
         {
-            if (rafRef.current != null)
+            if (rafRef.current)
             {
                 cancelRAF(rafRef.current);
-                rafRef.current = null;
             }
+            rafRef.current = null;
         };
     }, [running, tick]);
 
@@ -177,8 +171,8 @@ export function useTimer()
     {
         completedRef.current = false; //Reset for a new run.
         const startTime = Date.now() - (duration - timeLeft);
-        startTimestampRef.current = startTime;
-        lastSecondRef.current = Math.ceil(timeLeft / 1000);
+        startRef.current = startTime;
+        lastSecondRef.current = null; //Force first frame update.
 
         try
         {
@@ -193,27 +187,30 @@ export function useTimer()
     {
         setRunning(false);
 
-        if (rafRef.current != null)
+        if (rafRef.current)
         {
             cancelRAF(rafRef.current);
-            rafRef.current = null;
         }
+
+        rafRef.current = null;
 
         localStorage.removeItem(RUNNING_TIMER_KEY);
 
-        startTimestampRef.current = Date.now() - (duration - timeLeft);
+        //Preserve position.
+        startRef.current = Date.now() - (duration - timeLeft);
     }, [duration, timeLeft]);
 
     const reset = useCallback(() =>
     {
-        if (rafRef.current != null)
+        if (rafRef.current)
         {
             cancelRAF(rafRef.current);
-            rafRef.current = null;
         }
 
+        rafRef.current = null;
         completedRef.current = false;
-        startTimestampRef.current = null;
+        startRef.current = null;
+        lastSecondRef.current = null;
 
         setRunning(false);
         setTimeLeft(duration);

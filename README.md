@@ -41,6 +41,7 @@ npm run build
 
 - [React](https://reactjs.org/)
 - [Vite](https://vitejs.dev/)
+- [Motion](https://motion.dev/)
 
 ---
 
@@ -59,6 +60,10 @@ react-timer/
 │   │   ├── TimerDisplay/
 │   │   │   ├── TimerDisplay.jsx
 │   │   │   └── TimerDisplay.css
+│   │   │
+│   │   ├── VisualTimer/
+│   │   │   ├── VisualTimer.jsx
+│   │   │   └── VisualTimer.css
 │   │   │
 │   │   ├── TimeField/
 │   │   │   ├── TimeField.jsx
@@ -89,7 +94,9 @@ react-timer/
 │   │   └── useTimer.test.jsx
 │   │
 │   ├── hooks/            # Custom React hooks.
-│   │   └── useTimer.js
+│   │   ├── useTimer.js
+│   │   ├── useKeyboardShortcuts.js
+│   │   └── useCompletionSound.js
 │   │
 │   ├── App.jsx           # Main React application component.
 │   ├── main.jsx          # React DOM entry point.
@@ -130,5 +137,11 @@ This project was made possible thanks to the open-source community and the follo
 
 - [React](https://react.dev) - A modern library designed specifically for building fast, interactive UIs.
 - [Vite](https://vitejs.dev/) - Next-generation frontend tooling with lightning-fast dev server and build optimizations.
+- [Motion](https://motion.dev/) - A production-grade animation library for the web.
+- [FreeSound](https://freesound.org/) - Thanks to user @juskiddink for the bell audio.
+
+bell3.wav by juskiddink -- https://freesound.org/s/59536/ -- License: Attribution 4.0 -- https://creativecommons.org/licenses/by/4.0/
+
+Only changed the filename on download: bell3.wav -> bell.mp3
 
 Special thanks to the broader open-source ecosystem for the tools that empower developers to create and share freely.
