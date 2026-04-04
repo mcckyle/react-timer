@@ -1,6 +1,6 @@
 //File name: useTimer.js
 //Author: Kyle McColgan
-//Date: 27 March 2026
+//Date: 3 April 2026
 //Description: This file contains the custom timekeeping hook for the timer React project.
 
 import { useEffect, useState, useRef, useCallback } from "react";
@@ -60,7 +60,7 @@ export function useTimer()
     {
         const parsed = safeParse(localStorage.getItem(RUNNING_TIMER_KEY));
 
-        if ((!parsed?.start) || (!parsed?.duration))
+        if ((!parsed) || (typeof parsed.start !== "number") || (typeof parsed.duration !== "number"))
         {
             return;
         }
@@ -82,6 +82,8 @@ export function useTimer()
 
     const complete = useCallback((completedDuration = duration) =>
     {
+        const finalDuration = completedDuration ?? duration;
+
         if (completedRef.current)
         {
             return; //Prevents double-completion.
@@ -99,7 +101,7 @@ export function useTimer()
         localStorage.removeItem(RUNNING_TIMER_KEY);
 
         const entry = {
-            duration: completedDuration,
+            duration: finalDuration,
             completedAt: Date.now(),
         };
 
@@ -107,10 +109,13 @@ export function useTimer()
         {
             const next = [entry, ...prev].slice(0, MAX_HISTORY);
 
-            try
+            if (JSON.stringify(prev) !== JSON.stringify(next))
             {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-            } catch { /* silent storage failure. */ }
+                try
+                {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+                } catch { /* silent storage failure. */ }
+            }
 
             return next;
         });
@@ -119,32 +124,32 @@ export function useTimer()
     //Animation Frame Loop.
     const tick = useCallback(() =>
     {
-        if (!startRef.current)
+        if ( (!startRef.current) || (!running) )
         {
             return;
         }
 
         const elapsed = Date.now() - startRef.current;
-        const remaining = duration - elapsed;
+        const remaining = Math.max(0, duration - elapsed);
 
-        if (remaining <= 0)
+        if ( (remaining <= 0) && (!completedRef.current) )
         {
             setTimeLeft(0);
             complete();
             return;
         }
 
-        const second = Math.ceil(remaining / 1000);
+        const nextSecond = Math.ceil(remaining / 1000);
 
         //Always update on first frame OR when second changes.
-        if ( (lastSecondRef.current !== second) || (lastSecondRef.current !== second))
+        if (lastSecondRef.current !== nextSecond)
         {
-            lastSecondRef.current = second;
+            lastSecondRef.current = nextSecond;
             setTimeLeft(remaining);
         }
 
         rafRef.current = requestRAF(tick);
-    }, [duration, complete]);
+    }, [duration, running, complete]);
 
     //Run loop control.
     useEffect(() =>
@@ -166,10 +171,19 @@ export function useTimer()
         };
     }, [running, tick]);
 
-    //Actions.
+    //Handle start timer button click.
     const start = useCallback(() =>
     {
-        completedRef.current = false; //Reset for a new run.
+        //Only reset if we are starting a brand-new timer.
+        if (timeLeft <= 0)
+        {
+            //Do noit reset completedRef yet, require explicit reset.
+            setTimeLeft(duration);
+            return; //Exit early to force the user to reset first.
+            //completedRef.current = false;
+        }
+
+        completedRef.current = false; //Reset for a fresh run.
         const startTime = Date.now() - (duration - timeLeft);
         startRef.current = startTime;
         lastSecondRef.current = null; //Force first frame update.
@@ -213,7 +227,7 @@ export function useTimer()
         lastSecondRef.current = null;
 
         setRunning(false);
-        setTimeLeft(duration);
+        setTimeLeft((prev) => (prev !== duration ? duration : prev));
         localStorage.removeItem(RUNNING_TIMER_KEY);
     }, [duration]);
 

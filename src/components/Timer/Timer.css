@@ -6,270 +6,122 @@
 .timer
 {
   width: 100%;
-  max-width: var(--max-width);
-  position: relative;
+  flex: 1;
 
   display: flex;
   flex-direction: column;
-  align-items: center;
+  margin-inline: auto;
+  padding: clamp(1.5rem, 3vh, 2.5rem) 1rem;
+  gap: clamp(1.5rem, 3vh, 2.5rem);
+  position: relative;
+  max-width: none;
 
-  gap: clamp(2rem, 5vh, 3.5rem);
-  text-align: center;
+  transition: --ambient-hue 200ms linear;
 }
 
 /* ====================================
-   TIMER AMBIENT PROGRESS STYLES.
+   TIMER CONTINUOUS AMBIENT PROGRESS STYLES.
 ======================================= */
 .timer::before
 {
   content: "";
   position: absolute;
-  inset: -22%;
+  inset: -20%;
   z-index: -1;
   pointer-events: none;
 
-  /* Motion Anchors. */
-  --x1: 50%;
-  --y1: 40%;
-  --x2: 70%;
-  --y2: 60%;
-
-  /* Derived dynamic color system. */
-  --ambient-strong: hsl(var(--ambient-hue) 85% 60%);
-  --ambient-soft: hsl(var(--ambient-hue) 85% 55% / 0.28);
-  --ambient-faint: hsl(var(--ambient-hue) 85% 50% / 0.14);
+  /* Dynamic color system. */
+  --ambient-soft: hsl(var(--ambient-hue) 85% 55% / 0.22);
+  --ambient-faint: hsl(var(--ambient-hue) 85% 60% / 0.10);
 
   background:
-    radial-gradient(60% 60% at var(--x1) var(--y1), var(--ambient-soft), transparent 72%),
-    radial-gradient(40% 40% at var(--x2) var(--y2), var(--ambient-faint), transparent 76%);
+    radial-gradient(60% 60% at 50% 42%, var(--ambient-soft), transparent 70%),
+    radial-gradient(45% 45% at 65% 60%, var(--ambient-faint), transparent 75%);
 
-  /* Progress-driven presence. */
-  opacity: calc(0.10 + (1 - var(--ambient-progress, 1)) * 0.34);
+  /* True continuous response. */
+  opacity: calc(0.14 + (1 - var(--ambient-progress)) * 0.35);
 
   /* Scale Compression as time runs out. */
-  transform: scale(calc(1.04 + (1 - var(--ambient-progress, 1)) * 0.08));
-  filter: blur(68px);
+  transform: scale(calc(1.01 + (1 - var(--ambient-progress)) * 0.10));
+  filter: blur(64px);
 
-  animation: timer-ambient-flow 32s ease-in-out infinite;
+  animation: ambient-flow 20s ease-in-out infinite;
 }
 
 /* ====================================
-   TIMER COMPLETION MOMENT STYLES.
+   TIMER COMPLETION MOMENT EFFECT STYLES.
 ======================================= */
 .timer.is-complete::after
 {
   content: "";
   position: absolute;
-  inset: -25%;
+  inset: -20%;
   z-index: -1;
-  pointer-events: none;
+
   background: radial-gradient(
-    55% 55% at 50% 40%,
-    hsl(var(--ambient-hue) 85% 60% / 0.45),
-    transparent 72%
+    50% 50% at 50% 45%,
+    hsl(var(--ambient-hue) 85% 60% / 0.30),
+    transparent 70%
   );
 
-  opacity: 0;
-  transform: scale(0.94);
-  filter: blur(44px);
-
-  animation: timer-complete-burst 900ms var(--ease-standard);
+  animation: timer-complete-burst 700ms var(--ease-standard);
 }
 
 /* ====================================
-   TIMER HEADER STYLES.
+   TIMER CONTAINER STYLES.
 ======================================= */
-.timer-header
-{
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
+.timer-container { width: 100%; flex: 1; display: flex; flex-direction: column; justify-content: center; gap: clamp(2rem, 4vh, 3rem); }
+.timer-core { width: 100%; max-width: 720px; margin-inline: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; gap: clamp(1.5rem, 3vh, 2.25rem); }
 .timer-heading
 {
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 
   color: var(--text-muted);
   opacity: 0.7;
-  user-select: none;
-}
-.timer-mode-toggle
-{
-  display: inline-flex;
-  gap: 0.35rem;
-
-  padding: 0.25rem;
-  border-radius: var(--radius-pill);
-  background: color-mix(in srgb, var(--surface-subtle) 70%, transparent);
-}
-.timer-mode-toggle button
-{
-  appearance: none;
-  border: none;
-  background: transparent;
-
-  padding: 0.3rem 0.55rem;
-  border-radius: var(--radius-pill);
-
-  font-size: 0.65rem;
-  color: var(--text-muted);
-  cursor: pointer;
-  opacity: 0.6;
-
-  transition: color var(--duration-fast) var(--ease-standard),
-              background var(--duration-fast) var(--ease-standard);
-}
-.timer-mode-toggle button[aria-pressed="true"]
-{
-   color: var(--accent);
-   opacity: 1;
-   background: color-mix(in srgb, var(--accent) 14%, transparent);
-}
-.timer-duration-slot
-{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-
-  min-height: 6.5rem;
-
-  opacity: 0;
-  transform: translateY(-6px);
-  pointer-events: none;
-
-  transition: opacity 220ms var(--ease-standard), transform 220ms var(--ease-standard);
-}
-.timer-duration-slot.is-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
-
-/* ====================================
-   TIMER CORE (STRUCTURAL ONLY) STYLES.
-======================================= */
-.timer-core
-{
-  width: 100%;
-  max-width: 42rem;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  gap: clamp(1.6rem, 4vh, 2.5rem);
 }
 .timer-shortcuts
 {
   font-size: 0.58rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-
-  color: var(--text-muted);
-  opacity: 0.42;
-  user-select: none;
-}
-
-/* ====================================
-   TIMER HISTORY TOGGLE STYLES.
-======================================= */
-.timer-history-toggle { display: flex; justify-content: center; width: 100%; }
-.timer-history-button
-{
-  appearance: none;
-  min-height: 2.3rem;
-  padding: 0.45rem 0.9rem;
-
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-pill);
-  background: transparent;
-
-  font-size: 0.66rem;
-  font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 
-  color: var(--accent-muted);
-  cursor: pointer;
-
-  transition: color var(--duration-fast) var(--ease-standard),
-              border-color var(--duration-fast) var(--ease-standard),
-              transform var(--duration-fast) var(--ease-standard),
-              background var(--duration-fast) var(--ease-standard);
+  color: var(--text-muted);
+  opacity: 0.45;
 }
-.timer-history-button:focus-visible { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
 
 /* ====================================
-   TIMER HISTORY PANEL STYLES.
+   TIMER ANIMATIONS KEYFRAMES STYLES.
 ======================================= */
-.timer-history
-{
-  width: min(100%, 34rem);
-  min-height: 4rem;
-
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-
-  opacity: 0;
-  transform: translateY(6px) scale(0.995);
-  pointer-events: none;
-}
-.timer-history.is-visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
-
-/* Timer Desktop Hover Lift Styles. */
-@media (hover: hover)
-{
-  .timer-history-button:hover
-  {
-    color: var(--accent);
-    border-color: color-mix(in srgb, var(--accent) 28%, transparent);  transform: translateY(-1px);
-  }
-}
-
 @keyframes timer-complete-burst
 {
-  0% { opacity: 0; transform: scale(0.94); }
-  25% { opacity: 0.85; transform: scale(1.01); }
-  100% { opacity: 0; transform: scale(1.1); }
+  0% { opacity: 0; transform: scale(0.95); }
+  30% { opacity: 0.8; transform: scale(1.02); }
+  100% { opacity: 0; transform: scale(1.08); }
 }
 
-@keyframes timer-ambient-flow
+@keyframes ambient-flow
 {
-  0%
-  {
-    --x1: 48%; --y1: 38%;
-    --x2: 68%; --y2: 58%;
-  }
-  25%
-  {
-    --x1: 52%; --y1: 42%;
-    --x2: 72%; --y2: 62%;
-  }
-  50%
-  {
-    --x1: 55%; --y1: 45%;
-    --x2: 65%; --y2: 55%;
-  }
-  75%
-  {
-    --x1: 50%; --y1: 42%;
-    --x2: 70%; --y2: 60%;
-  }
-  100%
-  {
-    --x1: 48%; --y1: 38%;
-    --x2: 68%; --y2: 58%;
-  }
+  0% { transform: translate3d(-1%, -1%, 0) scale(1); }
+  50% { transform: translate3d(1%, 1%, 0) scale(1.03); }
+  100% { transform: translate3d(-1%, -1%, 0) scale(1); }
 }
+
+/*@keyframes ambient-pulse
+{
+  0%, 100% { filter: blur(70px); }
+  50% { filter: blur(78px); }
+}*/
 
 /* ====================================
    TIMER MEDIA QUERY STYLES.
 ======================================= */
 @media (max-width: 480px)
 {
-  .timer { gap: 1.8rem; }
-  .timer-core { gap: 1.4rem; }
-  .timer-history { width: 100%; }
+  .timer-container { gap: 2rem; }
+  .timer-core { gap: 1rem; }
 }
 
 /* ====================================
@@ -277,5 +129,5 @@
 ======================================= */
 @media (prefers-reduced-motion: reduce)
 {
-  .timer-history, .timer-history-button { transition: none; animation: none; }
+  .timer::before, .timer::after { transition: none; animation: none; }
 }

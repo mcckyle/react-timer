@@ -7,17 +7,13 @@
 {
    display: inline-flex;
    align-items: baseline;
-   justify-content: center;
 
-   font-size: 1.25rem;
+   font-size: 1.15rem;
    font-weight: 600;
-   line-height: 1;
 
-   color: var(--accent-muted);
-   opacity: 0.35;
-
+   color: var(--text-muted);
+   opacity: 0.25;
    user-select: none;
-   pointer-events: none;
 }
 
 /* ====================================
@@ -25,13 +21,15 @@
 ======================================= */
 @media (max-width: 480px)
 {
-   .time-separator { font-size: 1.15rem; }
+   .time-separator { font-size: 1.1rem; }
 }
 
 /* ====================================
    TIMESEPARATOR REDUCED MOTION MEDIA QUERY STYLES.
 ======================================= */
+/*
 @media (prefers-reduced-motion: reduce)
 {
    .time-separator  { transition: none; }
 }
+*/

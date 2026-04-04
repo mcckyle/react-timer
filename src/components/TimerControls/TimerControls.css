@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: center;
 
-    gap: clamp(0.85rem, 2vw, 1.2rem);
+    gap: clamp(0.75rem, 1.6vw, 1rem);
 }
 
 /* ====================================
@@ -18,14 +18,18 @@
 .timer-control
 {
     appearance: none;
-    min-height: 2.6rem;
-    padding: 0.6rem 1.5rem;
+    min-height: 2.5rem;
+    padding: 0.5rem 1.25rem;
 
-    border: none;
+    border: 1px solid transparent;
     border-radius: var(--radius-pill);
 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
     font-family: var(--font-sans);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -33,13 +37,10 @@
     cursor: pointer;
     user-select: none;
 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
     transition: transform var(--duration-fast) var(--ease-standard),
                 background var(--duration-fast) var(--ease-standard),
                 color var(--duration-fast) var(--ease-standard),
+                border-color var(--duration-fast) var(--ease-standard),
                 box-shadow var(--duration-fast) var(--ease-standard);
 }
 
@@ -50,7 +51,7 @@
 {
     background: var(--accent);
     color: var(--bg);
-    box-shadow: 0 10px 30px -18px color-mix(in srgb, var(--accent) 55%, black);
+    box-shadow: 0 6px 18px -10px color-mix(in srgb, var(--accent) 60%, black);
 }
 
 /* ====================================
@@ -58,9 +59,9 @@
 ======================================= */
 .timer-control.is-secondary
 {
-    background: transparent;
+    background: color-mix(in srgb, var(--surface) 75%, transparent);
+    border-color: var(--border-subtle);
     color: var(--text-muted);
-    border: 1px solid var(--border-subtle);
 }
 
 /* ====================================
@@ -68,8 +69,17 @@
 ======================================= */
 .timer-control:active:not(:disabled)
 {
-    transform: translateY(0) scale(0.98);
+    transform: scale(0.96);
     box-shadow: none;
+}
+
+/* ====================================
+   TIMERCONTROLS FOCUS ACCESSIBILITY STYLES.
+======================================= */
+.timer-control:focus-visible
+{
+    outline: none;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
 /* ====================================
@@ -84,20 +94,11 @@
     box-shadow: none;
 }
 
-/* ====================================
-   TIMERCONTROLS FOCUS ACCESSIBILITY STYLES.
-======================================= */
-.timer-control:focus-visible
-{
-    outline: none;
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
-}
-
 /* TimerControls Hover Lift For Desktop Styles. */
 @media (hover: hover)
 {
-    .timer-control.is-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 14px 36px -18px color-mix(in srgb, var(--accent) 65%, black); }
-    .timer-control.is-secondary:hover:not(:disabled) { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 28%, transparent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+    .timer-control.is-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--accent) 65%, black); }
+    .timer-control.is-secondary:hover:not(:disabled) { transform: translateY(-1px); color: var(--accent); border-color: color-mix(in srgb, var(--accent) 26%, transparent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
 }
 
 /* ====================================

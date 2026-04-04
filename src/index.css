@@ -14,18 +14,18 @@
 
   /* Derived tones. */
   --accent-soft: hsl(var(--ambient-hue) 85% 60% / 0.10);
-  --accent-muted: hsl(var(--ambient-hue) 85% 60% / 0.55);
+  --accent-muted: hsl(var(--ambient-hue) 85% 60% / 0.5);
 
   /* Base Colors. */
   --bg: #0b0c11;
   --text: #f4f5f7;
-  --text-muted: color-mix(in srgb, var(--text) 56%, transparent);
+  --text-muted: color-mix(in srgb, var(--text) 60%, transparent);
 
   /* Surface Colors. */
-  --surface: color-mix(in srgb, var(--bg) 94%, var(--accent) 6%);
-  --surface-secondary: color-mix(in srgb, var(--bg) 92%, var(--accent) 8%);
-  --surface-subtle: color-mix(in srgb, var(--bg) 96%, var(--accent) 4%);
-  --border-subtle: color-mix(in srgb, var(--text) 10%, var(--accent) 6%);
+  --surface: color-mix(in srgb, var(--bg) 96%, white 4%);
+  --surface-secondary: color-mix(in srgb, var(--bg) 92%, white 8%);
+  --surface-subtle: color-mix(in srgb, var(--bg) 98%, white 2%);
+  --border-subtle: color-mix(in srgb, var(--text) 12%, transparent);
 
   /* Fonts. */
   --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -37,13 +37,14 @@
   --radius-pill: 9999px;
 
   /* Shadows. */
-  --shadow-soft: 0 20px 50px -20px rgba(0, 0, 0, 0.45);
+  --shadow-soft: 0 24px 60px -24px rgba(0, 0, 0, 0.45);
 
   /* Motion. */
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
   --duration-fast: 140ms;
   --duration-standard: 240ms;
-  --transition-standard: background var(--duration-standard) var(--ease-standard),             color var(--duration-standard) var(--ease-standard),
+  --transition-standard: background var(--duration-standard) var(--ease-standard),
+                         color var(--duration-standard) var(--ease-standard),
                          border-color var(--duration-standard) var(--ease-standard),
                          box-shadow var(--duration-standard) var(--ease-standard);
 }
@@ -61,7 +62,7 @@ body
   font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.6;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.012em;
 
   font-variant-numeric: tabular-nums;
   text-rendering: optimizeLegibility;
@@ -74,7 +75,7 @@ body
 button, input, textarea, select { font: inherit; }
 img, picture, svg, canvas { display: block; max-width: 100%; }
 h1, h2, h3, h4, p { margin: 0; }
-h1, h2, h3, h4 { font-weight: 500; line-height: 1.15; letter-spacing: -0.025em; }
+h1, h2, h3, h4 { font-weight: 500; line-height: 1.1; letter-spacing: -0.03em; }
 ::selection { background: var(--accent-soft); }
 :focus-visible { outline: none; }
 
@@ -87,13 +88,13 @@ h1, h2, h3, h4 { font-weight: 500; line-height: 1.15; letter-spacing: -0.025em; 
   {
     --bg: #f7f7f5;
     --text: #111217;
-    --text-muted: color-mix(in srgb, var(--text) 50%, transparent);
+    --text-muted: color-mix(in srgb, var(--text) 55%, transparent);
 
     --surface: color-mix(in srgb, var(--text) 4%, var(--bg));
-    --surface-secondary: color-mix(in srgb, var(--text) 6%, var(--bg));
+    --surface-secondary: color-mix(in srgb, var(--text) 8%, var(--bg));
     --surface-subtle: color-mix(in srgb, var(--text) 2%, var(--bg));
-    --border-subtle: color-mix(in srgb, var(--text) 12%, transparent);
-    --shadow-soft: 0 18px 48px -20px rgba(0, 0, 0, 0.08);
+    --border-subtle: color-mix(in srgb, var(--text) 14%, transparent);
+    --shadow-soft: 0 20px 50px -22px rgba(0, 0, 0, 0.08);
   }
 }
 

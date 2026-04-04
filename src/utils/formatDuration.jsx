@@ -1,25 +1,27 @@
 //File name: formatDuration.jsx
 //Author: Kyle McColgan
-//Date: 10 March 2026
+//Date: 1 April 2026
 //Description: This file contains a custom time formatting helpers built for the timer React project.
 
 export function formatDuration(ms)
 {
     const totalSeconds = Math.floor(ms / 1000);
-    const h = Math.floor(totalSeconds / 3600);
-    const m = Math.floor((totalSeconds % 3600) / 60);
-    const s = totalSeconds % 60;
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
 
-    if (h > 0)
+    const pad = (n) => String(n).padStart(2, "0");
+
+    if (hours > 0)
     {
-        return `${h}h ${m}m`;
+        return `${hours}:${pad(minutes)}:${pad(seconds)}`;
     }
-    if (m > 0)
+    if (minutes > 0)
     {
-        return `${m}m ${s}s`;
+        return `${minutes}:${pad(seconds)}`;
     }
 
-    return `${s}s`;
+    return `${seconds}`;
 }
 
 export function formatTime(date)

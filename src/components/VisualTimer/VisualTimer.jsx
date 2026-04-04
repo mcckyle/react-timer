@@ -1,6 +1,6 @@
 //File name: VisualTimer.jsx
 //Author: Kyle McColgan
-//Date: 26 March 2026
+//Date: 3 April 2026
 //Description: This file contains the visual timer component for the timer React project.
 
 import "./VisualTimer.css";
@@ -10,7 +10,7 @@ export default function VisualTimer({ progress })
   const clamped = Math.max(0, Math.min(1, progress));
 
   //Smooth easing curve (replaces CSS pow())
-  const eased = Math.pow(clamped, 1.4);
+  const eased = Math.pow(clamped, 1.2);
   const inverse = 1 - eased;
 
   return (

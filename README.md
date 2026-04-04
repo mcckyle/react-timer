@@ -57,6 +57,10 @@ react-timer/
 │   │   │   ├── Timer.jsx
 │   │   │   └── Timer.css
 │   │   │
+│   │   ├── TimerHeader/
+│   │   │   ├── TimerHeader.jsx
+│   │   │   └── TimerHeader.css
+│   │   │
 │   │   ├── TimerDisplay/
 │   │   │   ├── TimerDisplay.jsx
 │   │   │   └── TimerDisplay.css

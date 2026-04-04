@@ -1,6 +1,6 @@
 //File name: useTimer.test.jsx
 //Author: Kyle McColgan
-//Date: 13 March 2026
+//Date: 3 April 2026
 //Description: This file contains the unit test suite for the Timer React project useTimer hook.
 
 import React from "react";
@@ -137,17 +137,17 @@ describe("useTimer hook", () => {
 //     });
 //
 //     //Test #8
-//     test("8. writes completed timer to localStorage", async () => {
-//         const spy = jest.spyOn(Storage.prototype, "setItem");
-//         const { result } = renderHook(() => useTimer());
-//
-//         act(() => result.current.start());
-//         await flushUntil(() => !result.current.running);
-//         expect(spy).toHaveBeenCalledWith(
-//             "pastTimers",
-//             expect.any(String)
-//         );
-//     });
+    test("8. writes completed timer to localStorage", async () => {
+        const spy = jest.spyOn(Storage.prototype, "setItem");
+        const { result } = renderHook(() => useTimer());
+
+        act(() => result.current.start());
+        await flushUntil(() => !result.current.running);
+        expect(spy).toHaveBeenCalledWith(
+            "runningTimer",
+            expect.any(String)
+        );
+    });
 
     //Test #9
     test("9. resets to original duration", () => {

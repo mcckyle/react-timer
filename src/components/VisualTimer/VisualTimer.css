@@ -10,7 +10,7 @@
     justify-content: center;
 
     width: 100%;
-    padding-block: clamp(1.8rem, 5vh, 3.5rem);
+    padding-block: clamp(1.4rem, 4vh, 2.6rem);
 }
 
 /* ====================================
@@ -19,12 +19,13 @@
 .hourglass
 {
     position: relative;
-    width: clamp(110px, 16vw, 200px);
-    height: clamp(150px, 24vw, 280px);
+    width: clamp(100px, 14vw, 180px);
+    height: clamp(140px, 22vw, 240px);
 
     display: flex;
     align-items: center;
     justify-content: center;
+    isolation: isolate;
 }
 .hourglass::before
 {
@@ -32,11 +33,25 @@
     position: absolute;
     inset: 0;
 
-    border-radius: 50% / 36%;
+    border-radius: 50% / 38%;
     border: 1px solid var(--border-subtle);
 
+    opacity: 0.22;
+}
+.hourglass::after
+{
+    content: "";
+    position: absolute;
+    inset: 12% 14%;
+
+    border-radius: 50% / 40%;
+    background: radial-gradient(
+        55% 55% at 50% 42%,
+        color-mix(in srgb, var(--accent) 10%, transparent),
+        transparent 75%
+    );
+
     opacity: 0.28;
-    pointer-events: none;
 }
 
 /* ====================================
@@ -47,12 +62,12 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 68%;
+    width: 66%;
 
     background: linear-gradient(
         to bottom,
         color-mix(in srgb, var(--accent) 70%, white),
-        var(--accent)
+        color-mix(in srgb, var(--accent) 90%, black)
     );
     opacity: 0.85;
 }
@@ -67,6 +82,7 @@
 
     clip-path: polygon(50% 100%, 0 0, 100% 0);
     opacity: calc(0.2 + var(--progress) * 0.6);
+    transform: translateX(-50%) scaleY(calc(0.985 + var(--progress) * 0.03));
 }
 
 /* ====================================
@@ -78,7 +94,8 @@
     height: calc(50% * var(--progress-inverse));
 
     clip-path: polygon(0 100%, 100% 100%, 50% 0);
-    opacity: calc(0.25 + var(--progress-inverse) * 0.7);
+    opacity: calc(0.3 + var(--progress-inverse) * 0.7);
+    transform: translateX(-50%) scaleY(calc(0.97 + var(--progress-inverse) * 0.04));
 }
 
 /* ====================================
@@ -87,7 +104,7 @@
 .sand.flow
 {
     top: 50%;
-    width: 3.5%;
+    width: 2%;
     height: calc(40% * var(--progress-inverse));
 
     border-radius: 999px;
@@ -99,9 +116,9 @@
     );
 
     transform: translate(-50%, -50%);
-    opacity: calc(0.1 + var(--progress-inverse) * 0.6);
+    opacity: calc(0.1 + var(--progress-inverse) * 0.55);
 
-    animation: sand-flow 1.6s ease-in-out infinite;
+    animation: sand-flow 1.8s ease-in-out infinite;
 }
 
 /* ====================================
@@ -119,7 +136,7 @@
 ======================================= */
 @media (max-width: 480px)
 {
-    .visual-timer { padding-block: 1.6rem; }
+    .visual-timer { padding-block: 1.2rem; }
 }
 
 @media (prefers-reduced-motion: reduce)

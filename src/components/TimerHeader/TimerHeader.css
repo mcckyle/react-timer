@@ -1,0 +1,102 @@
+/* Filename: src/components/TimerHeader/TimerHeader.css */
+
+/* ====================================
+   TIMERHEADER ROOT CONTAINER STYLES.
+======================================= */
+.timer-header
+{
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.75rem;
+}
+.timer-header-left, .timer-header-right { min-width: 0; }
+.timer-header-left { display: flex; align-items: center; }
+.timer-header-center { position: absolute; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 0.5rem; max-width: calc(100% - 2rem); }
+.timer-header-right { display: flex; align-items: center; gap: 0.5rem; max-width: 40%; justify-content: flex-end; }
+
+.timer-mode-toggle
+{
+    display: inline-flex;
+    gap: 0.25rem;
+
+    padding: 0.2rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-pill);
+    background: var(--surface-subtle);
+}
+.timer-mode-toggle button
+{
+    border: none;
+    background: transparent;
+
+    padding: 0.35rem 0.6rem;
+    border-radius: var(--radius-pill);
+
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    opacity: 0.6;
+    cursor: pointer;
+
+    transition: all var(--duration-fast) var(--ease-standard);
+}
+.timer-mode-toggle button[aria-pressed="true"]
+{
+    background: var(--accent-soft);
+    color: var(--accent);
+    opacity: 1;
+}
+
+/* ====================================
+   TIMER HISTORY TOGGLE STYLES.
+======================================= */
+.timer-history-button
+{
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-pill);
+
+    padding: 0.45rem 0.9rem;
+    background: transparent;
+
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+
+    color: var(--accent-muted);
+    cursor: pointer;
+
+    transition: all var(--duration-fast) var(--ease-standard);
+}
+.timer-history-button:hover { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 30%, transparent); transform: translateY(-1px); }
+
+/* ====================================
+   TIMER HISTORY PANEL STYLES.
+======================================= */
+.timer-history
+{
+    width: min(100%, 24rem);
+
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+    pointer-events: none;
+
+    transition: all 220ms var(--ease-standard);
+}
+.timer-history.is-visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+
+/* ====================================
+   TIMERHEADER MEDIA QUERY STYLES.
+======================================= */
+@media (max-width: 768px)
+{
+    .timer-header { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+    .timer-header-center { position: static; transform: none; justify-content: center; }
+    .timer-header-left, .timer-header-right { justify-content: center; }
+}
