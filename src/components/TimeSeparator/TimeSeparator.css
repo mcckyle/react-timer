@@ -5,14 +5,11 @@
 ======================================= */
 .time-separator
 {
-   display: inline-flex;
-   align-items: baseline;
-
-   font-size: 1.15rem;
+   font-size: 1.1rem;
    font-weight: 600;
 
    color: var(--text-muted);
-   opacity: 0.25;
+   opacity: 0.2;
    user-select: none;
 }
 

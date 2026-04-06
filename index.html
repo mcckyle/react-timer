@@ -13,20 +13,16 @@
       name="description"
       content="A simple, modern timer designed for clarity and focus."
     />
-    <meta name="application-name" content="Timer" />
-    <meta name="apple-mobile-web-app-title" content="Timer" />
 
-    <!-- Color Scheme. -->
+    <!-- Theme. -->
     <meta name="color-scheme" content="dark light" />
     <meta name="theme-color" content="#0b0c11" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#f7f7f5" media="(prefers-color-scheme: light)" />
 
-    <!-- Mobile / PWA. -->
+    <!-- PWA. -->
+    <link rel="manifest" href="/manifest.json" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="format-detection" content="telephone=no" />
-    <link rel="manifest" href="/manifest.json" />
 
     <!-- External Fonts Imports. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -42,9 +38,7 @@
   </head>
   <body>
     <noscript>
-      <div class="noscript">
-        This timer requires JavaScript to function!
-      </div>
+      <div class="noscript">This timer requires JavaScript to function!</div>
     </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>

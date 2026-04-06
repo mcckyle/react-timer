@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: center;
 
-    gap: clamp(0.75rem, 1.6vw, 1rem);
+    gap: clamp(0.6rem, 1.4vw, 0.9rem);
 }
 
 /* ====================================
@@ -18,10 +18,10 @@
 .timer-control
 {
     appearance: none;
-    min-height: 2.5rem;
-    padding: 0.5rem 1.25rem;
+    min-height: 2.4rem;
+    padding: 0.45rem 1.15rem;
 
-    border: 1px solid transparent;
+    border: 1px solid var(--border-subtle);
     border-radius: var(--radius-pill);
 
     display: inline-flex;
@@ -29,19 +29,20 @@
     justify-content: center;
 
     font-family: var(--font-sans);
-    font-size: 0.68rem;
+    font-size: 0.66rem;
     font-weight: 600;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
+
+    background: var(--surface-subtle);
+    color: var(--text-muted);
 
     cursor: pointer;
     user-select: none;
 
-    transition: transform var(--duration-fast) var(--ease-standard),
-                background var(--duration-fast) var(--ease-standard),
-                color var(--duration-fast) var(--ease-standard),
-                border-color var(--duration-fast) var(--ease-standard),
-                box-shadow var(--duration-fast) var(--ease-standard);
+    transition: background var(--duration-fast),
+                color var(--duration-fast),
+                border-color var(--duration-fast);
 }
 
 /* ====================================
@@ -49,9 +50,13 @@
 ======================================= */
 .timer-control.is-primary
 {
-    background: var(--accent);
-    color: var(--bg);
-    box-shadow: 0 6px 18px -10px color-mix(in srgb, var(--accent) 60%, black);
+    background: color-mix(in srgb, var(--accent) 18%, var(--surface-subtle));
+    color: var(--accent);
+    border-color: transparent;
+}
+.timer.is-running .timer-control.is-primary
+{
+    background: color-mix(in srgb, var(--accent) 28%, var(--surface-subtle));
 }
 
 /* ====================================
@@ -59,8 +64,7 @@
 ======================================= */
 .timer-control.is-secondary
 {
-    background: color-mix(in srgb, var(--surface) 75%, transparent);
-    border-color: var(--border-subtle);
+    background: transparent;
     color: var(--text-muted);
 }
 
@@ -69,8 +73,7 @@
 ======================================= */
 .timer-control:active:not(:disabled)
 {
-    transform: scale(0.96);
-    box-shadow: none;
+    background: color-mix(in srgb, var(--accent) 22%, var(--surface-subtle));
 }
 
 /* ====================================
@@ -79,7 +82,7 @@
 .timer-control:focus-visible
 {
     outline: none;
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
 /* ====================================
@@ -87,18 +90,15 @@
 ======================================= */
 .timer-control:disabled
 {
-    opacity: 0.35;
+    opacity: 0.4;
     cursor: not-allowed;
-
-    transform: none;
-    box-shadow: none;
 }
 
 /* TimerControls Hover Lift For Desktop Styles. */
 @media (hover: hover)
 {
-    .timer-control.is-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--accent) 65%, black); }
-    .timer-control.is-secondary:hover:not(:disabled) { transform: translateY(-1px); color: var(--accent); border-color: color-mix(in srgb, var(--accent) 26%, transparent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+    .timer-control:hover:not(:disabled) { color: var(--text); border-color: color-mix(in srgb, var(--text) 18%, transparent); }
+    .timer-control.is-primary:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 30%, var(--surface-subtle)); color: var(--accent);  }
 }
 
 /* ====================================

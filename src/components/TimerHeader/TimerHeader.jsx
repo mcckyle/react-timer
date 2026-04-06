@@ -1,6 +1,6 @@
 //File name: TimerHeader.jsx
 //Author: Kyle McColgan
-//Date: 3 April 2026
+//Date: 6 April 2026
 //Description: This file contains the timer header component for the timer React project.
 
 import React from "react";
@@ -24,7 +24,7 @@ export default function TimerHeader({
         <header className="timer-header">
           {/* LEFT: Title. */}
           <div className="timer-header-left">
-            <h1 className="timer-heading">Focus Timer</h1>
+            <h1 className="timer-header-title">Focus Timer</h1>
           </div>
 
           {/* CENTER: DurationPicker + ModeToggle. */}
@@ -34,7 +34,7 @@ export default function TimerHeader({
             onSelect={onSelectDuration}
             />
 
-            <div className="timer-mode-toggle">
+            <div className="timer-header-mode">
               <button
                 type="button"
                 aria-pressed={mode === "digital"}
@@ -54,24 +54,27 @@ export default function TimerHeader({
 
           {/* RIGHT: History. */}
           <div className="timer-header-right">
-          {hasHistory && (
-            <>
-              <button
-                type="button"
-                className="timer-history-button"
-                onClick={() => setShowHistory((h) => !h)}
-                aria-expanded={showHistory}
-                aria-controls="timer-history"
-              >
-              {showHistory
-                ? "Hide History"
-                : `History (${pastTimers.length})`}
-              </button>
-              <div className={`timer-history${showHistory ? " is-visible" : ""}`}>
-                <PastTimers timers={pastTimers} onClear={clearPastTimers} />
+            {hasHistory && (
+              <div className="timer-header-history">
+                <button
+                  type="button"
+                  className="timer-header-history-button"
+                  onClick={() => setShowHistory((h) => !h)}
+                  aria-expanded={showHistory}
+                  aria-controls="timer-history"
+                >
+                  {showHistory
+                    ? "Hide"
+                    : `History (${pastTimers.length})`}
+                </button>
+                <div
+                  id="timer-history"
+                  className={`timer-header-history-panel${showHistory ? " is-visible" : ""}`}
+                >
+                  <PastTimers timers={pastTimers} onClear={clearPastTimers} />
+                </div>
               </div>
-            </>
-          )}
+             )}
         </div>
       </header>
     );

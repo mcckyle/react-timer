@@ -1,6 +1,6 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 3 April 2026
+//Date: 6 April 2026
 //Description: This file contains the parent timer component for the timer React project.
 
 import { useState, useEffect, useRef } from "react";
@@ -25,8 +25,6 @@ export default function Timer()
   const prevTimeRef = useRef(timeLeft);
   const progressRef = useRef(1);
   const rafRef = useRef(null);
-  const isIdle = !running;
-  const hasHistory = pastTimers.length > 0;
   const resetDisabled = timeLeft === DEFAULT_DURATION && !running;
 
   //Ambient progress (0 -> 1).
@@ -52,8 +50,6 @@ export default function Timer()
       const now = Date.now();
       const delta = now - lastTime;
       lastTime = now;
-
-      //Reduce progress continuously.
       const deltaProgress = delta / duration;
 
       progressRef.current = Math.max(0, progressRef.current - deltaProgress);
@@ -107,7 +103,6 @@ export default function Timer()
   return (
     <section
       className={`timer${completed ? " is-complete" : ""}${running ? " is-running" : ""}`}
-      aria-labelledby="timer-heading"
       style={{
         "--ambient-progress": progress,
         "--ambient-hue": hue,
@@ -124,8 +119,7 @@ export default function Timer()
         setShowHistory={setShowHistory}
       />
 
-      <main className="timer-container" aria-label="Timer">
-        <section className="timer-core" aria-label="Time remaining and controls">
+      <div className="timer-core">
           {mode === "digital"
             ? <TimerDisplay timeLeft={timeLeft} />
             : <VisualTimer progress={progress} />
@@ -138,10 +132,9 @@ export default function Timer()
             resetDisabled={resetDisabled}
           />
           <p className="timer-shortcuts">
-            Space • Start / Pause · R • Reset
+            Space · Start / Pause · R · Reset
           </p>
-        </section>
-      </main>
+        </div>
     </section>
   );
 };

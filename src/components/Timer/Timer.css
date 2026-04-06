@@ -6,17 +6,32 @@
 .timer
 {
   width: 100%;
-  flex: 1;
+  max-width: none;
+  margin-inline: auto;
 
   display: flex;
   flex-direction: column;
-  margin-inline: auto;
-  padding: clamp(1.5rem, 3vh, 2.5rem) 1rem;
-  gap: clamp(1.5rem, 3vh, 2.5rem);
+  align-items: center;
+
+  padding: clamp(1.5rem, 3vh, 2.25rem) 1rem;
+  gap: clamp(2em, 4vh, 3rem);
   position: relative;
-  max-width: none;
+  isolation: isolate;
 
   transition: --ambient-hue 200ms linear;
+}
+
+/* ====================================
+   TIMER CORE STYLES.
+======================================= */
+.timer-core
+{
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.25rem, 3vh, 2rem);
 }
 
 /* ====================================
@@ -26,26 +41,46 @@
 {
   content: "";
   position: absolute;
-  inset: -20%;
-  z-index: -1;
+  inset: -30%;
+  z-index: -2;
   pointer-events: none;
 
-  /* Dynamic color system. */
-  --ambient-soft: hsl(var(--ambient-hue) 85% 55% / 0.22);
-  --ambient-faint: hsl(var(--ambient-hue) 85% 60% / 0.10);
+  /* Dynamic Tones. */
+  --ambient-core: hsl(var(--ambient-hue) 85% 60% / 0.28);
+  --ambient-mid: hsl(var(--ambient-hue) 85% 55% / 0.18);
+  --ambient-far: hsl(var(--ambient-hue) 85% 50% / 0.10);
 
   background:
-    radial-gradient(60% 60% at 50% 42%, var(--ambient-soft), transparent 70%),
-    radial-gradient(45% 45% at 65% 60%, var(--ambient-faint), transparent 75%);
+    radial-gradient(40% 40% at 50% 48%, var(--ambient-core), transparent 70%),
+    radial-gradient(55% 55% at 65% 60%, var(--ambient-mid), transparent 75%),
+    radial-gradient(80% 80% at 50% 50%, var(--ambient-far), transparent 85%),
+    radial-gradient(60% 40% at 50% 0%, color-mix(in srgb, var(--ambient-core) 40%, transparent), transparent 80%);
 
   /* True continuous response. */
-  opacity: calc(0.14 + (1 - var(--ambient-progress)) * 0.35);
+  opacity: calc(0.10 + (1 - var(--ambient-progress)) * 0.35);
+  filter: blur(90px) saturate(calc(1 + (1 - var(--ambient-progress)) * 0.25));
+  transform: scale(calc(1 + (1 - var(--ambient-progress)) * 0.08));
 
-  /* Scale Compression as time runs out. */
-  transform: scale(calc(1.01 + (1 - var(--ambient-progress)) * 0.10));
-  filter: blur(64px);
+  animation: ambient-breathe 26s ease-in-out infinite;
+}
+.timer::after
+{
+  content: "";
+  position: absolute;
+  inset: -40%;
+  z-index: -3;
+  pointer-events: none;
 
-  animation: ambient-flow 20s ease-in-out infinite;
+  background: radial-gradient(
+    70% 70% at 50% 50%,
+    hsl(var(--ambient-hue) 85% 50% / 0.08),
+    transparent 80%
+  );
+
+  opacity: calc(0.08 + (1 - var(--ambient-progress)) * 0.2);
+  filter: blur(120px);
+
+  animation: ambient-drift 40s linear infinite;
 }
 
 /* ====================================
@@ -53,43 +88,25 @@
 ======================================= */
 .timer.is-complete::after
 {
-  content: "";
-  position: absolute;
-  inset: -20%;
   z-index: -1;
 
   background: radial-gradient(
-    50% 50% at 50% 45%,
-    hsl(var(--ambient-hue) 85% 60% / 0.30),
+    50% 50% at 50% 50%,
+    hsl(var(--ambient-hue) 85% 60% / 0.35),
     transparent 70%
   );
 
   animation: timer-complete-burst 700ms var(--ease-standard);
 }
 
-/* ====================================
-   TIMER CONTAINER STYLES.
-======================================= */
-.timer-container { width: 100%; flex: 1; display: flex; flex-direction: column; justify-content: center; gap: clamp(2rem, 4vh, 3rem); }
-.timer-core { width: 100%; max-width: 720px; margin-inline: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; gap: clamp(1.5rem, 3vh, 2.25rem); }
-.timer-heading
-{
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-
-  color: var(--text-muted);
-  opacity: 0.7;
-}
 .timer-shortcuts
 {
-  font-size: 0.58rem;
+  font-size: 0.6rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 
   color: var(--text-muted);
-  opacity: 0.45;
+  opacity: 0.5;
 }
 
 /* ====================================
@@ -98,29 +115,30 @@
 @keyframes timer-complete-burst
 {
   0% { opacity: 0; transform: scale(0.95); }
-  30% { opacity: 0.8; transform: scale(1.02); }
-  100% { opacity: 0; transform: scale(1.08); }
+  35% { opacity: 0.85; transform: scale(1.02); }
+  100% { opacity: 0; transform: scale(1.06); }
 }
 
-@keyframes ambient-flow
+@keyframes ambient-breathe
 {
-  0% { transform: translate3d(-1%, -1%, 0) scale(1); }
-  50% { transform: translate3d(1%, 1%, 0) scale(1.03); }
-  100% { transform: translate3d(-1%, -1%, 0) scale(1); }
+  0% { transform: scale(1) translateY(0); }
+  50% { transform: scale(1.04) translateY(-1%); }
+  100% { transform: scale(1) translateY(0); }
 }
 
-/*@keyframes ambient-pulse
+@keyframes ambient-drift
 {
-  0%, 100% { filter: blur(70px); }
-  50% { filter: blur(78px); }
-}*/
+  0% { transform: translateX(-1%) translateY(0); }
+  50% { transform: translateX(1%) translateY(1%); }
+  100% { transform: translateX(-1%) translateY(0); }
+}
 
 /* ====================================
    TIMER MEDIA QUERY STYLES.
 ======================================= */
 @media (max-width: 480px)
 {
-  .timer-container { gap: 2rem; }
+  .timer { gap: 2rem; }
   .timer-core { gap: 1rem; }
 }
 

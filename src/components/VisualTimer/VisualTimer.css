@@ -10,64 +10,63 @@
     justify-content: center;
 
     width: 100%;
-    padding-block: clamp(1.4rem, 4vh, 2.6rem);
+    padding-block: clamp(1.2rem, 4vh, 2.2rem);
 }
 
 /* ====================================
    VISUALTIMER HOURGLASS CONTAINER STYLES.
 ======================================= */
-.hourglass
+.visual-timer-hourglass
 {
     position: relative;
-    width: clamp(100px, 14vw, 180px);
-    height: clamp(140px, 22vw, 240px);
+    width: clamp(100px, 12vw, 160px);
+    height: clamp(140px, 20vw, 220px);
 
     display: flex;
     align-items: center;
     justify-content: center;
-    isolation: isolate;
 }
-.hourglass::before
+.visual-timer-hourglass::before
 {
     content: "";
     position: absolute;
     inset: 0;
 
-    border-radius: 50% / 38%;
+    border-radius: 50% / 36%;
     border: 1px solid var(--border-subtle);
 
-    opacity: 0.22;
+    opacity: 0.18;
 }
-.hourglass::after
+.visual-timer-hourglass::after
 {
     content: "";
     position: absolute;
-    inset: 12% 14%;
+    inset: 14% 16%;
 
     border-radius: 50% / 40%;
     background: radial-gradient(
-        55% 55% at 50% 42%,
-        color-mix(in srgb, var(--accent) 10%, transparent),
+        60% 60% at 50% 45%,
+        color-mix(in srgb, var(--accent) 8%, transparent),
         transparent 75%
     );
 
-    opacity: 0.28;
+    opacity: 0.22;
 }
 
 /* ====================================
    VISUALTIMER SAND BASE STYLES.
 ======================================= */
-.sand
+.visual-timer-sand
 {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 66%;
+    width: 64%;
 
     background: linear-gradient(
         to bottom,
-        color-mix(in srgb, var(--accent) 70%, white),
-        color-mix(in srgb, var(--accent) 90%, black)
+        color-mix(in srgb, var(--accent) 65%, white),
+        color-mix(in srgb, var(--accent) 85%, black)
     );
     opacity: 0.85;
 }
@@ -75,71 +74,64 @@
 /* ====================================
    VISUALTIMER TOP SAND (DEPLETING) STYLES.
 ======================================= */
-.sand.top
+.visual-timer-sand-top
 {
     top: 0;
     height: calc(50% * var(--progress-eased));
 
     clip-path: polygon(50% 100%, 0 0, 100% 0);
-    opacity: calc(0.2 + var(--progress) * 0.6);
-    transform: translateX(-50%) scaleY(calc(0.985 + var(--progress) * 0.03));
+    opacity: calc(0.25 + var(--progress) * 0.5);
 }
 
 /* ====================================
    VISUALTIMER BOTTOM SAND (FILLING) STYLES.
 ======================================= */
-.sand.bottom
+.visual-timer-sand-bottom
 {
     bottom: 0;
     height: calc(50% * var(--progress-inverse));
 
     clip-path: polygon(0 100%, 100% 100%, 50% 0);
-    opacity: calc(0.3 + var(--progress-inverse) * 0.7);
-    transform: translateX(-50%) scaleY(calc(0.97 + var(--progress-inverse) * 0.04));
+    opacity: calc(0.3 + var(--progress-inverse) * 0.6);
 }
 
 /* ====================================
    VISUALTIMER FLOW STREAM STYLES.
 ======================================= */
-.sand.flow
+.visual-timer-sand-flow
 {
     top: 50%;
     width: 2%;
-    height: calc(40% * var(--progress-inverse));
+    height: calc(38% * var(--progress-inverse));
 
     border-radius: 999px;
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        color-mix(in srgb, var(--accent) 80%, white),
-        transparent
-    );
+    background: color-mix(in srgb, var(--accent) 75%, white);
 
     transform: translate(-50%, -50%);
-    opacity: calc(0.1 + var(--progress-inverse) * 0.55);
+    opacity: calc(0.15 + var(--progress-inverse) * 0.5);
 
-    animation: sand-flow 1.8s ease-in-out infinite;
+    /*animation: sand-flow 1.8s ease-in-out infinite;*/
 }
 
 /* ====================================
    VISUALTIMER FLOW ANIMATION STYLES.
 ======================================= */
-@keyframes sand-flow
+/*@keyframes sand-flow
 {
     0% { transform: translate(-50%, -51%); }
     50% { transform: translate(-50%, -49%); }
     100% { transform: translate(-50%, -51%); }
-}
+}*/
 
 /* ====================================
    VISUALTIMER MEDIA QUERY STYLES.
 ======================================= */
 @media (max-width: 480px)
 {
-    .visual-timer { padding-block: 1.2rem; }
+    .visual-timer { padding-block: 1rem; }
 }
 
 @media (prefers-reduced-motion: reduce)
 {
-    .sand.flow { animation: none; }
+    .visual-timer-sand-flow { transition: none; }
 }

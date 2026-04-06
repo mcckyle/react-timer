@@ -1,10 +1,10 @@
 //File name: TimerDisplay.jsx
 //Author: Kyle McColgan
-//Date: 3 April 2026
+//Date: 6 April 2026
 //Description: This file contains the time display for the timer React project.
 
-import { motion, AnimatePresence } from "motion/react";
 import { useMemo } from "react";
+import { motion } from "motion/react";
 import { formatDuration } from "../../utils/formatDuration";
 import "./TimerDisplay.css";
 
@@ -33,7 +33,7 @@ export default function TimerDisplay({ timeLeft })
           return (
             <span
               key={`sep-${index}`}
-              className="timer-separator"
+              className="timer-display-separator"
               aria-hidden="true"
             >
               :
@@ -42,19 +42,17 @@ export default function TimerDisplay({ timeLeft })
         }
 
         return (
-          <span key={`digit-${index}`} className="timer-digit-wrapper">
-            <AnimatePresence mode="popLayout">
-              <motion.span
-                key={`${index}-${char}`}
-                className="timer-digit"
-                initial={{ y: -6, opacity: 0 }}
-                animate={{ y: -0, opacity: 1}}
-                exit={{ y: 6, opacity: 0 }}
-                transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-              >
-                {char}
-              </motion.span>
-            </AnimatePresence>
+          <span key={`digit-${index}`} className="timer-display-digit-wrapper">
+            <motion.span
+              key={`${index}-${char}`}
+              className="timer-display-digit"
+              initial={{ y: -4, opacity: 0 }}
+              animate={{ y: -0, opacity: 1}}
+              exit={{ y: 4, opacity: 0 }}
+              transition={{ duration: 0.16, ease: [0.25, 0.8, 0.25, 1] }}
+            >
+              {char}
+            </motion.span>
           </span>
         );
       })}

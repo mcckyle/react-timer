@@ -8,68 +8,63 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.65rem;
+    gap: 0.6rem;
 }
 
 /* ====================================
    DURATIONPICKER PRESET BUTTON ROW STYLES.
 ======================================= */
-.duration-presets
+.duration-picker-presets
 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.35rem;
-    opacity: 0.7;
 }
 
 /* ====================================
    DURATIONPICKER PRESET BUTTONS STYLES.
 ======================================= */
-.duration-pill
+.duration-picker-pill
 {
-    appearance: none;
-    padding: 0.3rem 0.7rem;
-
-    border: 1px solid transparent;
+    border: 1px solid var(--border-subtle);
     border-radius: var(--radius-pill);
     background: transparent;
+    padding: 0.28rem 0.65rem;
 
-    font-size: 0.58rem;
+    font-size: 0.6rem;
     font-weight: 600;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
 
     color: var(--text-muted);
     cursor: pointer;
 
-    transition: color var(--duration-fast) var(--ease-standard),
-                background var(--duration-fast) var(--ease-standard),
-                transform var(--duration-fast) var(--ease-standard);
+    transition: background var(--duration-fast),
+                color var(--duration-fast),
+                border-color var(--duration-fast);
 }
-.duration-pill:hover { color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
-.duration-pill.is-active { color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, transparent); }
+.duration-picker-pill:hover { color: var(--accent); border-color: color-mix(in srgb, var(--text) 20%, transparent); }
+.duration-picker-pill.is-active { background: var(--accent); color: var(--accent); border-color: transparent;  }
 
 /* ====================================
    DURATIONPICKER CUSTOM INPUT STYLES.
 ======================================= */
-.duration-custom
+.duration-picker-custom
 {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.9rem;
+    gap: 0.45rem;
+    padding: 0.4rem 0.75rem;
 
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-pill);
     background: var(--surface-subtle);
 
-    transition: border-color var(--duration-fast) var(--ease-standard),
-                background var(--duration-fast) var(--ease-standard),
-                transform var(--duration-fast) var(--ease-standard);
+    transition: border-color var(--duration-fast),
+                background var(--duration-fast);
 }
-.duration-custom:focus-within { border-color: color-mix(in srgb, var(--accent) 30%, transparent); background: color-mix(in srgb, var(--accent) 10%, var(--surface-subtle)); transform: translateY(-1px); }
+.duration-picker-custom:focus-within { border-color: color-mix(in srgb, var(--accent) 30%, transparent); background: color-mix(in srgb, var(--accent) 8%, var(--surface-subtle)); }
 
 /* ====================================
    DURATIONPICKER MEDIA QUERY STYLES.

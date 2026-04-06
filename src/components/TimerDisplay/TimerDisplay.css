@@ -1,7 +1,7 @@
 /* Filename: src/components/TimerDisplay/TimerDisplay.css */
 
 /* ====================================
-   TIMERDISPLAY WRAPPER STYLES.
+   TIMERDISPLAY DISPLAY ROOT STYLES.
 ======================================= */
 .timer-display
 {
@@ -9,58 +9,51 @@
     align-items: baseline;
     justify-content: center;
 
-    width: fit-content;
-    max-width: 100%;
+    margin-inline: auto;
+    padding-block: clamp(0.6rem, 2vh, 1.4rem);
 
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
     font-weight: 600;
 
-    font-size: clamp(4rem, 16vw, 24rem);
-    line-height: 0.9;
-    letter-spacing: -0.04em;
+    font-size: clamp(3.8rem, 15vw, 20rem);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
     text-align: center;
     white-space: nowrap;
-    margin-inline: auto;
-    padding-block: clamp(0.75rem, 2.4vh, 1.6rem);
-    color: color-mix(in srgb, var(--accent) 88%, var(--text));
 
+    color: var(--text);
     user-select: none;
-    text-rendering: optimizeLegibility;
 }
-.timer.is-complete .timer-display { animation: timer-complete-settle 260ms var(--ease-standard); }
+.timer.is-running .timer-display { color: color-mix(in srgb, var(--accent) 70%, var(--text)); }
+.timer.is-complete .timer-display { animation: timer-complete-settle 240ms var(--ease-standard); }
 
 /* ====================================
    TIMERDISPLAY DIGIT WRAPPER STYLES.
 ======================================= */
-.timer-digit-wrapper
+.timer-display-digit-wrapper
 {
     position: relative;
 
     display: inline-flex;
     align-items: baseline;
     justify-content: center;
-    flex: 0 0 auto;
 
-    width: 0.62em; /* stable digit width. */
+    width: 0.6em; /* stable digit width. */
     height: 1em;
     overflow: hidden; /* hides exiting digits. */
 }
-.timer-digit { position: absolute; inset: 0; display: flex; align-items: baseline; justify-content: center; will-change: transform, opacity; }
+.timer-display-digit { position: absolute; inset: 0; display: flex; align-items: baseline; justify-content: center; will-change: transform, opacity; }
 
 /* ====================================
    TIMERDISPLAY SEPARATOR STYLES.
 ======================================= */
-.timer-separator
+.timer-display-separator
 {
-    display: inline-flex;
-    align-items: baseline;
-    justify-content: center;
-
-    margin-inline: 0.05em;
+    margin-inline: 0.06em;
 
     color: var(--text-muted);
-    opacity: 0.5;
+    opacity: 0.45;
 
     user-select: none;
     pointer-events: none;
@@ -72,7 +65,7 @@
 @keyframes timer-complete-settle
 {
     0% { transform: scale(1); }
-    40% { transform: scale(1.018); }
+    40% { transform: scale(1.015); }
     100% { transform: scale(1); }
 }
 
@@ -81,8 +74,7 @@
 ======================================= */
 @media (max-width: 480px)
 {
-    .timer-display { font-size: clamp(3.5rem, 14vw, 12rem); letter-spacing: -0.035em; padding-block: 0.6rem; }
-    .timer-separator { margin-inline: 0.04em; }
+    .timer-display { font-size: clamp(3.2rem, 13vw, 10rem); letter-spacing: -0.025em; }
 }
 
 /* ====================================
@@ -90,7 +82,7 @@
 ======================================= */
 @media (prefers-reduced-motion: reduce)
 {
-    .timer-digit
+    .timer-display-digit
     {
         opacity: 1 !important;
         transform: none !important;

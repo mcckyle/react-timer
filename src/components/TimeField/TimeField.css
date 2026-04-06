@@ -7,9 +7,9 @@
 {
     display: inline-flex;
     align-items: baseline;
-    gap: 0.25rem;
+    gap: 0.2rem;
 
-    padding: 0.3rem 0.45rem;
+    padding: 0.25rem 0.4rem;
     border-radius: var(--radius-pill);
 
     font-family: var(--font-mono);
@@ -17,35 +17,32 @@
 
     cursor: ns-resize;
 
-    transition: background var(--duration-fast) var(--ease-standard),
-                transform var(--duration-fast) var(--ease-standard);
+    transition: background var(--duration-fast);
 }
 .time-field:active { cursor: grabbing; }
-.time-field:hover { background: color-mix(in srgb, var(--accent) 6%, transparent); }
-.time-field:focus-within { background: color-mix(in srgb, var(--accent) 14%, transparent); transform: translateY(-1px); }
+.time-field:hover { background: color-mix(in srgb, var(--accent) 5%, transparent); }
+.time-field:focus-within { background: color-mix(in srgb, var(--accent) 10%, transparent); }
 
 /* ====================================
    TIMEFIELD NUMERIC INPUT STYLES.
 ======================================= */
 .time-field input
 {
-    width: 2.6ch;
+    width: 2.4ch;
     border: none;
     background: transparent;
     outline: none;
 
     font-family: inherit;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 600;
-    line-height: 1;
     text-align: center;
 
     color: var(--text);
     opacity: 0.85;
     caret-color: var(--accent);
 
-    transition: color var(--duration-fast) var(--ease-standard),
-                transform var(--duration-fast) var(--ease-standard);
+    transition: color var(--duration-fast);
 }
 .time-field input:focus { color: var(--accent); opacity: 1; }
 
