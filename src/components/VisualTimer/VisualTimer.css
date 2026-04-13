@@ -10,7 +10,7 @@
     justify-content: center;
 
     width: 100%;
-    padding-block: clamp(1.2rem, 4vh, 2.2rem);
+    padding-block: clamp(1rem, 4vh, 1.8rem);
 }
 
 /* ====================================
@@ -19,8 +19,8 @@
 .visual-timer-hourglass
 {
     position: relative;
-    width: clamp(100px, 12vw, 160px);
-    height: clamp(140px, 20vw, 220px);
+    width: clamp(92px, 10vw, 140px);
+    height: clamp(132px, 18vw, 200px);
 
     display: flex;
     align-items: center;
@@ -35,22 +35,22 @@
     border-radius: 50% / 36%;
     border: 1px solid var(--border-subtle);
 
-    opacity: 0.18;
+    opacity: 0.12;
 }
 .visual-timer-hourglass::after
 {
     content: "";
     position: absolute;
-    inset: 14% 16%;
+    inset: 18% 20%;
 
-    border-radius: 50% / 40%;
+    border-radius: 50% / 42%;
     background: radial-gradient(
         60% 60% at 50% 45%,
-        color-mix(in srgb, var(--accent) 8%, transparent),
+        color-mix(in srgb, var(--accent) calc(8% + var(--progress-inverse) * 12%), transparent),
         transparent 75%
     );
 
-    opacity: 0.22;
+    opacity: calc(0.1 + var(--progress-inverse) * 0.2);
 }
 
 /* ====================================
@@ -61,14 +61,15 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 64%;
+    width: 60%;
 
     background: linear-gradient(
         to bottom,
-        color-mix(in srgb, var(--accent) 65%, white),
-        color-mix(in srgb, var(--accent) 85%, black)
+        color-mix(in srgb, var(--accent) 68%, white),
+        color-mix(in srgb, var(--accent) 82%, black)
     );
-    opacity: 0.85;
+
+    will-change: height, opacity;
 }
 
 /* ====================================
@@ -80,7 +81,7 @@
     height: calc(50% * var(--progress-eased));
 
     clip-path: polygon(50% 100%, 0 0, 100% 0);
-    opacity: calc(0.25 + var(--progress) * 0.5);
+    opacity: calc(0.2 + var(--progress) * 0.55);
 }
 
 /* ====================================
@@ -92,7 +93,7 @@
     height: calc(50% * var(--progress-inverse));
 
     clip-path: polygon(0 100%, 100% 100%, 50% 0);
-    opacity: calc(0.3 + var(--progress-inverse) * 0.6);
+    opacity: calc(0.25 + var(--progress-inverse) * 0.65);
 }
 
 /* ====================================
@@ -101,37 +102,40 @@
 .visual-timer-sand-flow
 {
     top: 50%;
-    width: 2%;
-    height: calc(38% * var(--progress-inverse));
+    width: 1.4%;
+    height: calc(44% * var(--progress-inverse));
 
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--accent) 75%, white);
+    border-radius: var(--radius-pill);
+    background: linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--accent) 85%, white),
+        color-mix(in srgb, var(--accent) 92%, black)
+    );
 
     transform: translate(-50%, -50%);
-    opacity: calc(0.15 + var(--progress-inverse) * 0.5);
-
-    /*animation: sand-flow 1.8s ease-in-out infinite;*/
+    opacity: calc(0.15 + var(--progress-inverse) * 0.6);
+    filter: drop-shadow(0 0 4px color-mix(in srgb, var(--accent) 22%, transparent));
 }
 
 /* ====================================
-   VISUALTIMER FLOW ANIMATION STYLES.
+   VISUALTIMER MICRO DEPTH STYLES.
 ======================================= */
-/*@keyframes sand-flow
+.visual-timer-sand-top,
+.visual-timer-sand-bottom
 {
-    0% { transform: translate(-50%, -51%); }
-    50% { transform: translate(-50%, -49%); }
-    100% { transform: translate(-50%, -51%); }
-}*/
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.04), inset 0 -2px 3px rgba(0, 0, 0, 0.2);
+}
+
 
 /* ====================================
    VISUALTIMER MEDIA QUERY STYLES.
 ======================================= */
 @media (max-width: 480px)
 {
-    .visual-timer { padding-block: 1rem; }
+    .visual-timer { padding-block: 0.8rem; }
 }
 
 @media (prefers-reduced-motion: reduce)
 {
-    .visual-timer-sand-flow { transition: none; }
+    .visual-timer-sand-flow { filter: none; }
 }

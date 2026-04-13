@@ -10,22 +10,24 @@
     justify-content: center;
 
     margin-inline: auto;
-    padding-block: clamp(0.6rem, 2vh, 1.4rem);
+    padding-block: clamp(0.5rem, 2vh, 1.1rem);
 
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
     font-weight: 600;
 
-    font-size: clamp(3.8rem, 15vw, 20rem);
-    line-height: 0.92;
+    font-size: clamp(4rem, 16vw, 22rem);
+    line-height: 0.9;
     letter-spacing: -0.03em;
     text-align: center;
     white-space: nowrap;
 
     color: var(--text);
     user-select: none;
+
+    transition: color var(--duration-fast) var(--ease-standard);
 }
-.timer.is-running .timer-display { color: color-mix(in srgb, var(--accent) 70%, var(--text)); }
+.timer.is-running .timer-display { color: color-mix(in srgb, var(--accent) 55%, var(--text)); }
 .timer.is-complete .timer-display { animation: timer-complete-settle 240ms var(--ease-standard); }
 
 /* ====================================
@@ -53,7 +55,7 @@
     margin-inline: 0.06em;
 
     color: var(--text-muted);
-    opacity: 0.45;
+    opacity: 0.35;
 
     user-select: none;
     pointer-events: none;
@@ -65,7 +67,7 @@
 @keyframes timer-complete-settle
 {
     0% { transform: scale(1); }
-    40% { transform: scale(1.015); }
+    40% { transform: scale(1.01); }
     100% { transform: scale(1); }
 }
 
@@ -74,7 +76,7 @@
 ======================================= */
 @media (max-width: 480px)
 {
-    .timer-display { font-size: clamp(3.2rem, 13vw, 10rem); letter-spacing: -0.025em; }
+    .timer-display { font-size: clamp(2.8rem, 13vw, 8.5rem); letter-spacing: -0.025em; }
 }
 
 /* ====================================

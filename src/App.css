@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-inline: auto;
+
   padding: env(safe-area-inset-top)
            clamp(1rem, 3vw, 2.5rem)
            env(safe-area-inset-bottom);
@@ -32,15 +32,32 @@
   content: "";
   position: absolute;
   inset: 0;
-  pointer-events: none;
   z-index: -1;
+  pointer-events: none;
+
+  /* Neutral environment gradient (NOT competing with Timer). */
   background: radial-gradient(
-    50rem circle at 50% -20%,
-    color-mix(in srgb, var(--accent) 6%, transparent),
+    80% 60% at 50% -10%,
+    color-mix(in srgb, var(--text) 6%, transparent),
     transparent 70%
   );
-  opacity: 0.12;
+
+  opacity: 0.4;
 }
+/*.app::after
+{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0, 0, 0, 0.25);
+  );
+  opacity: 0.35;
+}*/
 
 /* ====================================
    APP NOSCRIPT MESSAGE STYLES.

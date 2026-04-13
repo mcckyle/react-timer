@@ -9,12 +9,9 @@
   --accent-hue: 220; /* Base hue (fallback when the timer is not active). */
   --ambient-hue: var(--accent-hue); /* Live hue (Timer can override this). */
 
-  /* Core color. */
   --accent: hsl(var(--ambient-hue) 85% 60%);
-
-  /* Derived tones. */
-  --accent-soft: hsl(var(--ambient-hue) 85% 60% / 0.10);
-  --accent-muted: hsl(var(--ambient-hue) 85% 60% / 0.5);
+  --accent-soft: hsl(var(--ambient-hue) 85% 60% / 0.12);
+  --accent-muted: hsl(var(--ambient-hue) 85% 60% / 0.45);
 
   /* Base Colors. */
   --bg: #0b0c11;
@@ -29,7 +26,7 @@
 
   /* Fonts. */
   --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono", "SFMono-Regular", ui-monospace, monospace;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   /* Layout. */
   --max-width: 680px;
@@ -43,10 +40,10 @@
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
   --duration-fast: 140ms;
   --duration-standard: 240ms;
-  --transition-standard: background var(--duration-standard) var(--ease-standard),
+/*  --transition-standard: background var(--duration-standard) var(--ease-standard),
                          color var(--duration-standard) var(--ease-standard),
                          border-color var(--duration-standard) var(--ease-standard),
-                         box-shadow var(--duration-standard) var(--ease-standard);
+                         box-shadow var(--duration-standard) var(--ease-standard);*/
 }
 
 /* ====================================
@@ -110,6 +107,5 @@ p { margin: 0; }
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }
