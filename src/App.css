@@ -25,24 +25,25 @@
 }
 
 /* ====================================
-   APP ATMOSPEHRIC BACKGROUND GLOW STYLES.
+   APP ENVIRONMENT GLOW STYLES.
 ======================================= */
 .app::before
 {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: -10%;
   z-index: -1;
   pointer-events: none;
 
   /* Neutral environment gradient (NOT competing with Timer). */
   background: radial-gradient(
-    80% 60% at 50% -10%,
-    color-mix(in srgb, var(--text) 6%, transparent),
+    60% 50% at 50% 0%,
+    color-mix(in srgb, var(--text) 5%, transparent),
     transparent 70%
   );
 
-  opacity: 0.4;
+  opacity: 0.35;
+  filter: blur(40px);
 }
 /*.app::after
 {

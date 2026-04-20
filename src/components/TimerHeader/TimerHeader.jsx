@@ -1,6 +1,6 @@
 //File name: TimerHeader.jsx
 //Author: Kyle McColgan
-//Date: 9 April 2026
+//Date: 19 April 2026
 //Description: This file contains the timer header component for the timer React project.
 
 import React from "react";
@@ -18,68 +18,70 @@ export default function TimerHeader({
     showHistory,
     setShowHistory,
 }) {
-    const hasHistory = pastTimers.length > 0;
+  const hasHistory = pastTimers.length > 0;
 
-    return (
-        <header className="timer-header">
-          {/* LEFT: Title. */}
-          <div className="timer-header-left">
-            <h1 className="timer-header-title">Focus Timer</h1>
-          </div>
+  return (
+    <header className="timer-header">
+      {/* LEFT: Title. */}
+      <div className="timer-header-left">
+        <h1 className="timer-header-title">Focus Timer</h1>
+      </div>
 
-          {/* CENTER: DurationPicker + ModeToggle. */}
-          <div className="timer-header-center">
-            <DurationPicker
-            duration={duration}
-            onSelect={onSelectDuration}
-            />
+      {/* CENTER: DurationPicker + ModeToggle. */}
+      <div className="timer-header-center">
+        <DurationPicker
+        duration={duration}
+        onSelect={onSelectDuration}
+        />
 
-            <div
-              className="timer-header-mode"
-              role="group"
-              aria-label="Display mode"
+        <div
+          className="timer-header-mode"
+          role="group"
+          aria-label="Display mode"
+        >
+          <button
+            type="button"
+            aria-pressed={mode === "digital"}
+            aria-label="Digital mode"
+            onClick={() => setMode("digital")}
+          >
+            00:00
+          </button>
+          <button
+            type="button"
+            aria-pressed={mode === "visual"}
+            aria-label="Visual mode"
+            onClick={() => setMode("visual")}
+          >
+            ◐
+          </button>
+        </div>
+      </div>
+
+      {/* RIGHT: History. */}
+      <div className="timer-header-right">
+        {hasHistory && (
+          <div className="timer-header-history">
+            <button
+              type="button"
+              className="timer-header-history-button"
+              onClick={() => setShowHistory((h) => !h)}
+              aria-expanded={showHistory}
+              aria-controls="timer-history"
             >
-              <button
-                type="button"
-                aria-pressed={mode === "digital"}
-                onClick={() => setMode("digital")}
-              >
-                00:00
-              </button>
-              <button
-                type="button"
-                aria-pressed={mode === "visual"}
-                onClick={() => setMode("visual")}
-              >
-                ◐
-              </button>
+              {showHistory
+                ? "Hide"
+                : `History (${pastTimers.length})`}
+            </button>
+            <div
+              id="timer-history"
+              className={`timer-header-history-panel${showHistory ? " is-visible" : ""}`}
+            >
+              <PastTimers timers={pastTimers} onClear={clearPastTimers} />
             </div>
           </div>
-
-          {/* RIGHT: History. */}
-          <div className="timer-header-right">
-            {hasHistory && (
-              <div className="timer-header-history">
-                <button
-                  type="button"
-                  className="timer-header-history-button"
-                  onClick={() => setShowHistory((h) => !h)}
-                  aria-expanded={showHistory}
-                  aria-controls="timer-history"
-                >
-                  {showHistory
-                    ? "Hide"
-                    : `History (${pastTimers.length})`}
-                </button>
-                <div
-                  id="timer-history"
-                  className={`timer-header-history-panel${showHistory ? " is-visible" : ""}`}
-                >
-                  <PastTimers timers={pastTimers} onClear={clearPastTimers} />
-                </div>
-              </div>
-             )}
-        </div>
-      </header>
-    );
+          )}
+      </div>
+    </header>
+  );
 }

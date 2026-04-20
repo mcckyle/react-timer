@@ -13,7 +13,7 @@
   align-items: center;
 
   padding: clamp(1.5rem, 3vh, 2.25rem) 1rem;
-  gap: clamp(2em, 4vh, 3rem);
+  gap: clamp(1.75rem, 3.5vh, 2.6rem);
   position: relative;
   isolation: isolate;
 
@@ -30,7 +30,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(1.25rem, 3vh, 2rem);
+  gap: clamp(1.1rem, 2.6vh, 1.7rem);
 }
 
 /* ====================================
@@ -40,43 +40,45 @@
 {
   content: "";
   position: absolute;
-  inset: -18%;
+  inset: -20%;
   z-index: -1;
   pointer-events: none;
 
   /* Dynamic Tones. */
-  --glow-core: hsl(var(--ambient-hue) 90% 62% / 0.28);
-  --glow-soft: hsl(var(--ambient-hue) 85% 55% / 0.12);
+  --glow-strong: hsl(var(--ambient-hue) 90% 60% / 0.22);
+  --glow-mid: hsl(var(--ambient-hue) 85% 55% / 0.14);
+  --glow-soft: hsl(var(--ambient-hue) 80% 50% / 0.08);
 
   background:
-    radial-gradient(40% 40% at 50% 50%, var(--glow-core), transparent 70%),
-    radial-gradient(70% 70% at 50% 50%, var(--glow-soft), transparent 80%);
+    radial-gradient(35% 35% at 50% 48%, var(--glow-strong), transparent 70%),
+    radial-gradient(60% 60% at 52% 52%, var(--glow-mid), transparent 75%),
+    radial-gradient(85% 85% at 50% 50%, var(--glow-soft), transparent 80%);
 
   /* True continuous response. */
-  opacity: calc(0.12 + (1 - var(--ambient-progress)) * 0.35);
-  filter: blur(48px) saturate(calc(1 + (1 - var(--ambient-progress)) * 0.2));
-  transform: scale(calc(1 + (1 - var(--ambient-progress)) * 0.04));
+  opacity: calc(0.10 + (1 - var(--ambient-progress)) * 0.42);
+  filter: blur(54px) saturate(calc(1 + (1 - var(--ambient-progress)) * 0.25));
+  transform: scale(calc(1 + (1 - var(--ambient-progress)) * 0.05));
 
-  animation: ambient-breathe 40s ease-in-out infinite;
+  animation: ambient-breathe 32s ease-in-out infinite;
 }
 .timer::after
 {
   content: "";
   position: absolute;
-  inset: -30%;
+  inset: -40%;
   z-index: -2;
   pointer-events: none;
 
   background: radial-gradient(
-    70% 70% at 50% 50%,
-    hsl(var(--ambient-hue) 80% 50% / 0.05),
-    transparent 80%
+    60% 60% at 48% 52%,
+    hsl(var(--ambient-hue) 85% 55% / 0.06),
+    transparent 75%
   );
 
-  opacity: calc(0.04 + (1 - var(--ambient-progress)) * 0.16);
-  filter: blur(80px);
+  opacity: calc(0.03 + (1 - var(--ambient-progress)) * 0.18);
+  filter: blur(96px);
 
-  animation: ambient-drift 70s linear infinite;
+  animation: ambient-drift 90s linear infinite;
 }
 
 /* ====================================
@@ -92,7 +94,7 @@
     transparent 70%
   );
 
-  animation: timer-complete-burst 700ms var(--ease-standard);
+  animation: timer-complete-burst 900ms var(--ease-standard);
 }
 
 .timer-shortcuts
@@ -102,7 +104,7 @@
   text-transform: uppercase;
 
   color: var(--text-muted);
-  opacity: 0.45;
+  opacity: 0.35;
 }
 
 /* ====================================
@@ -123,9 +125,9 @@
 
 @keyframes timer-complete-burst
 {
-  0% { opacity: 0; transform: scale(0.96); }
-  35% { opacity: 0.85; transform: scale(1.02); }
-  100% { opacity: 0; transform: scale(1.06); }
+  0% { opacity: 0; transform: scale(0.94); }
+  40% { opacity: 0.9; transform: scale(1.025); }
+  100% { opacity: 0; transform: scale(1.08); }
 }
 
 /* ====================================

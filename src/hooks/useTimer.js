@@ -1,6 +1,6 @@
 //File name: useTimer.js
 //Author: Kyle McColgan
-//Date: 13 April 2026
+//Date: 19 April 2026
 //Description: This file contains the custom timekeeping hook for the timer React project.
 
 import { useEffect, useState, useRef, useCallback } from "react";
@@ -69,7 +69,8 @@ export function useTimer()
             return;
         }
 
-        const elapsed = nowEpoch() - parsed.startEpoch;
+        const now = nowEpoch();
+        const elapsed = now - parsed.startEpoch;
         const remaining = parsed.duration - elapsed;
 
         if (remaining <= 0)
@@ -78,7 +79,7 @@ export function useTimer()
             return;
         }
 
-        startRef.current = nowPerf() - (parsed.duration - remaining);
+        startRef.current = nowPerf() - elapsed;
         setDuration(parsed.duration);
         setTimeLeft(remaining);
         setRunning(true);
@@ -110,10 +111,15 @@ export function useTimer()
         setPastTimers((prev) =>
         {
             const next = [entry, ...prev].slice(0, MAX_HISTORY);
-            try
+
+            //Avoid unnecessary writes.
+            if ( (JSON.stringify(prev)) !== (JSON.stringify(next)))
             {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-            } catch { /* silent storage failure. */ }
+                try
+                {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+                } catch { /* silent storage failure. */ }
+            }
 
             return next;
         });
@@ -122,15 +128,16 @@ export function useTimer()
     //RAF Loop (peformance.now()).
     const tick = useCallback(() =>
     {
-        if ( (!startRef.current) || (!running) )
+        if ((!running) || (startRef.current == null))
         {
             return;
         }
 
-        const elapsed = nowPerf() - startRef.current;
+        const now = nowPerf();
+        const elapsed = now - startRef.current;
         const remaining = Math.max(0, duration - elapsed);
 
-        if (remaining === 0)
+        if (remaining <= 0)
         {
             setTimeLeft(0);
             complete();
@@ -181,16 +188,16 @@ export function useTimer()
         }
 
         completedRef.current = false; //Reset for a fresh run.
-        const startPerf = nowPerf() - (duration - timeLeft);
-        startRef.current = startPerf;
-        lastSecondRef.current = null; //Force first frame update.
+        const nowP = nowPerf();
+        const nowE = nowEpoch();
+        const elapsed = duration - timeLeft;
 
-        //Persist using epoch time...
-        const startEpoch = nowEpoch() - (duration - timeLeft);
+        startRef.current = nowP - elapsed;
+        lastSecondRef.current = null; //Force first frame update.
 
         try
         {
-            localStorage.setItem(RUNNING_TIMER_KEY, JSON.stringify({ startEpoch, duration }));
+            localStorage.setItem(RUNNING_TIMER_KEY, JSON.stringify({ startEpoch: nowE - elapsed, duration }));
         }
         catch {}
 
@@ -209,8 +216,11 @@ export function useTimer()
 
         localStorage.removeItem(RUNNING_TIMER_KEY);
 
+        const now = nowPerf();
+        const elapsed = duration - timeLeft;
+
         //Accurate resume position.
-        startRef.current = nowPerf() - (duration - timeLeft);
+        startRef.current = now - elapsed;
     }, [duration, timeLeft]);
 
     const reset = useCallback(() =>

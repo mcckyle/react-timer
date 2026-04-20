@@ -1,6 +1,6 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 9 April 2026
+//Date: 19 April 2026
 //Description: This file contains the parent timer component for the timer React project.
 
 import { useState, useEffect, useRef } from "react";
@@ -32,7 +32,7 @@ export default function Timer()
 
   /* Map progress -> hue (cool -> warm).
      220 = blue, 140 = green, 20 = orange/red */
-  const hue = 220 - (200 * Math.pow(1 - progress, 1.15));
+  const hue = 220 - (200 * Math.pow(1 - progress, 1.35));
 
   //Smooth visual progress loop (independent of state updates).
   useEffect(() => {
@@ -43,11 +43,11 @@ export default function Timer()
       return;
     }
 
-    let lastTime = Date.now();
+    let lastTime = performance.now();
 
     const tick = () =>
     {
-      const now = Date.now();
+      const now = performance.now();
       const delta = now - lastTime;
       lastTime = now;
       const deltaProgress = delta / duration;
