@@ -1,6 +1,6 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 19 April 2026
+//Date: 24 April 2026
 //Description: This file contains the parent timer component for the timer React project.
 
 import { useState, useEffect, useRef } from "react";
@@ -27,14 +27,17 @@ export default function Timer()
   const rafRef = useRef(null);
   const resetDisabled = timeLeft === DEFAULT_DURATION && !running;
 
-  //Ambient progress (0 -> 1).
+  //Continuous visual progress.
   const progress = smoothProgress;
 
-  /* Map progress -> hue (cool -> warm).
-     220 = blue, 140 = green, 20 = orange/red */
-  const hue = 220 - (200 * Math.pow(1 - progress, 1.35));
+  /* Dynamic ambient hue.
+     220 = cool blue, 140 = green, 18 = warm amber / red */
+  const hue = 220 - (202 * Math.pow(1 - progress, 1.32));
 
-  //Smooth visual progress loop (independent of state updates).
+  //Ambient intensity response;
+  const ambientStrength = 1 - progress;
+
+  //Smooth independent progress loop.
   useEffect(() => {
     if (!running)
     {
@@ -69,7 +72,7 @@ export default function Timer()
       setCompleted(true);
 
       //Auto-clear after animation window.
-      const timeout = setTimeout(() => setCompleted(false), 900);
+      const timeout = setTimeout(() => setCompleted(false), 1100);
       return () => clearTimeout(timeout);
     }
     prevTimeRef.current = timeLeft;
@@ -87,9 +90,9 @@ export default function Timer()
     onPause: pause,
     onReset: reset,
     onToggleMode: () =>
-      setMode((m) => (m === "digital" ? "visual" : "digital")),
+      setMode((current) => (current === "digital" ? "visual" : "digital")),
     onToggleHistory: () =>
-      setShowHistory((h) => !h),
+      setShowHistory((current) => !current),
   });
 
   useCompletionSound(completed);
@@ -99,9 +102,12 @@ export default function Timer()
       className={`timer${completed ? " is-complete" : ""}${running ? " is-running" : ""}`}
       style={{
         "--ambient-progress": progress,
+        "--ambient-strength": ambientStrength,
         "--ambient-hue": hue,
       }}
     >
+      <div className="timer-ambient-grid" aria-hidden="true" />
+      <div className="timer-ambient-orb" aria-hidden="true" />
       <TimerHeader
         duration={duration}
         onSelectDuration={handleSelectDuration}
@@ -114,21 +120,21 @@ export default function Timer()
       />
 
       <div className="timer-core">
-          {mode === "digital"
-            ? <TimerDisplay timeLeft={timeLeft} />
-            : <VisualTimer progress={progress} />
-          }
-          <TimerControls
-            running={running}
-            onStart={start}
-            onPause={pause}
-            onReset={reset}
-            resetDisabled={resetDisabled}
-          />
-          <p className="timer-shortcuts">
-            Space · Start / Pause · R · Reset
-          </p>
-        </div>
+        {mode === "digital"
+          ? <TimerDisplay timeLeft={timeLeft} />
+          : <VisualTimer progress={progress} />
+        }
+        <TimerControls
+          running={running}
+          onStart={start}
+          onPause={pause}
+          onReset={reset}
+          resetDisabled={resetDisabled}
+        />
+        <p className="timer-shortcuts">
+          Space · Start / Pause · R · Reset · M · Mode
+        </p>
+      </div>
     </section>
   );
 };

@@ -5,6 +5,10 @@
 ======================================= */
 .app
 {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
   min-height: 100dvh;
   width: 100%;
 
@@ -12,52 +16,69 @@
   align-items: center;
   justify-content: center;
 
-  padding: env(safe-area-inset-top)
+  padding: max(1.25rem, env(safe-area-inset-top))
            clamp(1rem, 3vw, 2.5rem)
-           env(safe-area-inset-bottom);
+           max(1.25rem, env(safe-area-inset-bottom));
 
-  background: var(--bg);
-  color: var(--text);
-
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
+/*  background: radial-gradient(
+    120% 120% at 50% -12%,
+    color-mix(in srgb, var(--accent) 6%, transparent),
+    transparent 56%
+  ),
+  linear-gradient(
+    180deg,
+    var(--bg),
+    color-mix(in srgb, var(--bg-secondary) 88%, black)
+  );*/
 }
 
 /* ====================================
-   APP ENVIRONMENT GLOW STYLES.
+   APP ATMOSPHERIC LAYERS STYLES.
 ======================================= */
-.app::before
+.app::before, .app:after
 {
   content: "";
   position: absolute;
-  inset: -10%;
-  z-index: -1;
+  inset: -18%;
+
   pointer-events: none;
+  z-index: -1;
 
-  /* Neutral environment gradient (NOT competing with Timer). */
-  background: radial-gradient(
-    60% 50% at 50% 0%,
-    color-mix(in srgb, var(--text) 5%, transparent),
-    transparent 70%
-  );
-
-  opacity: 0.35;
-  filter: blur(40px);
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  will-change: transform, opacity;
 }
-/*.app::after
+
+/* App Main Cinematic Bloom Layer Styles. */
+/*.app::before
 {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(0, 0, 0, 0.25);
+  background: radial-gradient(
+    34% 30% at 50% 18%,
+    color-mix(in srgb, var(--accent) 12%, transparent),
+    transparent 76%
+  ),
+  radial-gradient(
+    24% 24% at 50% 52%,
+    color-mix(in srgb, white 2%, transparent),
+    transparent 82%
   );
-  opacity: 0.35;
+
+  opacity: 0.88;
+  filter: blur(72px) saturate(132%);
+  transform-origin: center;
+
+  animation: app-atmosphere-float 34s ease-in-out infinite;
+}.app::after
+{
+  background: radial-gradient(
+    42% 42% at 50% 50%,
+    color-mix(in srgb, var(--accent) 4%, transparent),
+    transparent 74%
+  );
+  opacity: 0.42;
+  filter: blur(110px);
+
+  animation: app-atmosphere-pulse 18s ease-in-out infinite;
 }*/
 
 /* ====================================
@@ -65,18 +86,38 @@
 ======================================= */
 .noscript
 {
-  max-width: 26rem;
+  max-width: 28rem;
   margin: 3rem auto;
   padding: 1rem 1.2rem;
+
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
+  backdrop-filter: blur(16px);
 
   text-align: center;
   font-size: 0.9rem;
   font-weight: 500;
 
   color: var(--text);
-  background: var(--surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+}
+
+/*@keyframes app-atmosphere-float
+{
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.02); }
+  50% { transform: translate3d(0, -1%, 0) scale(1.06); }
+}
+
+@keyframes app-atmosphere-pulse
+{
+  0%, 100% { opacity: 0.38; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.04); }
+}*/
+
+@media (prefers-reduced-motion: reduce)
+{
+  .app::before, .app::after { animation: none; }
 }
 
 /* ====================================
@@ -84,5 +125,7 @@
 ======================================= */
 @media (max-width: 480px)
 {
-  .app { padding: max(1.25rem, env(safe-area-inset-top)) 1rem max(1.25rem, env(safe-area-inset-bottom)); }
+  .app { padding-inline: 1rem; }
+/*  .app::before { filter: blur(72px) saturate(130%); }
+  .app::after { filter: blur(118px) saturate(135%); }*/
 }
