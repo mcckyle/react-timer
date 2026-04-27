@@ -6,16 +6,17 @@
 .timer
 {
   width: 100%;
+  max-width: min(100%, 100%);
+  min-height: 100%;
+
   margin-inline: auto;
   position: relative;
   isolation: isolate;
+  overflow: clip;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  padding: clamp(1.4rem, 3vw, 2rem) clamp(1rem, 2vw, 1.4rem);
-  gap: clamp(1.75rem, 3vh, 2.8rem);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: 1rem 0.5rem;
 
   transition: --ambient-hue 220ms linear;
 }
@@ -26,15 +27,17 @@
 .timer-core
 {
   width: 100%;
+  min-height: 100%;
 
   position: relative;
   z-index: 2;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(1rem, 2.5vh, 1.7rem);
+  display: grid;
+  grid-template-rows: 1fr auto;
+  align-items: stretch;
 }
+.timer-core > :first-child { align-self: center; justify-self: center; }
+.timer-core > :not(:first-child) { justify-self: center; }
 
 /* ====================================
    TIMER CONTINUOUS AMBIENT PROGRESS STYLES.
@@ -43,113 +46,109 @@
 {
   content: "";
   position: absolute;
-  inset: -18%;
+  inset: -10%;
   z-index: -3;
   pointer-events: none;
 
   /* Dynamic Tones. */
-  --ambient-core: hsl(var(--ambient-hue) 96% 66% / 0.24);
-  --ambient-mid: hsl(var(--ambient-hue) 92% 60% / 0.14);
-  --ambient-edge: hsl(var(--ambient-hue) 84% 54% / 0.06);
+  --ambient-core: hsl(var(--ambient-hue) 98% 68% / 0.22);
+  --ambient-mid: hsl(var(--ambient-hue) 92% 60% / 0.11);
+  --ambient-edge: hsl(var(--ambient-hue) 84% 54% / 0.035);
 
   background:
-    radial-gradient(20% 20% at 50% 48%, var(--ambient-core), transparent 74%),
-    radial-gradient(46% 46% at 50% 50%, var(--ambient-mid), transparent 76%),
-    radial-gradient(76% 76% at 50% 50%, var(--ambient-edge), transparent 84%);
+    radial-gradient(18% 18% at 50% 48%, var(--ambient-core), transparent 72%),
+    radial-gradient(40% 40% at 50% 50%, var(--ambient-mid), transparent 78%),
+    radial-gradient(58% 58% at 50% 52%, var(--ambient-edge), transparent 88%);
 
   /* True continuous response. */
-  opacity: calc(0.14 + (var(--ambient-strength) * 0.42));
-  filter: blur(64px) saturate(calc(1 + (var(--ambient-strength) * 0.24)));
-  transform: translate3d(0, 0, 0) scale(calc(1 + (var(--ambient-strength) * 0.04)));
+  opacity: calc(0.12 + (var(--ambient-strength) * 0.28));
+  filter: blur(42px) saturate(calc(1 + (var(--ambient-strength) * 0.12)));
+  transform: translate3d(0, 0, 0) scale(calc(1 + (var(--ambient-strength) * 0.02)));
 
   transform-origin: center;
   backface-visibility: hidden;
-  will-change: opacity, transform;
 
-  animation: timer-ambient-breathe 24s ease-in-out infinite;
+  animation: timer-ambient-breathe 32s ease-in-out infinite;
 }
 
 /* Timer Secondary Energy Field Styles. */
-/*.timer::after
+.timer::after
 {
   content: "";
   position: absolute;
-  inset: -24%;
+  inset: -18%;
   z-index: -4;
   pointer-events: none;
 
   background: radial-gradient(
-    48% 48% at 50% 50%,
-    hsl(var(--ambient-hue) 88% 60% / 0.07),
-    transparent 76%
+    50% 50% at 50% 50%,
+    hsl(var(--ambient-hue) 88% 60% / 0.05),
+    transparent 78%
   );
 
-  opacity: calc(0.04 + (var(--ambient-strength) * 0.16));
-  filter: blur(92px);
+  opacity: calc(0.03 + (var(--ambient-strength) * 0.1));
+  filter: blur(74px);
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   will-change: opacity, transform;
 
-  animation: timer-secondary-breathe 40s ease-in-out infinite;
-}*/
+  animation: timer-secondary-breathe 52s ease-in-out infinite;
+}
 .timer-ambient-grid
 {
   position: absolute;
-  inset: -8rem;
+  inset: -6rem;
   z-index: -1;
   pointer-events: none;
 
   background-image:
     linear-gradient(
       to right,
-      color-mix(in srgb, var(--text) 4%, transparent) 1px,
+      color-mix(in srgb, var(--text) 3%, transparent) 1px,
       transparent 1px
     ),
     linear-gradient(
       to bottom,
-      color-mix(in srgb, var(--text) 4%, transparent) 1px,
+      color-mix(in srgb, var(--text) 3%, transparent) 1px,
       transparent 1px
     );
-  background-size: 72px 72px;
+  background-size: 68px 68px;
 
   mask-image: radial-gradient(
     circle at center,
-    black 16%,
-    transparent 84%
+    black 14%,
+    transparent 82%
   );
 
-  opacity: calc(0.02 + (var(--ambient-strength) * 0.045));
-  transform: perspective(1200px) rotateX(78deg) translateY(18%);
+  opacity: calc(0.012 + (var(--ambient-strength) * 0.028));
+  transform: perspective(1400px) rotateX(78deg) translateY(18%);
   filter: blur(0.25px);
 }
 .timer-ambient-orb
 {
   position: absolute;
-  inset: auto;
-
-  width: min(34vw, 22rem);
-  aspect-ratio: 1;
-
   top: 50%;
   left: 50%;
 
+  width: min(30vw, 18rem);
+  aspect-ratio: 1;
   z-index: -2;
   pointer-events: none;
   border-radius: 50%;
 
   background: radial-gradient(
-      circle at 50% 50%,
-      hsl(var(--ambient-hue) 100% 70% / 0.22),
-      transparent 72%
+      circle at center,
+      hsl(var(--ambient-hue) 100% 72% / 0.18),
+      transparent 74%
   );
 
-  opacity: calc(0.08 + (var(--ambient-strength) * 0.3));
-  filter: blur(42px) saturate(150%);
-  transform: translate(-50%, -50%) scale(calc(1 + (var(--ambient-strength) * 0.16)));
+  opacity: calc(0.04 + (var(--ambient-strength) * 0.16));
+  filter: blur(34px) saturate(132%);
+  transform: translate(-50%, -50%) scale(calc(1 + (var(--ambient-strength) * 0.08)));
 
-  animation: timer-orb-drift 18s ease-in-out infinite;
+  animation: timer-orb-drift 26s ease-in-out infinite;
 }
-.timer.is-running { filter: saturate(1.04); }
+.timer.is-running { filter: saturate(1.02); }
 
 /* ====================================
    TIMER COMPLETION MOMENT EFFECT STYLES.
@@ -169,18 +168,18 @@
 
 .timer-shortcuts
 {
+  margin-top: 0.85rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.35rem;
 
-  font-size: 0.58rem;
+  font-size: 0.56rem;
   font-weight: 500;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 
   color: var(--text-muted);
-  opacity: 0.34;
+  opacity: 0.28;
   user-select: none;
 }
 

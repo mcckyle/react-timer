@@ -6,30 +6,34 @@
 .timer-header
 {
     width: 100%;
-    max-width: var(--max-width);
+    max-width: min(100%, 92rem);
     margin-inline: auto;
 
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
 
-    padding-block: 0.5rem;
-    gap: 1rem;
+    padding-block: clamp(0.4rem, 1vh, 0.8rem);
+    gap: clamp(0.75rem, 2vw, 2rem);
 }
 .timer-header-left,
-.timer-header-right { display: flex; align-items: center; }
+.timer-header-center,
+.timer-header-right { min-width: 0; display: flex; align-items: center; }
 .timer-header-left { justify-content: flex-start; }
-.timer-header-right { justify-content: flex-end; }
-.timer-header-center { display: inline-flex; align-items: center; gap: 0.5rem; }
+.timer-header-center { justify-content: center; gap: 0.55rem; }
+.timer-header-right { justify-content: flex-end; min-height: 2.2rem; }
+
 .timer-header-title
 {
-    font-size: 0.6rem;
+    margin: 0;
+    font-size: 0.62rem;
     font-weight: 600;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.26em;
     text-transform: uppercase;
+    white-space: nowrap;
 
     color: var(--text-muted);
-    opacity: 0.45;
+    opacity: 0.42;
 }
 
 .timer-header-mode
@@ -39,7 +43,8 @@
 
     padding: 0.14rem;
     border-radius: var(--radius-pill);
-    background: var(--surface-subtle);
+    background: color-mix(in srgb, var(--surface-subtle) 88%, transparent);
+    backdrop-filter: blur(10px);
 }
 .timer-header-mode button
 {
@@ -47,8 +52,15 @@
     border: none;
     background: transparent;
 
-    padding: 0.32rem 0.55rem;
+    min-width: 2.1rem;
+    height: 1.9rem;
+
+    padding-inline: 0.6rem;
     border-radius: var(--radius-pill);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
     font-size: 0.62rem;
     font-weight: 500;
@@ -72,23 +84,29 @@
 .timer-header-history-button
 {
     appearance: none;
+    border: none;
+    min-height: 1.9rem;
+    padding-inline: 0.78rem;
     border-radius: var(--radius-pill);
 
-    padding: 0.38rem 0.7rem;
-    background: var(--surface-subtle);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--surface-subtle) 88%, transparent);
+    backdrop-filter: blur(10px);
 
     font-size: 0.62rem;
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
+    white-space: nowrap;
 
     color: var(--text-muted);
     cursor: pointer;
 
     transition: background var(--duration-fast) var(--ease-standard),
                 color var(--duration-fast) var(--ease-standard),
-                transform var(--duration-fast) var(--ease-standard),
-                border-color var(--duration-fast) var(--ease-standard);
+                transform var(--duration-fast) var(--ease-standard);
 }
 
 /* ====================================
@@ -97,18 +115,18 @@
 .timer-header-history-panel
 {
     position: absolute;
-    top: calc(100% + 0.5rem);
+    top: calc(100% + 0.6rem);
     right: 0;
     width: min(90vw, 24rem);
     border-radius: var(--radius);
     box-shadow: var(--shadow-soft);
 
     opacity: 0;
-    transform: translateY(6px) scale(0.985);
+    transform: translateY(8px) scale(0.985);
     pointer-events: none;
 
-    transition: opacity 140ms var(--ease-standard),
-                transform 140ms var(--ease-standard);
+    transition: opacity 160ms var(--ease-standard),
+                transform 160ms var(--ease-standard);
 }
 .timer-header-history-panel.is-visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
 
@@ -139,7 +157,9 @@
 ======================================= */
 @media (max-width: 768px)
 {
-    .timer-header { /*grid-template-columns: 1fr; justify-items: center;*/ gap: 0.9rem; }
-    .timer-header-center { flex-wrap: wrap; justify-content: center; }
-    .timer-header-left, .timer-header-right { justify-content: center; }
+    .timer-header { grid-template-columns: 1fr; justify-items: center; gap: 0.9rem; }
+    .timer-header-left, .timer-header-center, .timer-header-right { justify-content: center; }
+    .timer-header-center { flex-wrap: wrap; }
+    .timer-header-history-panel { right: 50%; transform: translateX(50%) translateY(8px) scale(0.985); }
+    .timer-header-history-panel.is-visible { transform: translateX(50%) translateY(0) scale(1); }
 }

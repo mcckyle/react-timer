@@ -11,75 +11,32 @@
 
   min-height: 100dvh;
   width: 100%;
+  flex: 1;
 
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
+  justify-content: stretch;
 
   padding: max(1.25rem, env(safe-area-inset-top))
            clamp(1rem, 3vw, 2.5rem)
            max(1.25rem, env(safe-area-inset-bottom));
 
-/*  background: radial-gradient(
-    120% 120% at 50% -12%,
-    color-mix(in srgb, var(--accent) 6%, transparent),
-    transparent 56%
+  background: radial-gradient(
+    140% 140% at 50% -18%,
+    color-mix(in srgb, var(--accent) 5%, transparent),
+    transparent 58%
+  ),
+  radial-gradient(
+    80% 80% at 50% 120%,
+    color-mix(in srgb, white 1.5%, transparent),
+    transparent 78%
   ),
   linear-gradient(
     180deg,
     var(--bg),
-    color-mix(in srgb, var(--bg-secondary) 88%, black)
-  );*/
-}
-
-/* ====================================
-   APP ATMOSPHERIC LAYERS STYLES.
-======================================= */
-.app::before, .app:after
-{
-  content: "";
-  position: absolute;
-  inset: -18%;
-
-  pointer-events: none;
-  z-index: -1;
-
-  backface-visibility: hidden;
-  transform: translate3d(0, 0, 0);
-  will-change: transform, opacity;
-}
-
-/* App Main Cinematic Bloom Layer Styles. */
-/*.app::before
-{
-  background: radial-gradient(
-    34% 30% at 50% 18%,
-    color-mix(in srgb, var(--accent) 12%, transparent),
-    transparent 76%
-  ),
-  radial-gradient(
-    24% 24% at 50% 52%,
-    color-mix(in srgb, white 2%, transparent),
-    transparent 82%
+    color-mix(in srgb, var(--bg-secondary) 92%, black)
   );
-
-  opacity: 0.88;
-  filter: blur(72px) saturate(132%);
-  transform-origin: center;
-
-  animation: app-atmosphere-float 34s ease-in-out infinite;
-}.app::after
-{
-  background: radial-gradient(
-    42% 42% at 50% 50%,
-    color-mix(in srgb, var(--accent) 4%, transparent),
-    transparent 74%
-  );
-  opacity: 0.42;
-  filter: blur(110px);
-
-  animation: app-atmosphere-pulse 18s ease-in-out infinite;
-}*/
+}
 
 /* ====================================
    APP NOSCRIPT MESSAGE STYLES.
@@ -103,18 +60,6 @@
   box-shadow: var(--shadow-soft);
 }
 
-/*@keyframes app-atmosphere-float
-{
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1.02); }
-  50% { transform: translate3d(0, -1%, 0) scale(1.06); }
-}
-
-@keyframes app-atmosphere-pulse
-{
-  0%, 100% { opacity: 0.38; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.04); }
-}*/
-
 @media (prefers-reduced-motion: reduce)
 {
   .app::before, .app::after { animation: none; }
@@ -126,6 +71,67 @@
 @media (max-width: 480px)
 {
   .app { padding-inline: 1rem; }
-/*  .app::before { filter: blur(72px) saturate(130%); }
-  .app::after { filter: blur(118px) saturate(135%); }*/
 }
+
+/* ====================================
+   APP ATMOSPHERIC LAYERS STYLES.
+======================================= */
+/*.app::before, .app:after
+{
+ content: "";
+ position: absolute;
+ inset: -18%;
+
+ pointer-events: none;
+ z-index: -1;
+
+ backface-visibility: hidden;
+ transform: translate3d(0, 0, 0);
+ will-change: transform, opacity;
+}
+*/
+
+/* App Main Cinematic Bloom Layer Styles. */
+/*.app::before
+ {  *
+ background: radial-gradient(
+   30% 28% at 50% 20%,
+color-mix(in srgb, var(--accent) 10%, transparent),
+transparent 78%
+),
+radial-gradient(
+  18% 18% at 50% 50%,
+color-mix(in srgb, white 2%, transparent),
+transparent 84%
+);
+
+opacity: 0.8;
+filter: blur(64px) saturate(122%);
+transform-origin: center;
+
+animation: app-atmosphere-float 42s ease-in-out infinite;
+}
+.app::after
+{
+background: radial-gradient(
+  46% 46% at 50% 50%,
+color-mix(in srgb, var(--accent) 3%, transparent),
+transparent 76%
+);
+opacity: 0.28;
+filter: blur(96px);
+
+animation: app-atmosphere-pulse 24s ease-in-out infinite;
+}*/
+
+/*@keyframes app-atmosphere-float
+{
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0, -0.8%, 0) scale(1.04); }
+}
+
+@keyframes app-atmosphere-pulse
+{
+  0%, 100% { opacity: 0.24; transform: scale(1); }
+  50% { opacity: 0.34; transform: scale(1.03); }
+}*/
