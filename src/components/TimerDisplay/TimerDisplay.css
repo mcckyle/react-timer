@@ -10,15 +10,16 @@
     justify-content: center;
 
     margin-inline: auto;
-    padding-block: clamp(0.45rem, 2vh, 1rem);
+    padding-block: clamp(0.4rem, 2vh, 0.9rem);
 
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
     font-weight: 600;
 
     font-size: clamp(4rem, 16vw, 22rem);
-    line-height: 0.88;
-    letter-spacing: -0.028em;
+    line-height: 0.9;
+    letter-spacing: -0.025em;
+
     text-align: center;
     white-space: nowrap;
 
@@ -27,8 +28,7 @@
 
     transition: color var(--duration-fast) var(--ease-standard);
 }
-.timer.is-running .timer-display { color: color-mix(in srgb, var(--accent) 45%, var(--text)); }
-.timer.is-complete .timer-display { animation: timer-complete-settle 220ms var(--ease-standard); }
+.timer.is-running .timer-display { color: color-mix(in srgb, var(--accent) 40%, var(--text)); }
 
 /* ====================================
    TIMERDISPLAY DIGIT WRAPPER STYLES.
@@ -41,25 +41,27 @@
     align-items: flex-end;
     justify-content: center;
 
-    width: 0.58em; /* stable digit width. */
+    width: 0.56em;
     height: 1em;
     overflow: hidden; /* hides exiting digits. */
 }
-.timer-display-digit { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; will-change: transform, opacity; }
+.timer-display-digit { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; }
 
 /* ====================================
    TIMERDISPLAY SEPARATOR STYLES.
 ======================================= */
 .timer-display-separator
 {
-    margin-inline: 0.05em;
-
+    margin-inline: 0.045em;
     color: var(--text-muted);
-    opacity: 0.32;
-
+    opacity: 0.26;
     user-select: none;
-    pointer-events: none;
 }
+
+/* ====================================
+   TIMERDISPLAY COMPLETE STATE STYLES.
+======================================= */
+.timer.is-complete .timer-display { animation: timer-complete-settle 200ms var(--ease-standard); }
 
 /* ====================================
    TIMERDISPLAY ANIMATIONS STYLES.
@@ -67,7 +69,7 @@
 @keyframes timer-complete-settle
 {
     0% { transform: scale(1); }
-    35% { transform: scale(1.008); }
+    40% { transform: scale(1.006); }
     100% { transform: scale(1); }
 }
 
@@ -76,7 +78,7 @@
 ======================================= */
 @media (max-width: 480px)
 {
-    .timer-display { font-size: clamp(2.6rem, 13vw, 8rem); letter-spacing: -0.022em; }
+    .timer-display { font-size: clamp(2.6rem, 13vw, 8rem); letter-spacing: -0.02em; }
 }
 
 /* ====================================
@@ -84,10 +86,5 @@
 ======================================= */
 @media (prefers-reduced-motion: reduce)
 {
-    .timer-display-digit
-    {
-        opacity: 1 !important;
-        transform: none !important;
-        will-change: auto;
-    }
+    .timer-display-digit { opacity: 1 !important; transform: none !important; }
 }

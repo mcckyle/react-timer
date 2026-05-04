@@ -9,56 +9,67 @@
     max-width: min(100%, 92rem);
     margin-inline: auto;
 
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    display: flex;
     align-items: center;
+    justify-content: center;
 
-    padding-block: clamp(0.4rem, 1vh, 0.8rem);
-    gap: clamp(0.75rem, 2vw, 2rem);
+    gap: 1rem;
+    padding-block: 0.6rem;
 }
 .timer-header-left,
 .timer-header-center,
-.timer-header-right { min-width: 0; display: flex; align-items: center; }
-.timer-header-left { justify-content: flex-start; }
-.timer-header-center { justify-content: center; gap: 0.55rem; }
-.timer-header-right { justify-content: flex-end; min-height: 2.2rem; }
+.timer-header-right { display: flex; align-items: center; gap: 0.5rem; min-width: 0; }
+.timer-header-center { flex: 1; justify-content: center; }
+.timer-header-right { justify-content: flex-end; }
 
+/* ====================================
+   TIMERHEADER TITLE STYLES.
+======================================= */
 .timer-header-title
 {
-    margin: 0;
     font-size: 0.62rem;
     font-weight: 600;
-    letter-spacing: 0.26em;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    white-space: nowrap;
 
     color: var(--text-muted);
-    opacity: 0.42;
+    opacity: 0.38;
+    white-space: nowrap;
 }
 
-.timer-header-mode
+/* ====================================
+   TIMERHEADER SHARED CONTROL SURFACE STYLES.
+======================================= */
+.timer-control-surface
 {
     display: inline-flex;
     align-items: center;
 
-    padding: 0.14rem;
+    padding: 0.16rem;
     border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--surface-subtle) 88%, transparent);
+    background: var(--surface-subtle);
     backdrop-filter: blur(10px);
+}
+
+/* ====================================
+   TIMERHEADER MODE TOGGLE STYLES.
+======================================= */
+.timer-header-mode
+{
+    composes: timer-control-surface;
 }
 .timer-header-mode button
 {
-    appearance: none;
     border: none;
     background: transparent;
 
     min-width: 2.1rem;
-    height: 1.9rem;
+    height: 1.85rem;
+    padding-inline: 0.55rem;
 
-    padding-inline: 0.6rem;
     border-radius: var(--radius-pill);
 
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
 
@@ -68,8 +79,7 @@
     cursor: pointer;
 
     transition: background var(--duration-fast) var(--ease-standard),
-                color var(--duration-fast) var(--ease-standard),
-                transform var(--duration-fast) var(--ease-standard);
+                color var(--duration-fast) var(--ease-standard);
 }
 .timer-header-mode button[aria-pressed="true"]
 {
@@ -78,69 +88,65 @@
 }
 
 /* ====================================
-   TIMER HISTORY TOGGLE STYLES.
+   TIMER HISTORY BUTTON STYLES.
 ======================================= */
-.timer-header-history { position: relative; }
 .timer-header-history-button
 {
-    appearance: none;
     border: none;
-    min-height: 1.9rem;
-    padding-inline: 0.78rem;
+
+    height: 1.85rem;
+    padding-inline: 0.75rem;
     border-radius: var(--radius-pill);
 
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    background: color-mix(in srgb, var(--surface-subtle) 88%, transparent);
+
+    background: var(--surface-subtle);
     backdrop-filter: blur(10px);
 
     font-size: 0.62rem;
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    white-space: nowrap;
 
     color: var(--text-muted);
     cursor: pointer;
 
     transition: background var(--duration-fast) var(--ease-standard),
-                color var(--duration-fast) var(--ease-standard),
-                transform var(--duration-fast) var(--ease-standard);
+                color var(--duration-fast) var(--ease-standard);
 }
 
 /* ====================================
    TIMER HISTORY PANEL STYLES.
 ======================================= */
+.timer-header-history { position: relative; }
 .timer-header-history-panel
 {
     position: absolute;
     top: calc(100% + 0.6rem);
     right: 0;
     width: min(90vw, 24rem);
+
     border-radius: var(--radius);
     box-shadow: var(--shadow-soft);
 
     opacity: 0;
-    transform: translateY(8px) scale(0.985);
+    transform: translateY(6px) scale(0.98);
     pointer-events: none;
 
-    transition: opacity 160ms var(--ease-standard),
-                transform 160ms var(--ease-standard);
+    transition: opacity 140ms var(--ease-standard),
+                transform 140ms var(--ease-standard);
 }
 .timer-header-history-panel.is-visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
 
 @media (hover: hover)
 {
-    .timer-header-mode button:not([aria-pressed="true"]):hover
-    {
-        color: var(--text);
-        background: color-mix(in srgb, var(--text) 5%, transparent);
-    }
+    .timer-header-mode button:not([aria-pressed="true"]):hover,
     .timer-header-history-button:hover
     {
-        color: var(--accent);
-        background: color-mix(in srgb, var(--accent) 10%, transparent);
+        background: color-mix(in srgb, var(--text) 6%, transparent);
+        color: var(--text);
     }
 }
 
@@ -149,7 +155,9 @@
 ======================================= */
 @media (prefers-reduced-motion: reduce)
 {
-    .timer-header-mode button, .timer-header-history-button, .timer-header-history-panel { transition: none; }
+    .timer-header-mode button,
+    .timer-header-history-button,
+    .timer-header-history-panel { transition: none; }
 }
 
 /* ====================================
@@ -157,9 +165,9 @@
 ======================================= */
 @media (max-width: 768px)
 {
-    .timer-header { grid-template-columns: 1fr; justify-items: center; gap: 0.9rem; }
+    .timer-header { flex-direction: column; align-items: center; gap: 0.75rem; }
     .timer-header-left, .timer-header-center, .timer-header-right { justify-content: center; }
     .timer-header-center { flex-wrap: wrap; }
-    .timer-header-history-panel { right: 50%; transform: translateX(50%) translateY(8px) scale(0.985); }
+    .timer-header-history-panel { right: 50%; transform: translateX(50%) translateY(6px) scale(0.98); }
     .timer-header-history-panel.is-visible { transform: translateX(50%) translateY(0) scale(1); }
 }

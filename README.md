@@ -7,7 +7,7 @@ A simple, modern timer app built with **React** and **Vite**. Designed for focus
 ## Features
 
 - ⚡ Instant load with [Vite](https://vitejs.dev/)
-- 💡 Minimalist design, dark-themed interface
+- 💡 Dynamic ambient background design combined with a dark-themed interface
 - 📱 Responsive layout for desktop and mobile
 - 🧠 Built with composability and future enhancements in mind!
 
@@ -123,7 +123,7 @@ react-timer/
 
 ## 🎯 Roadmap
 
-- [ ] Keyboard shortcuts for core controls.
+- [x] Keyboard shortcuts for core controls.
 - [ ] Add light/dark mode toggle with animation.
 
 ---

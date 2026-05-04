@@ -1,6 +1,6 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 24 April 2026
+//Date: 4 May 2026
 //Description: This file contains the parent timer component for the timer React project.
 
 import { useState, useEffect, useRef } from "react";
@@ -35,7 +35,7 @@ export default function Timer()
   const hue = 220 - (202 * Math.pow(1 - progress, 1.32));
 
   //Ambient intensity response;
-  const ambientStrength = 1 - progress;
+  const ambientStrength = Math.pow(1 - progress, 1.4);
 
   //Smooth independent progress loop.
   useEffect(() => {
@@ -67,7 +67,7 @@ export default function Timer()
 
   //Detect completion moment (edge trigger).
   useEffect(() => {
-    if ( (prevTimeRef.current > 0) && (timeLeft === 0))
+    if ((prevTimeRef.current > 0) && (timeLeft === 0))
     {
       setCompleted(true);
 
@@ -107,7 +107,6 @@ export default function Timer()
       }}
     >
       <div className="timer-ambient-grid" aria-hidden="true" />
-      <div className="timer-ambient-orb" aria-hidden="true" />
       <TimerHeader
         duration={duration}
         onSelectDuration={handleSelectDuration}

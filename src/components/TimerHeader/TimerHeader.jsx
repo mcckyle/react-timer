@@ -1,6 +1,6 @@
 //File name: TimerHeader.jsx
 //Author: Kyle McColgan
-//Date: 19 April 2026
+//Date: 4 May 2026
 //Description: This file contains the timer header component for the timer React project.
 
 import React from "react";
@@ -35,7 +35,7 @@ export default function TimerHeader({
         />
 
         <div
-          className="timer-header-mode"
+          className="timer-header-mode timer-control-surface"
           role="group"
           aria-label="Display mode"
         >

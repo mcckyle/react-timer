@@ -10,7 +10,7 @@
     justify-content: center;
 
     width: 100%;
-    padding-block: clamp(0.9rem, 4vh, 1.6rem);
+    padding-block: clamp(0.8rem, 4vh, 1.4rem);
 }
 
 /* ====================================
@@ -19,8 +19,8 @@
 .visual-timer-hourglass
 {
     position: relative;
-    width: clamp(92px, 10vw, 136px);
-    height: clamp(130px, 18vw, 196px);
+    width: clamp(88px, 10vw, 128px);
+    height: clamp(124px, 18vw, 184px);
 
     display: flex;
     align-items: center;
@@ -35,9 +35,9 @@
     border-radius: 50% / 36%;
     border: 1px solid var(--border-subtle);
 
-    opacity: 0.1;
+    opacity: 0.08;
 }
-.visual-timer-hourglass::after
+/*.visual-timer-hourglass::after
 {
     content: "";
     position: absolute;
@@ -51,7 +51,7 @@
     );
 
     opacity: calc(0.08 + var(--progress-inverse) * 0.18);
-}
+}*/
 
 /* ====================================
    VISUALTIMER SAND BASE STYLES.
@@ -61,15 +61,13 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 58%;
+    width: 56%;
 
     background: linear-gradient(
         to bottom,
-        color-mix(in srgb, var(--accent) 70%, white),
+        color-mix(in srgb, var(--accent) 72%, white),
         color-mix(in srgb, var(--accent) 88%, black)
     );
-
-    will-change: height, opacity;
 }
 
 /* ====================================
@@ -81,7 +79,7 @@
     height: calc(50% * var(--progress-eased));
 
     clip-path: polygon(50% 100%, 0 0, 100% 0);
-    opacity: calc(0.22 + var(--progress) * 0.5);
+    opacity: calc(0.25 + var(--progress) * 0.45);
 }
 
 /* ====================================
@@ -93,7 +91,7 @@
     height: calc(50% * var(--progress-inverse));
 
     clip-path: polygon(0 100%, 100% 100%, 50% 0);
-    opacity: calc(0.28 + var(--progress-inverse) * 0.6);
+    opacity: calc(0.3 + var(--progress-inverse) * 0.55);
 }
 
 /* ====================================
@@ -102,20 +100,14 @@
 .visual-timer-sand-flow
 {
     top: 50%;
-    width: 1.2%;
-    height: calc(42% * var(--progress-inverse));
+    width: 1.1%;
+    height: calc(40% * var(--progress-inverse));
 
     border-radius: var(--radius-pill);
-    background: linear-gradient(
-        to bottom,
-        color-mix(in srgb, var(--accent) 82%, white),
-        color-mix(in srgb, var(--accent) 92%, black)
-    );
+    background: color-mix(in srgb, var(--accent) 85%, white);
 
     transform: translate(-50%, -50%);
-    opacity: calc(0.18 + var(--progress-inverse) * 0.55);
-    filter: blur(0.15px)
-            drop-shadow(0 0 4px color-mix(in srgb, var(--accent) 18%, transparent));
+    opacity: calc(0.2 + var(--progress-inverse) * 0.5);
 }
 
 /* ====================================
@@ -124,8 +116,8 @@
 .visual-timer-sand-top,
 .visual-timer-sand-bottom
 {
-    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.035),
-                inset 0 -2px 3px rgba(0, 0, 0, 0.22);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.03),
+                inset 0 -2px 3px rgba(0, 0, 0, 0.18);
 }
 
 /* ====================================
@@ -133,7 +125,7 @@
 ======================================= */
 @media (max-width: 480px)
 {
-    .visual-timer { padding-block: 0.75rem; }
+    .visual-timer { padding-block: 0.7rem; }
 }
 
 @media (prefers-reduced-motion: reduce)
