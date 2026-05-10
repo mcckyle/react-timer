@@ -1,6 +1,6 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 4 May 2026
+//Date: 9 May 2026
 //Description: This file contains the parent timer component for the timer React project.
 
 import { useState, useEffect, useRef } from "react";
@@ -28,17 +28,18 @@ export default function Timer()
   const resetDisabled = timeLeft === DEFAULT_DURATION && !running;
 
   //Continuous visual progress.
-  const progress = smoothProgress;
+  const progress = Math.max(0, Math.min(1, smoothProgress));
 
   /* Dynamic ambient hue.
      220 = cool blue, 140 = green, 18 = warm amber / red */
   const hue = 220 - (202 * Math.pow(1 - progress, 1.32));
 
-  //Ambient intensity response;
+  //Ambient intensity response.
   const ambientStrength = Math.pow(1 - progress, 1.4);
 
   //Smooth independent progress loop.
-  useEffect(() => {
+  useEffect(() =>
+  {
     if (!running)
     {
       progressRef.current = timeLeft / duration;
@@ -62,11 +63,18 @@ export default function Timer()
 
     rafRef.current = requestAnimationFrame(tick);
 
-    return () => (rafRef.current) && (cancelAnimationFrame(rafRef.current));
+    return () =>
+    {
+      if (rafRef.current)
+      {
+        cancelAnimationFrame(rafRef.current);
+      }
+    }
   }, [running, duration, timeLeft]);
 
-  //Detect completion moment (edge trigger).
-  useEffect(() => {
+  //Detect completion edge moment.
+  useEffect(() =>
+  {
     if ((prevTimeRef.current > 0) && (timeLeft === 0))
     {
       setCompleted(true);
@@ -84,15 +92,23 @@ export default function Timer()
     setTimeLeft(value);
   };
 
+  const toggleMode = () =>
+  {
+    setMode((current) => current === "digital" ? "visual" : "digial");
+  };
+
+  const toggleHistory = () =>
+  {
+    setShowHistory((current) => !current);
+  };
+
   useKeyboardShortcuts({
     running,
     onStart: start,
     onPause: pause,
     onReset: reset,
-    onToggleMode: () =>
-      setMode((current) => (current === "digital" ? "visual" : "digital")),
-    onToggleHistory: () =>
-      setShowHistory((current) => !current),
+    onToggleMode: toggleMode,
+    onToggleHistory: toggleHistory,
   });
 
   useCompletionSound(completed);
