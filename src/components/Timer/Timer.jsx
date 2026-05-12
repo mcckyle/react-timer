@@ -1,6 +1,6 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 9 May 2026
+//Date: 11 May 2026
 //Description: This file contains the parent timer component for the timer React project.
 
 import { useState, useEffect, useRef } from "react";
@@ -25,43 +25,41 @@ export default function Timer()
   const prevTimeRef = useRef(timeLeft);
   const progressRef = useRef(1);
   const rafRef = useRef(null);
-  const resetDisabled = timeLeft === DEFAULT_DURATION && !running;
+  const resetDisabled = (timeLeft === DEFAULT_DURATION) && !running;
 
   //Continuous visual progress.
   const progress = Math.max(0, Math.min(1, smoothProgress));
 
-  /* Dynamic ambient hue.
+  /* Dynamic ambient hue system.
      220 = cool blue, 140 = green, 18 = warm amber / red */
-  const hue = 220 - (202 * Math.pow(1 - progress, 1.32));
+  const ambientStrength = Math.pow(1 - progress, 1.25);
+  const hue = 220 - (202 * ambientStrength);
 
-  //Ambient intensity response.
-  const ambientStrength = Math.pow(1 - progress, 1.4);
-
-  //Smooth independent progress loop.
+  //RAF-driven visual smoothing.
   useEffect(() =>
   {
     if (!running)
     {
-      progressRef.current = timeLeft / duration;
-      setSmoothProgress(progressRef.current);
+      const staticProgress = timeLeft / duration;
+      progressRef.current = staticProgress;
+      setSmoothProgress(staticProgress);
       return;
     }
 
-    let lastTime = performance.now();
+    let previousFrame = performance.now();
 
-    const tick = () =>
+    const animate = () =>
     {
       const now = performance.now();
-      const delta = now - lastTime;
-      lastTime = now;
-      const deltaProgress = delta / duration;
+      const delta = now - previousFrame;
+      previousFrame = now;
 
-      progressRef.current = Math.max(0, progressRef.current - deltaProgress);
+      progressRef.current = Math.max(0, progressRef.current - (delta / duration));
       setSmoothProgress(progressRef.current);
-      rafRef.current = requestAnimationFrame(tick);
+      rafRef.current = requestAnimationFrame(animate);
     };
 
-    rafRef.current = requestAnimationFrame(tick);
+    rafRef.current = requestAnimationFrame(animate);
 
     return () =>
     {
@@ -72,10 +70,11 @@ export default function Timer()
     }
   }, [running, duration, timeLeft]);
 
-  //Detect completion edge moment.
+  //Completion Detection.
   useEffect(() =>
   {
-    if ((prevTimeRef.current > 0) && (timeLeft === 0))
+    const completedNow = (prevTimeRef.current > 0) && (timeLeft === 0);
+    if (completedNow)
     {
       setCompleted(true);
 
@@ -94,7 +93,7 @@ export default function Timer()
 
   const toggleMode = () =>
   {
-    setMode((current) => current === "digital" ? "visual" : "digial");
+    setMode((current) => current === "digital" ? "visual" : "digital");
   };
 
   const toggleHistory = () =>

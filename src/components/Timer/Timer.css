@@ -15,8 +15,8 @@
   display: grid;
   grid-template-rows: auto 1fr;
   padding: max(1.25rem, env(safe-area-inset-top))
-           clamp(1rem, 3vw, 2.5rem)
-           max(1.25rem, env(safe-area-inset-bottom));
+  clamp(1rem, 3vw, 2.5rem)
+  max(1.25rem, env(safe-area-inset-bottom));
 
   transition: filter var(--duration-standard) var(--ease-standard);
 }
@@ -36,7 +36,7 @@
 }
 
 /* ====================================
-   TIMER PRIMARY AMBIENT ENERGY FIELD STYLES.
+   TIMER PRIMARY AMBIENT FIELD STYLES.
 ======================================= */
 .timer::before
 {
@@ -50,15 +50,15 @@
   --energy-strong: hsl(var(--ambient-hue) 100% 68% / 0.16);
   --energy-soft: hsl(var(--ambient-hue) 92% 60% / 0.06);
 
-/*  background:
-    conic-gradient(
-      from calc(var(--ambient-progress) * 360deg),
-      transparent 0%,
-      var(--energy-soft) 20%,
-      var(--energy-strong) 40%,
-      transparent 60%
-    ),
-    radial-gradient(40% 40% at 50% 50%, var(--energy-strong), transparent 70%);*/
+  /*  background:
+   *   conic-gradient(
+   *     from calc(var(--ambient-progress) * 360deg),
+   *     transparent 0%,
+   *     var(--energy-soft) 20%,
+   *     var(--energy-strong) 40%,
+   *     transparent 60%
+   *   ),
+   *   radial-gradient(40% 40% at 50% 50%, var(--energy-strong), transparent 70%);*/
 
   background: radial-gradient(
     circle at center,
@@ -115,16 +115,16 @@
   pointer-events: none;
 
   background-image:
-    linear-gradient(
-      to right,
-      color-mix(in srgb, var(--text) 2%, transparent) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--text) 2%, transparent) 1px,
-      transparent 1px
-    );
+  linear-gradient(
+    to right,
+    color-mix(in srgb, var(--text) 2%, transparent) 1px,
+                  transparent 1px
+  ),
+  linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--text) 2%, transparent) 1px,
+                  transparent 1px
+  );
   background-size: 72px 72px;
 
   mask-image: radial-gradient(

@@ -12,16 +12,54 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: max(1.25rem, env(safe-area-inset-top))
-           max(1.25rem, env(safe-area-inset-right))
-           max(1.25rem, env(safe-area-inset-bottom))
-           max(1.25rem, env(safe-area-inset-left));
+  padding: max(1.5rem, env(safe-area-inset-top))
+           max(1.5rem, env(safe-area-inset-right))
+           max(1.5rem, env(safe-area-inset-bottom))
+           max(1.5rem, env(safe-area-inset-left));
 }
+
+/* ====================================
+   APPLICATION AMBIENT OVERLAY STYLES.
+======================================= */
+/*.app::before
+{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background: radial-gradient(
+    40rem 40rem at 50% 50%,
+    color-mix(in srgb, var(--accent) 10%, transparent),
+    transparent 72%
+  );
+
+  opacity: 0.9;
+  filter: blur(40px);
+
+  transition: opacity var(--duration-slow) var(--ease-standard),
+              background var(--duration-slow) var(--ease-standard);
+}*/
+
+/* ====================================
+   APPLICATION CONTENT SHELL STYLES.
+======================================= */
+/*.app-shell
+{
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  max-width: var(--max-width);
+
+  display: flex;
+  justify-content: center;
+}*/
 
 /* ====================================
    APP MEDIA QUERY STYLES.
 ======================================= */
-@media (max-width: 480px)
+@media (max-width: 640px)
 {
   .app { padding-inline: 1rem; }
 }
