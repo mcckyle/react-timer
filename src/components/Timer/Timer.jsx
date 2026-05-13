@@ -1,6 +1,6 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 11 May 2026
+//Date: 12 May 2026
 //Description: This file contains the parent timer component for the timer React project.
 
 import { useState, useEffect, useRef } from "react";
@@ -19,21 +19,25 @@ export default function Timer()
   const { duration, setDuration, timeLeft, setTimeLeft, running, start, pause, reset, pastTimers, clearPastTimers } = useTimer();
   const [showHistory, setShowHistory] = useState(false);
   const [mode, setMode] = useState("digital"); //"digital" || "visual".
-  const [smoothProgress, setSmoothProgress] = useState(1);
+
+  const initialProgress = duration > 0 ? timeLeft / duration : 1;
+  const [smoothProgress, setSmoothProgress] = useState(initialProgress);
   const [completed, setCompleted] = useState(false);
 
   const prevTimeRef = useRef(timeLeft);
-  const progressRef = useRef(1);
+  const progressRef = useRef(initialProgress);
   const rafRef = useRef(null);
   const resetDisabled = (timeLeft === DEFAULT_DURATION) && !running;
 
   //Continuous visual progress.
   const progress = Math.max(0, Math.min(1, smoothProgress));
 
-  /* Dynamic ambient hue system.
-     220 = cool blue, 140 = green, 18 = warm amber / red */
-  const ambientStrength = Math.pow(1 - progress, 1.25);
-  const hue = 220 - (202 * ambientStrength);
+  /* Dynamic ambient energy system.
+     220 = cool blue, 160 = teal, 80 = lime, 18 = amber / red */
+  const energy = Math.pow(1 - progress, 1.18);
+  const hue = 220 - (202 * energy);
+  const glow = 0.18 + (energy * 0.82);
+  const depth = 1 + (energy * 0.08);
 
   //RAF-driven visual smoothing.
   useEffect(() =>
@@ -117,8 +121,10 @@ export default function Timer()
       className={`timer${completed ? " is-complete" : ""}${running ? " is-running" : ""}`}
       style={{
         "--ambient-progress": progress,
-        "--ambient-strength": ambientStrength,
+        "--ambient-energy": energy,
         "--ambient-hue": hue,
+        "--ambient-glow": glow,
+        "--ambient-depth": depth,
       }}
     >
       <div className="timer-ambient-grid" aria-hidden="true" />
@@ -133,22 +139,26 @@ export default function Timer()
         setShowHistory={setShowHistory}
       />
 
-      <div className="timer-core">
-        {mode === "digital"
-          ? <TimerDisplay timeLeft={timeLeft} />
-          : <VisualTimer progress={progress} />
-        }
-        <TimerControls
-          running={running}
-          onStart={start}
-          onPause={pause}
-          onReset={reset}
-          resetDisabled={resetDisabled}
-        />
-        <p className="timer-shortcuts">
-          Space · Start / Pause · R · Reset · M · Mode
-        </p>
-      </div>
+      <main className="stage">
+        <section className="displayRegion" aria-label="Time remaining">
+          {mode === "digital"
+            ? <TimerDisplay timeLeft={timeLeft} />
+            : <VisualTimer progress={progress} />
+          }
+          </section>
+          <section className="controlsRegion" aria-label="Playback controls">
+            <TimerControls
+              running={running}
+              onStart={start}
+              onPause={pause}
+              onReset={reset}
+              resetDisabled={resetDisabled}
+            />
+          </section>
+          <p className="timer-shortcuts">
+            Space · Start / Pause · R · Reset · M · Mode
+          </p>
+        </main>
     </section>
   );
 };

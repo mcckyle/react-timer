@@ -1,6 +1,6 @@
 //File name: useTimer.test.jsx
 //Author: Kyle McColgan
-//Date: 3 April 2026
+//Date: 12 May 2026
 //Description: This file contains the unit test suite for the Timer React project useTimer hook.
 
 import React from "react";
@@ -144,7 +144,7 @@ describe("useTimer hook", () => {
         act(() => result.current.start());
         await flushUntil(() => !result.current.running);
         expect(spy).toHaveBeenCalledWith(
-            "runningTimer",
+            "timerSession",
             expect.any(String)
         );
     });

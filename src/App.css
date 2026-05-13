@@ -10,8 +10,9 @@
   min-height: 100dvh;
 
   display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow-x: hidden;
+  isolation: isolate;
+
   padding: max(1.5rem, env(safe-area-inset-top))
            max(1.5rem, env(safe-area-inset-right))
            max(1.5rem, env(safe-area-inset-bottom))

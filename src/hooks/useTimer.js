@@ -1,13 +1,13 @@
 //File name: useTimer.js
 //Author: Kyle McColgan
-//Date: 19 April 2026
+//Date: 12 May 2026
 //Description: This file contains the custom timekeeping hook for the timer React project.
 
 import { useEffect, useState, useRef, useCallback } from "react";
 
 export const DEFAULT_DURATION = 10 * 1000; //10 seconds (milliseconds).
 const STORAGE_KEY = "pastTimers";
-const RUNNING_TIMER_KEY = "runningTimer";
+const TIMER_SESSION_KEY = "timerSession";
 const MAX_HISTORY = 50;
 
 const requestRAF =
@@ -36,6 +36,23 @@ function safeParse(value)
     }
 }
 
+function persistTimerSession(payload)
+{
+    try
+    {
+        localStorage.setItem(TIMER_SESSION_KEY, JSON.stringify(payload));
+    }
+    catch
+    {
+        /* Silent storage failures... */
+    }
+}
+
+function clearTimerSession()
+{
+    localStorage.removeItem(TIMER_SESSION_KEY);
+}
+
 export function useTimer()
 {
     const [duration, setDuration] = useState(DEFAULT_DURATION);
@@ -48,6 +65,9 @@ export function useTimer()
     const completedRef = useRef(false);
     const lastSecondRef = useRef(null);
 
+    const hydratedRef = useRef(false);
+    const restoringRef = useRef(true);
+
     //Hydrate past timers once...
     useEffect(() =>
     {
@@ -59,31 +79,16 @@ export function useTimer()
         }
     }, []);
 
-    //Restore running timer (if one exists).
+    //Persist non-running timer state.
     useEffect(() =>
     {
-        const parsed = safeParse(localStorage.getItem(RUNNING_TIMER_KEY));
-
-        if ((!parsed) || (typeof parsed.startEpoch !== "number") || (typeof parsed.duration !== "number"))
+        if ( (restoringRef.current) || (!hydratedRef.current) || (running))
         {
             return;
         }
 
-        const now = nowEpoch();
-        const elapsed = now - parsed.startEpoch;
-        const remaining = parsed.duration - elapsed;
-
-        if (remaining <= 0)
-        {
-            complete(parsed.duration);
-            return;
-        }
-
-        startRef.current = nowPerf() - elapsed;
-        setDuration(parsed.duration);
-        setTimeLeft(remaining);
-        setRunning(true);
-    }, []);
+        persistTimerSession({ duration, timeLeft, running: false, });
+    }, [duration, timeLeft, running]);
 
     const complete = useCallback((completedDuration = duration) =>
     {
@@ -101,7 +106,7 @@ export function useTimer()
         }
 
         setRunning(false);
-        localStorage.removeItem(RUNNING_TIMER_KEY);
+        clearTimerSession();
 
         const entry = {
             duration: completedDuration,
@@ -124,6 +129,72 @@ export function useTimer()
             return next;
         });
     }, [duration]);
+
+    //Restore previous timer session (if one exists).
+    useEffect(() =>
+    {
+        const parsed = safeParse(localStorage.getItem(TIMER_SESSION_KEY));
+
+        if (!parsed)
+        {
+            hydratedRef.current = true;
+            return;
+        }
+
+        const {
+            duration: storedDuration,
+            timeLeft: storedTimeLeft,
+            running: storedRunning,
+            startEpoch,
+        } = parsed;
+
+        if ((typeof storedDuration !== "number") || (typeof storedTimeLeft !== "number"))
+        {
+            return;
+        }
+
+        setDuration(storedDuration);
+
+        //Paused persistence.
+        if (!storedRunning)
+        {
+            setTimeLeft(storedTimeLeft);
+            setRunning(false);
+            return;
+        }
+
+        //Running persistence.
+        if (typeof startEpoch !== "number")
+        {
+            return;
+        }
+
+        const now = nowEpoch();
+        const elapsed = now - startEpoch;
+        const remaining = storedDuration - elapsed;
+
+        if (remaining <= 0)
+        {
+            complete(storedDuration);
+            return;
+        }
+
+        startRef.current = nowPerf() - elapsed;
+        setTimeLeft(remaining);
+        setRunning(true);
+    }, [complete]);
+
+    //Unlock persistence after restoration finishes.
+    useEffect(() =>
+    {
+        if ((!hydratedRef.current))
+        {
+            hydratedRef.current = true;
+            return;
+        }
+
+        restoringRef.current = false;
+    }, [running, timeLeft, duration]);
 
     //RAF Loop (peformance.now()).
     const tick = useCallback(() =>
@@ -197,7 +268,7 @@ export function useTimer()
 
         try
         {
-            localStorage.setItem(RUNNING_TIMER_KEY, JSON.stringify({ startEpoch: nowE - elapsed, duration }));
+            persistTimerSession({ duration, timeLeft, running: true, startEpoch: nowE - elapsed, });
         }
         catch {}
 
@@ -214,7 +285,7 @@ export function useTimer()
             rafRef.current = null;
         }
 
-        localStorage.removeItem(RUNNING_TIMER_KEY);
+        persistTimerSession({ duration, timeLeft, running: false, });
 
         const now = nowPerf();
         const elapsed = duration - timeLeft;
@@ -237,7 +308,7 @@ export function useTimer()
 
         setRunning(false);
         setTimeLeft(duration);
-        localStorage.removeItem(RUNNING_TIMER_KEY);
+        clearTimerSession();
     }, [duration]);
 
     const clearPastTimers = useCallback(() =>
