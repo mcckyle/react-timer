@@ -46,15 +46,20 @@
   --shadow-soft: 0 28px 70px -28px rgba(0, 0, 0, 0.52);
   --shadow-glow: 0 0 42px color-mix(in srgb, var(--accent) 10%, transparent);
 
-  /* Ambient Glow. */
-  --ambient-glow-soft: 0 0 80px color-mix(in srgb, var(--accent) 8%, transparent);
-  --ambient-glow-strong: 0 0 140px color-mix(in srgb, var(--accent) 12%, transparent);
+  /* Ambient Lighting System. */
+  --ambient-intenstity: 1;
+  --ambient-blur: 140px;
+  --ambient-grid-opacity: 0.018;
+  --ambient-glow-soft: 0 0 120px color-mix(in srgb, var(--accent) 10%, transparent);
+  --ambient-glow-strong: 0 0 220px color-mix(in srgb, var(--accent) 18%, transparent);
 
   /* Motion. */
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-fluid: cubic-bezier(0.22, 1, 0.36, 1);
   --duration-slow: 520ms;
   --duration-standard: 240ms;
   --duration-fast: 140ms;
+  --duration-ambient: 1200ms;
 }
 
 /* ====================================
@@ -68,6 +73,7 @@ body
 {
   margin: 0;
   position: relative;
+  overflow-x: hidden;
 
   font-family: var(--font-sans);
   font-size: clamp(0.95rem, 0.2vw + 0.9rem, 1rem);
@@ -81,30 +87,92 @@ body
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  overflow-x: hidden;
   background-color: var(--bg);
   background-attachment: fixed;
 
-  /* SINGLE, CONTROLLED BACKGROUND SYSTEM STYLES. */
+  /* Unified cinematic ambient environment. */
   background-image: radial-gradient(
-    120% 120% at 50% -10%,
-    color-mix(in srgb, var(--accent) 7%, transparent),
+    160% 140% at 50% -20%,
+    hsl(var(--ambient-hue) 100% 72% / 0.16),
+    transparent 42%
+  ),
+  radial-gradient(
+    120% 120% at 85% 18%,
+    hsl(calc(var(--ambient-hue) + 28) 100% 68% / 0.10),
     transparent 52%
   ),
   radial-gradient(
-    100% 100% at 50% 120%,
-    color-mix(in srgb, var(--accent) 5%, transparent),
+    100% 120% at 10% 90%,
+    hsl(calc(var(--ambient-hue) - 24) 100% 64% / 0.08),
+    transparent 58%
+  ),
+  radial-gradient(
+    90% 90% at 50% 50%,
+    hsl(var(--ambient-hue) 100% 72% / 0.05),
     transparent 70%
   ),
   linear-gradient(
     180deg,
-    var(--bg),
-    var(--bg-secondary)
+    #030408 0%,
+    #060810 38%,
+    #0a0f18 100%
   );
 
-  transition: background-image var(--duration-slow) var(--ease-standard),
+  transition: background-image var(--duration-ambient) var(--ease-fluid),
               background-color var(--duration-slow) var(--ease-standard),
               color var(--duration-standard) var(--ease-standard);
+}
+body::before
+{
+  content: "";
+  position: fixed;
+  inset: -35%;
+  z-index: -3;
+  pointer-events: none;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent,
+    hsl(var(--ambient-hue) 100% 72% / 0.04),
+    transparent 18%,
+    transparent 52%,
+    hsl(calc(var(--ambient-hue) + 32) 100% 70% / 0.035),
+    transparent
+  );
+
+  filter: blur(var(--ambient-blur)) saturate(1.6);
+  opacity: 0.9;
+  will-change: transform;
+  mix-blend-mode: screen;
+
+  animation: ambient-orbit 90s linear infinite, ambient-pulse 18s ease-in-out infinite;
+}
+body::after
+{
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image:
+    linear-gradient(
+      to right,
+      rgb(255, 255, 255 / var(--ambient-grid-opacity)) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      rgb(255, 255, 255 / var(--ambient-grid-opacity)) 1px,
+      transparent 1px
+    );
+
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at center, black 12%, transparent 78%);
+  opacity: 0.32;
+
+  transform: perspective(2200px) rotateX(78deg) scale(1.5) translateY(6%);
+  transform-origin: center top;
+
+  animation: ambient-grid-float 24s ease-in-out infinite;
 }
 
 /* ====================================
@@ -158,6 +226,23 @@ p { margin: 0; }
     --shadow-soft: 0 20px 50px -22px rgba(0, 0, 0, 0.08);
     --shadow-glow: 0 0 32px color-mix(in srgb, var(--accent) 8%, transparent);
   }
+}
+
+@keyframes ambient-orbit
+{
+  from { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.06); }
+  to { transform: rotate(360deg) scale(1); }
+}
+@keyframes ambient-pulse
+{
+  0%, 100% { opacity: 0.78; }
+  50% { opacity: 1; }
+}
+@keyframes ambient-grid-float
+{
+  0%, 100% { transform: perspective(2200px) rotateX(78deg) scale(1.5) translateY(6%); }
+  50% { transform: perspective(2200px) rotateX(78deg) scale(1.56) translateY(4%); }
 }
 
 /* ====================================

@@ -1,12 +1,11 @@
 //File name: DurationPicker.jsx
 //Author: Kyle McColgan
-//Date: 4 May 2026
+//Date: 13 May 2026
 //Description: This file contains the time duration picker for the timer React project.
 
 import { useEffect, useState } from "react";
 import { splitDuration } from "../../utils/splitDuration.jsx";
 import TimeField from "../TimeField/TimeField.jsx";
-import TimeSeparator from "../TimeSeparator/TimeSeparator.jsx";
 import "./DurationPicker.css";
 
 const PRESETS  = [
@@ -81,9 +80,9 @@ export default function DurationPicker({ duration, onSelect })
         onKeyDown={(e) => e.key === "Enter" && commit()}
       >
         <TimeField label="h" value={hours} onChange={handleChange(setHours)} onBlur={() => commit()} />
-        <TimeSeparator />
+        <span className="time-separator" aria-hidden="true">:</span>
         <TimeField label="m" value={minutes} onChange={handleChange(setMinutes)} onBlur={() => commit()} />
-        <TimeSeparator />
+        <span className="time-separator" aria-hidden="true">:</span>
         <TimeField label="s" value={seconds} onChange={handleChange(setSeconds)} onBlur={() => commit()} />
       </div>
     </section>

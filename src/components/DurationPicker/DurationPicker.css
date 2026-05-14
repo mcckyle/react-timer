@@ -54,6 +54,19 @@
 .duration-picker-pill.is-active { background: var(--accent-soft); color: var(--accent); }
 
 /* ====================================
+   TIMESEPARATOR STYLES.
+======================================= */
+.time-separator
+{
+    font-size: 1rem;
+    font-weight: 600;
+
+    color: var(--text-muted);
+    opacity: 0.22;
+    user-select: none;
+}
+
+/* ====================================
    DURATIONPICKER CUSTOM INPUT CONTAINER STYLES.
 ======================================= */
 .duration-picker-custom

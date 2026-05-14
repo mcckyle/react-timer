@@ -1,6 +1,6 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 12 May 2026
+//Date: 13 May 2026
 //Description: This file contains the parent timer component for the timer React project.
 
 import { useState, useEffect, useRef } from "react";
@@ -127,7 +127,6 @@ export default function Timer()
         "--ambient-depth": depth,
       }}
     >
-      <div className="timer-ambient-grid" aria-hidden="true" />
       <TimerHeader
         duration={duration}
         onSelectDuration={handleSelectDuration}
