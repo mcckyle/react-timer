@@ -138,7 +138,7 @@ export default function Timer()
         setShowHistory={setShowHistory}
       />
 
-      <main className="stage">
+      <div className="stage">
         <section className="displayRegion" aria-label="Time remaining">
           {mode === "digital"
             ? <TimerDisplay timeLeft={timeLeft} />
@@ -157,7 +157,7 @@ export default function Timer()
           <p className="timer-shortcuts">
             Space · Start / Pause · R · Reset · M · Mode
           </p>
-        </main>
+        </div>
     </section>
   );
 };
