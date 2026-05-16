@@ -1,132 +1,40 @@
 /* Filename: src/App.css */
 
 /* ====================================
+   APPLICATION CONTENT SHELL STYLES.
+======================================= */
+.app-shell
+{
+  width: 100%;
+  min-height: 100dvh; /* Modern Viewport with fallback handled globally. */
+
+  display: flex;
+  justify-content: center;
+
+  isolation: isolate;
+  overflow: clip;
+}
+
+/* ====================================
    APPLICATION ROOT LAYOUT STYLES.
 ======================================= */
 .app
 {
-  position: relative;
-  isolation: isolate;
-
   flex: 1;
-  width: 100%;
-  min-height: 100dvh;
+  width: min(100%, 96rem);
 
   display: flex;
-  align-items: stretch;
-  justify-content: center;
-  overflow: clip;
-  padding: max(1.25rem, env(safe-area-inset-top))
-           max(1.25rem, env(safe-area-inset-right))
-           max(1.25rem, env(safe-area-inset-bottom))
-           max(1.25rem, env(safe-area-inset-left));
+  flex-direction: column;
+  padding: max(1rem, env(safe-area-inset-top))
+           max(1rem, env(safe-area-inset-right))
+           max(1rem, env(safe-area-inset-bottom))
+           max(1rem, env(safe-area-inset-left));
 }
-
-/* ====================================
-   APPLICATION AMBIENT OVERLAY STYLES.
-======================================= */
-/*.app::before
-{
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-
-  background: radial-gradient(
-    40rem 40rem at 50% 50%,
-    color-mix(in srgb, var(--accent) 10%, transparent),
-    transparent 72%
-  );
-
-  opacity: 0.9;
-  filter: blur(40px);
-
-  transition: opacity var(--duration-slow) var(--ease-standard),
-              background var(--duration-slow) var(--ease-standard);
-}*/
-
-/* ====================================
-   APPLICATION CONTENT SHELL STYLES.
-======================================= */
-/*.app-shell
-{
-  position: relative;
-  z-index: 1;
-
-  width: 100%;
-  max-width: var(--max-width);
-
-  display: flex;
-  justify-content: center;
-}*/
 
 /* ====================================
    APP MEDIA QUERY STYLES.
 ======================================= */
-@media (max-width: 640px)
+/*@media (max-width: 640px)
 {
   .app { padding-inline: 1rem; }
-}
-
-/* ====================================
-   APP ATMOSPHERIC LAYERS STYLES.
-======================================= */
-/*.app::before, .app:after
-{
- content: "";
- position: absolute;
- inset: -18%;
-
- pointer-events: none;
- z-index: -1;
-
- backface-visibility: hidden;
- transform: translate3d(0, 0, 0);
- will-change: transform, opacity;
-}
-*/
-
-/* App Main Cinematic Bloom Layer Styles. */
-/*.app::before
- {  *
- background: radial-gradient(
-   30% 28% at 50% 20%,
-color-mix(in srgb, var(--accent) 10%, transparent),
-transparent 78%
-),
-radial-gradient(
-  18% 18% at 50% 50%,
-color-mix(in srgb, white 2%, transparent),
-transparent 84%
-);
-
-opacity: 0.8;
-filter: blur(64px) saturate(122%);
-transform-origin: center;
-
-animation: app-atmosphere-float 42s ease-in-out infinite;
-}
-.app::after
-{
-background: radial-gradient(
-  46% 46% at 50% 50%,
-color-mix(in srgb, var(--accent) 3%, transparent),
-transparent 76%
-);
-opacity: 0.28;
-filter: blur(96px);
-
-animation: app-atmosphere-pulse 24s ease-in-out infinite;
-}*/
-
-/*@keyframes app-atmosphere-float
-{
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(0, -0.8%, 0) scale(1.04); }
-}
-
-@keyframes app-atmosphere-pulse
-{
-  0%, 100% { opacity: 0.24; transform: scale(1); }
-  50% { opacity: 0.34; transform: scale(1.03); }
 }*/

@@ -17,6 +17,7 @@
 
   margin-inline: auto;
   overflow: visible; /* Replace clip with visible to prevent bordering. */
+  transform: translateY(0);
 
   padding: max(1.25rem, env(safe-area-inset-top))
            clamp(1rem, 3vw, 2.5rem)
@@ -58,22 +59,23 @@
 {
   content: "";
   position: absolute;
-  inset: 8%;
+  inset: 6%;
   z-index: -2;
   pointer-events: none;
   background: radial-gradient(
     circle at center,
-    hsl(var(--ambient-hue) 100% 74% / 0.22),
-    transparent 62%
+    hsl(var(--ambient-hue) 100% 74% / 0.24),
+    transparent 60%
   );
 
   /* True continuous response. */
-  opacity: clamp(0.24, calc(0.24 + (var(--ambient-energy) * 0.58)), 0.92);
-  filter: blur(90px) saturate(1.25);
-  transform: scale(calc(1 + (var(--ambient-energy) * 0.08)));
+  opacity: clamp(0.28, calc(0.28 + (var(--ambient-energy) * 0.62)), 1);
+  filter: blur(110px) saturate(1.35);
+  transform: scale(calc(1 + (var(--ambient-energy) * 0.1)));
+  mix-blend-mode: screen;
   will-change: transform, opacity, filter;
 
-  animation: timer-core-breathe 12s ease-in-out infinite;
+  animation: timer-core-breathe 14s ease-in-out infinite;
 }
 
 /* ====================================
@@ -83,27 +85,27 @@
 {
   content: "";
   position: absolute;
-  inset: -14%;
+  inset: -18%;
   z-index: -1;
   pointer-events: none;
 
   background: radial-gradient(
     circle at center,
-    hsl(var(--ambient-hue) 100% 72% / 0.10),
-    transparent 72%
+    hsl(var(--ambient-hue) 100% 72% / 0.12),
+    transparent 74%
   );
 
-  filter: blur(160px);
-  opacity: clamp(0.2, calc(0.22 + (var(--ambient-energy) * 0.34)), 0.58);
+  filter: blur(200px);
+  opacity: clamp(0.2, calc(0.24 + (var(--ambient-energy) * 0.4)), 0.64);
   mix-blend-mode: screen;
 
-  animation: timer-aura-drift 30s ease-in-out infinite;
+  animation: timer-aura-drift 36s ease-in-out infinite;
 }
 
 /* ====================================
    TIMER RUNNING STYLES.
 ======================================= */
-.timer.is-running { filter: saturate(1.12) contrast(1.03); }
+.timer.is-running { filter: saturate(1.16) contrast(1.04); }
 
 /* ====================================
    TIMER COMPLETION BURST EFFECT STYLES.
