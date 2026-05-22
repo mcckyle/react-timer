@@ -1,14 +1,17 @@
 //File name: TimerHeader.jsx
 //Author: Kyle McColgan
-//Date: 4 May 2026
+//Date: 22 May 2026
 //Description: This file contains the timer header component for the timer React project.
 
 import React from "react";
+import { Clock, Sun, Moon } from "lucide-react";
 import DurationPicker from "../DurationPicker/DurationPicker.jsx";
 import PastTimers from "../PastTimers/PastTimers.jsx";
 import "./TimerHeader.css";
 
 export default function TimerHeader({
+    theme,
+    onToggleTheme,
     duration,
     onSelectDuration,
     mode,
@@ -19,6 +22,8 @@ export default function TimerHeader({
     setShowHistory,
 }) {
   const hasHistory = pastTimers.length > 0;
+  const isDark = theme === "dark";
+  const nextThemeLabel = isDark ? "light" : "dark";
 
   return (
     <header className="timer-header">
@@ -81,6 +86,20 @@ export default function TimerHeader({
             </div>
           </div>
           )}
+          <button
+            type="button"
+            className="toggle"
+            onClick={onToggleTheme}
+            aria-pressed={isDark}
+            aria-label={`Activate ${nextThemeLabel} theme`}
+            title={`Activate ${nextThemeLabel} theme`}
+          >
+            {isDark ? (
+              <Sun className="toggleIcon" aria-hidden="true" />
+            ) : (
+              <Moon className="toggleIcon" aria-hidden="true" />
+            )}
+          </button>
       </div>
     </header>
   );

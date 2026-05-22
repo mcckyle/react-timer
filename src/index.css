@@ -1,68 +1,6 @@
 /* Filename: src/index.css */
 
 /* ====================================
-   CORE DESIGN TOKENS
-======================================= */
-:root
-{
-  /* Dynamic Accent System. */
-  --accent-hue: 220; /* Base hue (fallback when the timer is not active). */
-  --ambient-hue: var(--accent-hue); /* Live hue (Timer can override this). */
-
-  --accent: hsl(var(--ambient-hue) 90% 64%);
-  --accent-soft: hsl(var(--ambient-hue) 90% 64% / 0.12);
-  --accent-muted: hsl(var(--ambient-hue) 90% 64% / 0.42);
-
-  /* Base Colors. */
-  --bg: #08090d;
-  --bg-secondary: #10131a;
-  --text: #f4f5f7;
-  --text-muted: color-mix(in srgb, var(--text) 58%, transparent);
-
-  /* Surface System. */
-  --surface: color-mix(in srgb, var(--bg) 92%, white 8%);
-  --surface-raised: color-mix(in srgb, var(--bg) 88%, white 12%);
-  --surface-glass: color-mix(in srgb, var(--bg) 82%, transparent);
-  --border-subtle: color-mix(in srgb, var(--text) 10%, transparent);
-
-  /* Fonts. */
-  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
-
-  /* Layout. */
-  --radius: 20px;
-  --radius-pill: 9999px;
-  --content-width: 720px;
-
-  /* Spatial Tokens. */
-  --space-xs: 0.4rem;
-  --space-sm: 0.75rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-
-  /* Shadows. */
-  --shadow-soft: 0 28px 70px -28px rgba(0, 0, 0, 0.52);
-  --shadow-glow: 0 0 42px color-mix(in srgb, var(--accent) 10%, transparent);
-
-  /* Ambient Lighting System. */
-  --ambient-intensity: 1;
-  --ambient-blur: 140px;
-  --ambient-grid-opacity: 0.018;
-  --ambient-glow-soft: 0 0 120px color-mix(in srgb, var(--accent) 10%, transparent);
-  --ambient-glow-strong: 0 0 220px color-mix(in srgb, var(--accent) 18%, transparent);
-
-  /* Motion. */
-  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-fluid: cubic-bezier(0.22, 1, 0.36, 1);
-  --duration-slow: 520ms;
-  --duration-standard: 240ms;
-  --duration-fast: 140ms;
-  --duration-ambient: 1200ms;
-}
-
-/* ====================================
    GLOBAL RESET STYLES.
 ======================================= */
 *, *::before, *::after { box-sizing: border-box; }
@@ -88,35 +26,30 @@ body
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-color: var(--bg);
+  background-color: #040507;
   background-attachment: fixed;
 
-  /* Cinematic volumetric environment. Off-axis gradients create natural depth. */
+  /* Cinematic atmospheric environment. */
   background-image: radial-gradient(
-    140% 120% at 50% -10%,
-    hsl(var(--ambient-hue) 100% 74% / 0.18),
+    140% 140% at 50% -12%,
+    hsl(var(--ambient-hue) 100% 72% / 0.16),
     transparent 42%
   ),
   radial-gradient(
-    90% 120% at 100% 20%,
-    hsl(calc(var(--ambient-hue) - 24) 100% 64% / 0.10),
+    120% 120% at 100% 0%,
+    hsl(calc(var(--ambient-hue) + 24) 100% 68% / 0.08),
+    transparent 52%
+  ),
+  radial-gradient(
+    120% 120% at 0% 100%,
+    hsl(calc(var(--ambient-hue) - 30) 100% 62% / 0.08),
     transparent 58%
-  ),
-  radial-gradient(
-    120% 140% at 0% 100%,
-    hsl(calc(var(--ambient-hue) - 24) 100% 64% / 0.09),
-    transparent 60%
-  ),
-  radial-gradient(
-    80% 80% at 50% 50%,
-    hsl(var(--ambient-hue) 100% 72% / 0.05),
-    transparent 74%
   ),
   linear-gradient(
     180deg,
     #020308 0%,
-    #050711 38%,
-    #09111d 100%
+    #050711 45%,
+    #08111d 100%
   );
 
   transition: background-image var(--duration-ambient) var(--ease-fluid),
@@ -125,35 +58,37 @@ body
 }
 body::before
 {
-  /* Primary Atmospheric Energy Layer Styles. */
   content: "";
   position: fixed;
-  inset: -40%;
+  inset: -35%;
   z-index: -4;
   pointer-events: none;
-  background: conic-gradient(
-    from 0deg at 50% 50%,
-    transparent,
-    hsl(var(--ambient-hue) 100% 72% / 0.05),
-    transparent 18%,
-    transparent 44%,
-    hsl(calc(var(--ambient-hue) + 28) 100% 70% / 0.04),
-    transparent 70%,
-    hsl(calc(var(--ambient-hue) - 24) 100% 68% / 0.035),
-    transparent
+  background: radial-gradient(
+    circle at 50% 50%,
+    hsl(var(--ambient-hue) 100% 72% / 0.08),
+    transparent 42%
+  ),
+  radial-gradient(
+    circle at 30% 70%,
+    hsl(calc(var(--ambient-hue) + 20) 100% 68% / 0.05),
+    transparent 38%
+  ),
+  radial-gradient(
+    circle at 70% 30%,
+    hsl(calc(var(--ambient-hue) - 24) 100% 66% / 0.05),
+    transparent 42%
   );
 
-  filter: blur(calc(var(--ambient-blur) * 1.2)) saturate(1.8);
-  opacity: calc(0.72 + (var(--ambient-intensity) * 0.18));
+  filter: blur(calc(var(--ambient-blur) * 1.15)) saturate(1.4);
+  opacity: calc(0.55 + (var(--ambient-intensity) * 0.2));
   transform-origin: center;
   will-change: transform, opacity;
   mix-blend-mode: screen;
 
-  animation: ambient-orbit 120s linear infinite, ambient-pulse 18s ease-in-out infinite;
+  animation: ambient-drift 42s ease-in-out infinite alternate, ambient-pulse 18s ease-in-out infinite;
 }
 body::after
 {
-  /* Environmental depth plane grid styles. */
   content: "";
   position: fixed;
   inset: 0;
@@ -162,7 +97,7 @@ body::after
   background-image:
     linear-gradient(
       to right,
-      rgb(255, 255, 255 / 0.018) 1px,
+      rgb(255, 255, 255 / 0.022) 1px,
       transparent 1px
     ),
     linear-gradient(
@@ -171,14 +106,14 @@ body::after
       transparent 1px
     );
 
-  background-size: 72px 72px;
-  mask-image: radial-gradient(ellipse at center, black 8%, transparent 74%);
-  opacity: 0.24;
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse at center, black 12%, transparent 76%);
+  opacity: 0.18;
 
-  transform: perspective(2400px) rotateX(78deg) scale(1.65) translateY(8%);
+  transform: perspective(2600px) rotateX(78deg) scale(1.8) translateY(10%);
   transform-origin: center top;
 
-  animation: ambient-grid-float 30s ease-in-out infinite;
+  animation: ambient-grid-float 32s ease-in-out infinite;
 }
 
 /* ====================================
@@ -234,11 +169,11 @@ p { margin: 0; }
   }
 }
 
-@keyframes ambient-orbit
+@keyframes ambient-drift
 {
-  from { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(180deg) scale(1.08); }
-  to { transform: rotate(360deg) scale(1); }
+  0% { transform: translate3d(-2%, -1%, 0) scale(1); }
+  50% { transform: translate3d(2%, 1%, 0) scale(1.06); }
+  100% { transform: translate3d(-1%, 2%, 0) scale(1.02); }
 }
 @keyframes ambient-pulse
 {

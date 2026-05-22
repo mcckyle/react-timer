@@ -7,6 +7,7 @@ import { useState, useEffect, useRef } from "react";
 import { useTimer, DEFAULT_DURATION } from "../../hooks/useTimer";
 import { useKeyboardShortcuts } from "../../hooks/useKeyboardShortcuts";
 import { useCompletionSound } from "../../hooks/useCompletionSound";
+import { useTheme } from "../../context/ThemeContext.jsx";
 
 import TimerHeader from "../TimerHeader/TimerHeader.jsx";
 import TimerDisplay from "../TimerDisplay/TimerDisplay.jsx";
@@ -14,9 +15,10 @@ import VisualTimer from "../VisualTimer/VisualTimer.jsx";
 import TimerControls from "../TimerControls/TimerControls.jsx";
 import "./Timer.css";
 
-export default function Timer()
+const Timer = ({ onToggleTheme }) =>
 {
   const { duration, setDuration, timeLeft, setTimeLeft, running, start, pause, reset, pastTimers, clearPastTimers } = useTimer();
+  const { theme } = useTheme();
   const [showHistory, setShowHistory] = useState(false);
   const [mode, setMode] = useState("digital"); //"digital" || "visual".
 
@@ -128,6 +130,8 @@ export default function Timer()
       }}
     >
       <TimerHeader
+        theme={theme}
+        onToggleTheme={onToggleTheme}
         duration={duration}
         onSelectDuration={handleSelectDuration}
         mode={mode}
@@ -161,3 +165,5 @@ export default function Timer()
     </section>
   );
 };
+
+export default Timer;

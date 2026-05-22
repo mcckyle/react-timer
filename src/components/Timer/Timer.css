@@ -59,23 +59,28 @@
 {
   content: "";
   position: absolute;
-  inset: 6%;
+  inset: -12%;
   z-index: -2;
   pointer-events: none;
   background: radial-gradient(
     circle at center,
-    hsl(var(--ambient-hue) 100% 74% / 0.24),
-    transparent 60%
+    hsl(var(--ambient-hue) 100% 74% / 0.22),
+    transparent 34%
+  ),
+  radial-gradient(
+    circle at center,
+    hsl(var(--ambient-hue) 100% 72% / 0.08),
+    transparent 62%
   );
 
   /* True continuous response. */
-  opacity: clamp(0.28, calc(0.28 + (var(--ambient-energy) * 0.62)), 1);
-  filter: blur(110px) saturate(1.35);
-  transform: scale(calc(1 + (var(--ambient-energy) * 0.1)));
+  opacity: clamp(0.34, calc(0.32 + (var(--ambient-energy) * 0.56)), 1);
+  filter: blur(120px) saturate(1.4);
+  transform: scale(calc(1 + (var(--ambient-energy) * 0.08)));
   mix-blend-mode: screen;
   will-change: transform, opacity, filter;
 
-  animation: timer-core-breathe 14s ease-in-out infinite;
+  animation: timer-core-breathe 16s ease-in-out infinite;
 }
 
 /* ====================================
@@ -85,27 +90,32 @@
 {
   content: "";
   position: absolute;
-  inset: -18%;
+  inset: -28%;
   z-index: -1;
   pointer-events: none;
 
-  background: radial-gradient(
-    circle at center,
-    hsl(var(--ambient-hue) 100% 72% / 0.12),
-    transparent 74%
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    transparent,
+    hsl(var(--ambient-hue) 100% 72% / 0.05),
+    transparent 28%,
+    transparent 72%,
+    hsl(calc(var(--ambient-hue) - 24) 100% 68% / 0.04),
+    transparent
   );
 
-  filter: blur(200px);
-  opacity: clamp(0.2, calc(0.24 + (var(--ambient-energy) * 0.4)), 0.64);
+  filter: blur(180px);
+  opacity: clamp(0.16, calc(0.18 + (var(--ambient-energy) * 0.34)), 0.5);
+  transform-origin: center;
   mix-blend-mode: screen;
 
-  animation: timer-aura-drift 36s ease-in-out infinite;
+  animation: timer-aura-float 30s ease-in-out infinite;
 }
 
 /* ====================================
    TIMER RUNNING STYLES.
 ======================================= */
-.timer.is-running { filter: saturate(1.16) contrast(1.04); }
+.timer.is-running { filter: saturate(1.12) contrast(1.04); --ambient-intensity: 1.15; }
 
 /* ====================================
    TIMER COMPLETION BURST EFFECT STYLES.
@@ -140,17 +150,17 @@
   50% { transform: scale(calc(1.04 + (var(--ambient-energy) * 0.08))); opacity: 0.72; }
 }
 
-@keyframes timer-aura-drift
+@keyframes timer-aura-float
 {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(0, -1.5%, 0) scale(1.04); }
+  0%, 100% { transform: translateY(0%) scale(1); }
+  50% { transform: translateY(-2%) scale(1.04); }
 }
 
 @keyframes timer-complete-burst
 {
-  0% { opacity: 0; transform: scale(0.92); }
-  40% { opacity: 1; transform: scale(1.08); }
-  100% { opacity: 0; transform: scale(1.18); }
+  0% { opacity: 0; transform: scale(0.9); }
+  35% { opacity: 1; transform: scale(1.06); }
+  100% { opacity: 0; transform: scale(1.24); }
 }
 
 /* ====================================
