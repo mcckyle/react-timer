@@ -26,30 +26,35 @@ body
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-color: #040507;
+  background-color: var(--bg);
   background-attachment: fixed;
 
   /* Cinematic atmospheric environment. */
   background-image: radial-gradient(
-    140% 140% at 50% -12%,
-    hsl(var(--ambient-hue) 100% 72% / 0.16),
-    transparent 42%
+    140% 140% at 50% -18%,
+    hsl(var(--ambient-hue) 100% 72% / 0.18),
+    transparent 40%
   ),
   radial-gradient(
-    120% 120% at 100% 0%,
-    hsl(calc(var(--ambient-hue) + 24) 100% 68% / 0.08),
-    transparent 52%
+    120% 140% at 100% 0%,
+    hsl(calc(var(--ambient-hue) + 18) 100% 68% / 0.08),
+    transparent 54%
   ),
   radial-gradient(
-    120% 120% at 0% 100%,
-    hsl(calc(var(--ambient-hue) - 30) 100% 62% / 0.08),
+    140% 140% at 0% 100%,
+    hsl(calc(var(--ambient-hue) - 28) 100% 66% / 0.08),
     transparent 58%
+  ),
+  radial-gradient(
+    80% 80% at 50% 50%,
+    hsl(var(--ambient-hue) 100% 72% / 0.035),
+    transparent 72%
   ),
   linear-gradient(
     180deg,
-    #020308 0%,
-    #050711 45%,
-    #08111d 100%
+    color-mix(in srgb, var(--bg) 94%, black) 0%,
+    var(--bg) 42%,
+    color-mix(in srgb, var(--bg-secondary) 90%, black) 100%
   );
 
   transition: background-image var(--duration-ambient) var(--ease-fluid),
@@ -58,34 +63,35 @@ body
 }
 body::before
 {
+  /* Atmospheric Volumetric Layer Styles. */
   content: "";
   position: fixed;
-  inset: -35%;
+  inset: -32%;
   z-index: -4;
   pointer-events: none;
   background: radial-gradient(
     circle at 50% 50%,
-    hsl(var(--ambient-hue) 100% 72% / 0.08),
-    transparent 42%
+    hsl(var(--ambient-hue) 100% 72% / 0.09),
+    transparent 34%
   ),
   radial-gradient(
-    circle at 30% 70%,
-    hsl(calc(var(--ambient-hue) + 20) 100% 68% / 0.05),
+    circle at 24% 72%,
+    hsl(calc(var(--ambient-hue) + 18) 100% 68% / 0.05),
     transparent 38%
   ),
   radial-gradient(
-    circle at 70% 30%,
+    circle at 76% 24%,
     hsl(calc(var(--ambient-hue) - 24) 100% 66% / 0.05),
-    transparent 42%
+    transparent 40%
   );
 
-  filter: blur(calc(var(--ambient-blur) * 1.15)) saturate(1.4);
-  opacity: calc(0.55 + (var(--ambient-intensity) * 0.2));
+  filter: blur(calc(var(--ambient-blur) * 1.2)) saturate(1.45);
+  opacity: calc(0.52 + (var(--ambient-intensity) * 0.18));
   transform-origin: center;
   will-change: transform, opacity;
   mix-blend-mode: screen;
 
-  animation: ambient-drift 42s ease-in-out infinite alternate, ambient-pulse 18s ease-in-out infinite;
+  animation: ambient-float 46s ease-in-out infinite alternate, ambient-pulse 20s ease-in-out infinite;
 }
 body::after
 {
@@ -97,23 +103,23 @@ body::after
   background-image:
     linear-gradient(
       to right,
-      rgb(255, 255, 255 / 0.022) 1px,
+      rgb(255, 255, 255 / calc(var(--ambient-grid-opacity) + 0.004)) 1px,
       transparent 1px
     ),
     linear-gradient(
       to bottom,
-      rgb(255, 255, 255 / 0.018) 1px,
+      rgb(255, 255, 255 / var(--ambient-grid-opacity)) 1px,
       transparent 1px
     );
 
-  background-size: 80px 80px;
-  mask-image: radial-gradient(ellipse at center, black 12%, transparent 76%);
-  opacity: 0.18;
+  background-size: 84px 84px;
+  mask-image: radial-gradient(ellipse at center, black 10%, transparent 74%);
+  opacity: 0.22;
 
-  transform: perspective(2600px) rotateX(78deg) scale(1.8) translateY(10%);
+  transform: perspective(2600px) rotateX(78deg) scale(1.78) translateY(10%);
   transform-origin: center top;
 
-  animation: ambient-grid-float 32s ease-in-out infinite;
+  animation: ambient-grid-drift 36s ease-in-out infinite;
 }
 
 /* ====================================
@@ -148,42 +154,22 @@ p { margin: 0; }
   font-weight: 500;
 }
 
-/* ====================================
-   GLOBAL LIGHT MODE STYLES.
-======================================= */
-@media (prefers-color-scheme: light)
-{
-  :root
-  {
-    --bg: #f5f7fa;
-    --bg-secondary: #ffffff;
-    --text: #101114;
-    --text-muted: color-mix(in srgb, var(--text) 52%, transparent);
-
-    --surface: color-mix(in srgb, var(--text) 4%, var(--bg));
-    --surface-raised: color-mix(in srgb, var(--text) 7%, var(--bg));
-    --surface-glass: color-mix(in srgb, var(--text) 2%, var(--bg));
-    --border-subtle: color-mix(in srgb, var(--text) 12%, transparent);
-    --shadow-soft: 0 20px 50px -22px rgba(0, 0, 0, 0.08);
-    --shadow-glow: 0 0 32px color-mix(in srgb, var(--accent) 8%, transparent);
-  }
-}
-
-@keyframes ambient-drift
+@keyframes ambient-float
 {
   0% { transform: translate3d(-2%, -1%, 0) scale(1); }
-  50% { transform: translate3d(2%, 1%, 0) scale(1.06); }
-  100% { transform: translate3d(-1%, 2%, 0) scale(1.02); }
+  33% { transform: translate3d(1.5%, 1%, 0) scale(1.04); }
+  66% { transform: translate3d(-1%, 2%, 0) scale(1.08); }
+  100% { transform: translate3d(2%, -1%, 0) scale(1.03); }
 }
 @keyframes ambient-pulse
 {
   0%, 100% { opacity: 0.72; }
   50% { opacity: 1; }
 }
-@keyframes ambient-grid-float
+@keyframes ambient-grid-drift
 {
-  0%, 100% { transform: perspective(2400px) rotateX(78deg) scale(1.65) translateY(8%); }
-  50% { transform: perspective(2400px) rotateX(78deg) scale(1.72) translateY(5%); }
+  0%, 100% { transform: perspective(2600px) rotateX(78deg) scale(1.78) translateY(10%); }
+  50% { transform: perspective(2600px) rotateX(78deg) scale(1.84) translateY(7%); }
 }
 
 /* ====================================

@@ -1,34 +1,92 @@
 /* Filename: src/components/TimerDisplay/TimerDisplay.css */
 
 /* ====================================
-   TIMERDISPLAY DISPLAY ROOT STYLES.
+   TIMERDISPLAY ROOT STYLES.
 ======================================= */
 .timer-display
 {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    padding-block: clamp(0.5rem, 2vh, 1rem);
+    user-select: none;
+    isolation: isolate;
+}
+
+/* ====================================
+   TIMERDISPLAY INNER FRAME STYLES.
+======================================= */
+.timer-display-inner
+{
+    position: relative;
+
     display: inline-flex;
     align-items: flex-end;
     justify-content: center;
+    padding: clamp(0.55rem, 1vw, 0.9rem) clamp(0.7rem, 1.4vw, 1.25rem);
 
-    margin-inline: auto;
-    padding-block: clamp(0.4rem, 2vh, 0.9rem);
+    border-radius: clamp(1.5rem, 4vw, 3rem);
+    border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+    box-shadow: var(--shadow-soft), inset 0 1px 0 rgb(255 255 255 / 0.05);
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--surface-rasied) 82%, white 3%),
+        color-mix(in srgb, var(--surface) 92%, transparent)
+    );
+    backdrop-filter: blur(18px) saturate(1.2);
+}
 
+/* ====================================
+   TIMERDISPLAY AMBIENT GLOW STYLES.
+======================================= */
+.timer-display-inner::before
+{
+    content: "";
+    position: absolute;
+    inset: -10%;
+    z-index: -1;
+    pointer-events: none;
+
+    border-radius: inherit;
+    background: radial-gradient(
+        circle at center,
+        hsl(var(--ambient-hue) 100% 70% / 0.14),
+        transparent 70%
+    );
+
+    opacity: calc(0.2 + (var(--ambient-energy) * 0.5));
+    filter: blur(42px);
+
+    transition: opacity var(--duration-standard) var(--ease-fluid),
+                background var(--duration-ambient) var(--ease-fluid);
+}
+/* ====================================
+   TIMERDISPLAY TYPOGRAPHY STYLES.
+======================================= */
+.timer-display
+{
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
     font-weight: 600;
 
     font-size: clamp(4rem, 16vw, 22rem);
-    line-height: 0.9;
-    letter-spacing: -0.025em;
-
-    text-align: center;
-    white-space: nowrap;
-
+    line-height: 0.88;
+    letter-spacing: -0.055em;
     color: var(--text);
-    user-select: none;
+    text-align: center;
 
-    transition: color var(--duration-fast) var(--ease-standard);
+    transition: color var(--duration-fast) var(--ease-standard),
+                text-shadow var(--duration-standard) var(--ease-fluid);
 }
-.timer.is-running .timer-display { color: color-mix(in srgb, var(--accent) 40%, var(--text)); }
+.timer.is-running .timer-display
+{
+    color: color-mix(in srgb, var(--text) 78%, var(--accent));
+    text-shadow: 0 0 32px color-mix(in srgb, var(--accent) 18%, transparent);
+}
 
 /* ====================================
    TIMERDISPLAY DIGIT WRAPPER STYLES.
@@ -41,27 +99,27 @@
     align-items: flex-end;
     justify-content: center;
 
-    width: 0.56em;
+    width: 0.58em;
     height: 1em;
     overflow: hidden; /* hides exiting digits. */
 }
-.timer-display-digit { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; }
+.timer-display-digit { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; will-change: transform, opacity, filter; }
 
 /* ====================================
    TIMERDISPLAY SEPARATOR STYLES.
 ======================================= */
 .timer-display-separator
 {
-    margin-inline: 0.045em;
+    margin-inline: 0.05em;
     color: var(--text-muted);
-    opacity: 0.26;
+    opacity: 0.24;
     user-select: none;
 }
 
 /* ====================================
    TIMERDISPLAY COMPLETE STATE STYLES.
 ======================================= */
-.timer.is-complete .timer-display { animation: timer-complete-settle 200ms var(--ease-standard); }
+.timer.is-complete .timer-display-inner { animation: timer-complete-settle 520ms var(--ease-fluid); }
 
 /* ====================================
    TIMERDISPLAY ANIMATIONS STYLES.
@@ -69,7 +127,7 @@
 @keyframes timer-complete-settle
 {
     0% { transform: scale(1); }
-    40% { transform: scale(1.006); }
+    35% { transform: scale(1.015); }
     100% { transform: scale(1); }
 }
 
@@ -78,7 +136,8 @@
 ======================================= */
 @media (max-width: 480px)
 {
-    .timer-display { font-size: clamp(2.6rem, 13vw, 8rem); letter-spacing: -0.02em; }
+    .timer-display { font-size: clamp(2.8rem, 13vw, 8rem); letter-spacing: -0.045em; }
+    .timer-display-inner { border-radius: 1.5rem; }
 }
 
 /* ====================================
@@ -86,5 +145,6 @@
 ======================================= */
 @media (prefers-reduced-motion: reduce)
 {
-    .timer-display-digit { opacity: 1 !important; transform: none !important; }
+    .timer-display-digit { filter: none !important; opacity: 1 !important; transform: none !important; }
+    .timer-display-inner::before { transition: none; }
 }

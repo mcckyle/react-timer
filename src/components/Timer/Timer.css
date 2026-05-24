@@ -59,63 +59,76 @@
 {
   content: "";
   position: absolute;
-  inset: -12%;
+  inset: -16%;
   z-index: -2;
   pointer-events: none;
   background: radial-gradient(
     circle at center,
-    hsl(var(--ambient-hue) 100% 74% / 0.22),
-    transparent 34%
+    hsl(var(--ambient-hue) 100% 76% / 0.24),
+    transparent 26%
   ),
   radial-gradient(
     circle at center,
-    hsl(var(--ambient-hue) 100% 72% / 0.08),
-    transparent 62%
+    hsl(var(--ambient-hue) 100% 72% / 0.10),
+    transparent 52%
+  ),
+  radial-gradient(
+    circle at center,
+    hsl(calc(var(--ambient-hue) + 16) 100% 68% / 0.04),
+    transparent 72%
   );
 
   /* True continuous response. */
-  opacity: clamp(0.34, calc(0.32 + (var(--ambient-energy) * 0.56)), 1);
-  filter: blur(120px) saturate(1.4);
-  transform: scale(calc(1 + (var(--ambient-energy) * 0.08)));
-  mix-blend-mode: screen;
-  will-change: transform, opacity, filter;
+  opacity: clamp(0.32, calc(0.34 + (var(--ambient-energy) * 0.6)), 1);
+  filter: blur(130px) saturate(1.5);
 
-  animation: timer-core-breathe 16s ease-in-out infinite;
+  transform: scale(calc(1 + (var(--ambient-energy) * 0.1)));
+  transform-origin: center;
+  will-change: transform, opacity, filter;
+  mix-blend-mode: screen;
+
+  animation: timer-core-breathe 18s ease-in-out infinite;
 }
 
 /* ====================================
-   TIMER FOCUSED CORE GLOW STYLES.
+   TIMER CINERMATIC ATOMOSPHERIC HALO STYLES.
 ======================================= */
 .timer::after
 {
   content: "";
   position: absolute;
-  inset: -28%;
+  inset: -34%;
   z-index: -1;
   pointer-events: none;
 
   background: conic-gradient(
     from 180deg at 50% 50%,
     transparent,
-    hsl(var(--ambient-hue) 100% 72% / 0.05),
-    transparent 28%,
-    transparent 72%,
-    hsl(calc(var(--ambient-hue) - 24) 100% 68% / 0.04),
+    hsl(var(--ambient-hue) 100% 72% / 0.045),
+    transparent 24%,
+    transparent 68%,
+    hsl(calc(var(--ambient-hue) - 20) 100% 66% / 0.04),
     transparent
   );
 
-  filter: blur(180px);
-  opacity: clamp(0.16, calc(0.18 + (var(--ambient-energy) * 0.34)), 0.5);
+  filter: blur(200px) saturate(1.3);
+  opacity: clamp(0.14, calc(0.16 + (var(--ambient-energy) * 0.32)), 0.48);
   transform-origin: center;
   mix-blend-mode: screen;
 
-  animation: timer-aura-float 30s ease-in-out infinite;
+  animation: timer-aura-float 34s ease-in-out infinite;
 }
 
 /* ====================================
    TIMER RUNNING STYLES.
 ======================================= */
-.timer.is-running { filter: saturate(1.12) contrast(1.04); --ambient-intensity: 1.15; }
+.timer.is-running { filter: saturate(1.14) contrast(1.05); --ambient-intensity: 1.22; --ambient-blur: 160px; }
+.timer.is-running .displayRegion
+{
+  transform: translateZ(0) scale(calc(1 + (var(--ambient-energy) * 0.012)));
+
+  transition: transform 1200ms var(--ease-fluid);
+}
 
 /* ====================================
    TIMER COMPLETION BURST EFFECT STYLES.
@@ -137,7 +150,7 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
 
-  color: var(--text-muted);
+  color: var(--text);
   opacity: 0.22;
 }
 

@@ -5,50 +5,83 @@
 ======================================= */
 .timer-header
 {
+    position: relative;
+    z-index: 5;
+
     width: 100%;
     max-width: min(100%, 92rem);
     margin-inline: auto;
 
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
-    justify-content: center;
-
-    gap: 1rem;
-    padding-block: 0.6rem;
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+    padding: clamp(0.2rem, 0.6vw, 0.45rem) clamp(0.2rem, 0.8vw, 0.55rem);
 }
 .timer-header-left,
 .timer-header-center,
-.timer-header-right { display: flex; align-items: center; gap: 0.5rem; min-width: 0; }
-.timer-header-center { flex: 1; justify-content: center; }
-.timer-header-right { justify-content: flex-end; }
+.timer-header-right { display: flex; align-items: center; min-width: 0; }
+.timer-header-center { justify-content: center; gap: 0.75rem; }
+.timer-header-right { justify-content: flex-end; gap: 0.55rem; }
 
 /* ====================================
    TIMERHEADER TITLE STYLES.
 ======================================= */
 .timer-header-title
 {
+    margin: 0;
     font-size: 0.62rem;
-    font-weight: 600;
-    letter-spacing: 0.24em;
+    font-weight: 650;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
+    white-space: nowrap;
 
     color: var(--text-muted);
-    opacity: 0.38;
-    white-space: nowrap;
+    opacity: 0.68;
+
+    transition: color var(--duration-standard) var(--ease-standard),
+                opacity var(--duration-standard) var(--ease-standard);
 }
 
 /* ====================================
-   TIMERHEADER SHARED CONTROL SURFACE STYLES.
+   TIMERHEADER SHARED GLASS SURFACE STYLES.
 ======================================= */
-.timer-control-surface
+.timer-control-surface, .timer-header-history-button, .toggle
 {
-    display: inline-flex;
-    align-items: center;
+    position: relative;
+    isolation: isolate;
 
-    padding: 0.16rem;
-    border-radius: var(--radius-pill);
-    background: var(--surface-subtle);
-    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-subtle);
+
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--surface-rasied) 92%, white 8%),
+        color-mix(in srgb, var(--surface) 96%, transparent)
+    );
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04), var(--shadow-medium);
+    backdrop-filter: blur(18px) saturate(1.2);
+
+    transition: background var(--duration-standard) var(--ease-standard),
+                border-color var(--duration-standard) var(--ease-standard)
+                transform var(--duration-fast) var(--ease-fluid),
+                box-shadow var(--duration-standard) var(--ease-standard),
+                color var(--duration-fast) var(--ease-standard);
+}
+.timer-control-surface::before,
+.timer-header-history-button::before,
+.toggle::before
+{
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(
+        135deg,
+        rgb(255 255 255 / 0.12),
+        transparent 42%
+    );
+    opacity: 0.8;
 }
 
 /* ====================================
@@ -56,89 +89,102 @@
 ======================================= */
 .timer-header-mode
 {
-    composes: timer-control-surface;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.12rem;
+    padding: 0.18rem;
+    border-radius: var(--radius-pill);
 }
 .timer-header-mode button
 {
+    position: relative;
+    z-index: 1;
+
     border: none;
+    outline: none;
     background: transparent;
 
-    min-width: 2.1rem;
-    height: 1.85rem;
-    padding-inline: 0.55rem;
-
+    min-width: 2.25rem;
+    height: 2rem;
+    padding-inline: 0.65rem;
     border-radius: var(--radius-pill);
 
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 
-    font-size: 0.62rem;
-    font-weight: 500;
+    font-size: 0.64rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
     color: var(--text-muted);
     cursor: pointer;
 
     transition: background var(--duration-fast) var(--ease-standard),
-                color var(--duration-fast) var(--ease-standard);
+                color var(--duration-fast) var(--ease-standard),
+                transform var(--duration-fast) var(--ease-fluid),
+                box-shadow var(--duration-standard) var(--ease-standard);
 }
 .timer-header-mode button[aria-pressed="true"]
 {
-    background: var(--accent-soft);
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--accent) 16%, white 10%),
+        color-mix(in srgb, var(--accent-soft) 88%, transparent)
+    );
     color: var(--accent);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12),
+                0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent),
+                0 12px 34px -18px color-mix(in srgb, var(--accent) 28%, transparent);
 }
 
 /* ====================================
    TIMER HISTORY BUTTON STYLES.
 ======================================= */
+.timer-header-history { position: relative; }
 .timer-header-history-button
 {
-    border: none;
-
-    height: 1.85rem;
-    padding-inline: 0.75rem;
+    min-height: 2rem;
+    padding-inline: 0.88rem;
     border-radius: var(--radius-pill);
 
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 
-    background: var(--surface-subtle);
-    backdrop-filter: blur(10px);
-
-    font-size: 0.62rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
+    font-size: 0.58rem;
+    font-weight: 650;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
 
     color: var(--text-muted);
     cursor: pointer;
-
-    transition: background var(--duration-fast) var(--ease-standard),
-                color var(--duration-fast) var(--ease-standard);
+}
+.timer-header-history-button[aria-expanded="true"]
+{
+    border-color: color-mix(in srgb, var(--accent) 18%, transparent);
+    color: var(--text);
 }
 
 /* ====================================
    TIMER HISTORY PANEL STYLES.
 ======================================= */
-.timer-header-history { position: relative; }
 .timer-header-history-panel
 {
     position: absolute;
-    top: calc(100% + 0.6rem);
+    top: calc(100% + 0.8rem);
     right: 0;
+    z-index: 20;
     width: min(90vw, 24rem);
 
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-soft);
-
     opacity: 0;
-    transform: translateY(6px) scale(0.98);
     pointer-events: none;
+    transform: translateY(0.6rem) scale(0.98);
+    transform-origin: top right;
 
-    transition: opacity 140ms var(--ease-standard),
-                transform 140ms var(--ease-standard);
+    transition: opacity var(--duration-fast) var(--ease-standard),
+                transform var(--duration-standard) var(--ease-standard);
 }
-.timer-header-history-panel.is-visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+.timer-header-history-panel.is-visible { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
 
 
 /* ====================================
@@ -146,34 +192,62 @@
 ======================================= */
 .toggle
 {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.7rem;
+    height: 2.7rem;
+    padding: 0;
 
     display: grid;
     place-items: center;
 
-    border: 1px solid color-mix(in oklab, var(--text) 8%, transparent);
     border-radius: 999px;
-    background: color-mix(in oklab, var(--surface-raised) 88%, transparent);
     color: var(--text);
-    box-shadow: var(--shadow-xs);
-
-    transition: var(--transition-interactive);
-
+    cursor: pointer;
 }
-.toggle:hover { transform: translateY(-1px) scale(1.01); background: color-mix(in oklab, var(--surface-raised) 92%, white 3%); box-shadow: var(--shadow-sm); }
-.toggle:active { transform: translateY(0); }
-.toggle:focus-visible { box-shadow: var(--focus-ring); }
-.toggleIcon { width: 1rem; height: 1rem; opacity: 0.88; }
+.toggleIcon
+{
+    width: 1rem;
+    height: 1rem;
+    opacity: 0.88;
+
+    transition: transform var(--duration-standard) var(--ease-fluid),
+                opacity var(--duration-standard) var(--ease-standard);
+}
+.timer-header-mode button:active,
+.timer-header-history-button:active,
+.toggle:active
+{
+    transform: translateY(0) scale(0.985);
+}
+
+.timer-header-mode button:focus-visible,
+.timer-header-history-button:focus-visible,
+.toggle:focus-visible
+{
+    border-color: color-mix(in srgb, var(--accent) 24%, transparent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 16%, transparent),
+                0 0 0 1px color-mix(in srgb, var(--accent) 28%, transparent);
+}
 
 @media (hover: hover)
 {
     .timer-header-mode button:not([aria-pressed="true"]):hover,
-    .timer-header-history-button:hover
+    .timer-header-history-button:hover,
+    .toggle:hover
     {
-        background: color-mix(in srgb, var(--text) 6%, transparent);
+        border-color: color-mix(in srgb, var(--accent) 14%, var(--border-subtle));
+        background: linear-gradient(
+            180deg,
+            color-mix(in srgb, var(--surface-hover) 90%, white 8%),
+            color-mix(in srgb, var(--surface) 98%, transparent)
+        );
         color: var(--text);
+        transform: translateY(-1px);
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06),
+                    var(--shadow-medium),
+                    0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent),
+                    0 0 42px color-mix(in srgb, var(--accent) 10%, transparent);
     }
+    .toggle:hover .toggleIcon { transform: rotate(-10deg) scale(1.06); opacity: 1; }
 }
 
 /* ====================================
@@ -181,19 +255,21 @@
 ======================================= */
 @media (prefers-reduced-motion: reduce)
 {
-    .timer-header-mode button,
+    .timer-control-surface,
     .timer-header-history-button,
-    .timer-header-history-panel { transition: none; }
+    .timer-header-history-panel,
+    .toggle,
+    .timer-header-mode button,
+    .toggleIcon { transition: none; }
 }
 
 /* ====================================
    TIMERHEADER MEDIA QUERY STYLES.
 ======================================= */
-@media (max-width: 768px)
+@media (max-width: 820px)
 {
-    .timer-header { flex-direction: column; align-items: center; gap: 0.75rem; }
-    .timer-header-left, .timer-header-center, .timer-header-right { justify-content: center; }
-    .timer-header-center { flex-wrap: wrap; }
-    .timer-header-history-panel { right: 50%; transform: translateX(50%) translateY(6px) scale(0.98); }
-    .timer-header-history-panel.is-visible { transform: translateX(50%) translateY(0) scale(1); }
+    .timer-header { grid-template-columns: 1fr; justify-items: center; gap: 0.9rem; }
+    .timer-header-left, .timer-header-center, .timer-header-right { justify-content: center; flex-wrap: wrap; width: 100%; }
+    .timer-header-history-panel { left: 50%; right: auto; transform: translateX(-50%) translateY(0.6rem) scale(0.98); transform-origin: top center; }
+    .timer-header-history-panel.is-visible { transform: translateX(-50%) translateY(0) scale(1); }
 }
