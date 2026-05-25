@@ -64,10 +64,12 @@
 
     /* Ambient Lighting System. */
     --ambient-intensity: 1;
-    --ambient-blur: 140px;
-    --ambient-grid-opacity: 0.018;
-    --ambient-glow-soft: 0 0 120px color-mix(in srgb, var(--accent) 10%, transparent);
-    --ambient-glow-strong: 0 0 240px color-mix(in srgb, var(--accent) 18%, transparent);
+    --ambient-blur: 160px;
+    --ambient-rgb: hsl(var(--ambient-hue) 100% 72%);
+    --ambient-grid-opacity: 0.016;
+    --ambient-glow-soft: 0 0 120px color-mix(in srgb, var(--accent-rgb) 10%, transparent);
+    --ambient-glow-strong: 0 0 240px color-mix(in srgb, var(--accent-rgb) 18%, transparent);
+    --ambient-vignette: radial-gradient(ellipse at center, transparent 36%, rgb(0 0 0 / 0.24) 100%);
 
     /* Glass System. */
     --glass-highlight: linear-gradient(180deg, rgb(255 255 255 / 0.14), transparent 42%);
@@ -143,8 +145,8 @@ html, body
     background-color: var(--app-bg);
     color: var(--text);
 
-    transition: background var(--duration) var(--ease),
-                color var(--duration) var(--ease);
+    transition: background-color var(--duration-slow) var(--ease-standard),
+                color var(--duration-standard) var(--ease-standard);
 }
 
 /* !Duplicate media query below this line. */

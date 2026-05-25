@@ -1,6 +1,6 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 15 May 2026
+//Date: 25 May 2026
 //Description: This file contains the parent timer component for the timer React project.
 
 import { useState, useEffect, useRef } from "react";
@@ -36,10 +36,10 @@ const Timer = ({ onToggleTheme }) =>
 
   /* Dynamic ambient energy system.
      220 = cool blue, 160 = teal, 80 = lime, 18 = amber / red */
-  const energy = Math.pow(1 - progress, 1.18);
-  const hue = 220 - (202 * energy);
-  const glow = 0.18 + (energy * 0.82);
-  const depth = 1 + (energy * 0.08);
+  const energy = Math.pow(1 - progress, 1.35);
+  const hue = 220 - (198 * energy);
+  const glow = 0.16 + (energy * 0.84);
+  const depth = 1 + (energy * 0.06);
 
   //RAF-driven visual smoothing.
   useEffect(() =>

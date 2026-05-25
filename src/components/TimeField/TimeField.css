@@ -9,27 +9,26 @@
 
     display: inline-flex;
     align-items: baseline;
-    gap: 0.22rem;
+    gap: 0.2rem;
 
-    padding: 0.26rem 0.42rem;
+    padding: 0.22rem 0.34rem;
     border-radius: var(--radius-pill);
 
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
     cursor: ns-resize;
 
-    transition: background var(--duration-fast) var(--ease-standard),
-                transform var(--duration-fast) var(--ease-fluid);
+    transition: background var(--duration-fast) var(--ease-standard);
 }
 .time-field:active { cursor: grabbing; }
-.time-field:focus-within { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.time-field:focus-within { background: color-mix(in srgb, var(--accent) 8%, transparent); }
 
 /* ====================================
    TIMEFIELD NUMERIC INPUT STYLES.
 ======================================= */
 .time-field input
 {
-    width: 2.5ch;
+    width: 2.8ch;
     padding: 0;
 
     border: none;
@@ -95,7 +94,7 @@
 
 @media (hover: hover)
 {
-    .time-field:hover { background: color-mix(in srgb, var(--accent) 5%, transparent); transform: translateY(-1px); }
+    .time-field:hover { background: color-mix(in srgb, var(--accent) 4%, transparent); }
     .time-field:hover input { opacity: 1; }
 }
 

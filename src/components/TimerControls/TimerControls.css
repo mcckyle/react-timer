@@ -22,12 +22,13 @@
     overflow: hidden;
 
     min-width: 7rem;
-    min-height: 2.9rem;
+    min-height: 3rem;
     padding-inline: 1.25rem;
 
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    flex: 0 0 auto;
 
     border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
     border-radius: var(--radius-pill);
@@ -66,7 +67,7 @@
     background: linear-gradient(
         120deg,
         transparent 0%,
-        rgb(255 255 255 / 0.08) 48%,
+        rgb(255 255 255 / 0.05) 48%,
         transparent 100%
     );
 
@@ -84,7 +85,7 @@
 {
     background: linear-gradient(
         180deg,
-        color-mix(in srgb, var(--accent) 20%, var(--surface-rasied)),
+        color-mix(in srgb, var(--accent) 20%, var(--surface-raised)),
         color-mix(in srgb, var(--accent) 10%, var(--surface))
     );
     border-color: color-mix(in srgb, var(--accent) 22%, transparent);
@@ -104,7 +105,7 @@
 {
     background: linear-gradient(
         180deg,
-        color-mix(in srgb, var(--surface-rasied), var(--accent) 20%, transparent),
+        color-mix(in srgb, var(--surface-raised), var(--accent) 20%, transparent),
         color-mix(in srgb, var(--surface) 96%, transparent)
     );
 }
@@ -141,7 +142,7 @@
 {
     .timer-control:hover:not(:disabled)
     {
-        transform: translateY(-2px);
+        transform: translateY(-1px);
         color: var(--text);
         border-color: color-mix(in srgb, var(--text) 14%, transparent);
         box-shadow: var(--shadow-medium), inset 0 1px 0 rgb(255 255 255 / 0.05);

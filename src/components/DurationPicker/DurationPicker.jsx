@@ -1,6 +1,6 @@
 //File name: DurationPicker.jsx
 //Author: Kyle McColgan
-//Date: 13 May 2026
+//Date: 25 May 2026
 //Description: This file contains the time duration picker for the timer React project.
 
 import { useEffect, useState } from "react";
@@ -52,38 +52,40 @@ export default function DurationPicker({ duration, onSelect })
       role="group"
       aria-label="Timer duration"
     >
-      <nav
-        className="duration-picker-presets"
-        role="group"
-        aria-label="Preset durations"
-      >
-        {PRESETS.map(({ label, ms }) =>
-        {
-          const active = duration === ms;
+      <div className="duration-picker-shell">
+        <nav
+          className="duration-picker-presets"
+          role="group"
+          aria-label="Preset durations"
+        >
+          {PRESETS.map(({ label, ms }) =>
+          {
+            const active = duration === ms;
 
-          return (
-            <button
-              key={label}
-              type="button"
-              className={`duration-picker-pill${active ? " is-active" : ""}`}
-              aria-pressed={active && !isCustom}
-              onClick={() => onSelect(ms)}
-            >
-              {label}
-            </button>
-          );
-        })}
-      </nav>
+            return (
+              <button
+                key={label}
+                type="button"
+                className={`duration-picker-pill${active ? " is-active" : ""}`}
+                aria-pressed={active && !isCustom}
+                onClick={() => onSelect(ms)}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </nav>
 
-      <div
-        className="duration-picker-custom"
-        onKeyDown={(e) => e.key === "Enter" && commit()}
-      >
-        <TimeField label="h" value={hours} onChange={handleChange(setHours)} onBlur={() => commit()} />
-        <span className="time-separator" aria-hidden="true">:</span>
-        <TimeField label="m" value={minutes} onChange={handleChange(setMinutes)} onBlur={() => commit()} />
-        <span className="time-separator" aria-hidden="true">:</span>
-        <TimeField label="s" value={seconds} onChange={handleChange(setSeconds)} onBlur={() => commit()} />
+        <div
+          className="duration-picker-custom"
+          onKeyDown={(e) => e.key === "Enter" && commit()}
+        >
+          <TimeField label="h" value={hours} onChange={handleChange(setHours)} onBlur={() => commit()} />
+          <span className="time-separator" aria-hidden="true">:</span>
+          <TimeField label="m" value={minutes} onChange={handleChange(setMinutes)} onBlur={() => commit()} />
+          <span className="time-separator" aria-hidden="true">:</span>
+          <TimeField label="s" value={seconds} onChange={handleChange(setSeconds)} onBlur={() => commit()} />
+        </div>
       </div>
     </section>
   );

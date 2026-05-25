@@ -64,30 +64,24 @@
   pointer-events: none;
   background: radial-gradient(
     circle at center,
-    hsl(var(--ambient-hue) 100% 76% / 0.24),
-    transparent 26%
+    hsl(var(--ambient-hue) 100% 74% / 0.22),
+    transparent 28%
   ),
   radial-gradient(
     circle at center,
-    hsl(var(--ambient-hue) 100% 72% / 0.10),
-    transparent 52%
-  ),
-  radial-gradient(
-    circle at center,
-    hsl(calc(var(--ambient-hue) + 16) 100% 68% / 0.04),
-    transparent 72%
+    hsl(var(--ambient-hue) 100% 72% / 0.08),
+    transparent 58%
   );
 
   /* True continuous response. */
-  opacity: clamp(0.32, calc(0.34 + (var(--ambient-energy) * 0.6)), 1);
-  filter: blur(130px) saturate(1.5);
+  opacity: clamp(0.3, calc(0.34 + (var(--ambient-energy) * 0.52)), 0.88);
+  filter: blur(120px) saturate(1.5);
 
-  transform: scale(calc(1 + (var(--ambient-energy) * 0.1)));
-  transform-origin: center;
-  will-change: transform, opacity, filter;
+  transform: scale(calc(1 + (var(--ambient-energy) * 0.08)));
+  will-change: transform, opacity;
   mix-blend-mode: screen;
 
-  animation: timer-core-breathe 18s ease-in-out infinite;
+  animation: timer-core-breathe 16s ease-in-out infinite;
 }
 
 /* ====================================
@@ -97,26 +91,26 @@
 {
   content: "";
   position: absolute;
-  inset: -34%;
+  inset: -28%;
   z-index: -1;
   pointer-events: none;
 
   background: conic-gradient(
     from 180deg at 50% 50%,
     transparent,
-    hsl(var(--ambient-hue) 100% 72% / 0.045),
+    hsl(var(--ambient-hue) 100% 72% / 0.04),
     transparent 24%,
-    transparent 68%,
-    hsl(calc(var(--ambient-hue) - 20) 100% 66% / 0.04),
+    transparent 70%,
+    hsl(calc(var(--ambient-hue) - 18) 100% 68% / 0.035),
     transparent
   );
 
-  filter: blur(200px) saturate(1.3);
-  opacity: clamp(0.14, calc(0.16 + (var(--ambient-energy) * 0.32)), 0.48);
+  filter: blur(180px) saturate(1.2);
+  opacity: clamp(0.12, calc(0.14 + (var(--ambient-energy) * 0.24)), 0.38);
   transform-origin: center;
   mix-blend-mode: screen;
 
-  animation: timer-aura-float 34s ease-in-out infinite;
+  animation: timer-aura-float 32s ease-in-out infinite;
 }
 
 /* ====================================

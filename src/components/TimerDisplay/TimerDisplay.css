@@ -27,17 +27,18 @@
     display: inline-flex;
     align-items: flex-end;
     justify-content: center;
+    min-width: 5.2ch; /* Stabilize Digit Spacing. */
     padding: clamp(0.55rem, 1vw, 0.9rem) clamp(0.7rem, 1.4vw, 1.25rem);
 
     border-radius: clamp(1.5rem, 4vw, 3rem);
-    border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--text) 6%, transparent);
     box-shadow: var(--shadow-soft), inset 0 1px 0 rgb(255 255 255 / 0.05);
     background: linear-gradient(
         180deg,
-        color-mix(in srgb, var(--surface-rasied) 82%, white 3%),
+        color-mix(in srgb, var(--surface-raised) 82%, white 3%),
         color-mix(in srgb, var(--surface) 92%, transparent)
     );
-    backdrop-filter: blur(18px) saturate(1.2);
+    backdrop-filter: blur(14px) saturate(1.08);
 }
 
 /* ====================================
@@ -58,8 +59,8 @@
         transparent 70%
     );
 
-    opacity: calc(0.2 + (var(--ambient-energy) * 0.5));
-    filter: blur(42px);
+    opacity: calc(0.14 + (var(--ambient-energy) * 0.42));
+    filter: blur(56px);
 
     transition: opacity var(--duration-standard) var(--ease-fluid),
                 background var(--duration-ambient) var(--ease-fluid);
@@ -103,7 +104,7 @@
     height: 1em;
     overflow: hidden; /* hides exiting digits. */
 }
-.timer-display-digit { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; will-change: transform, opacity, filter; }
+.timer-display-digit { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; will-change: transform, opacity, filter; backface-visibility: hidden; transform: translateZ(0); }
 
 /* ====================================
    TIMERDISPLAY SEPARATOR STYLES.

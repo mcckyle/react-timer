@@ -31,30 +31,25 @@ body
 
   /* Cinematic atmospheric environment. */
   background-image: radial-gradient(
-    140% 140% at 50% -18%,
-    hsl(var(--ambient-hue) 100% 72% / 0.18),
-    transparent 40%
+    120% 120% at 50% -12%,
+    hsl(var(--ambient-hue) 100% 72% / 0.22),
+    transparent 42%
   ),
   radial-gradient(
-    120% 140% at 100% 0%,
-    hsl(calc(var(--ambient-hue) + 18) 100% 68% / 0.08),
-    transparent 54%
+    90% 120% at 100% 0%,
+    hsl(calc(var(--ambient-hue) + 22) 100% 68% / 0.08),
+    transparent 56%
   ),
   radial-gradient(
-    140% 140% at 0% 100%,
-    hsl(calc(var(--ambient-hue) - 28) 100% 66% / 0.08),
-    transparent 58%
-  ),
-  radial-gradient(
-    80% 80% at 50% 50%,
-    hsl(var(--ambient-hue) 100% 72% / 0.035),
-    transparent 72%
+    120% 140% at 50% 120%,
+    hsl(calc(var(--ambient-hue) - 30) 100% 66% / 0.06),
+    transparent 62%
   ),
   linear-gradient(
     180deg,
-    color-mix(in srgb, var(--bg) 94%, black) 0%,
-    var(--bg) 42%,
-    color-mix(in srgb, var(--bg-secondary) 90%, black) 100%
+    color-mix(in srgb, var(--bg) 96%, black) 0%,
+    var(--bg) 38%,
+    color-mix(in srgb, var(--bg-secondary) 92%, black) 100%
   );
 
   transition: background-image var(--duration-ambient) var(--ease-fluid),
@@ -71,27 +66,22 @@ body::before
   pointer-events: none;
   background: radial-gradient(
     circle at 50% 50%,
-    hsl(var(--ambient-hue) 100% 72% / 0.09),
+    hsl(var(--ambient-hue) 100% 72% / 0.12),
     transparent 34%
   ),
   radial-gradient(
-    circle at 24% 72%,
-    hsl(calc(var(--ambient-hue) + 18) 100% 68% / 0.05),
-    transparent 38%
-  ),
-  radial-gradient(
-    circle at 76% 24%,
-    hsl(calc(var(--ambient-hue) - 24) 100% 66% / 0.05),
+    circle at 20% 72%,
+    hsl(calc(var(--ambient-hue) + 18) 100% 66% / 0.05),
     transparent 40%
   );
 
-  filter: blur(calc(var(--ambient-blur) * 1.2)) saturate(1.45);
-  opacity: calc(0.52 + (var(--ambient-intensity) * 0.18));
+  filter: blur(var(--ambient-blur)) saturate(1.4);
+  opacity: calc(0.48 + (var(--ambient-intensity) * 0.22));
   transform-origin: center;
   will-change: transform, opacity;
   mix-blend-mode: screen;
 
-  animation: ambient-float 46s ease-in-out infinite alternate, ambient-pulse 20s ease-in-out infinite;
+  animation: ambient-float 42s ease-in-out infinite alternate, ambient-pulse 18s ease-in-out infinite;
 }
 body::after
 {
@@ -114,12 +104,22 @@ body::after
 
   background-size: 84px 84px;
   mask-image: radial-gradient(ellipse at center, black 10%, transparent 74%);
-  opacity: 0.22;
+  opacity: 0.16;
 
   transform: perspective(2600px) rotateX(78deg) scale(1.78) translateY(10%);
   transform-origin: center top;
 
   animation: ambient-grid-drift 36s ease-in-out infinite;
+}
+body > #root::before
+{
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background: var(--ambient-vignette);
+  opacity: 0.9;
 }
 
 /* ====================================
