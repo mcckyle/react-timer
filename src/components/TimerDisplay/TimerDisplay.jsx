@@ -1,6 +1,6 @@
 //File name: TimerDisplay.jsx
 //Author: Kyle McColgan
-//Date: 25 May 2026
+//Date: 28 May 2026
 //Description: This file contains the time display for the timer React project.
 
 import { useMemo } from "react";
@@ -28,40 +28,38 @@ export default function TimerDisplay({ timeLeft })
       aria-atomic="true"
       dateTime={display}
     >
-      <div className="timer-display-inner">
-        <AnimatePresence mode="popLayout" initial={false}>
-          {characters.map((char, index) =>
+      <AnimatePresence mode="popLayout" initial={false}>
+        {characters.map((char, index) =>
+        {
+          if (char === ":")
           {
-            if (char === ":")
-            {
-              return (
-                <span
-                  key={`sep-${index}`}
-                  className="timer-display-separator"
-                  aria-hidden="true"
-                >
-                  :
-                </span>
-              );
-            }
-
             return (
-              <span key={`wrapper-${index}`} className="timer-display-digit-wrapper">
-                <motion.span
-                  key={`${index}-${char}`}
-                  className="timer-display-digit"
-                  initial={{ opacity: 0, y: "10%", filter: "blur(4px)", }}
-                  animate={{ opacity: 1, y: "0%", filter: "blur(0px)", }}
-                  exit={{ opacity: 0, y: "-10%", filter: "blur(4px)", }}
-                  transition={TRANSITION}
-                >
-                  {char}
-                </motion.span>
+              <span
+                key={`sep-${index}`}
+                className="timer-display-separator"
+                aria-hidden="true"
+              >
+                :
               </span>
             );
-          })}
-        </AnimatePresence>
-      </div>
+          }
+
+          return (
+            <span key={`wrapper-${index}`} className="timer-display-digit-wrapper">
+              <motion.span
+                key={`${index}-${char}`}
+                className="timer-display-digit"
+                initial={{ opacity: 0, y: "10%", filter: "blur(4px)", }}
+                animate={{ opacity: 1, y: "0%", filter: "blur(0px)", }}
+                exit={{ opacity: 0, y: "-10%", filter: "blur(4px)", }}
+                transition={TRANSITION}
+              >
+                {char}
+              </motion.span>
+            </span>
+          );
+        })}
+      </AnimatePresence>
     </time>
   );
 }

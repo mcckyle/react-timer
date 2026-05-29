@@ -42,7 +42,7 @@
 }
 .displayRegion
 {
-  width: min(100%, 720px);
+  width: 100%;
   min-height: 0;
 
   display: flex;
@@ -59,29 +59,29 @@
 {
   content: "";
   position: absolute;
-  inset: -16%;
+  inset: -12%;
   z-index: -2;
   pointer-events: none;
   background: radial-gradient(
     circle at center,
-    hsl(var(--ambient-hue) 100% 74% / 0.22),
-    transparent 28%
+    hsl(var(--ambient-hue) 100% 74% / calc(0.14 + (var(--ambient-energy) * 0.22))),
+    transparent 30%
   ),
   radial-gradient(
     circle at center,
-    hsl(var(--ambient-hue) 100% 72% / 0.08),
+    hsl(var(--ambient-hue) 100% 72% / calc(0.04 + (var(--ambient-energy) * 0.10))),
     transparent 58%
   );
 
   /* True continuous response. */
-  opacity: clamp(0.3, calc(0.34 + (var(--ambient-energy) * 0.52)), 0.88);
-  filter: blur(120px) saturate(1.5);
+  opacity: clamp(0.28, calc(0.32 + (var(--ambient-energy) * 0.44)), 0.82);
+  filter: blur(var(--ambient-blur-soft)) saturate(1.4);
 
-  transform: scale(calc(1 + (var(--ambient-energy) * 0.08)));
+  transform: scale(calc(1 + (var(--ambient-energy) * 0.06)));
   will-change: transform, opacity;
   mix-blend-mode: screen;
 
-  animation: timer-core-breathe 16s ease-in-out infinite;
+  animation: timer-core-breathe 14s ease-in-out infinite;
 }
 
 /* ====================================
@@ -91,26 +91,25 @@
 {
   content: "";
   position: absolute;
-  inset: -28%;
+  inset: -24%;
   z-index: -1;
   pointer-events: none;
 
   background: conic-gradient(
     from 180deg at 50% 50%,
     transparent,
-    hsl(var(--ambient-hue) 100% 72% / 0.04),
-    transparent 24%,
-    transparent 70%,
-    hsl(calc(var(--ambient-hue) - 18) 100% 68% / 0.035),
+    hsl(var(--ambient-hue) 100% 72% / 0.03),
+    transparent 28%,
+    transparent 72%,
+    hsl(calc(var(--ambient-hue) - 18) 100% 68% / 0.025),
     transparent
   );
 
-  filter: blur(180px) saturate(1.2);
-  opacity: clamp(0.12, calc(0.14 + (var(--ambient-energy) * 0.24)), 0.38);
-  transform-origin: center;
+  filter: blur(180px) saturate(1.15);
+  opacity: calc(0.08 + (var(--ambient-energy) * 0.14));
   mix-blend-mode: screen;
 
-  animation: timer-aura-float 32s ease-in-out infinite;
+  animation: timer-aura-float 30s ease-in-out infinite;
 }
 
 /* ====================================

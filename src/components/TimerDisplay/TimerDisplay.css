@@ -6,87 +6,36 @@
 .timer-display
 {
     position: relative;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 100%;
-    padding-block: clamp(0.5rem, 2vh, 1rem);
     user-select: none;
     isolation: isolate;
-}
-
-/* ====================================
-   TIMERDISPLAY INNER FRAME STYLES.
-======================================= */
-.timer-display-inner
-{
-    position: relative;
 
     display: inline-flex;
     align-items: flex-end;
     justify-content: center;
-    min-width: 5.2ch; /* Stabilize Digit Spacing. */
-    padding: clamp(0.55rem, 1vw, 0.9rem) clamp(0.7rem, 1.4vw, 1.25rem);
+    margin-inline: auto;
+    gap: 0.015em;
 
-    border-radius: clamp(1.5rem, 4vw, 3rem);
-    border: 1px solid color-mix(in srgb, var(--text) 6%, transparent);
-    box-shadow: var(--shadow-soft), inset 0 1px 0 rgb(255 255 255 / 0.05);
-    background: linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--surface-raised) 82%, white 3%),
-        color-mix(in srgb, var(--surface) 92%, transparent)
-    );
-    backdrop-filter: blur(14px) saturate(1.08);
-}
-
-/* ====================================
-   TIMERDISPLAY AMBIENT GLOW STYLES.
-======================================= */
-.timer-display-inner::before
-{
-    content: "";
-    position: absolute;
-    inset: -10%;
-    z-index: -1;
-    pointer-events: none;
-
-    border-radius: inherit;
-    background: radial-gradient(
-        circle at center,
-        hsl(var(--ambient-hue) 100% 70% / 0.14),
-        transparent 70%
-    );
-
-    opacity: calc(0.14 + (var(--ambient-energy) * 0.42));
-    filter: blur(56px);
-
-    transition: opacity var(--duration-standard) var(--ease-fluid),
-                background var(--duration-ambient) var(--ease-fluid);
-}
-/* ====================================
-   TIMERDISPLAY TYPOGRAPHY STYLES.
-======================================= */
-.timer-display
-{
+    width: 100%;
+    padding-block: clamp(0.5rem, 2vh, 1rem);
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
     font-weight: 600;
 
-    font-size: clamp(4rem, 16vw, 22rem);
-    line-height: 0.88;
-    letter-spacing: -0.055em;
+    font-size: clamp(4rem, 16vw, 28rem);
+    line-height: 0.84;
+    letter-spacing: -0.06em;
     color: var(--text);
     text-align: center;
 
     transition: color var(--duration-fast) var(--ease-standard),
-                text-shadow var(--duration-standard) var(--ease-fluid);
+                text-shadow var(--duration-standard) var(--ease-fluid),
+                transform var(--duration-standard) var(--ease-fluid);
 }
 .timer.is-running .timer-display
 {
-    color: color-mix(in srgb, var(--text) 78%, var(--accent));
-    text-shadow: 0 0 32px color-mix(in srgb, var(--accent) 18%, transparent);
+    color: color-mix(in srgb, var(--text) 82%, var(--accent));
+    text-shadow: 0 0 24px hsl(var(--ambient-hue) 100% 72% / 0.10),
+                 0 0 64px hsl(var(--ambient-hue) 100% 72% / 0.08);
 }
 
 /* ====================================
@@ -100,7 +49,7 @@
     align-items: flex-end;
     justify-content: center;
 
-    width: 0.58em;
+    width: 0.62em;
     height: 1em;
     overflow: hidden; /* hides exiting digits. */
 }
@@ -111,9 +60,10 @@
 ======================================= */
 .timer-display-separator
 {
-    margin-inline: 0.05em;
-    color: var(--text-muted);
-    opacity: 0.24;
+    margin-inline: 0.015em;
+    color: color-mix(in srgb, var(--text) 52%, transparent);
+    opacity: 0.7;
+    transform: translateY(-0.02em);
     user-select: none;
 }
 

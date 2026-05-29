@@ -31,25 +31,25 @@ body
 
   /* Cinematic atmospheric environment. */
   background-image: radial-gradient(
-    120% 120% at 50% -12%,
-    hsl(var(--ambient-hue) 100% 72% / 0.22),
+    140% 120% at 50% -18%,
+    hsl(var(--ambient-hue) 100% 72% / calc(0.16 + (var(--ambient-energy) * 0.12))),
     transparent 42%
   ),
   radial-gradient(
-    90% 120% at 100% 0%,
-    hsl(calc(var(--ambient-hue) + 22) 100% 68% / 0.08),
-    transparent 56%
+    80% 100% at 12% 18%,
+    hsl(calc(var(--ambient-hue) + 24) 100% 68% / calc(0.04 + (var(--ambient-energy) * 0.05))),
+    transparent 58%
   ),
   radial-gradient(
-    120% 140% at 50% 120%,
-    hsl(calc(var(--ambient-hue) - 30) 100% 66% / 0.06),
+    90% 120% at 88% 82%,
+    hsl(calc(var(--ambient-hue) - 24) 100% 68% / calc(0.03 + (var(--ambient-energy) * 0.04))),
     transparent 62%
   ),
   linear-gradient(
     180deg,
-    color-mix(in srgb, var(--bg) 96%, black) 0%,
-    var(--bg) 38%,
-    color-mix(in srgb, var(--bg-secondary) 92%, black) 100%
+    color-mix(in srgb, var(--bg) 97%, black) 0%,
+    color-mix(in srgb, var(--bg) 92%, #02030a) 36%,
+    color-mix(in srgb, var(--bg-secondary) 90%, black) 100%
   );
 
   transition: background-image var(--duration-ambient) var(--ease-fluid),
@@ -61,27 +61,26 @@ body::before
   /* Atmospheric Volumetric Layer Styles. */
   content: "";
   position: fixed;
-  inset: -32%;
+  inset: -24%;
   z-index: -4;
   pointer-events: none;
   background: radial-gradient(
     circle at 50% 50%,
-    hsl(var(--ambient-hue) 100% 72% / 0.12),
+    hsl(var(--ambient-hue) 100% 72% / 0.14),
     transparent 34%
   ),
   radial-gradient(
-    circle at 20% 72%,
-    hsl(calc(var(--ambient-hue) + 18) 100% 66% / 0.05),
-    transparent 40%
+    circle at 24% 72%,
+    hsl(calc(var(--ambient-hue) + 22) 100% 68% / 0.05),
+    transparent 42%
   );
 
-  filter: blur(var(--ambient-blur)) saturate(1.4);
-  opacity: calc(0.48 + (var(--ambient-intensity) * 0.22));
-  transform-origin: center;
+  filter: blur(var(--ambient-blur-strong)) saturate(1.3);
+  opacity: calc(0.34 + (var(--ambient-energy) * 0.42));
   will-change: transform, opacity;
   mix-blend-mode: screen;
 
-  animation: ambient-float 42s ease-in-out infinite alternate, ambient-pulse 18s ease-in-out infinite;
+  animation: ambient-orbit 42s ease-in-out infinite alternate, ambient-breathe 18s ease-in-out infinite;
 }
 body::after
 {
@@ -102,9 +101,10 @@ body::after
       transparent 1px
     );
 
-  background-size: 84px 84px;
+  background-size: 92px 92px;
   mask-image: radial-gradient(ellipse at center, black 10%, transparent 74%);
-  opacity: 0.16;
+  opacity: calc(0.06 + (var(--ambient-energy) * 0.05));
+  filter: blur(0.2px);
 
   transform: perspective(2600px) rotateX(78deg) scale(1.78) translateY(10%);
   transform-origin: center top;
@@ -154,17 +154,16 @@ p { margin: 0; }
   font-weight: 500;
 }
 
-@keyframes ambient-float
+@keyframes ambient-orbit
 {
   0% { transform: translate3d(-2%, -1%, 0) scale(1); }
-  33% { transform: translate3d(1.5%, 1%, 0) scale(1.04); }
-  66% { transform: translate3d(-1%, 2%, 0) scale(1.08); }
+  50% { transform: translate3d(1%, 2%, 0) scale(1.06); }
   100% { transform: translate3d(2%, -1%, 0) scale(1.03); }
 }
-@keyframes ambient-pulse
+@keyframes ambient-breathe
 {
-  0%, 100% { opacity: 0.72; }
-  50% { opacity: 1; }
+  0%, 100% { opacity: 0.52; }
+  50% { opacity: 0.9; }
 }
 @keyframes ambient-grid-drift
 {
