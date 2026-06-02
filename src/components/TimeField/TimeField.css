@@ -20,15 +20,16 @@
 
     transition: background var(--duration-fast) var(--ease-standard);
 }
-.time-field:active { cursor: grabbing; }
-.time-field:focus-within { background: color-mix(in srgb, var(--accent) 8%, transparent); }
+.time-field:active { cursor: grabbing; background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.time-field:active input { color: var(--accent); }
+.time-field:focus-within { background: color-mix(in srgb, var(--accent) 10%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent); }
 
 /* ====================================
    TIMEFIELD NUMERIC INPUT STYLES.
 ======================================= */
 .time-field input
 {
-    width: 2.8ch;
+    width: 3.5ch;
     padding: 0;
 
     border: none;

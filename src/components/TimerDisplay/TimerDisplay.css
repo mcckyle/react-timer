@@ -21,7 +21,7 @@
     font-variant-numeric: tabular-nums;
     font-weight: 600;
 
-    font-size: clamp(4rem, 16vw, 28rem);
+    font-size: clamp(4rem, 16vw, 28rem); /* Digits as large as possible. */
     line-height: 0.84;
     letter-spacing: -0.06em;
     color: var(--text);
@@ -49,7 +49,7 @@
     align-items: flex-end;
     justify-content: center;
 
-    width: 0.62em;
+    width: 0.6em;
     height: 1em;
     overflow: hidden; /* hides exiting digits. */
 }
@@ -60,25 +60,25 @@
 ======================================= */
 .timer-display-separator
 {
-    margin-inline: 0.015em;
+    margin-inline: 0.02em;
+    align-self: center;
     color: color-mix(in srgb, var(--text) 52%, transparent);
     opacity: 0.7;
-    transform: translateY(-0.02em);
     user-select: none;
 }
 
 /* ====================================
    TIMERDISPLAY COMPLETE STATE STYLES.
 ======================================= */
-.timer.is-complete .timer-display-inner { animation: timer-complete-settle 520ms var(--ease-fluid); }
+.timer.is-complete .timer-display { animation: timer-display-complete 520ms var(--ease-fluid); }
 
 /* ====================================
    TIMERDISPLAY ANIMATIONS STYLES.
 ======================================= */
-@keyframes timer-complete-settle
+@keyframes timer-display-complete
 {
     0% { transform: scale(1); }
-    35% { transform: scale(1.015); }
+    35% { transform: scale(1.018); }
     100% { transform: scale(1); }
 }
 
@@ -88,7 +88,6 @@
 @media (max-width: 480px)
 {
     .timer-display { font-size: clamp(2.8rem, 13vw, 8rem); letter-spacing: -0.045em; }
-    .timer-display-inner { border-radius: 1.5rem; }
 }
 
 /* ====================================
@@ -97,5 +96,4 @@
 @media (prefers-reduced-motion: reduce)
 {
     .timer-display-digit { filter: none !important; opacity: 1 !important; transform: none !important; }
-    .timer-display-inner::before { transition: none; }
 }

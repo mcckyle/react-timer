@@ -42,6 +42,7 @@
 }
 .displayRegion
 {
+  position: relative;
   width: 100%;
   min-height: 0;
 
@@ -49,6 +50,22 @@
   align-items: center;
   justify-content: center;
   margin-inline: auto;
+}
+.displayRegion::after
+{
+  content: "";
+  position: absolute;
+  inset: auto 15% -12%;
+  height: 16rem;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    hsl(var(--ambient-hue) 100% 72% / 0.08),
+    transparent 70%
+  );
+
+  opacity: clamp(0.4, (var(--ambient-energy) * 0.4));
+  filter: blur(90px);
 }
 .controlsRegion { width: 100%; display: flex; justify-content: center;}
 
@@ -105,8 +122,8 @@
     transparent
   );
 
-  filter: blur(180px) saturate(1.15);
-  opacity: calc(0.08 + (var(--ambient-energy) * 0.14));
+  filter: blur(240px) saturate(1.05);
+  opacity: calc(0.04 + (var(--ambient-energy) * 0.08));
   mix-blend-mode: screen;
 
   animation: timer-aura-float 30s ease-in-out infinite;
@@ -115,7 +132,7 @@
 /* ====================================
    TIMER RUNNING STYLES.
 ======================================= */
-.timer.is-running { filter: saturate(1.14) contrast(1.05); --ambient-intensity: 1.22; --ambient-blur: 160px; }
+.timer.is-running { --ambient-intensity: 1.25; }
 .timer.is-running .displayRegion
 {
   transform: translateZ(0) scale(calc(1 + (var(--ambient-energy) * 0.012)));

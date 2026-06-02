@@ -22,7 +22,7 @@
     overflow: hidden;
 
     min-width: 7rem;
-    min-height: 3rem;
+    min-height: 3.25rem;
     padding-inline: 1.25rem;
 
     display: inline-flex;
@@ -39,9 +39,9 @@
     );
     color: var(--text-muted);
 
-    font-size: 0.66rem;
-    font-weight: 700;
-    letter-spacing: 0.16em;
+    font-size: 0.7rem;
+    font-weight: 650;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     backdrop-filter: blur(16px) saturate(1.2);
     box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04);
@@ -59,7 +59,7 @@
 /* ====================================
    TIMERCONTROLS BUTTON SHIMMER STYLES.
 ======================================= */
-.timer-control::before
+/*.timer-control::before
 {
     content: "";
     position: absolute;
@@ -76,7 +76,7 @@
 
     transition: opacity var(--duration-standard) var(--ease-standard),
                 transform 700ms var(--ease-fluid);
-}
+}*/
 
 /* ====================================
    TIMERCONTROLS PRIMARY BUTTON STYLES.
@@ -85,8 +85,8 @@
 {
     background: linear-gradient(
         180deg,
-        color-mix(in srgb, var(--accent) 20%, var(--surface-raised)),
-        color-mix(in srgb, var(--accent) 10%, var(--surface))
+        color-mix(in srgb, var(--accent), calc(18% + (var(--ambient-energy) * 10%)), var(--surface-raised)),
+        color-mix(in srgb, var(--accent), calc(8% + (var(--ambient-energy) * 6%)), var(--surface))
     );
     border-color: color-mix(in srgb, var(--accent) 22%, transparent);
     color: var(--accent);
@@ -96,6 +96,8 @@
 .timer.is-running .timer-control.is-primary
 {
     color: color-mix(in srgb, var(--accent) 82%, white);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent),
+                0 0 0 4px color-mix(in srgb, var(--accent), calc(8% + (var(--ambient-energy) * 10%)), transparent);
 }
 
 /* ====================================
@@ -105,7 +107,7 @@
 {
     background: linear-gradient(
         180deg,
-        color-mix(in srgb, var(--surface-raised), var(--accent) 20%, transparent),
+        color-mix(in srgb, var(--surface-raised) 96%, var(--accent) 4%),
         color-mix(in srgb, var(--surface) 96%, transparent)
     );
 }
@@ -124,7 +126,8 @@
 .timer-control:focus-visible
 {
     outline: none;
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 32%, transparent),
+                0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent);
 }
 
 /* ====================================
@@ -132,7 +135,8 @@
 ======================================= */
 .timer-control:disabled
 {
-    opacity: 0.34;
+    opacity: 0.48;
+    filter: saturate(0.7);
     cursor: not-allowed;
     transform: none;
 }
@@ -147,16 +151,11 @@
         border-color: color-mix(in srgb, var(--text) 14%, transparent);
         box-shadow: var(--shadow-medium), inset 0 1px 0 rgb(255 255 255 / 0.05);
     }
-    .timer-control:hover:not(:disabled)::before
-    {
-        opacity: 1;
-        transform: translateX(120%);
-    }
     .timer-control.is-primary:hover:not(:disabled)
     {
-        border-color: color-mix(in srgb, var(--accent) 34%, transparent);
-        box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent),
-                    0 18px 42px -24px color-mix(in srgb, var(--accent) 34%, transparent);
+        border-color: color-mix(in srgb, var(--accent) 28%, transparent);
+        box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent),
+                    0 12px 28px -18px color-mix(in srgb, var(--accent) 24%, transparent);
     }
 }
 

@@ -1,6 +1,6 @@
 //File name: TimerHeader.jsx
 //Author: Kyle McColgan
-//Date: 25 May 2026
+//Date: 2 June 2026
 //Description: This file contains the timer header component for the timer React project.
 
 import React from "react";
@@ -10,17 +10,18 @@ import PastTimers from "../PastTimers/PastTimers.jsx";
 import "./TimerHeader.css";
 
 export default function TimerHeader({
-    theme,
-    onToggleTheme,
-    duration,
-    onSelectDuration,
-    mode,
-    setMode,
-    pastTimers,
-    clearPastTimers,
-    showHistory,
-    setShowHistory,
-}) {
+  theme,
+  onToggleTheme,
+  duration,
+  onSelectDuration,
+  mode,
+  setMode,
+  pastTimers,
+  clearPastTimers,
+  showHistory,
+  setShowHistory,
+})
+{
   const hasHistory = pastTimers.length > 0;
   const isDark = theme === "dark";
   const nextThemeLabel = isDark ? "light" : "dark";
