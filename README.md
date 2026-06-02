@@ -73,10 +73,6 @@ react-timer/
 │   │   │   ├── TimeField.jsx
 │   │   │   └── TimeField.css
 │   │   │
-│   │   ├── TimerSeparator/
-│   │   │   ├── TimerSeparator.jsx
-│   │   │   └── TimerSeparator.css
-│   │   │
 │   │   ├── TimerControls/
 │   │   │   ├── TimerControls.jsx
 │   │   │   └── TimerControls.css
