@@ -23,8 +23,7 @@
            clamp(1rem, 3vw, 2.5rem)
            max(1.25rem, env(safe-area-inset-bottom));
 
-  transition: filter var(--duration-standard) var(--ease-standard),
-              transform var(--duration-standard) var(--ease-standard);
+  transition: transform var(--duration-standard) var(--ease-standard);
 }
 
 /* ====================================
@@ -55,17 +54,11 @@
 {
   content: "";
   position: absolute;
-  inset: auto 15% -12%;
-  height: 16rem;
+  inset: auto 22% -10%;
+  height: 10rem;
   pointer-events: none;
-  background: radial-gradient(
-    ellipse at center,
-    hsl(var(--ambient-hue) 100% 72% / 0.08),
-    transparent 70%
-  );
-
-  opacity: clamp(0.4, (var(--ambient-energy) * 0.4));
-  filter: blur(90px);
+  opacity: calc(0.12 + (var(--ambient-energy) * 0.14));
+  filter: blur(70px);
 }
 .controlsRegion { width: 100%; display: flex; justify-content: center;}
 
@@ -94,7 +87,7 @@
   opacity: clamp(0.28, calc(0.32 + (var(--ambient-energy) * 0.44)), 0.82);
   filter: blur(var(--ambient-blur-soft)) saturate(1.4);
 
-  transform: scale(calc(1 + (var(--ambient-energy) * 0.06)));
+  transform: translate3d(0, calc(var(--ambient-energy) * -1.2%), 0) scale(calc(1 + (var(--ambient-energy) * 0.08)));
   will-change: transform, opacity;
   mix-blend-mode: screen;
 
@@ -108,7 +101,7 @@
 {
   content: "";
   position: absolute;
-  inset: -24%;
+  inset: -40%;
   z-index: -1;
   pointer-events: none;
 
@@ -122,8 +115,8 @@
     transparent
   );
 
-  filter: blur(240px) saturate(1.05);
-  opacity: calc(0.04 + (var(--ambient-energy) * 0.08));
+  filter: blur(320px) saturate(1.1);
+  opacity: calc(0.02 + (var(--ambient-energy) * 0.12));
   mix-blend-mode: screen;
 
   animation: timer-aura-float 30s ease-in-out infinite;
