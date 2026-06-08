@@ -12,7 +12,7 @@ body
   margin: 0;
   min-height: 100dvh; /* Mobile browser viewport consistency. */
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
 
   font-family: var(--font-sans);
   font-size: clamp(0.95rem, 0.2vw + 0.9rem, 1rem);
@@ -31,7 +31,7 @@ body
 
   /* Cinematic atmospheric environment. */
   background-image: radial-gradient(
-    160% 130% at 50% -28%,
+    calc(160% + (var(--ambient-drift) * 30%)) calc(130% + (var(--ambient-drift) * 20%)) at 50% calc(-28% + (var(--ambient-drift) * -10%)),
     hsl(var(--ambient-hue) 100% 72% / calc(0.16 + (var(--ambient-energy) * 0.12))),
     transparent 42%
   ),
@@ -52,13 +52,11 @@ body
     color-mix(in srgb, var(--bg-secondary) 90%, black) 100%
   );
 
-  transition: background-image var(--duration-ambient) var(--ease-fluid),
-              background-color var(--duration-slow) var(--ease-standard),
+  transition: background-color var(--duration-slow) var(--ease-standard),
               color var(--duration-standard) var(--ease-standard);
 }
 body::before
 {
-  /* Atmospheric Volumetric Layer Styles. */
   content: "";
   position: fixed;
   inset: -24%;
@@ -78,6 +76,8 @@ body::before
   filter: blur(var(--ambient-blur-strong)) saturate(1.3);
   opacity: calc(0.34 + (var(--ambient-energy) * 0.42));
   will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
   mix-blend-mode: screen;
 
   animation: ambient-orbit 70s ease-in-out infinite alternate, ambient-breathe 18s ease-in-out infinite;
@@ -86,7 +86,7 @@ body::after
 {
   content: "";
   position: fixed;
-  inset: 0;
+  inset: -10%;
   z-index: -3;
   pointer-events: none;
   background-image:
@@ -103,8 +103,11 @@ body::after
 
   background-size: 92px 92px;
   mask-image: radial-gradient(ellipse at center, black 20%, black 48%, transparent 88%);
-  opacity: calc(0.06 + (var(--ambient-energy) * 0.05));
+  opacity: calc(0.04 + (var(--ambient-energy) * 0.12));
   filter: blur(0.2px);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
 
   transform: perspective(2600px) rotateX(78deg) scale(1.78) translateY(10%);
   transform-origin: center top;
@@ -156,9 +159,8 @@ p { margin: 0; }
 
 @keyframes ambient-orbit
 {
-  0% { transform: translate3d(-2%, -1%, 0) scale(1); }
-  50% { transform: translate3d(1%, 2%, 0) scale(1.06); }
-  100% { transform: translate3d(2%, -1%, 0) scale(1.03); }
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0.5%, 0.5%, 0) scale(1.02); }
 }
 @keyframes ambient-breathe
 {
@@ -168,7 +170,7 @@ p { margin: 0; }
 @keyframes ambient-grid-drift
 {
   0%, 100% { transform: perspective(2600px) rotateX(78deg) scale(1.78) translate3d(0, 10%, 0); }
-  50% { transform: perspective(2600px) rotateX(78deg) scale(1.86) translate3d(-1.5%, 7%, 0); }
+  50% { transform: perspective(2600px) rotateX(78deg) scale(1.84) translate3d(-1%, 8%, 0); }
 }
 
 /* ====================================
