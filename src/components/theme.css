@@ -70,7 +70,7 @@
     --ambient-drift: 0;
     --ambient-pulse: 0;
     --ambient-blur-soft: 120px;
-    --ambient-blur-strong: 220px;
+    --ambient-blur-strong: 180px;
 
     --ambient-grid-opacity: 0.016;
 
@@ -151,13 +151,6 @@
 }
 
 /* ====================================
-   GLOBAL TRANSITIONS STYLES.
+   GLOBAL THEME STYLES.
 ======================================= */
-html, body
-{
-    background-color: var(--app-bg);
-    color: var(--text);
-
-    transition: background-color var(--duration-slow) var(--ease-standard),
-                color var(--duration-standard) var(--ease-standard);
-}
+html, body { background-color: var(--app-bg); color: var(--text); }

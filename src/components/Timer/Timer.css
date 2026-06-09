@@ -69,26 +69,23 @@
 {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: -12%;
   z-index: -2;
   pointer-events: none;
   background: radial-gradient(
     circle at center,
-    hsl(var(--ambient-hue) 100% 74% / calc(0.14 + (var(--ambient-energy) * 0.22))),
-    transparent 30%
+    hsl(var(--ambient-hue) 100% 72% / calc(0.28 + (var(--ambient-energy) * 0.40))),
+    transparent 34%
   ),
   radial-gradient(
     circle at center,
-    hsl(var(--ambient-hue) 100% 72% / calc(0.04 + (var(--ambient-energy) * 0.10))),
-    transparent 58%
+    hsl(var(--ambient-hue) 100% 70% / calc(0.10 + (var(--ambient-energy) * 0.18))),
+    transparent 65%
   );
 
-  opacity: calc(0.28 + (var(--ambient-energy) * 0.35));
-  filter: blur(var(--ambient-blur-soft)) saturate(1.3);
+  opacity: calc(0.65 + (var(--ambient-energy) * 0.35));
+  filter: blur(90px) saturate(1.8);
 
-  /*transform: translate3d(0, calc(var(--ambient-energy) * -1.2%), 0) scale(calc(1 + (var(--ambient-energy) * 0.04)));*/
-
-  /* Animation causing right side of viewport to flicker*/
   animation: timer-core-breathe 14s ease-in-out infinite;
 }
 

@@ -1,9 +1,9 @@
 //File name: ThemeContext.jsx
 //Author: Kyle McColgan
-//Date: 22 May 2026
+//Date: 9 June 2026
 //Description: This file contains the theming context component for the timer React project.
 
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 const ThemeContext = createContext(undefined);
 const THEME_STORAGE_KEY = "theme";
@@ -52,7 +52,7 @@ function syncThemeToDocument(theme)
 
 export const ThemeProvider = ({ children }) =>
 {
-  const initialState = getInitialTheme();
+  const initialState = useMemo(() => getInitialTheme(), []);
   const hasManualThemeRef = useRef(initialState.hasManualTheme);
   const [theme, setTheme] = useState(initialState.theme);
 
@@ -66,13 +66,20 @@ export const ThemeProvider = ({ children }) =>
           : "dark";
 
       hasManualThemeRef.current = true;
-      localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+      try
+      {
+        localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+      }
+      catch
+      {
+        //Ignore storage failures.
+      }
       return nextTheme;
     });
   }, []);
 
   //Sync Theme to DOM.
-  useEffect(() =>
+  useLayoutEffect(() =>
   {
     syncThemeToDocument(theme);
   }, [theme]);
@@ -91,24 +98,22 @@ export const ThemeProvider = ({ children }) =>
       setTheme(matches ? "dark" : "light");
     };
 
+    //Support older browsers gracefully.
     if (mediaQuery.addEventListener)
     {
       mediaQuery.addEventListener("change", onSystemThemeChange);
-    }
-    else
-    {
-      mediaQuery.addListener(onSystemThemeChange);
-    }
-    return () =>
-    {
-      if (mediaQuery.removeEventListener)
+
+      return () =>
       {
         mediaQuery.removeEventListener("change", onSystemThemeChange);
-      }
-      else
-      {
-        mediaQuery.removeListener(onSystemThemeChange);
-      }
+      };
+    }
+
+    mediaQuery.addListener(onSystemThemeChange);
+
+    return () =>
+    {
+      mediaQuery.removeListener(onSystemThemeChange);
     };
   }, []);
 
