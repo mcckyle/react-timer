@@ -23,7 +23,7 @@
 
     font-size: clamp(4rem, 16vw, 28rem); /* Digits as large as possible. */
     line-height: 0.84;
-    letter-spacing: -0.06em;
+    letter-spacing: -0.075em;
     color: var(--text);
     text-align: center;
 
@@ -33,9 +33,9 @@
 }
 .timer.is-running .timer-display
 {
-    color: color-mix(in srgb, var(--text) 82%, var(--accent));
-    text-shadow: 0 0 24px hsl(var(--ambient-hue) 100% 72% / 0.10),
-                 0 0 64px hsl(var(--ambient-hue) 100% 72% / 0.08);
+    color: var(--text);
+    text-shadow: 0 0 18px hsl(var(--ambient-hue) 100% 72% / 0.08),
+                 0 0 48px hsl(var(--ambient-hue) 100% 72% / 0.06);
 }
 
 /* ====================================
@@ -62,8 +62,8 @@
 {
     margin-inline: 0.02em;
     align-self: center;
-    color: color-mix(in srgb, var(--text) 52%, transparent);
-    opacity: 0.7;
+    color: color-mix(in srgb, var(--text) 70%, transparent);
+    opacity: 0.85;
     user-select: none;
 }
 

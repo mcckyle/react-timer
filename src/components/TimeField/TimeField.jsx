@@ -1,12 +1,12 @@
 //File name: TimeField.jsx
 //Author: Kyle McColgan
-//Date: 13 April 2026
+//Date: 10 June 2026
 //Description: This file contains the time field for the timer React project.
 
 import { useRef } from "react";
 import "./TimeField.css";
 
-export default function TimeField({ label, value, onChange, onBlur })
+export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER, onChange, onBlur })
 {
   const id = `time-${label}`;
   const labelId = `${id}-label`;
@@ -15,7 +15,10 @@ export default function TimeField({ label, value, onChange, onBlur })
   const startValue = useRef(0);
   const dragging = useRef(false);
 
-  const clamp = (v) => Math.max(0, v);
+  const clamp = (v) =>
+  {
+    return Math.max(0, Math.min(max, v));
+  };
 
   function handlePointerDown(e)
   {
@@ -106,6 +109,7 @@ export default function TimeField({ label, value, onChange, onBlur })
         type="number"
 
         min="0"
+        max={max}
         step="1"
 
         inputMode="numeric"

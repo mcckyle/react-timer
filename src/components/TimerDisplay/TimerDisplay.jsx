@@ -1,6 +1,6 @@
 //File name: TimerDisplay.jsx
 //Author: Kyle McColgan
-//Date: 28 May 2026
+//Date: 10 June 2026
 //Description: This file contains the time display for the timer React project.
 
 import { useMemo } from "react";
@@ -49,9 +49,9 @@ export default function TimerDisplay({ timeLeft })
               <motion.span
                 key={`${index}-${char}`}
                 className="timer-display-digit"
-                initial={{ opacity: 0, y: "10%", filter: "blur(4px)", }}
-                animate={{ opacity: 1, y: "0%", filter: "blur(0px)", }}
-                exit={{ opacity: 0, y: "-10%", filter: "blur(4px)", }}
+                initial={{ opacity: 0, y: "8%", }}
+                animate={{ opacity: 1, y: "0%",}}
+                exit={{ opacity: 0, y: "-8%", }}
                 transition={TRANSITION}
               >
                 {char}

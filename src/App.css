@@ -30,11 +30,3 @@
            max(1rem, env(safe-area-inset-bottom))
            max(1rem, env(safe-area-inset-left));
 }
-
-/* ====================================
-   APP MEDIA QUERY STYLES.
-======================================= */
-/*@media (max-width: 640px)
-{
-  .app { padding-inline: 1rem; }
-}*/

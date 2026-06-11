@@ -50,16 +50,6 @@
   justify-content: center;
   margin-inline: auto;
 }
-.displayRegion::after
-{
-  content: "";
-  position: absolute;
-  inset: auto 22% -10%;
-  height: 10rem;
-  pointer-events: none;
-  opacity: calc(0.12 + (var(--ambient-energy) * 0.14));
-  filter: blur(70px);
-}
 .controlsRegion { width: 100%; display: flex; justify-content: center;}
 
 /* ====================================
@@ -116,8 +106,8 @@
     transparent
   );
 
-  filter: blur(320px) saturate(1.1);
-  opacity: calc(0.02 + (var(--ambient-energy) * 0.10) + (var(--ambient-climax) * 0.12));
+  filter: blur(220px) saturate(1.4);
+  opacity: calc((0.03 + (var(--ambient-energy) * 0.08)) * var(--ambient-intensity));
   will-change: transform, opacity;
   backface-visibility: hidden;
   transform-style: preserve-3d;
@@ -125,11 +115,6 @@
 
   animation: timer-aura-float 30s ease-in-out infinite;
 }
-
-/* ====================================
-   TIMER RUNNING STYLES.
-======================================= */
-.timer.is-running { --ambient-intensity: 1.25; }
 
 /* ====================================
    TIMER COMPLETION BURST EFFECT STYLES.

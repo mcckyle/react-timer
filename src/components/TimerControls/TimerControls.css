@@ -18,86 +18,55 @@
 ======================================= */
 .timer-control
 {
-    position: relative;
-    overflow: hidden;
-
-    min-width: 7rem;
+    min-width: 7.5rem;
     min-height: 3.25rem;
-    padding-inline: 1.25rem;
+    padding-inline: 1.4rem;
 
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex: 0 0 auto;
 
-    border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+    border: 1px solid var(--border-subtle);
     border-radius: var(--radius-pill);
-    background: linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--surface-raised) 88%, white 4%),
-        color-mix(in srgb, var(--surface) 96%, transparent)
-    );
+    background: color-mix(in srgb, var(--surface-glass) 86%, transparent);
     color: var(--text-muted);
 
     font-size: 0.7rem;
     font-weight: 650;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    backdrop-filter: blur(16px) saturate(1.2);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04);
+    backdrop-filter: blur(18px) saturate(1.1);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04), var(--shadow-soft);
 
     cursor: pointer;
     user-select: none;
 
     transition: transform var(--duration-fast) var(--ease-fluid),
                 background var(--duration-standard) var(--ease-standard),
-                border-color var(--duration-fast) var(--ease-standard),
+                border-color var(--duration-standard) var(--ease-standard),
                 color var(--duration-fast) var(--ease-standard),
-                box-shadow var(--duration-standard) var(--ease-fluid);
+                box-shadow var(--duration-standard) var(--ease-standard);
 }
-
-/* ====================================
-   TIMERCONTROLS BUTTON SHIMMER STYLES.
-======================================= */
-/*.timer-control::before
-{
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        120deg,
-        transparent 0%,
-        rgb(255 255 255 / 0.05) 48%,
-        transparent 100%
-    );
-
-    opacity: 0;
-    transform: translateX(-120%);
-
-    transition: opacity var(--duration-standard) var(--ease-standard),
-                transform 700ms var(--ease-fluid);
-}*/
 
 /* ====================================
    TIMERCONTROLS PRIMARY BUTTON STYLES.
 ======================================= */
 .timer-control.is-primary
 {
-    background: linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--accent), calc(18% + (var(--ambient-energy) * 10%)), var(--surface-raised)),
-        color-mix(in srgb, var(--accent), calc(8% + (var(--ambient-energy) * 6%)), var(--surface))
-    );
-    border-color: color-mix(in srgb, var(--accent) 22%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 18%, transparent);
+    background: color-mix(in srgb, var(--accent-soft) 68%, var(--surface-glass));
     color: var(--accent);
-    box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 8%, transparent),
-                0 12px 32px -18px color-mix(in srgb, var(--accent) 28%, transparent);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06),
+                0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent),
+                0 10px 28px -18px hsl(var(--ambient-hue) 100% 60% / 0.24);
 }
 .timer.is-running .timer-control.is-primary
 {
-    color: color-mix(in srgb, var(--accent) 82%, white);
-    box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent),
-                0 0 0 4px color-mix(in srgb, var(--accent), calc(8% + (var(--ambient-energy) * 10%)), transparent);
+    color: color-mix(in srgb, var(--accent) 88%, white);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08),
+                0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent),
+                0 0 42px hsl(var(--ambient-hue) 100% 72% / calc(0.08 + (var(--ambient-energy) * 0.12)));
 }
 
 /* ====================================
@@ -135,10 +104,11 @@
 ======================================= */
 .timer-control:disabled
 {
-    opacity: 0.48;
-    filter: saturate(0.7);
+    opacity: 0.42;
+    color: var(--text-muted);
     cursor: not-allowed;
     transform: none;
+    box-shadow: none;
 }
 
 /* TimerControls Hover Lift For Desktop Styles. */
@@ -148,8 +118,8 @@
     {
         transform: translateY(-1px);
         color: var(--text);
-        border-color: color-mix(in srgb, var(--text) 14%, transparent);
-        box-shadow: var(--shadow-medium), inset 0 1px 0 rgb(255 255 255 / 0.05);
+        border-color: color-mix(in srgb, var(--accent) 10%, var(--border-subtle));
+        background: color-mix(in srgb, var(--surface-hover) 92%, transparent);
     }
     .timer-control.is-primary:hover:not(:disabled)
     {
@@ -166,4 +136,13 @@
 {
     .timer-control, .timer-control::before { transition: none; }
     .timer-control:hover:not(:disabled) { transform: none; }
+}
+
+/* ====================================
+   TIMERCONTROLS MEDIA QUERY STYLES.
+======================================= */
+@media (max-width: 480px)
+{
+    .timer-controls { width: 100%; }
+    .timer-control { flex: 1 1 0; min-width: 0; }
 }

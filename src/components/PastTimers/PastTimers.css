@@ -15,9 +15,9 @@
     border: 1px solid var(--border-subtle);
     border-radius: calc(var(--radius) - 6px);
 
-    background: color-mix(in srgb, var(--surface) 94%, transparent);
-    box-shadow: var(--shadow-soft);
-    backdrop-filter: blur(14px);
+    background: color-mix(in srgb, var(--surface-overlay) 90%, transparent);
+    box-shadow: var(--shadow-medium);
+    backdrop-filter: blur(18px) saturate(1.08);
 }
 
 /* ====================================
@@ -30,9 +30,12 @@
     justify-content: space-between;
     gap: 1rem;
 }
-
 .past-timers-title
 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
     margin: 0;
     font-size: 0.58rem;
     font-weight: 700;
@@ -41,6 +44,24 @@
 
     color: var(--text-muted);
     opacity: 0.78;
+}
+.past-timers-count
+{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 1.4rem;
+    height: 1.4rem;
+    padding-inline: 0.35rem;
+
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--accent-soft) 72%, transparent);
+    color: var(--accent);
+
+    font-size: 0.52rem;
+    font-weight: 700;
+    letter-spacing: normal;
 }
 
 /* ====================================
@@ -106,21 +127,21 @@
     border-radius: var(--radius-pill);
 
     transition: background var(--duration-fast) var(--ease-standard),
-                transform var(--duration-fast) var(--ease-fluid);
+                border-color var(--duration-fast) var(--ease-standard);
 }
-.past-timers-item + .past-timers-item { border-top: 1px solid color-mix(in srgb, var(--border-subtle) 65%, transparent); }
+.past-timers-item + .past-timers-item { border-top: 1px solid color-mix(in srgb, var(--border-subtle) 40%, transparent); }
 .past-timers-duration
 {
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
 
-    font-size: 0.88rem;
+    font-size: 0.92rem;
     font-weight: 700;
     letter-spacing: -0.02em;
 
     color: var(--text);
 }
-.past-timers-time { font-size: 0.6rem; font-weight: 550; letter-spacing: 0.03em; color: var(--text-muted); opacity: 0.55; font-variant-numeric: tabular-nums; }
+.past-timers-time { font-size: 0.6rem; font-weight: 550; letter-spacing: 0.03em; color: var(--text-muted); opacity: 0.68; font-variant-numeric: tabular-nums; }
 
 /* ====================================
    PASTTIMERS EMPTY STATE STYLES.
@@ -128,11 +149,12 @@
 .past-timers-empty
 {
     text-align: center;
-    padding: 1.1rem 0.5rem;
+    padding: 1.5rem 0.75rem;
 
     font-size: 0.58rem;
     font-weight: 500;
     letter-spacing: 0.06em;
+    line-height: 1.6;
     color: var(--text-muted);
     opacity: 0.55;
 }

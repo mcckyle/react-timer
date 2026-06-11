@@ -33,8 +33,8 @@
         transparent 72%
     );
 
-    opacity: calc(0.18 + (var(--ambient-energy) * 0.55));
-    filter: calc(56px + (var(--ambient-energy) * 48px));
+    opacity: calc(0.10 + (var(--ambient-energy) * 0.32));
+    filter: blur(calc(56px + (var(--ambient-energy) * 48px)));
 }
 
 /* ====================================
@@ -54,8 +54,8 @@
     border-radius: 42% 42% 46% 46%;
     background: linear-gradient(
         180deg,
-        rgb(255 255 255 / 0.04),
-        transparent
+        rgb(255 255 255 / 0.08),
+        rgb(255 255 255 / 0.01)
     );
     box-shadow: var(--shadow-soft), inset 0 1px 0 rgb(255 255 255 / 0.06);
     backdrop-filter: blur(18px) saturate(1.15);
@@ -111,8 +111,8 @@
 
     background: linear-gradient(
         to bottom,
-        color-mix(in srgb, var(--accent) 84%, white),
-        color-mix(in srgb, var(--accent) 72%, black 12%)
+        color-mix(in srgb, var(--accent) 90%, white),
+        color-mix(in srgb, var(--accent) 78%, black 10%)
     );
     box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 16%, transparent),
                 inset 0 1px 1px rgb(255 255 255 / 0.06),
@@ -165,7 +165,7 @@
 @keyframes sand-shimmer
 {
     0%, 100% { filter: brightness(1); }
-    50% { filter: brightness(1.08); }
+    50% { filter: brightness(1.14); }
 }
 
 /* ====================================

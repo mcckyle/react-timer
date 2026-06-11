@@ -1,6 +1,6 @@
 //File name: PastTimers.jsx
 //Author: Kyle McColgan
-//Date: 4 May 2026
+//Date: 10 June 2026
 //Description: This file contains the past timers component for the timer React project.
 
 import { formatDuration, formatTime, toValidDate } from "../../utils/formatDuration";
@@ -14,7 +14,12 @@ export default function PastTimers({ timers, onClear })
     <aside className="past-timers" aria-label="Completed timers">
      {hasTimers && (
        <header className="past-timers-header">
-         <h2 className="past-timers-title">Completed</h2>
+         <h2 className="past-timers-title">
+           Completed
+          <span className="past-timers-count">
+            {timers.length}
+          </span>
+         </h2>
          <button
            type="button"
            className="past-timers-clear"

@@ -1,6 +1,6 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 9 June 2026
+//Date: 10 June 2026
 //Description: This file contains the parent timer component for the timer React project.
 
 import { useState, useEffect, useRef } from "react";
@@ -41,7 +41,7 @@ const Timer = ({ onToggleTheme }) =>
   const intensity = 0.5 + (energy * 1.5);
   const drift = energy;
   const pulse = running ? energy : energy * 0.35;
-  const climax = Math.max(0, (energy - 0.75) / 0.25);
+  const climax = Math.max(0, (energy - 0.55) / 0.45);
 
   //RAF-driven visual smoothing.
   useEffect(() =>
