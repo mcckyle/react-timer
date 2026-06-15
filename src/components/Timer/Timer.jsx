@@ -15,7 +15,7 @@ import VisualTimer from "../VisualTimer/VisualTimer.jsx";
 import TimerControls from "../TimerControls/TimerControls.jsx";
 import "./Timer.css";
 
-const Timer = ({ onToggleTheme }) =>
+const Timer = ({ toggleTheme }) =>
 {
   const { duration, setDuration, timeLeft, setTimeLeft, running, start, pause, reset, pastTimers, clearPastTimers } = useTimer();
   const { theme } = useTheme();
@@ -135,7 +135,7 @@ const Timer = ({ onToggleTheme }) =>
     >
       <TimerHeader
         theme={theme}
-        onToggleTheme={onToggleTheme}
+        toggleTheme={toggleTheme}
         duration={duration}
         onSelectDuration={handleSelectDuration}
         mode={mode}

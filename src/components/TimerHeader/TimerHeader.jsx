@@ -11,7 +11,7 @@ import "./TimerHeader.css";
 
 export default function TimerHeader({
   theme,
-  onToggleTheme,
+  toggleTheme,
   duration,
   onSelectDuration,
   mode,
@@ -93,7 +93,7 @@ export default function TimerHeader({
           <button
             type="button"
             className="toggle"
-            onClick={onToggleTheme}
+            onClick={toggleTheme}
             aria-pressed={isDark}
             aria-label={`Activate ${nextThemeLabel} theme`}
             title={`Activate ${nextThemeLabel} theme`}

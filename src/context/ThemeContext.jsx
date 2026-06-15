@@ -1,9 +1,9 @@
 //File name: ThemeContext.jsx
 //Author: Kyle McColgan
-//Date: 9 June 2026
+//Date: 15 June 2026
 //Description: This file contains the theming context component for the timer React project.
 
-import React, { createContext, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useLayoutEffect } from "react";
 
 const ThemeContext = createContext(undefined);
 const THEME_STORAGE_KEY = "theme";
@@ -12,8 +12,8 @@ const DARK_MEDIA_QUERY = "(prefers-color-scheme: dark)";
 function getSystemTheme()
 {
   return window.matchMedia(DARK_MEDIA_QUERY).matches
-    ? "dark"
-    : "light";
+  ? "dark"
+  : "light";
 }
 
 function getInitialTheme()
@@ -22,27 +22,27 @@ function getInitialTheme()
   {
     return {
       theme: "light",
-      hasManualTheme: false
+      manual: false
     };
   }
 
-  const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
 
-  if ((storedTheme === "light") || (storedTheme === "dark"))
+  if ((savedTheme === "light") || (savedTheme === "dark"))
   {
     return {
-      theme: storedTheme,
-      hasManualTheme: true
+      theme: savedTheme,
+      manual: true
     };
   }
 
   return {
     theme: getSystemTheme(),
-    hasManualTheme: false
+    manual: false
   };
 }
 
-function syncThemeToDocument(theme)
+function applyTheme(theme)
 {
   const root = document.documentElement;
 
@@ -50,83 +50,77 @@ function syncThemeToDocument(theme)
   root.style.colorScheme = theme;
 }
 
-export const ThemeProvider = ({ children }) =>
+function saveTheme(theme)
 {
-  const initialState = useMemo(() => getInitialTheme(), []);
-  const hasManualThemeRef = useRef(initialState.hasManualTheme);
-  const [theme, setTheme] = useState(initialState.theme);
-
-  const onToggleTheme = useCallback(() =>
+  try
   {
-    setTheme((currentTheme) =>
-    {
-      const nextTheme =
-        currentTheme === "dark"
-          ? "light"
-          : "dark";
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
+  }
+  catch
+  {
+    //Storage unavailable.
+  }
+}
 
-      hasManualThemeRef.current = true;
-      try
-      {
-        localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
-      }
-      catch
-      {
-        //Ignore storage failures.
-      }
-      return nextTheme;
-    });
-  }, []);
+export function ThemeProvider({ children })
+{
+  const initial = useMemo(() => getInitialTheme(), []);
+  const manualTheme = useRef(initial.manual);
+  const [theme, setTheme] = useState(initial.theme);
 
   //Sync Theme to DOM.
   useLayoutEffect(() =>
   {
-    syncThemeToDocument(theme);
+    applyTheme(theme);
   }, [theme]);
+
+  const toggleTheme = useCallback(() =>
+  {
+    setTheme(current =>
+    {
+      const next =
+        current === "dark"
+        ? "light"
+        : "dark";
+
+      manualTheme.current = true;
+      saveTheme(next);
+      return next;
+    });
+  }, []);
 
   //Sync With System Theme Until Manual Override Exists.
   useEffect(() =>
   {
-    const mediaQuery = window.matchMedia(DARK_MEDIA_QUERY);
+    const media = window.matchMedia(DARK_MEDIA_QUERY);
 
-    const onSystemThemeChange = ({ matches }) =>
+    function handleSystemTheme(event)
     {
-      if (hasManualThemeRef.current)
+      if (manualTheme.current)
       {
         return;
       }
-      setTheme(matches ? "dark" : "light");
-    };
-
-    //Support older browsers gracefully.
-    if (mediaQuery.addEventListener)
-    {
-      mediaQuery.addEventListener("change", onSystemThemeChange);
-
-      return () =>
-      {
-        mediaQuery.removeEventListener("change", onSystemThemeChange);
-      };
+      setTheme(event.matches ? "dark" : "light");
     }
 
-    mediaQuery.addListener(onSystemThemeChange);
+    media.addEventListener?.("change", handleSystemTheme);
 
     return () =>
     {
-      mediaQuery.removeListener(onSystemThemeChange);
+      media.removeEventListener?.("change", handleSystemTheme);
     };
   }, []);
 
-  const contextValue = useMemo(() =>
-  {
-    return {
-      theme,
-      onToggleTheme
-    };
-  }, [theme, onToggleTheme]);
+  const value = useMemo(() => ({
+    theme,
+    toggleTheme
+  }), [
+    theme,
+    toggleTheme
+  ]);
 
   return (
-    <ThemeContext.Provider value={contextValue}>
+    <ThemeContext.Provider value={value}>
       {children}
     </ThemeContext.Provider>
   );
@@ -138,7 +132,7 @@ export function useTheme()
 
   if (!context)
   {
-    throw new Error("useTheme must be used within ThemeProvider.");
+    throw new Error("useTheme must be used inside ThemeProvider.");
   }
 
   return context;

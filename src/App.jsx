@@ -11,11 +11,11 @@ import "./App.css";
 
 function App()
 {
-  const { onToggleTheme } = useTheme();
+  const { toggleTheme } = useTheme();
   return (
     <div className="app-shell">
       <main className="app" aria-label="Ambient Timer">
-        <Timer onToggleTheme={onToggleTheme} />
+        <Timer toggleTheme={toggleTheme} />
       </main>
     </div>
   );
