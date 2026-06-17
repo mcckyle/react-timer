@@ -1,6 +1,6 @@
 //File name: TimerHeader.jsx
 //Author: Kyle McColgan
-//Date: 2 June 2026
+//Date: 16 June 2026
 //Description: This file contains the timer header component for the timer React project.
 
 import React from "react";
@@ -35,13 +35,9 @@ export default function TimerHeader({
 
       {/* CENTER: DurationPicker + ModeToggle. */}
       <div className="timer-header-center">
-        <DurationPicker
-        duration={duration}
-        onSelect={onSelectDuration}
-        />
-
+        <DurationPicker duration={duration} onSelect={onSelectDuration} />
         <div
-          className="timer-header-mode timer-control-surface"
+          className="timer-header-mode"
           role="group"
           aria-label="Display mode"
         >
@@ -89,21 +85,21 @@ export default function TimerHeader({
               <PastTimers timers={pastTimers} onClear={clearPastTimers} />
             </div>
           </div>
+        )}
+        <button
+          type="button"
+          className="toggle"
+          onClick={toggleTheme}
+          aria-pressed={isDark}
+          aria-label={`Activate ${nextThemeLabel} theme`}
+          title={`Activate ${nextThemeLabel} theme`}
+        >
+          {isDark ? (
+            <Sun className="toggleIcon" aria-hidden="true" />
+          ) : (
+            <Moon className="toggleIcon" aria-hidden="true" />
           )}
-          <button
-            type="button"
-            className="toggle"
-            onClick={toggleTheme}
-            aria-pressed={isDark}
-            aria-label={`Activate ${nextThemeLabel} theme`}
-            title={`Activate ${nextThemeLabel} theme`}
-          >
-            {isDark ? (
-              <Sun className="toggleIcon" aria-hidden="true" />
-            ) : (
-              <Moon className="toggleIcon" aria-hidden="true" />
-            )}
-          </button>
+        </button>
       </div>
     </header>
   );

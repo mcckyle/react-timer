@@ -1,6 +1,6 @@
 //File name: ThemeWrapper.jsx
 //Author: Kyle McColgan
-//Date: 9 June 2026
+//Date: 16 June 2026
 //Description: This file contains the Mantine UI/UX component for the timer React project.
 
 import React, { useMemo } from "react";
@@ -15,16 +15,11 @@ const ThemeWrapper = ({ children }) =>
       return createTheme({
         focusRing: "never",
         respectReducedMotion: true,
-        defaultRadius: "xl",
+        defaultRadius: 0,
 
         fontFamily: "var(--font-sans)",
         fontFamilyMonospace: "var(--font-mono)",
         headings: { fontFamily: "var(--font-sans)", fontWeight: "700" },
-        components: {
-          Modal: {
-            defaultProps: { centered: true },
-          }
-        }
       });
     }, []);
 

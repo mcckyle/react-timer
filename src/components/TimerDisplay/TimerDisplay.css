@@ -5,25 +5,18 @@
 ======================================= */
 .timer-display
 {
-    position: relative;
-    user-select: none;
-    isolation: isolate;
-
-    display: inline-flex;
-    align-items: flex-end;
-    justify-content: center;
-    margin-inline: auto;
-    gap: 0.015em;
-
     width: 100%;
-    padding-block: clamp(0.5rem, 2vh, 1rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
     font-weight: 600;
 
-    font-size: clamp(4rem, 16vw, 28rem); /* Digits as large as possible. */
-    line-height: 0.84;
-    letter-spacing: -0.075em;
+    font-size: clamp(5rem, 22vw, 30rem); /* Important: Digits as large as possible. */
+    line-height: 0.8;
+    letter-spacing: -0.09em;
     color: var(--text);
     text-align: center;
 
@@ -53,7 +46,7 @@
     height: 1em;
     overflow: hidden; /* hides exiting digits. */
 }
-.timer-display-digit { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; will-change: transform, opacity, filter; backface-visibility: hidden; transform: translateZ(0); }
+.timer-display-digit { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; }
 
 /* ====================================
    TIMERDISPLAY SEPARATOR STYLES.
@@ -83,17 +76,17 @@
 }
 
 /* ====================================
-   TIMERDISPLAY MEDIA QUERY STYLES.
-======================================= */
-@media (max-width: 480px)
-{
-    .timer-display { font-size: clamp(2.8rem, 13vw, 8rem); letter-spacing: -0.045em; }
-}
-
-/* ====================================
    TIMERDISPLAY REDUCED MOTION STYLES.
 ======================================= */
 @media (prefers-reduced-motion: reduce)
 {
     .timer-display-digit { filter: none !important; opacity: 1 !important; transform: none !important; }
+}
+
+/* ====================================
+   TIMERDISPLAY MEDIA QUERY STYLES.
+======================================= */
+@media (max-width: 480px)
+{
+    .timer-display { font-size: clamp(2.8rem, 13vw, 8rem); letter-spacing: -0.045em; }
 }

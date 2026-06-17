@@ -2,6 +2,11 @@
 
 A simple, modern timer app built with **React** and **Vite**. Designed for focus and clarity.
 
+![Screenshot](./public/images/Screenshot_20260616_202035.png)
+*A glimpse of the timer, captured with a screenshot.*
+
+*🌐 [Visit the live site](https://mcckyle.github.io/react-timer/)*
+
 ---
 
 ## Features
@@ -108,8 +113,6 @@ react-timer/
 ├── README.md             # Project overview, instructions, and documentation.
 ├── eslint.config.js      # ESLint configuration.
 ├── index.html            # HTML entry point.
-├── babel.config.cjs      # Babel config for Jest.
-├── jest.config.js        # Jest testing configuration.
 ├── vite.config.js        # Vite config for build and development.
 ├── package.json          # Project metadata, dependencies, and scripts.
 └── package-lock.json     # Exact versions of installed dependencies.

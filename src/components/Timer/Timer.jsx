@@ -1,6 +1,6 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 10 June 2026
+//Date: 16 June 2026
 //Description: This file contains the parent timer component for the timer React project.
 
 import { useState, useEffect, useRef } from "react";
@@ -152,20 +152,20 @@ const Timer = ({ toggleTheme }) =>
             ? <TimerDisplay timeLeft={timeLeft} />
             : <VisualTimer progress={progress} />
           }
-          </section>
-          <section className="controlsRegion" aria-label="Playback controls">
-            <TimerControls
-              running={running}
-              onStart={start}
-              onPause={pause}
-              onReset={reset}
-              resetDisabled={resetDisabled}
-            />
-          </section>
-          <p className="timer-shortcuts">
-            Space · Start / Pause · R · Reset · M · Mode
-          </p>
-        </div>
+        </section>
+        <section className="controlsRegion" aria-label="Playback controls">
+          <TimerControls
+            running={running}
+            onStart={start}
+            onPause={pause}
+            onReset={reset}
+            resetDisabled={resetDisabled}
+          />
+        </section>
+        <p className="timer-shortcuts">
+          Space · Start / Pause · R · Reset · M · Mode
+        </p>
+      </div>
     </section>
   );
 };

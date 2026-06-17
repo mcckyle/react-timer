@@ -1,7 +1,7 @@
 /* Filename: src/App.css */
 
 /* ====================================
-   APPLICATION CONTENT SHELL STYLES.
+   FULL VIEWPORT TIMER STAGE STYLES.
 ======================================= */
 .app-shell
 {
@@ -9,24 +9,27 @@
   min-height: 100dvh; /* Modern Viewport with fallback handled globally. */
 
   display: flex;
-  justify-content: center;
+  flex-direction: column;
 
-  isolation: isolate;
+  position: relative;
   overflow: clip;
+  isolation: isolate;
 }
 
 /* ====================================
-   APPLICATION ROOT LAYOUT STYLES.
+   TIMER APPLICATION STYLES.
 ======================================= */
 .app
 {
+  width: 100%;
+  min-height: 100dvh;
+  position: relative;
   flex: 1;
-  width: min(100%, 96rem);
 
   display: flex;
   flex-direction: column;
   padding: max(1rem, env(safe-area-inset-top))
-           max(1rem, env(safe-area-inset-right))
+           max(1.25rem, env(safe-area-inset-right))
            max(1rem, env(safe-area-inset-bottom))
-           max(1rem, env(safe-area-inset-left));
+           max(1.25rem, env(safe-area-inset-left));
 }

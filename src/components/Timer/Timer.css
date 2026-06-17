@@ -13,76 +13,82 @@
   flex: 1;
 
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-
-  margin-inline: auto;
+  grid-template-rows: auto 1fr;
   overflow: visible; /* Replace clip with visible to prevent bordering. */
-  transform: translateY(0);
-
-  padding: max(1.25rem, env(safe-area-inset-top))
-           clamp(1rem, 3vw, 2.5rem)
-           max(1.25rem, env(safe-area-inset-bottom));
-
-  transition: transform var(--duration-standard) var(--ease-standard);
+  padding: 0
+           max(1rem, env(safe-area-inset-right))
+           max(1rem, env(safe-area-inset-bottom))
+           max(1rem, env(safe-area-inset-left));
 }
 
 /* ====================================
-   TIMER CORE LAYOUT STYLES.
+   TIMER MAIN CLOCK STAGE STYLES.
 ======================================= */
 .stage
 {
   position: relative;
-  z-index: 3;
+  z-index: 2;
   min-height: 0;
 
   display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
-  gap: clamp(1rem, 2vw, 1.5rem);
+  grid-template-rows: minmax(0, 1fr) auto auto;
+  align-items: center;
+  width: 100%;
 }
+
+/* ====================================
+   TIMER GIANT CLOCK REGION STYLES.
+======================================= */
 .displayRegion
 {
-  position: relative;
   width: 100%;
   min-height: 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-inline: auto;
+  overflow: visible;
 }
-.controlsRegion { width: 100%; display: flex; justify-content: center;}
 
 /* ====================================
-   TIMER PRIMARY AMBIENT FIELD STYLES.
+   TIMER CONTROLS DOCK STYLES.
+======================================= */
+.controlsRegion { width: 100%; display: flex; justify-content: center; padding-top: clamp(1rem, 3vh, 2rem); }
+
+/* ====================================
+   TIMER AMBIENT LIGHT FIELD STYLES.
 ======================================= */
 .timer::before
 {
   content: "";
   position: absolute;
-  inset: -12%;
-  z-index: -2;
+  inset: -25%;
+  z-index: -1;
   pointer-events: none;
   background: radial-gradient(
-    circle at center,
-    hsl(var(--ambient-hue) 100% 72% / calc(0.28 + (var(--ambient-energy) * 0.40))),
-    transparent 34%
-  ),
-  radial-gradient(
-    circle at center,
-    hsl(var(--ambient-hue) 100% 70% / calc(0.10 + (var(--ambient-energy) * 0.18))),
-    transparent 65%
+    circle at 50% 45%,
+    hsl(var(--ambient-hue) 100% 72% / calc(0.12 + (var(--ambient-energy) * 0.22))),
+    transparent 55%
   );
 
-  opacity: calc(0.65 + (var(--ambient-energy) * 0.35));
-  filter: blur(90px) saturate(1.8);
+  opacity: calc(0.45 + (var(--ambient-energy) * 0.45));
+  filter: blur(80px);
 
-  animation: timer-core-breathe 14s ease-in-out infinite;
+  animation: timer-core-breathe 16s ease-in-out infinite;
+}
+
+/* ====================================
+   TIMER COMPLETION FLASH STYLES.
+======================================= */
+.timer.is-complete::before
+{
+  animation: timer-complete-burst 900ms var(--ease-standard);
 }
 
 /* ====================================
    TIMER CINERMATIC ATOMOSPHERIC HALO STYLES.
 ======================================= */
-.timer::after
+/*.timer::after
 {
   content: "";
   position: absolute;
@@ -114,29 +120,18 @@
   mix-blend-mode: screen;
 
   animation: timer-aura-float 30s ease-in-out infinite;
-}
+}*/
 
 /* ====================================
-   TIMER COMPLETION BURST EFFECT STYLES.
-======================================= */
-.timer.is-complete::after
-{
-  animation: timer-complete-burst 1000ms var(--ease-standard);
-}
-
-/* ====================================
-   TIMER SHORTCUT MESSAGE TEXT STYLES.
+   TIMER SHORTCUT LABEL STYLES.
 ======================================= */
 .timer-shortcuts
 {
-  margin-top: 0.25rem;
-  margin: 0 auto;
+  margin: 0 auto clamp(0.5rem, 1vh, 1rem);
 
   font-size: 0.55rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-
-  color: var(--text);
   opacity: 0.22;
 }
 
@@ -145,8 +140,8 @@
 ======================================= */
 @keyframes timer-core-breathe
 {
-  0%, 100% { opacity: 0.45; }
-  50% { opacity: 0.6; }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
 }
 
 @keyframes timer-aura-float
@@ -157,9 +152,9 @@
 
 @keyframes timer-complete-burst
 {
-  0% { opacity: 0; transform: scale(0.9); }
-  35% { opacity: 1; transform: scale(1.06); }
-  100% { opacity: 0; transform: scale(1.24); }
+  0% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.15); }
+  100% { opacity: 0.4; transform: scale(1); }
 }
 
 /* ====================================
@@ -176,5 +171,5 @@
 ======================================= */
 @media (prefers-reduced-motion: reduce)
 {
-  .timer::before, .timer::after { animation: none; }
+  .timer::before { animation: none; }
 }
