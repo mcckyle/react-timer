@@ -1,9 +1,10 @@
 //File name: useTimer.test.jsx
 //Author: Kyle McColgan
-//Date: 12 May 2026
-//Description: This file contains the unit test suite for the Timer React project useTimer hook.
+//Date: 16 June 2026
+//Description: This file contains the Vitest unit test suite for the timer React project useTimer hook.
 
 import React from "react";
+import { beforeAll, vi } from "vitest";
 import { renderHook, act, waitFor } from "@testing-library/react";
 import { useTimer, DEFAULT_DURATION } from "../hooks/useTimer.js";
 
@@ -13,8 +14,8 @@ describe("useTimer hook", () => {
     beforeEach(() => {
         currentTime = 0; //Reset fake Date.
         localStorage.clear(); //Clear timers before each test.
-        jest.useFakeTimers();
-        jest.spyOn(global.Date, "now").mockImplementation(() => currentTime);
+        vi.useFakeTimers();
+        vi.spyOn(global.Date, "now").mockImplementation(() => currentTime);
 
         let rafId = 0;
         const rafMap = new Map();
@@ -41,8 +42,8 @@ describe("useTimer hook", () => {
     });
 
     afterEach(() => {
-        jest.useRealTimers();
-        jest.restoreAllMocks();
+        vi.useRealTimers();
+        vi.restoreAllMocks();
         delete global.requestAnimationFrame;
         delete global.cancelAnimationFrame;
     });
@@ -52,7 +53,7 @@ describe("useTimer hook", () => {
         let frames = 0;
         while ( (!condition()) && (frames < maxFrames) )
         {
-            jest.advanceTimersByTime(16);
+            vi.advanceTimersByTime(16);
             await act(async () => {}); //Wait for any pending state updates.
             frames ++;
         }
@@ -138,7 +139,7 @@ describe("useTimer hook", () => {
 //
 //     //Test #8
     test("8. writes completed timer to localStorage", async () => {
-        const spy = jest.spyOn(Storage.prototype, "setItem");
+        const spy = vi.spyOn(Storage.prototype, "setItem");
         const { result } = renderHook(() => useTimer());
 
         act(() => result.current.start());
@@ -156,7 +157,7 @@ describe("useTimer hook", () => {
         act(() => {
             result.current.start();
             currentTime += 2000;
-            jest.advanceTimersByTime(2000);
+            vi.advanceTimersByTime(2000);
             result.current.reset();
         });
 
@@ -172,7 +173,7 @@ describe("useTimer hook", () => {
 
         act(() => {
             currentTime += DEFAULT_DURATION + 100;
-            jest.advanceTimersByTime(DEFAULT_DURATION + 100);
+            vi.advanceTimersByTime(DEFAULT_DURATION + 100);
         });
 
         act(() => result.current.clearPastTimers());
