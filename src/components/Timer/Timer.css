@@ -9,21 +9,58 @@
   isolation: isolate;
 
   width: 100%;
-  min-height: 100%;
-  flex: 1;
+  height: 100dvh;
+  min-height: 0;
 
   display: grid;
   grid-template-rows: auto 1fr;
-  overflow: visible; /* Replace clip with visible to prevent bordering. */
 }
 
 /* ====================================
-   TIMER MAIN CLOCK STAGE STYLES.
+   TIMER AMBIENT CLOCK ENVIRONMENT STYLES.
+======================================= */
+.timer::before
+{
+  content: "";
+  position: absolute;
+  inset: -30%;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+
+  background: radial-gradient(
+    circle at 50% 45%,
+    hsl(var(--ambient-hue) 100% 72% / calc(0.12 + var(--ambient-energy) * 0.22)),
+    transparent 58%
+  );
+
+  transform: translate3d(0, calc(var(--ambient-movement) * -2%), 0) scale(calc(1 + var(--ambient-energy) * 0.08));
+
+  animation: timer-atmosphere 24s ease-in-out infinite;
+}
+.timer::after
+{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+
+  background: radial-gradient(
+    ellipse at center,
+    transparent 58%,
+    rgb(0 0 0 / 0.45)
+  );
+}
+
+/* ====================================
+   TIMER MAIN STAGE STYLES.
 ======================================= */
 .stage
 {
   position: relative;
-  z-index: 2;
+  z-index: 1;
 
   width: 100%;
   min-height: 0;
@@ -44,42 +81,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: visible;
 }
 
 /* ====================================
    TIMER CONTROLS DOCK STYLES.
 ======================================= */
-.controlsRegion { width: 100%; display: flex; justify-content: center; padding-top: clamp(1.5rem, 5vh, 4rem); }
-
-/* ====================================
-   TIMER AMBIENT LIGHT FIELD STYLES.
-======================================= */
-.timer::before
-{
-  content: "";
-  position: absolute;
-  inset: -18%;
-  z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(
-    circle at 50% 48%,
-    hsl(var(--ambient-hue) 100% 72% / calc(0.10 + (var(--ambient-energy) * 0.18))),
-    transparent 55%
-  );
-
-  opacity: calc(0.35 + (var(--ambient-energy) * 0.45));
-
-  animation: timer-core-breathe 18s ease-in-out infinite;
-}
-
-/* ====================================
-   TIMER COMPLETION FLASH STYLES.
-======================================= */
-.timer.is-complete::before
-{
-  animation: timer-complete-burst 900ms var(--ease-standard);
-}
+.controlsRegion { width: 100%; display: flex; justify-content: center; padding-top: clamp(1rem, 4vh, 3rem); }
 
 /* ====================================
    TIMER CINERMATIC ATOMOSPHERIC HALO STYLES.
@@ -119,11 +126,11 @@
 }*/
 
 /* ====================================
-   TIMER SHORTCUT LABEL STYLES.
+   TIMER SHORTCUTS STYLES.
 ======================================= */
 .timer-shortcuts
 {
-  margin: clamp(1rem, 3vh, 2rem) auto 0;
+  margin: 0 auto clamp(1rem, 3vh, 2rem);
 
   font-size: 0.7rem;
   letter-spacing: 0.22em;
@@ -132,25 +139,27 @@
 }
 
 /* ====================================
+   TIMER COMPLETION FLASH STYLES.
+======================================= */
+.timer.is-complete::before
+{
+  animation: timer-complete 900ms var(--ease-standard);
+}
+
+/* ====================================
    TIMER ANIMATIONS KEYFRAMES STYLES.
 ======================================= */
-@keyframes timer-core-breathe
+@keyframes timer-atmosphere
 {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  0%, 100% { transform: scale(1) translate3d(0, 0, 0); }
+  50% { transform: scale(1.05) translate3d(0, -1.5%, 0); }
 }
 
-@keyframes timer-aura-float
+@keyframes timer-complete
 {
-  0%, 100% { transform: translateY(0%) scale(1); }
-  50% { transform: translateY(-2%) scale(1.04); }
-}
-
-@keyframes timer-complete-burst
-{
-  0% { opacity: 0.4; transform: scale(0.9); }
-  50% { opacity: 1; transform: scale(1.15); }
-  100% { opacity: 0.4; transform: scale(1); }
+  0% { opacity: 0.5; transform: scale(0.92); }
+  50% { opacity: 1; transform: scale(1.12); }
+  100% { opacity: 0.5; transform: scale(1); }
 }
 
 /* ====================================

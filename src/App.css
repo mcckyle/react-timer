@@ -6,11 +6,11 @@
 .app-shell
 {
   width: 100%;
-  min-height: 100dvh; /* Modern Viewport with fallback handled globally. */
+  height: 100dvh; /* Modern Viewport with fallback handled globally. */
 
   position: relative;
   isolation: isolate;
-  overflow: clip;
+  overflow: hidden;
 }
 
 /* ====================================
@@ -23,8 +23,5 @@
 
   display: flex;
   flex-direction: column;
-  padding: max(1rem, env(safe-area-inset-top))
-           max(1.25rem, env(safe-area-inset-right))
-           max(1rem, env(safe-area-inset-bottom))
-           max(1.25rem, env(safe-area-inset-left));
+  padding: 0;
 }
