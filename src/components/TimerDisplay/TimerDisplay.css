@@ -1,63 +1,68 @@
 /* Filename: src/components/TimerDisplay/TimerDisplay.css */
 
 /* ====================================
-   TIMERDISPLAY ROOT STYLES.
+   TIMERDISPLAY FULL WIDTH CLOCK DISPLAY STYLES.
 ======================================= */
 .timer-display
 {
     width: 100%;
+    height: 100%;
+
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    overflow: visible;
 
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
-    font-weight: 600;
+    font-weight: 650;
 
-    font-size: clamp(5rem, 22vw, 30rem); /* Important: Digits as large as possible. */
-    line-height: 0.8;
-    letter-spacing: -0.09em;
+    font-size: clamp(5rem, 20vw, 32rem); /* Important: Digits as large as possible. */
+    line-height: 0.78;
+    letter-spacing: -0.11em;
     color: var(--text);
+    white-space: nowrap;
     text-align: center;
+    user-select: none;
 
     transition: color var(--duration-fast) var(--ease-standard),
-                text-shadow var(--duration-standard) var(--ease-fluid),
-                transform var(--duration-standard) var(--ease-fluid);
+                text-shadow var(--duration-standard) var(--ease-fluid);
 }
+
+/* ====================================
+   TIMERDISPLAY AMBIENT DIGITS STYLES.
+======================================= */
 .timer.is-running .timer-display
 {
-    color: var(--text);
-    text-shadow: 0 0 18px hsl(var(--ambient-hue) 100% 72% / 0.08),
-                 0 0 48px hsl(var(--ambient-hue) 100% 72% / 0.06);
+    text-shadow: 0 0 32px hsl(var(--ambient-hue) 100% 72% / 0.10),
+                 0 0 120px hsl(var(--ambient-hue) 100% 72% / 0.08);
 }
 
 /* ====================================
-   TIMERDISPLAY DIGIT WRAPPER STYLES.
+   TIMERDISPLAY DIGITS STYLES.
 ======================================= */
-.timer-display-digit-wrapper
+.timer-display-digit
 {
-    position: relative;
-
     display: inline-flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
 
-    width: 0.6em;
-    height: 1em;
-    overflow: hidden; /* hides exiting digits. */
+    min-width: 0.62em;
+    transform-origin: center;
+    will-change: opacity;
 }
-.timer-display-digit { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; }
 
 /* ====================================
-   TIMERDISPLAY SEPARATOR STYLES.
+   TIMERDISPLAY COLON STYLES.
 ======================================= */
 .timer-display-separator
 {
+    display: inline-flex;
+    align-items: center;
     margin-inline: 0.02em;
-    align-self: center;
+
     color: color-mix(in srgb, var(--text) 70%, transparent);
-    opacity: 0.85;
-    user-select: none;
+    opacity: 0.75;
 }
 
 /* ====================================
@@ -71,7 +76,7 @@
 @keyframes timer-display-complete
 {
     0% { transform: scale(1); }
-    35% { transform: scale(1.018); }
+    40% { transform: scale(1.025); }
     100% { transform: scale(1); }
 }
 

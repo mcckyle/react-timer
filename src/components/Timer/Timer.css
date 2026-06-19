@@ -15,10 +15,6 @@
   display: grid;
   grid-template-rows: auto 1fr;
   overflow: visible; /* Replace clip with visible to prevent bordering. */
-  padding: 0
-           max(1rem, env(safe-area-inset-right))
-           max(1rem, env(safe-area-inset-bottom))
-           max(1rem, env(safe-area-inset-left));
 }
 
 /* ====================================
@@ -28,21 +24,22 @@
 {
   position: relative;
   z-index: 2;
+
+  width: 100%;
   min-height: 0;
 
   display: grid;
-  grid-template-rows: minmax(0, 1fr) auto auto;
+  grid-template-rows: 1fr auto auto;
   align-items: center;
-  width: 100%;
 }
 
 /* ====================================
-   TIMER GIANT CLOCK REGION STYLES.
+   TIMER GIANT CLOCK FIELD STYLES.
 ======================================= */
 .displayRegion
 {
   width: 100%;
-  min-height: 0;
+  height: 100%;
 
   display: flex;
   align-items: center;
@@ -53,7 +50,7 @@
 /* ====================================
    TIMER CONTROLS DOCK STYLES.
 ======================================= */
-.controlsRegion { width: 100%; display: flex; justify-content: center; padding-top: clamp(1rem, 3vh, 2rem); }
+.controlsRegion { width: 100%; display: flex; justify-content: center; padding-top: clamp(1.5rem, 5vh, 4rem); }
 
 /* ====================================
    TIMER AMBIENT LIGHT FIELD STYLES.
@@ -62,19 +59,18 @@
 {
   content: "";
   position: absolute;
-  inset: -25%;
+  inset: -18%;
   z-index: -1;
   pointer-events: none;
   background: radial-gradient(
-    circle at 50% 45%,
-    hsl(var(--ambient-hue) 100% 72% / calc(0.12 + (var(--ambient-energy) * 0.22))),
+    circle at 50% 48%,
+    hsl(var(--ambient-hue) 100% 72% / calc(0.10 + (var(--ambient-energy) * 0.18))),
     transparent 55%
   );
 
-  opacity: calc(0.45 + (var(--ambient-energy) * 0.45));
-  filter: blur(80px);
+  opacity: calc(0.35 + (var(--ambient-energy) * 0.45));
 
-  animation: timer-core-breathe 16s ease-in-out infinite;
+  animation: timer-core-breathe 18s ease-in-out infinite;
 }
 
 /* ====================================
@@ -127,12 +123,12 @@
 ======================================= */
 .timer-shortcuts
 {
-  margin: 0 auto clamp(0.5rem, 1vh, 1rem);
+  margin: clamp(1rem, 3vh, 2rem) auto 0;
 
-  font-size: 0.55rem;
-  letter-spacing: 0.18em;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  opacity: 0.22;
+  opacity: 0.32;
 }
 
 /* ====================================

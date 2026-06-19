@@ -8,9 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
-
-    gap: 0.65rem;
+    gap: 0.8rem;
 }
 
 /* ====================================
@@ -18,35 +16,26 @@
 ======================================= */
 .timer-control
 {
-    min-width: 7.5rem;
-    min-height: 3.25rem;
-    padding-inline: 1.4rem;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex: 0 0 auto;
+    min-width: 7rem;
+    min-height: 3.2rem;
+    padding-inline: 1.6rem;
 
     border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--surface-glass) 86%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--surface-glass) 70%, transparent);
     color: var(--text-muted);
 
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     font-weight: 650;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    backdrop-filter: blur(18px) saturate(1.1);
+    backdrop-filter: blur(18px);
     box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04), var(--shadow-soft);
-
-    cursor: pointer;
-    user-select: none;
 
     transition: transform var(--duration-fast) var(--ease-fluid),
                 background var(--duration-standard) var(--ease-standard),
-                border-color var(--duration-standard) var(--ease-standard),
                 color var(--duration-fast) var(--ease-standard),
-                box-shadow var(--duration-standard) var(--ease-standard);
+                border-color var(--duration-standard);
 }
 
 /* ====================================
@@ -54,19 +43,13 @@
 ======================================= */
 .timer-control.is-primary
 {
-    border-color: color-mix(in srgb, var(--accent) 18%, transparent);
-    background: color-mix(in srgb, var(--accent-soft) 68%, var(--surface-glass));
+    background: color-mix(in srgb, var(--accent-soft) 80%, transparent);
     color: var(--accent);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06),
-                0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent),
-                0 10px 28px -18px hsl(var(--ambient-hue) 100% 60% / 0.24);
+    border-color: color-mix(in srgb, var(--accent) 22%, transparent);
 }
 .timer.is-running .timer-control.is-primary
 {
-    color: color-mix(in srgb, var(--accent) 88%, white);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08),
-                0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent),
-                0 0 42px hsl(var(--ambient-hue) 100% 72% / calc(0.08 + (var(--ambient-energy) * 0.12)));
+    box-shadow: 0 0 42px hsl(var(--ambient-hue) 100% 72% / 0.14);
 }
 
 /* ====================================
@@ -116,10 +99,9 @@
 {
     .timer-control:hover:not(:disabled)
     {
-        transform: translateY(-1px);
+        transform: translateY(-2px);
         color: var(--text);
-        border-color: color-mix(in srgb, var(--accent) 10%, var(--border-subtle));
-        background: color-mix(in srgb, var(--surface-hover) 92%, transparent);
+        border-color: color-mix(in srgb, var(--accent) 22%, transparent);
     }
     .timer-control.is-primary:hover:not(:disabled)
     {

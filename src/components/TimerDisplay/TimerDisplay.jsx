@@ -1,14 +1,14 @@
 //File name: TimerDisplay.jsx
 //Author: Kyle McColgan
-//Date: 10 June 2026
+//Date: 18 June 2026
 //Description: This file contains the time display for the timer React project.
 
 import { useMemo } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { formatDuration } from "../../utils/formatDuration";
 import "./TimerDisplay.css";
 
-const TRANSITION = { duration: 0.16, ease: [0.22, 1, 0.36, 1], };
+const TRANSITION = { duration: 0.18, ease: [0.22, 1, 0.36, 1], };
 
 export default function TimerDisplay({ timeLeft })
 {
@@ -28,14 +28,13 @@ export default function TimerDisplay({ timeLeft })
       aria-atomic="true"
       dateTime={display}
     >
-      <AnimatePresence mode="popLayout" initial={false}>
-        {characters.map((char, index) =>
+      {characters.map((char, index) =>
         {
           if (char === ":")
           {
             return (
               <span
-                key={`sep-${index}`}
+                key={`separator-${index}`}
                 className="timer-display-separator"
                 aria-hidden="true"
               >
@@ -45,21 +44,17 @@ export default function TimerDisplay({ timeLeft })
           }
 
           return (
-            <span key={`wrapper-${index}`} className="timer-display-digit-wrapper">
-              <motion.span
-                key={`${index}-${char}`}
-                className="timer-display-digit"
-                initial={{ opacity: 0, y: "8%", }}
-                animate={{ opacity: 1, y: "0%",}}
-                exit={{ opacity: 0, y: "-8%", }}
-                transition={TRANSITION}
-              >
-                {char}
-              </motion.span>
-            </span>
+            <motion.span
+              key={`${index}-${char}`}
+              className="timer-display-digit"
+              initial={{ opacity: 0.6 }}
+              animate={{ opacity: 1 }}
+              transition={TRANSITION}
+            >
+              {char}
+            </motion.span>
           );
         })}
-      </AnimatePresence>
     </time>
   );
 }

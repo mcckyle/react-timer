@@ -1,30 +1,25 @@
 /* Filename: src/App.css */
 
 /* ====================================
-   FULL VIEWPORT TIMER STAGE STYLES.
+   APP FULL VIEWPORT TIMER CANVAS STYLES.
 ======================================= */
 .app-shell
 {
   width: 100%;
   min-height: 100dvh; /* Modern Viewport with fallback handled globally. */
 
-  display: flex;
-  flex-direction: column;
-
   position: relative;
-  overflow: clip;
   isolation: isolate;
+  overflow: clip;
 }
 
 /* ====================================
-   TIMER APPLICATION STYLES.
+   APPLICATION FRAME STYLES.
 ======================================= */
 .app
 {
   width: 100%;
   min-height: 100dvh;
-  position: relative;
-  flex: 1;
 
   display: flex;
   flex-direction: column;
