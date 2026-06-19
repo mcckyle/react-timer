@@ -1,6 +1,6 @@
 //File name: DurationPicker.jsx
 //Author: Kyle McColgan
-//Date: 16 June 2026
+//Date: 18 June 2026
 //Description: This file contains the time duration picker for the timer React project.
 
 import { useEffect, useState } from "react";
@@ -82,7 +82,7 @@ export default function DurationPicker({ duration, onSelect })
         <span className="sep" aria-hidden="true">:</span>
         <TimeField label="m" value={minutes} max={59} onChange={handleChange(setMinutes, 59)} onBlur={() => commit()} />
         <span className="sep" aria-hidden="true">:</span>
-        <TimeField label="s" value={seconds} max={59} onChange={handleChange(setSeconds)} onBlur={() => commit()} />
+        <TimeField label="s" value={seconds} max={59} onChange={handleChange(setSeconds, 59)} onBlur={() => commit()} />
       </div>
     </section>
   );
