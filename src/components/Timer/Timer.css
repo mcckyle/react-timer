@@ -9,48 +9,47 @@
   isolation: isolate;
 
   width: 100%;
-  height: 100dvh;
-  min-height: 0;
+  height: 100%;
 
   display: grid;
   grid-template-rows: auto 1fr;
+  overflow: hidden;
 }
 
 /* ====================================
-   TIMER AMBIENT CLOCK ENVIRONMENT STYLES.
+   TIMER LIVING ATMOSPHERIC LIGHT STYLES.
 ======================================= */
 .timer::before
 {
   content: "";
   position: absolute;
-  inset: -30%;
+  inset: -25%;
   z-index: -2;
-  pointer-events: none;
-  overflow: hidden;
 
   background: radial-gradient(
     circle at 50% 45%,
-    hsl(var(--ambient-hue) 100% 72% / calc(0.12 + var(--ambient-energy) * 0.22)),
-    transparent 58%
+    hsl(var(--ambient-hue) 100% 72% / calc(0.12 + var(--ambient-energy) * 0.32)),
+    transparent 60%
   );
 
-  transform: translate3d(0, calc(var(--ambient-movement) * -2%), 0) scale(calc(1 + var(--ambient-energy) * 0.08));
+  transform: scale(calc(1 + var(--ambient-energy) * 0.12));
+  filter: blur(var(--ambient-blur-strong));
 
-  animation: timer-atmosphere 24s ease-in-out infinite;
+  animation: ambient-drift 18s ease-in-out infinite;
 }
+
+/* Timer Deep Cinematic Vignette. */
 .timer::after
 {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  pointer-events: none;
-  overflow: hidden;
 
   background: radial-gradient(
-    ellipse at center,
-    transparent 58%,
-    rgb(0 0 0 / 0.45)
+    ellipse,
+    transparent 35%,
+    rgb(0 0 0 / 0.55)
   );
 }
 
@@ -59,12 +58,7 @@
 ======================================= */
 .stage
 {
-  position: relative;
-  z-index: 1;
-
-  width: 100%;
-  min-height: 0;
-
+  height: 100%;
   display: grid;
   grid-template-rows: 1fr auto auto;
   align-items: center;
@@ -149,10 +143,10 @@
 /* ====================================
    TIMER ANIMATIONS KEYFRAMES STYLES.
 ======================================= */
-@keyframes timer-atmosphere
+@keyframes ambient-drift
 {
-  0%, 100% { transform: scale(1) translate3d(0, 0, 0); }
-  50% { transform: scale(1.05) translate3d(0, -1.5%, 0); }
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1) ; }
+  50% { transform: translate3d(0, -1.5%, 0) scale(1.06); }
 }
 
 @keyframes timer-complete

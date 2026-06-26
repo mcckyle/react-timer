@@ -11,33 +11,15 @@ body
 {
   margin: 0;
   min-height: 100dvh; /* Mobile browser viewport consistency. */
-  position: relative;
-  overflow-x: clip;
+  overflow: hidden;
 
   font-family: var(--font-sans);
-  font-size: clamp(0.95rem, 0.2vw + 0.9rem, 1rem);
-
-  line-height: 1.5;
-  letter-spacing: -0.01em;
+  background: var(--bg);
   color: var(--text);
 
   font-variant-numeric: tabular-nums;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  background-color: var(--bg);
-  background-attachment: fixed;
-
-  /* Cinematic atmospheric environment. */
-  background: linear-gradient(
-    180deg,
-    var(--bg),
-    var(--bg-secondary)
-  );
-
-  transition: background-color var(--duration-slow) var(--ease-standard),
-              color var(--duration-standard) var(--ease-standard);
 }
 /*body::before
 {
@@ -93,16 +75,6 @@ body::after
 
   animation: ambient-grid-drift 60s ease-in-out infinite;
 }*/
-body > #root::before
-{
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  pointer-events: none;
-  background: var(--ambient-vignette);
-  opacity: 0.9;
-}
 
 /* ====================================
    GLOBAL ELEMENT NORMALIZATION STYLES.
@@ -136,7 +108,7 @@ p { margin: 0; }
   font-weight: 500;
 }
 
-@keyframes ambient-orbit
+/*@keyframes ambient-orbit
 {
   0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
   50% { transform: translate3d(0.5%, 0.5%, 0) scale(1.02); }
@@ -150,7 +122,7 @@ p { margin: 0; }
 {
   0%, 100% { transform: perspective(2600px) rotateX(78deg) scale(1.78) translate3d(0, 10%, 0); }
   50% { transform: perspective(2600px) rotateX(78deg) scale(1.84) translate3d(-1%, 8%, 0); }
-}
+}*/
 
 /* ====================================
    GLOBAL REDUCED MOTION STYLES.
