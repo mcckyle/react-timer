@@ -1,7 +1,7 @@
 /* Filename: src/components/Timer/Timer.css */
 
 /* ====================================
-   TIMER ROOT CONTAINER STYLES.
+   TIMER FULL VIEWPORT EXPERIENCE STYLES.
 ======================================= */
 .timer
 {
@@ -17,28 +17,28 @@
 }
 
 /* ====================================
-   TIMER LIVING ATMOSPHERIC LIGHT STYLES.
+   TIMER AMBIENT LIGHT ENGINE STYLES.
 ======================================= */
 .timer::before
 {
   content: "";
   position: absolute;
-  inset: -25%;
+  inset: -35%;
   z-index: -2;
 
   background: radial-gradient(
-    circle at 50% 45%,
-    hsl(var(--ambient-hue) 100% 72% / calc(0.12 + var(--ambient-energy) * 0.32)),
-    transparent 60%
+    circle at 50% 48%,
+    hsl(var(--ambient-hue) 100% 72% / calc(0.08 + var(--ambient-energy) * 0.35)),
+    transparent 62%
   );
 
-  transform: scale(calc(1 + var(--ambient-energy) * 0.12));
-  filter: blur(var(--ambient-blur-strong));
+  transform: scale(calc(1 + var(--ambient-energy) * 0.08));
+  filter: blur(calc(120px + var(--ambient-energy) * 80px));
 
-  animation: ambient-drift 18s ease-in-out infinite;
+  animation: ambient-float 22s ease-in-out infinite;
 }
 
-/* Timer Deep Cinematic Vignette. */
+/* Timer Cinematic Edge Fall Off. */
 .timer::after
 {
   content: "";
@@ -47,8 +47,8 @@
   z-index: -1;
 
   background: radial-gradient(
-    ellipse,
-    transparent 35%,
+    ellipse at center,
+    transparent 45%,
     rgb(0 0 0 / 0.55)
   );
 }
@@ -75,6 +75,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-inline: 2vw;
 }
 
 /* ====================================
@@ -143,10 +144,10 @@
 /* ====================================
    TIMER ANIMATIONS KEYFRAMES STYLES.
 ======================================= */
-@keyframes ambient-drift
+@keyframes ambient-float
 {
   0%, 100% { transform: translate3d(0, 0, 0) scale(1) ; }
-  50% { transform: translate3d(0, -1.5%, 0) scale(1.06); }
+  50% { transform: translate3d(0, -2%, 0) scale(1.05); }
 }
 
 @keyframes timer-complete

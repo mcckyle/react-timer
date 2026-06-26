@@ -153,4 +153,4 @@
 /* ====================================
    GLOBAL THEME STYLES.
 ======================================= */
-html, body { background-color: var(--app-bg); color: var(--text); }
+html, body { background-color: var(--bg); color: var(--text); }

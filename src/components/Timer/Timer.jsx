@@ -36,8 +36,8 @@ const Timer = ({ toggleTheme }) =>
 
   /* Dynamic ambient energy system.
      220 = cool blue, 160 = teal, 80 = lime, 18 = amber / red */
-  const energy = Math.pow(1 - progress, 2.6);
-  const hue = 220 - (205 * energy);
+  const energy = Math.pow(1 - progress, 2.2);
+  const hue = Math.max(15, Math.min(220, 220 - 205 * energy));
   const intensity = Math.min(1.8, 0.55 + energy * 1.25);
   const movement = Math.min(1, running ? energy : energy * 0.35);
   const climax = Math.pow(energy, 3);
@@ -127,7 +127,7 @@ const Timer = ({ toggleTheme }) =>
         "--ambient-energy": energy,
         "--ambient-hue": hue,
         "--ambient-intensity": intensity,
-        "--ambient-movement": movement,
+        "--ambient-motion": movement,
         "--ambient-climax": climax,
       }}
     >

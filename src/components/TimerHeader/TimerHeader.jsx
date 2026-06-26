@@ -62,44 +62,46 @@ export default function TimerHeader({
 
       {/* RIGHT: History. */}
       <div className="timer-header-right">
-        {hasHistory && (
-          <div className="timer-header-history">
-            <button
-              type="button"
-              className="timer-header-history-button"
-              onClick={() => setShowHistory((h) => !h)}
-              aria-expanded={showHistory}
-              aria-controls="timer-history"
-            >
-              <span className="timer-header-history-label">
-                History
-              </span>
-              <span className="timer-header-history-meta">
-                {showHistory ? "Close" : pastTimers.length}
-              </span>
-            </button>
-            <div
-              id="timer-history"
-              className={`timer-header-history-panel${showHistory ? " is-visible" : ""}`}
-            >
-              <PastTimers timers={pastTimers} onClear={clearPastTimers} />
+        <div className="timer-header-actions">
+          {hasHistory && (
+            <div className="timer-header-history">
+              <button
+                type="button"
+                className="timer-header-history-button"
+                onClick={() => setShowHistory((h) => !h)}
+                aria-expanded={showHistory}
+                aria-controls="timer-history"
+              >
+                <span className="timer-header-history-label">
+                  History
+                </span>
+                <span className="timer-header-history-meta">
+                  {showHistory ? "Close" : pastTimers.length}
+                </span>
+              </button>
+              <div
+                id="timer-history"
+                className={`timer-header-history-panel${showHistory ? " is-visible" : ""}`}
+              >
+                <PastTimers timers={pastTimers} onClear={clearPastTimers} />
+              </div>
             </div>
-          </div>
-        )}
-        <button
-          type="button"
-          className="toggle"
-          onClick={toggleTheme}
-          aria-pressed={isDark}
-          aria-label={`Activate ${nextThemeLabel} theme`}
-          title={`Activate ${nextThemeLabel} theme`}
-        >
-          {isDark ? (
-            <Sun className="toggleIcon" aria-hidden="true" />
-          ) : (
-            <Moon className="toggleIcon" aria-hidden="true" />
           )}
-        </button>
+          <button
+            type="button"
+            className="toggle"
+            onClick={toggleTheme}
+            aria-pressed={isDark}
+            aria-label={`Activate ${nextThemeLabel} theme`}
+            title={`Activate ${nextThemeLabel} theme`}
+          >
+            {isDark ? (
+              <Sun className="toggleIcon" aria-hidden="true" />
+            ) : (
+              <Moon className="toggleIcon" aria-hidden="true" />
+            )}
+          </button>
+        </div>
       </div>
     </header>
   );
