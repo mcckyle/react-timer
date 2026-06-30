@@ -119,7 +119,7 @@
 }
 
 /* TIMER ANIMATIONS. */
-/*@keyframes ambient-drift
+@keyframes ambient-drift
 {
   0%, 100%
   {
@@ -149,7 +149,7 @@
     opacity: 0.5;
     transform: scale(1);
   }
-}*/
+}
 
 /* ====================================
    TIMER MEDIA QUERY STYLES.
