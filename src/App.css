@@ -1,15 +1,14 @@
 /* Filename: src/App.css */
 
 /* ====================================
-   APPLICATION CINEMATIC CANVAS STYLES.
+   APPLICATION CANVAS STYLES.
 ======================================= */
 .app-shell
 {
   width: 100%;
   height: 100dvh; /* Modern Viewport with fallback handled globally. */
+  position: relative;
   isolation: isolate;
   overflow: hidden;
-  position: relative;
-  background: linear-gradient(180deg, var(--bg), var(--bg-secondary));
 }
 #root { width: 100%; height: 100%; /* Root flex safety. */ }

@@ -22,9 +22,11 @@ export default function VisualTimer({ progress })
       aria-hidden="true"
     >
       <div className="visual-timer-core">
-        <div className="visual-timer-sand visual-timer-sand-top" />
-        <div className="visual-timer-sand visual-timer-sand-flow" />
-        <div className="visual-timer-sand visual-timer-sand-bottom" />
+        <div className="visual-timer-glass">
+          <div className="visual-timer-sand visual-timer-sand-top" />
+          <div className="visual-timer-sand visual-timer-sand-flow" />
+          <div className="visual-timer-sand visual-timer-sand-bottom" />
+        </div>
       </div>
     </div>
   );

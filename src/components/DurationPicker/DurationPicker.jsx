@@ -48,7 +48,7 @@ export default function DurationPicker({ duration, onSelect })
 
   return (
     <div
-      className="duration-picker"
+      className={`duration-picker${isCustom ? " is-custom" : ""}`}
       role="group"
       aria-label="Timer duration"
     >

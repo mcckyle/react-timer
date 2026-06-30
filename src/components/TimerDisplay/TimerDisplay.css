@@ -13,12 +13,10 @@
     font-family: var(--font-mono);
     font-size: clamp(6rem, 20vw, 32rem); /* Important: Digits as large as possible. */
     font-weight: 700;
-    line-height: 0.78;
-    letter-spacing: -0.12em;
+    line-height: 0.72;
+    letter-spacing: -0.14em;
     color: var(--text);
-
     user-select: none;
-    white-space: nowrap;
 }
 
 /* ====================================
@@ -26,8 +24,8 @@
 ======================================= */
 .timer.is-running .timer-display
 {
-    text-shadow: 0 0 40px hsl(var(--ambient-hue) 100% 72% / 0.18),
-                 0 0 160px hsl(var(--ambient-hue) 100% 72% / 0.12);
+    text-shadow: 0 0 50px hsl(var(--ambient-hue) 100% 72% / 0.20),
+                 0 0 180px hsl(var(--ambient-hue) 100% 72% / 0.12);
 }
 
 /* ====================================

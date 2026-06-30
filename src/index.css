@@ -4,9 +4,9 @@
    GLOBAL RESET STYLES.
 ======================================= */
 *, *::before, *::after { box-sizing: border-box; }
-html { font-size: 16px; -webkit-text-size-adjust: 100%; scroll-behavior: smooth; color-scheme: dark light; }
-html, body, #root { width: 100%; height: 100%; overflow: hidden; }
-#root { display: flex; flex-direction: column; }
+html { font-size: 16px; -webkit-text-size-adjust: 100%; overflow: hidden; scroll-behavior: smooth; color-scheme: dark light; }
+html, body, #root { width: 100%; height: 100%; }
+#root { display: flex; }
 body
 {
   margin: 0;

@@ -1,6 +1,6 @@
 //File name: TimeField.jsx
 //Author: Kyle McColgan
-//Date: 10 June 2026
+//Date: 29 June 2026
 //Description: This file contains the time field for the timer React project.
 
 import { useRef } from "react";
@@ -99,6 +99,7 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
     >
       <label id={labelId} htmlFor={id} className="sr-only">
         {label} value

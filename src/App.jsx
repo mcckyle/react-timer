@@ -1,6 +1,6 @@
 //File name: App.jsx
 //Author: Kyle McColgan
-//Date: 25 June 2026
+//Date: 29 June 2026
 //Description: This file contains the App component for the timer React project.
 
 import Timer from "./components/Timer/Timer.jsx";
@@ -14,9 +14,9 @@ function App()
   const { toggleTheme } = useTheme();
 
   return (
-    <div className="app-shell">
+    <main className="app-shell">
       <Timer toggleTheme={toggleTheme} />
-    </div>
+    </main>
   );
 }
 

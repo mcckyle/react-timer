@@ -13,10 +13,11 @@
 
     font-family: var(--font-mono);
     cursor: ns-resize;
+    touch-action: none;
 
     transition: color var(--duration-fast);
 }
-.time-field:active { cursor: grabbing; background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.time-field:active { cursor: grabbing; }
 .time-field:active input, .time-field:focus-within input { color: var(--accent); }
 
 /* ====================================
@@ -30,15 +31,15 @@
     border: 0;
     outline: 0;
     background: transparent;
+    color: var(--text);
 
+    font-family: inherit;
     font-size: 0.95rem;
     font-weight: 700;
     text-align: center;
     caret-color: var(--accent);
 
-    transition: color var(--duration-fast) var(--ease-standard),
-                opacity var(--duration-fast) var(--ease-standard),
-                transform var(--duration-fast) var(--ease-fluid);
+    transition: color var(--duration-fast), opacity var(--duration-fast);
 }
 .time-field input:focus { color: var(--accent); opacity: 1; }
 
@@ -49,6 +50,7 @@
 {
     font-size: 0.38rem;
     letter-spacing: 0.18em;
+    text-transform: uppercase;
     color: var(--text-muted);
     opacity: 0.45;
 }
@@ -60,7 +62,6 @@
 .time-field input::-webkit-inner-spin-button
 {
     appearance: none;
-    margin: 0;
 }
 .time-field input[type="number"] { appearance: textfield; }
 
@@ -72,16 +73,9 @@
     position: absolute;
     width: 1px;
     height: 1px;
-    margin: -1px;
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
-    border: 0;
-}
-
-@media (hover: hover)
-{
-    .time-field:hover input { opacity: 1; }
 }
 
 /* ====================================
@@ -95,7 +89,7 @@
 /* ====================================
    TIMEFIELD MEDIA QUERY STYLES.
 ======================================= */
-@media (max-width: 480px)
+/*@media (max-width: 480px)
 {
     .time-field input { font-size: 0.96rem; }
-}
+}*/
