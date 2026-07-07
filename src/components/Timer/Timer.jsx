@@ -1,6 +1,6 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 29 June 2026
+//Date: 6 July 2026
 //Description: This file contains the parent timer component for the timer React project.
 
 import { useState, useEffect, useRef } from "react";
@@ -37,12 +37,15 @@ const Timer = ({ toggleTheme }) =>
   /* Dynamic ambient energy system.
      220 = cool blue, 160 = teal, 80 = lime, 18 = amber / red */
   const energy = Math.pow(1 - progress, 2.2);
-  const hue = Math.max(15, Math.min(220, 220 - 205 * energy));
-  const secondaryHue = (hue + 70) % 360;
-  const backgroundAlpha = 0.08 + energy * 0.18;
-  const intensity = Math.min(1.8, 0.55 + energy * 1.25);
-  const movement = Math.min(1, running ? energy : energy * 0.35);
-  const climax = Math.pow(energy, 3);
+  const hue = 220 - energy * 205;
+  const ambient = {
+    energy,
+    hue,
+    hueSecondary: (hue + 65) % 360,
+    motion: running ? energy : energy * 0.35,
+    glow: 0.5 + energy * 1.4,
+    density: 0.08 + energy * 0.22
+  };
 
   //RAF-driven visual smoothing.
   useEffect(() =>
@@ -126,13 +129,12 @@ const Timer = ({ toggleTheme }) =>
       className={`timer${completed ? " is-complete" : ""}${running ? " is-running" : ""}`}
       style={{
         "--ambient-progress": progress,
-        "--ambient-energy": energy,
-        "--ambient-hue": hue,
-        "--ambient-hue-secondary": secondaryHue,
-        "--ambient-alpha": backgroundAlpha,
-        "--ambient-intensity": intensity,
-        "--ambient-motion": movement,
-        "--ambient-climax": climax,
+        "--ambient-energy": ambient.energy,
+        "--ambient-hue": ambient.hue,
+        "--ambient-hue-secondary": ambient.hueSecondary,
+        "--ambient-motion": ambient.motion,
+        "--ambient-glow": ambient.glow,
+        "--ambient-density": ambient.density,
       }}
     >
       <TimerHeader

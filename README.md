@@ -86,14 +86,20 @@ react-timer/
 │   │   │   ├── PastTimers.jsx
 │   │   │   └── PastTimers.css
 │   │   │
-│   │   └── DurationPicker/
-│   │       ├── DurationPicker.jsx
-│   │       └── DurationPicker.css
+│   │   ├──DurationPicker/
+│   │   │   ├── DurationPicker.jsx
+│   │   │   └── DurationPicker.css
+│   │   │
+│   │   ├── ThemeWrapper.jsx
+│   │   └── theme.css
 │   │
 │   ├── utils/
 │   │   ├── formatTime.jsx
 │   │   ├── formatDuration.jsx
 │   │   └── splitDuration.jsx
+│   │
+│   ├── context/
+│   │   └── ThemeContext.jsx
 │   │
 │   ├── __tests__/
 │   │   └── useTimer.test.jsx
