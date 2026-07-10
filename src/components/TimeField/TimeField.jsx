@@ -1,6 +1,6 @@
 //File name: TimeField.jsx
 //Author: Kyle McColgan
-//Date: 29 June 2026
+//Date: 9 July 2026
 //Description: This file contains the time field for the timer React project.
 
 import { useRef } from "react";
@@ -40,12 +40,13 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
 
     //Velocity scaling (slow = precise, fast = jump).
     const speed = Math.abs(deltaY);
+    const step = Math.trunc(deltaY / 12);
     const multiplier =
       speed > 140 ? 12 :
       speed > 80 ? 6 :
       speed > 30 ? 2 : 1;
 
-    const next = clamp(startValue.current + Math.floor(deltaY / 10) * multiplier);
+    const next = clamp(startValue.current + step * multiplier);
     onChange(next);
   }
 
@@ -85,7 +86,7 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
     }
     if (e.key === "ArrowUp")
     {
-      onChange(value + 1);
+      onChange(clamp(value + 1));
     }
     if (e.key === "ArrowDown")
     {

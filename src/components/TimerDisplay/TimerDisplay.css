@@ -14,7 +14,7 @@
     font-size: clamp(6rem, 20vw, 32rem); /* Important: Digits as large as possible. */
     font-weight: 700;
     line-height: 0.72;
-    letter-spacing: -0.14em;
+    letter-spacing: -0.12em;
     color: var(--text);
     user-select: none;
 }
@@ -24,8 +24,9 @@
 ======================================= */
 .timer.is-running .timer-display
 {
-    text-shadow: 0 0 50px hsl(var(--ambient-hue) 100% 72% / 0.20),
-                 0 0 180px hsl(var(--ambient-hue) 100% 72% / 0.12);
+    text-shadow: 0 0 24px hsl(var(--ambient-hue) 100% 72% / 0.28),
+                 0 0 90px hsl(var(--ambient-hue) 100% 72% / 0.16),
+                 0 0 220px hsl(var(--ambient-hue) 100% 72% / 0.08);
 }
 
 /* ====================================

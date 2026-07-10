@@ -8,18 +8,23 @@
   position: relative;
   isolation: isolate;
 
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  min-block-size: 100dvh;
 
   display: grid;
   grid-template-rows: auto 1fr;
-  overflow: hidden;
+  overflow: clip;
   background: radial-gradient(
-    circle at 50% 45%,
-    hsl(var(--ambient-hue) 100% 70% / var(--ambient-alpha)),
-    transparent 45%
+    circle at 50% 42%,
+    hsl(var(--ambient-hue) 100% 72% / calc(0.12 + var(--ambient-energy) * 0.16)),
+    transparent 34%
   ),
-  linear-gradient(180deg, var(--bg), var(--bg-secondary));
+  radial-gradient(
+    circle at 18% 78%,
+    hsl(var(--ambient-hue-secondary) 100% 70% / 0.08),
+    transparent 48%
+  ),
+  linear-gradient(180deg, var(--bg-secondary), var(--bg));
 }
 
 /* ====================================
@@ -72,10 +77,11 @@
 ======================================= */
 .stage
 {
-  height: 100%;
+  flex: 1;
   display: grid;
-  grid-template-rows: minmax(0, 1fr) auto auto;
+  grid-template-rows: minmax(0, 1fr) auto min-content;
   align-items: center;
+  padding-block: clamp(1rem, 3vh, 3rem) clamp(2rem, 5vh, 4rem);
 }
 
 /* ====================================
@@ -121,34 +127,15 @@
 /* TIMER ANIMATIONS. */
 @keyframes ambient-drift
 {
-  0%, 100%
-  {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50%
-  {
-    transform: translate3d(0, -24px, 0)
-    scale(1.08);
-  }
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0, -24px, 0) scale(1.08); }
 }
 
 @keyframes timer-complete
 {
-  0%
-  {
-    opacity: 0.5;
-    transform: scale(0.92);
-  }
-  50%
-  {
-    opacity: 1;
-    transform: scale(1.12);
-  }
-  100%
-  {
-    opacity: 0.5;
-    transform: scale(1);
-  }
+  0% { opacity: 0.5; transform: scale(0.92); }
+  50% { opacity: 1; transform: scale(1.12); }
+  100% { opacity: 0.5; transform: scale(1); }
 }
 
 /* ====================================

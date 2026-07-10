@@ -25,7 +25,7 @@
 ======================================= */
 .time-field input
 {
-    width: 2ch;
+    width: 2.4ch;
     padding: 0;
 
     border: 0;
@@ -36,12 +36,14 @@
     font-family: inherit;
     font-size: 0.95rem;
     font-weight: 700;
+    font-variant-numeric: tabular-nums;
     text-align: center;
     caret-color: var(--accent);
 
     transition: color var(--duration-fast), opacity var(--duration-fast);
 }
 .time-field input:focus { color: var(--accent); opacity: 1; }
+.time-field:focus-within { color: var(--accent); text-shadow: 0 0 12px hsl(var(--ambient-hue) 100% 72% / 0.35); }
 
 /* ====================================
    TIMEFIELD UNIT LABEL STYLES.
@@ -71,11 +73,22 @@
 .sr-only
 {
     position: absolute;
-    width: 1px;
-    height: 1px;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
     white-space: nowrap;
+}
+
+@media (hover: hover)
+{
+    .time-field:hover input
+    {
+        color: var(--text-soft);
+    }
 }
 
 /* ====================================
@@ -85,11 +98,3 @@
 {
     .time-field, .time-field input  { transition: none; }
 }
-
-/* ====================================
-   TIMEFIELD MEDIA QUERY STYLES.
-======================================= */
-/*@media (max-width: 480px)
-{
-    .time-field input { font-size: 0.96rem; }
-}*/

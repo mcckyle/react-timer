@@ -9,9 +9,8 @@
   isolation: isolate;
 
   inline-size: 100%;
-  block-size: 100%;
+  block-size: 100dvh;
 
   overflow: clip;
-  contain: layout style;
 }
-#root { width: 100%; height: 100%; /* Root flex safety. */ }
+#root { inline-size: 100%; min-block-size: 100dvh; }

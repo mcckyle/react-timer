@@ -10,9 +10,10 @@
     gap: 0.45rem;
     padding: 0.3rem;
     border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--surface-glass) 72%, transparent);
-    border: 1px solid var(--border-subtle);
-    backdrop-filter: blur(22px) saturate(130%);
+    background: color-mix(in srgb, var(--surface-glass) 64%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border-subtle) 90%, transparent);
+    backdrop-filter: blur(28px) saturate(105%) brightness(1.05);
+    box-shadow: var(--shadow-soft);
 }
 
 /* ====================================
@@ -41,16 +42,19 @@
     font-weight: 700;
     letter-spacing: 0.12em;
 
-    transition: background var(--duration-fast),
-                color var(--duration-fast),
-                transform var(--duration-fast);
+    transition: transform var(--duration-fast),
+                background var(--duration-standard),
+                box-shadow var(--duration-standard),
+                color var(--duration-standard);
 }
 
 .duration-pill.is-active
 {
-    background: var(--accent-soft);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 18%, transparent), var(--accent-soft));
     color: var(--accent);
-    box-shadow: 0 0 22px color-mix(in srgb, var(--accent) 16%, transparent);
+    transform: translateY(-1px);
+    box-shadow: 0 0 1px color-mix(in srgb, var(--accent) 28%, transparent),
+                0 0 26px color-mix(in srgb, var(--accent) 20%, transparent);
 }
 
 /* ====================================
@@ -58,14 +62,24 @@
 ======================================= */
 .duration-custom
 {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 0.15rem;
 
+    padding-inline-start: 0.70rem;
     padding-left: 0.55rem;
     border-left: 1px solid var(--border-subtle);
 }
-.duration-picker.is-custom .duration-custom { border-left-color: var(--accent-muted); }
+.duration-custom::before
+{
+    content: "";
+    position: absolute;
+    inset-block: 0.30rem;
+    inset-inline-start: 0;
+    width: 1px;
+    background: linear-gradient(transparent, var(--border-subtle), transparent);
+}
 
 /* ====================================
    DURATIONPICKER TIME SEPARATOR STYLES.
@@ -82,7 +96,7 @@
     .duration-pill:hover
     {
         color: var(--text);
-        transform: translateY(-1px);
+        transform: translateY(-2px);
     }
 }
 

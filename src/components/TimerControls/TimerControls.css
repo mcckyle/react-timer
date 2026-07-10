@@ -10,8 +10,8 @@
     gap: 0.65rem;
     padding: 0.35rem;
     border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--surface-glass) 78%, transparent);
-    backdrop-filter: blur(24px) saturate(140%);
+    background: color-mix(in srgb, var(--surface-glass) 64%, transparent);
+    backdrop-filter: blur(32px) saturate(170%) brightness(1.06);
     border: 1px solid var(--border-subtle);
     box-shadow: 0 20px 70px -32px rgb(0 0 0 / 0.65);
 }
@@ -97,11 +97,11 @@
         color: var(--text);
         transform: translateY(-1px);
     }
-    .timer-control.is-primary:hover:not(:disabled)
+    .timer-control-primary:hover:not(:disabled)
     {
-        border-color: color-mix(in srgb, var(--accent) 28%, transparent);
-        box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent),
-                    0 12px 28px -18px color-mix(in srgb, var(--accent) 24%, transparent);
+        border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+        box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent),
+                    0 16px 36px -20px color-mix(in srgb, var(--accent) 28%, transparent);
     }
 }
 

@@ -1,6 +1,6 @@
 //File name: TimerHeader.jsx
 //Author: Kyle McColgan
-//Date: 29 June 2026
+//Date: 9 July 2026
 //Description: This file contains the timer header component for the timer React project.
 
 import React from "react";
@@ -36,7 +36,7 @@ export default function TimerHeader({
       <div className="timer-header-center">
         <DurationPicker duration={duration} onSelect={onSelectDuration} />
         <div
-          className="timer-header-mode"
+          className="timer-header-mode timer-glass"
           role="group"
           aria-label="Display mode"
         >
@@ -63,9 +63,10 @@ export default function TimerHeader({
           <div className="timer-header-history">
             <button
               type="button"
-              className="timer-header-history-button"
-              onClick={() => setShowHistory((h) => !h)}
+              className="timer-header-history-button timer-glass"
+              onClick={() => setShowHistory((visible) => !visible)}
               aria-expanded={showHistory}
+              aria-controls="timer-history"
             >
               History
               <span>{showHistory ? "×" : pastTimers.length}</span>
@@ -80,7 +81,7 @@ export default function TimerHeader({
         )}
         <button
           type="button"
-          className="timer-theme-toggle"
+          className="timer-theme-toggle timer-glass"
           onClick={toggleTheme}
           aria-pressed={isDark}
         >
