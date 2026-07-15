@@ -14,62 +14,6 @@
   display: grid;
   grid-template-rows: auto 1fr;
   overflow: clip;
-  background: radial-gradient(
-    circle at 50% 42%,
-    hsl(var(--ambient-hue) 100% 72% / calc(0.12 + var(--ambient-energy) * 0.16)),
-    transparent 34%
-  ),
-  radial-gradient(
-    circle at 18% 78%,
-    hsl(var(--ambient-hue-secondary) 100% 70% / 0.08),
-    transparent 48%
-  ),
-  linear-gradient(180deg, var(--bg-secondary), var(--bg));
-}
-
-/* ====================================
-   TIMER AMBIENT LIGHT ENGINE STYLES.
-======================================= */
-.timer::before
-{
-  content: "";
-  position: absolute;
-  inset: -45%;
-  z-index: -2;
-
-  background: radial-gradient(
-    circle at 35% 35%,
-    hsl(var(--ambient-hue) 100% 70% / 0.22),
-    transparent 45%
-  ),
-  radial-gradient(
-    circle at 70% 65%,
-    hsl(var(--ambient-hue-secondary) 100% 70% / 0.12),
-    transparent 50%
-  );
-
-  transform: translate3d(0, calc(var(--ambient-motion) * -18px), 0)
-             scale(calc(1 + var(--ambient-energy) * 0.08));
-  filter: blur(calc(100px + var(--ambient-energy) * 120px));
-
-  animation: ambient-drift 24s ease-in-out infinite;
-}
-
-/* Timer Cinematic Edge Fall Off. */
-.timer::after
-{
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-
-  background: radial-gradient(
-    ellipse at center,
-    transparent 35%,
-    rgb(0 0 0 / 0.45)
-    100%
-  );
 }
 
 /* ====================================
@@ -122,13 +66,6 @@
 .timer.is-complete::before
 {
   animation: timer-complete 900ms var(--ease-standard);
-}
-
-/* TIMER ANIMATIONS. */
-@keyframes ambient-drift
-{
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(0, -24px, 0) scale(1.08); }
 }
 
 @keyframes timer-complete

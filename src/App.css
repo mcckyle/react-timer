@@ -8,9 +8,8 @@
   position: relative;
   isolation: isolate;
 
-  inline-size: 100%;
-  block-size: 100dvh;
+  inline-size: var(--viewport-width);
+  block-size: var(--viewport-height);
 
   overflow: clip;
 }
-#root { inline-size: 100%; min-block-size: 100dvh; }

@@ -1,15 +1,17 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 8 July 2026
+//Date: 15 July 2026
 //Description: This file contains the parent timer component for the timer React project.
 
 import { useState, useEffect, useRef } from "react";
 import { useTimer, DEFAULT_DURATION } from "../../hooks/useTimer";
+import { useAmbientEngine } from "../../hooks/useAmbientEngine";
 import { useKeyboardShortcuts } from "../../hooks/useKeyboardShortcuts";
 import { useCompletionSound } from "../../hooks/useCompletionSound";
 import { useTheme } from "../../context/ThemeContext.jsx";
 
 import TimerHeader from "../TimerHeader/TimerHeader.jsx";
+import AmbientBackground from "../AmbientBackground/AmbientBackground.jsx";
 import TimerDisplay from "../TimerDisplay/TimerDisplay.jsx";
 import VisualTimer from "../VisualTimer/VisualTimer.jsx";
 import TimerControls from "../TimerControls/TimerControls.jsx";
@@ -21,63 +23,11 @@ const Timer = ({ toggleTheme }) =>
   const { theme } = useTheme();
   const [showHistory, setShowHistory] = useState(false);
   const [mode, setMode] = useState("digital"); //"digital" || "visual".
-
-  const initialProgress = duration > 0 ? timeLeft / duration : 1;
-  const [smoothProgress, setSmoothProgress] = useState(initialProgress);
   const [completed, setCompleted] = useState(false);
 
   const prevTimeRef = useRef(timeLeft);
-  const progressRef = useRef(initialProgress);
-  const rafRef = useRef(null);
   const resetDisabled = (timeLeft === DEFAULT_DURATION) && !running;
-
-  //Continuous visual progress.
-  const progress = Math.max(0, Math.min(1, smoothProgress));
-
-  /* Dynamic ambient energy system.
-     220 = cool blue, 160 = teal, 80 = lime, 18 = amber / red */
-  const energy = Math.pow(1 - progress, 2.2);
-  const ambientHue = 220 - energy * 205;
-  const ambientHueSecondary = (ambientHue + 65) % 360;
-
-  const ambientMotion = running ? energy : energy * 0.35;
-  const ambientGlow = 0.5 + energy * 1.4;
-  const ambientDensity = 0.08 + energy * 0.22;
-
-  //RAF-driven visual smoothing.
-  useEffect(() =>
-  {
-    if (!running)
-    {
-      const staticProgress = timeLeft / duration;
-      progressRef.current = staticProgress;
-      setSmoothProgress(staticProgress);
-      return;
-    }
-
-    let previousFrame = performance.now();
-
-    const animate = () =>
-    {
-      const now = performance.now();
-      const delta = now - previousFrame;
-      previousFrame = now;
-
-      progressRef.current = Math.max(0, progressRef.current - (delta / duration));
-      setSmoothProgress(progressRef.current);
-      rafRef.current = requestAnimationFrame(animate);
-    };
-
-    rafRef.current = requestAnimationFrame(animate);
-
-    return () =>
-    {
-      if (rafRef.current)
-      {
-        cancelAnimationFrame(rafRef.current);
-      }
-    }
-  }, [running, duration, timeLeft]);
+  const ambient = useAmbientEngine({ duration, timeLeft, running });
 
   //Completion Detection.
   useEffect(() =>
@@ -124,16 +74,9 @@ const Timer = ({ toggleTheme }) =>
   return (
     <section
       className={`timer${completed ? " is-complete" : ""}${running ? " is-running" : ""}`}
-      style={{
-        "--ambient-progress": progress,
-        "--ambient-energy": energy,
-        "--ambient-hue": ambientHue,
-        "--ambient-hue-secondary": ambientHueSecondary,
-        "--ambient-motion": ambientMotion,
-        "--ambient-glow": ambientGlow,
-        "--ambient-density": ambientDensity,
-      }}
+      style={ambient.style}
     >
+      <AmbientBackground />
       <TimerHeader
         theme={theme}
         toggleTheme={toggleTheme}
@@ -151,7 +94,7 @@ const Timer = ({ toggleTheme }) =>
         <section className="displayRegion" aria-label="Time remaining">
           {mode === "digital"
             ? <TimerDisplay timeLeft={timeLeft} />
-            : <VisualTimer progress={progress} />
+            : <VisualTimer progress={ambient.progress} />
           }
         </section>
         <section className="controlsRegion" aria-label="Playback controls">

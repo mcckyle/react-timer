@@ -5,8 +5,8 @@
 ======================================= */
 *, *::before, *::after { box-sizing: border-box; }
 html { color-scheme: dark light; font-size: 16px; -webkit-text-size-adjust: 100%; scroll-behavior: smooth; overflow-x: clip; }
-html, body, #root { inline-size: 100%; min-block-size: 100dvh; }
-#root { inline-size: 100%; min-block-size: 100dvh; isolation: isolate; }
+html, body, #root { min-block-size: 100dvh; }
+#root { isolation: isolate; }
 body
 {
   margin: 0;

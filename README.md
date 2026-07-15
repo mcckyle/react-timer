@@ -2,7 +2,7 @@
 
 A simple, modern timer app built with **React** and **Vite**. Designed for focus and clarity.
 
-![Screenshot](./public/images/Screenshot_20260616_202035.png)
+![Screenshot](./public/images/Screenshot_20260715_175838.png)
 *A glimpse of the timer, captured with a screenshot.*
 
 *🌐 [Visit the live site](https://mcckyle.github.io/react-timer/)*
@@ -66,6 +66,10 @@ react-timer/
 │   │   │   ├── TimerHeader.jsx
 │   │   │   └── TimerHeader.css
 │   │   │
+│   │   ├── AmbientBackground/
+│   │   │   ├── AmbientBackground.jsx
+│   │   │   └── AmbientBackground.css
+│   │   │
 │   │   ├── TimerDisplay/
 │   │   │   ├── TimerDisplay.jsx
 │   │   │   └── TimerDisplay.css
@@ -107,6 +111,7 @@ react-timer/
 │   ├── hooks/            # Custom React hooks.
 │   │   ├── useTimer.js
 │   │   ├── useKeyboardShortcuts.js
+│   │   ├── useAmbientEngine.js
 │   │   └── useCompletionSound.js
 │   │
 │   ├── App.jsx           # Main React application component.

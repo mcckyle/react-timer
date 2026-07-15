@@ -43,10 +43,16 @@
 
     /* Layout System. */
     --radius: 20px;
-    --radius-sm: 14px;
-    --radius-xs: 10px;
-    --radius-pill: 9999px;
+    --radius-xs: 0.5rem;
+    --radius-sm: 0.75rem;
+    --radius-md: 1rem;
+    --radius-lg: 1.5rem;
+    --radius-xl: 2rem;
+    --radius-pill: 999rem;
+
     --content-width: 720px;
+    --content-max: 1800px;
+    --header-height: 72px;
 
     /* Spacing System. */
     --space-xs: 0.4rem;
@@ -55,6 +61,14 @@
     --space-lg: 1.5rem;
     --space-xl: 2rem;
     --space-2xl: 3rem;
+    --space-3xl: 4rem;
+    --space-4xl: 6rem;
+    --space-5xl: 8rem;
+
+    --viewport-width: 100%;
+    --viewport-height: 100dvh;
+    --viewport-padding: clamp(1rem, 3vw, 3rem);
+    --section-padding: clamp(2rem, 4vw, 5rem);
 
     /* Shadow System. */
     --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.18);
