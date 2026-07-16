@@ -1,6 +1,6 @@
 //File name: vite.config.js
 //Author: Kyle McColgan
-//Date: 30 June 2026
+//Date: 16 July 2026
 //Description: This file contains the Vite configuration for the timer React project.
 
 import { defineConfig } from 'vite'
@@ -23,5 +23,6 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
+    setupFiles: './vitest.setup.js'
   },
 })

@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AnimatedDigit Component > 10. matches snapshot for digit 9 1`] = `
+<DocumentFragment>
+  <span
+    aria-hidden="true"
+    class="digit"
+  >
+    <span
+      class="value"
+      style="opacity: 0.4; filter: blur(6px); transform: translateY(8%);"
+    >
+      9
+    </span>
+  </span>
+</DocumentFragment>
+`;

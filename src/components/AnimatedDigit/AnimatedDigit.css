@@ -1,0 +1,48 @@
+/* Filename: src/components/AnimatedDigit/AnimatedDigit.css */
+
+/* ====================================
+   ANIMATEDDIGIT BASE DIGIT WRAPPER STYLE.
+======================================= */
+.digit
+{
+    position: relative;
+
+    display: inline-grid;
+    place-items: center;
+
+    inline-size: 0.55em;
+    block-size: 1em;
+    overflow: clip;
+
+    isolation: isolate;
+    font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* ====================================
+   ANIMATEDDIGIT DIGIT VALUE STYLE.
+======================================= */
+.value
+{
+    position: absolute;
+    inset: 0;
+
+    display: grid;
+    place-items: center;
+    line-height: 1;
+    transform: translateZ(0);
+    will-change: transform, opacity, filter;
+    backface-visibility: hidden;
+}
+
+/* ====================================
+   ANIMATEDDIGIT CENTISECOND DIGIT STYLE.
+======================================= */
+.centi { opacity: 0.8; }
+
+/* ====================================
+   ANIMATEDDIGIT MEDIA QUERY STYLES.
+======================================= */
+@media (prefers-reduced-motion: reduce)
+{
+    .value { transition: none; }
+}

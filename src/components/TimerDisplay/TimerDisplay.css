@@ -5,16 +5,17 @@
 ======================================= */
 .timer-display
 {
-    width: 100%;
-    display: flex;
-    align-items: center;
+    inline-size: 100%;
+
+    display: inline-flex;
     justify-content: center;
+    align-items: center;
+    gap: 0.02em;
 
     font-family: var(--font-mono);
     font-size: clamp(6rem, 20vw, 32rem); /* Important: Digits as large as possible. */
     font-weight: 700;
     line-height: 0.72;
-    letter-spacing: -0.12em;
     color: var(--text);
     user-select: none;
 }
@@ -24,9 +25,9 @@
 ======================================= */
 .timer.is-running .timer-display
 {
-    text-shadow: 0 0 24px hsl(var(--ambient-hue) 100% 72% / 0.28),
-                 0 0 90px hsl(var(--ambient-hue) 100% 72% / 0.16),
-                 0 0 220px hsl(var(--ambient-hue) 100% 72% / 0.08);
+    text-shadow: 0 0 18px hsl(var(--ambient-hue) 100% 72% / calc(0.14 + var(--ambient-energy) * 0.14)),
+                 0 0 64px hsl(var(--ambient-hue) 100% 72% / calc(0.08 + var(--ambient-energy) * 0.12)),
+                 0 0 180px hsl(var(--ambient-hue) 100% 72% / calc(0.04 + var(--ambient-energy) * 0.08));
 }
 
 /* ====================================
@@ -48,12 +49,12 @@
 ======================================= */
 .timer-display-separator
 {
-    display: inline-flex;
-    align-items: center;
+    display: grid;
+    place-items: center;
     margin-inline: 0.02em;
 
-    color: color-mix(in srgb, var(--text) 70%, transparent);
-    opacity: 0.75;
+    color: hsl(var(--ambient-hue) 100% 82% / 0.85);
+    opacity: calc(0.45 + var(--ambient-energy) * 0.40);
 }
 
 /* ====================================

@@ -1,14 +1,12 @@
 //File name: TimerDisplay.jsx
 //Author: Kyle McColgan
-//Date: 9 July 2026
+//Date: 16 July 2026
 //Description: This file contains the time display for the timer React project.
 
 import { useMemo } from "react";
-import { motion } from "motion/react";
 import { formatDuration } from "../../utils/formatDuration";
+import AnimatedDigit from "../AnimatedDigit/AnimatedDigit.jsx";
 import "./TimerDisplay.css";
-
-const TRANSITION = { duration: 0.18, ease: [0.22, 1, 0.36, 1], };
 
 export default function TimerDisplay({ timeLeft })
 {
@@ -26,6 +24,7 @@ export default function TimerDisplay({ timeLeft })
       role="timer"
       aria-live="off"
       aria-atomic="true"
+      aria-label={`${seconds} seconds remaining`}
       dateTime={display}
     >
       {characters.map((char, index) =>
@@ -44,15 +43,7 @@ export default function TimerDisplay({ timeLeft })
           }
 
           return (
-            <motion.span
-              key={`${index}-${char}`}
-              className="timer-display-digit"
-              initial={{ opacity: 0.4, scale: 0.96, filter: "blur(6px)" }}
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)", }}
-              transition={TRANSITION}
-            >
-              {char}
-            </motion.span>
+            <AnimatedDigit key={`${index}-${char}`} value={char} />
           );
         })}
     </time>
