@@ -70,6 +70,10 @@ react-timer/
 │   │   │   ├── AmbientBackground.jsx
 │   │   │   └── AmbientBackground.css
 │   │   │
+│   │   ├── AnimatedDigit/
+│   │   │   ├── AnimatedDigit.jsx
+│   │   │   └── AnimatedDigit.css
+│   │   │
 │   │   ├── TimerDisplay/
 │   │   │   ├── TimerDisplay.jsx
 │   │   │   └── TimerDisplay.css
@@ -106,7 +110,8 @@ react-timer/
 │   │   └── ThemeContext.jsx
 │   │
 │   ├── __tests__/
-│   │   └── useTimer.test.jsx
+│   │   ├── useTimer.test.jsx
+│   │   └── AnimatedDigit.test.jsx
 │   │
 │   ├── hooks/            # Custom React hooks.
 │   │   ├── useTimer.js
@@ -125,6 +130,7 @@ react-timer/
 ├── eslint.config.js      # ESLint configuration.
 ├── index.html            # HTML entry point.
 ├── vite.config.js        # Vite config for build and development.
+├── vitest.setup.js       # Vitest config for unit testing purposes.
 ├── package.json          # Project metadata, dependencies, and scripts.
 └── package-lock.json     # Exact versions of installed dependencies.
 ```
@@ -133,8 +139,26 @@ react-timer/
 
 ## 🎯 Roadmap
 
+Phase 1: Core Timer Mechanics & State.
 - [x] Keyboard shortcuts for core controls.
-- [ ] Add light/dark mode toggle with animation.
+- [x] Add light/dark mode toggle with animation.
+- [ ] Integrate web workers to prevent the browser from throttling timer accuracy when backgrounded.
+- [ ] Add tab title updates to show remaining time and a play/pause icon.
+
+Phase 2: Ambient Background System
+- [ ] Build an audio mixer dashboard to layer sounds (e.g., rain, white noise, cafe chatter).
+- [ ] Design CSS canvas/WebGL particle effects that react to the audio frequence or timer countdown speed.
+- [ ] Add a smooth audio fade-out when the timer hits zero to prevent abrupt sound cutting.
+- [ ] Implement a fullscreen presentation mode that hides all UI elements except the timer and ambient background.
+
+Phase 3: System Integration & Polish
+- [ ] Integrate the Web Notification API to alert users when a session ends if they are in another tab.
+- [ ] Add a Screen Wake Lock API toggle to keep the display from turning off during a focus session.
+- [ ] Support picture-in-picture mode for the timer text using the Document Picture-in-Picture API.
+
+Phase 4: Optimization & Testing
+- [ ] Component test the audio controls using React Testing Library.
+- [ ] Profile performance to ensure the ambient animations do not spike CPU/GPU usage.
 
 ---
 
