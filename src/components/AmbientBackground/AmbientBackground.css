@@ -8,8 +8,29 @@
     overflow: clip;
     pointer-events: none;
     z-index: -2;
+
+    --ambient-stars-speed: 180s;
+    --ambient-depth-speed: 60s;
+    --ambient-nebula-speed: 36s;
+    --ambient-bloom-speed: 20s;
 }
 
+/* Ambient Faint Grain Layer Styles. */
+.ambient::after
+{
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    mix-blend-mode: soft-light;
+
+    background-image: radial-gradient(
+        circle,
+        rgb(255 255 255 / 0.15) 0.5px,
+        transparent 0.7px
+    );
+    background-size: 5px 5px;
+}
 .ambient-space
 {
     position: absolute;
@@ -27,48 +48,6 @@
     ),
     linear-gradient(180deg, var(--bg-secondary), var(--bg));
 }
-
-/* ====================================
-   AMBIENTBACKGROUND NEBULA STYLES.
-======================================= */
-.ambient-nebula
-{
-    position: absolute;
-    inset: -45%;
-    z-index: -2;
-
-    background: radial-gradient(
-        circle at 35% 35%,
-        hsl(var(--ambient-hue) 100% 70% / 0.22),
-        transparent 45%
-    ),
-    radial-gradient(
-        circle at 70% 65%,
-        hsl(var(--ambient-hue-secondary) 100% 70% / 0.12),
-        transparent 50%
-    );
-
-    transform: translate3d(0, calc(var(--ambient-motion) * -18px), 0)
-    scale(calc(1 + var(--ambient-energy) * 0.08));
-    filter: blur(calc(100px + var(--ambient-energy) * 120px));
-
-    animation: ambient-drift 24s ease-in-out infinite;
-}
-.ambient-glow
-{
-    position: absolute;
-    inset: -35%;
-
-    filter: blur(calc(120px + var(--ambient-energy) * 160px));
-    opacity: calc(0.40 + var(--ambient-energy) * 0.50);
-    background: radial-gradient(
-        circle,
-        hsl(var(--ambient-hue) 100% 70% / 0.18),
-        transparent 70%
-    );
-
-    animation: ambient-glow 18s ease-in-out infinite;
-}
 .ambient-stars
 {
     position: absolute;
@@ -78,7 +57,7 @@
     background: radial-gradient(
         circle,
         #fff 1px,
-       transparent 1.5px
+        transparent 1.5px
     ) 10% 20% / 180px 180px,
     radial-gradient(
         circle,
@@ -90,35 +69,69 @@
         #fff 0.80px,
         transparent 1.3px
     ) 30% 70% / 300px 300px;
+
+    transform: translateY(calc(var(--ambient-motion) * -4px));
+
+    animation: ambient-stars var(--ambient-stars-speed) linear infinite,
+               ambient-stars-depth var(--ambient-depth-speed) ease-in-out infinite;
 }
-.ambient-particles
+
+/* ====================================
+   AMBIENTBACKGROUND NEBULA STYLES.
+======================================= */
+.ambient-nebula
 {
     position: absolute;
-    inset: -20%;
+    inset: -70%;
+    z-index: 0; /* Invisible when > 0. */
 
-    filter: blur(0.50px);
-    opacity: calc(0.12 + var(--ambient-energy) * 0.18);
+    background: radial-gradient(
+        circle at 18% 32%,
+        hsl(var(--ambient-hue) 100% 70% / 0.24),
+        transparent 26%
+    ),
+    radial-gradient(
+        circle at 82% 24%,
+        hsl(calc(var(--ambient-hue) + 18) 100% 72% / 0.16),
+        transparent 38%
+    ),
+    radial-gradient(
+        circle at 68% 78%,
+        hsl(var(--ambient-hue-secondary) 100% 70% / 0.18),
+        transparent 52%
+    ),
+    radial-gradient(
+        circle at 30% 82%,
+        hsl(calc(var(--ambient-hue-secondary) - 30) 100% 70% / 0.12),
+        transparent 68%
+    ),
+    radial-gradient(
+        circle,
+        transparent,
+        rgb(0 0 0 / 0.22)
+    );
+
+    transform: rotate(calc(var(--ambient-rotation)))
+               scale(var(--ambient-scale));
+    filter: blur(var(--ambient-blur-strong));
+
+    animation: ambient-drift var(--ambient-nebula-speed) ease-in-out infinite;
+}
+.ambient-bloom
+{
+    position: absolute;
+    inset: -45%;
+
+    filter: blur(var(--ambient-blur-soft));
+    opacity: calc(0.18 + var(--ambient-energy) * 0.55);
     background: radial-gradient(
         circle,
-        #fff 1px,
-        transparent 2px
-    ) center/240px 240px;
-
-    animation: ambient-particles 36s linear infinite;
-}
-.ambient-haze
-{
-    position: absolute;
-    inset: -15%;
-
-    filter: blur(80px);
-    opacity: calc(0.25 + var(--ambient-energy) * 0.20);
-    background: radial-gradient(
-        ellipse at top,
-        rgb(255 255 255 / 0.03),
-        transparent 60%
+        hsl(var(--ambient-hue) 100% 72% / 0.20),
+        transparent 65%
     );
     mix-blend-mode: screen;
+
+    animation: ambient-bloom var(--ambient-bloom-speed) ease-in-out infinite;
 }
 .ambient-vignette
 {
@@ -134,8 +147,26 @@
 }
 
 /* AMBIENTBACKGROUND ANIMATIONS. */
+@keyframes ambient-stars-depth
+{
+    0%, 100% { scale: 1; }
+    50% { scale: 1.015; }
+}
 @keyframes ambient-drift
 {
-    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-    50% { transform: translate3d(0, -24px, 0) scale(1.08); }
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 calc(var(--ambient-motion) * -36px); }
+}
+@keyframes ambient-bloom
+{
+    0%, 100% { opacity: calc(0.18 + var(--ambient-energy) * 0.55); }
+    50% { opacity: calc(0.24 + var(--ambient-energy) * 0.60); }
+}
+
+/* ====================================
+   AMBIENTBACKGROUND REDUCED MOTION STYLES.
+======================================= */
+@media (prefers-reduced-motion: reduce)
+{
+    .ambient-stars, .ambient-nebula, .ambient-bloom { translate: none; rotate: none; scale: none; animation: none; }
 }

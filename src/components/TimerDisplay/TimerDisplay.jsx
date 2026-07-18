@@ -28,24 +28,20 @@ export default function TimerDisplay({ timeLeft })
       dateTime={display}
     >
       {characters.map((char, index) =>
-        {
-          if (char === ":")
-          {
-            return (
-              <span
-                key={`separator-${index}`}
-                className="timer-display-separator"
-                aria-hidden="true"
+        char === ":"
+          ? (
+            <span
+              key={`separator-${index}`}
+              className="timer-display-separator"
+              aria-hidden="true"
               >
                 :
-              </span>
-            );
-          }
-
-          return (
-            <AnimatedDigit key={`${index}-${char}`} value={char} />
-          );
-        })}
+            </span>
+          )
+          : (
+              <AnimatedDigit key={`${index}-${char}`} value={char} />
+            )
+        )}
     </time>
   );
 }

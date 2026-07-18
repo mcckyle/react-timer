@@ -1,6 +1,6 @@
 //File name: useAmbientEngine.js
 //Author: Kyle McColgan
-//Date: 15 July 2026
+//Date: 17 July 2026
 //Description: This file contains the background hook component for the timer React project.
 
 import { useState, useEffect, useMemo, useRef } from "react";
@@ -53,16 +53,18 @@ export function useAmbientEngine({
     const progress = Math.min(1, Math.max(0, smoothProgress));
 
     /* Dynamic ambient energy system.
-     220 = cool blue, 160 = teal, 80 = lime, 18 = amber / red */
-    const energy = Math.pow(1 - progress, 2.2);
-    const hue = 220 - energy * 205;
+     220 = cool blue, 160 = teal, 80 = lime, 18 = amber / red. */
+    const now = performance.now() * 0.00008;
+    const t = 1 - progress;
+    const energy = t * t * (3 - 2 * t);
+    const hue = 220 - energy * 205 + Math.sin(now) * 4;
     const secondaryHue = (hue + 65) % 360;
 
-    const glow = 0.45 + energy * 1.55;
-    const density = 0.08 + energy * 0.22;
-    const motion = running ? energy : energy * 0.35;
-    const pulse = running ? 0.2 + energy * 0.8 : 0.15;
-    const blur = 120 + energy * 140;
+    const glow = 0.3 + energy * 0.70;
+    const motion = running ? energy : energy * 0.25;
+    const blur = 80 + energy * 120;
+    const scale = 1 + energy * 0.12;
+    const rotation = `${energy * 8}deg`;
 
     const style = useMemo(() => ({
         "--ambient-progress": progress,
@@ -73,12 +75,13 @@ export function useAmbientEngine({
 
         "--ambient-motion": motion,
         "--ambient-glow": glow,
-        "--ambient-density": density,
-        "--ambient-pulse": pulse,
+
+        "--ambient-scale": scale,
+        "--ambient-rotation": rotation,
 
         "--ambient-blur-soft": `${blur}px`,
-        "--ambient-blur-strong": `${blur * 1.5}px`,
-    }), [progress, energy, hue, secondaryHue, motion, glow, density, pulse, blur]);
+        "--ambient-blur-strong": `${blur * 1.6}px`,
+    }), [progress, energy, hue, secondaryHue, motion, glow, scale, rotation, blur]);
 
     return {
         progress,
