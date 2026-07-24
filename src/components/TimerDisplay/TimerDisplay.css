@@ -5,6 +5,10 @@
 ======================================= */
 .timer-display
 {
+    position: relative;
+    isolation: isolate;
+    text-rendering: geometricPrecision;
+    font-variant-numeric: tabular-nums lining-nums;
     inline-size: 100%;
 
     display: inline-flex;
@@ -18,6 +22,23 @@
     line-height: 0.72;
     color: var(--text);
     user-select: none;
+}
+.timer-display::before
+{
+    content: "";
+    position: absolute;
+    inset: -8%;
+    z-index: -1;
+
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: calc(0.25 + var(--ambient-intensity) * 0.45);
+    background: radial-gradient(
+        ellipse,
+        hsl(var(--ambient-hue) 100% 72% / calc(0.05 + var(--ambient-energy) * 0.12)),
+        transparent 72%
+    );
+    pointer-events: none;
 }
 
 /* ====================================
@@ -55,6 +76,9 @@
 
     color: hsl(var(--ambient-hue) 100% 82% / 0.85);
     opacity: calc(0.45 + var(--ambient-energy) * 0.40);
+    transform: scale(calc(0.98 + var(--ambient-pulse) * 0.04));
+
+    transition: opacity 250ms, transform 250ms;
 }
 
 /* ====================================

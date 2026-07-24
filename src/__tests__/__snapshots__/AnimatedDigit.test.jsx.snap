@@ -8,7 +8,7 @@ exports[`AnimatedDigit Component > 10. matches snapshot for digit 9 1`] = `
   >
     <span
       class="value"
-      style="opacity: 0.4; transform: translateY(10%) scale(0.96);"
+      style="opacity: 1; filter: blur(0px); transform: none;"
     >
       9
     </span>

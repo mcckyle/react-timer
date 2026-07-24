@@ -13,6 +13,8 @@
     --ambient-depth-speed: 60s;
     --ambient-nebula-speed: 36s;
     --ambient-bloom-speed: 20s;
+
+    transition: filter 700ms linear, background 900ms linear;
 }
 
 /* Ambient Faint Grain Layer Styles. */
@@ -86,36 +88,53 @@
     z-index: 0; /* Invisible when > 0. */
 
     background: radial-gradient(
-        circle at 18% 32%,
-        hsl(var(--ambient-hue) 100% 70% / 0.24),
-        transparent 26%
+        ellipse at 18% 24%,
+        hsl(var(--ambient-hue) 100% 70% / 0.30),
+        transparent 34%
     ),
     radial-gradient(
-        circle at 82% 24%,
-        hsl(calc(var(--ambient-hue) + 18) 100% 72% / 0.16),
+        ellipse at 78% 22%,
+        hsl(calc(var(--ambient-hue) + 22) 100% 72% / 0.24),
         transparent 38%
     ),
     radial-gradient(
-        circle at 68% 78%,
-        hsl(var(--ambient-hue-secondary) 100% 70% / 0.18),
-        transparent 52%
+        ellipse at 64% 72%,
+        hsl(var(--ambient-hue-secondary) 100% 70% / 0.22),
+        transparent 42%
     ),
     radial-gradient(
-        circle at 30% 82%,
-        hsl(calc(var(--ambient-hue-secondary) - 30) 100% 70% / 0.12),
-        transparent 68%
+        ellipse at 28% 82%,
+        hsl(calc(var(--ambient-hue-secondary) - 36) 100% 68% / 0.18),
+        transparent 54%
     ),
     radial-gradient(
-        circle,
-        transparent,
-        rgb(0 0 0 / 0.22)
+        ellipse at center,
+        rgb(0 0 0 / 0.22),
+        rgb(0 0 0 / 0.45)
     );
 
     transform: rotate(calc(var(--ambient-rotation)))
                scale(var(--ambient-scale));
-    filter: blur(var(--ambient-blur-strong));
+    filter: blur(calc(var(--ambient-blur-strong) * (0.82 + var(--ambient-pulse) * 0.25)));
 
     animation: ambient-drift var(--ambient-nebula-speed) ease-in-out infinite;
+}
+.ambient-nebula::before
+{
+    content: "";
+    position: absolute;
+    inset: -30%;
+
+    filter: blur(220px);
+    opacity: calc(0.20 + var(--ambient-energy) * 0.35);
+    background: radial-gradient(
+        ellipse at 40% 50%,
+        rgb(255 255 255 / 0.08),
+        transparent 45%
+    );
+    mix-blend-mode: screen;
+
+    animation: ambient-drift 42s ease-in-out infinite reverse;
 }
 .ambient-bloom
 {
@@ -137,6 +156,7 @@
 {
     position: absolute;
     inset: 0;
+    opacity: calc(0.35 + var(--ambient-energy) * 0.18);
 
     background: radial-gradient(
         ellipse,
