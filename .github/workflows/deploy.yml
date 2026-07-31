@@ -1,6 +1,6 @@
 #Filename: deploy.yml
 #Author: Kyle McColgan
-#Date: 12 February 2026
+#Date: 31 July 2026
 #Description: This file contains the GitHub Actions Workflow and GitHub Pages deployment processes for the React timer project.
 
 name: Deploy to GitHub Pages
@@ -23,7 +23,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
 
       - name: Install package dependencies
