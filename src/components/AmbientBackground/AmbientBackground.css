@@ -115,7 +115,7 @@
 
     transform: rotate(calc(var(--ambient-rotation)))
                scale(var(--ambient-scale));
-    filter: blur(calc(var(--ambient-blur-strong) * (0.82 + var(--ambient-pulse) * 0.25)));
+    filter: blur(180px);
 
     animation: ambient-drift var(--ambient-nebula-speed) ease-in-out infinite;
 }

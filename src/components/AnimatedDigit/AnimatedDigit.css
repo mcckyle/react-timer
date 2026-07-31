@@ -30,7 +30,7 @@
     place-items: center;
     line-height: 1;
     transform: translateZ(0);
-    will-change: transform, opacity, filter;
+    will-change: transform, opacity;
     backface-visibility: hidden;
 }
 
@@ -38,11 +38,3 @@
    ANIMATEDDIGIT CENTISECOND DIGIT STYLE.
 ======================================= */
 .centi { opacity: 0.8; }
-
-/* ====================================
-   ANIMATEDDIGIT MEDIA QUERY STYLES.
-======================================= */
-@media (prefers-reduced-motion: reduce)
-{
-    .value { transition: none; }
-}

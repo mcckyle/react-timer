@@ -1,3 +1,5 @@
+[![Deploy to GitHub Pages](https://github.com/mcckyle/react-timer/actions/workflows/deploy.yml/badge.svg)](https://github.com/mcckyle/react-timer/actions/workflows/deploy.yml)
+
 # react-timer
 
 A simple, modern timer app built with **React** and **Vite**. Designed for focus and clarity.

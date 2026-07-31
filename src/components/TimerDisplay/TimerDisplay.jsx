@@ -1,9 +1,8 @@
 //File name: TimerDisplay.jsx
 //Author: Kyle McColgan
-//Date: 16 July 2026
+//Date: 31 July 2026
 //Description: This file contains the time display for the timer React project.
 
-import { useMemo } from "react";
 import { formatDuration } from "../../utils/formatDuration";
 import AnimatedDigit from "../AnimatedDigit/AnimatedDigit.jsx";
 import "./TimerDisplay.css";
@@ -12,11 +11,8 @@ export default function TimerDisplay({ timeLeft })
 {
   //Only update visible digits once per second.
   const seconds = Math.ceil(timeLeft / 1000);
-  const display = useMemo(() =>
-  {
-    return formatDuration(seconds * 1000)
-  }, [seconds]);
-  const characters = useMemo(() => [...display], [display]);
+  const display = formatDuration(seconds * 1000);
+  const characters = [...display];
 
   return (
     <time

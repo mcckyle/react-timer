@@ -1,6 +1,6 @@
 //File name: AnimatedDigit.jsx
 //Author: Kyle McColgan
-//Date: 23 July 2026
+//Date: 31 July 2026
 //Description: This file contains the digits component for the timer React project.
 
 import React from "react";
@@ -18,9 +18,9 @@ const AnimatedDigit = ({ value, isCenti = false }) => {
         <motion.span
           key={value}
           className="value"
-          initial={{ opacity: 0, y: "14%", scale: 0.94, filter: "blur(4px)" }}
-          animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-          exit={{ opacity: 0, y: "-14%", scale: 1.04, filter: "blur(5px)" }}
+          initial={{ opacity: 0, y: "10%", scale: 0.97 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: "-10%", scale: 1.06 }}
           transition={TRANSITION}
         >
           {value}

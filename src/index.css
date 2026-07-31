@@ -15,9 +15,13 @@ body
 
   font-family: var(--font-sans);
   font-variant-numeric: tabular-nums;
+  font-feature-settings: "liga" 1, "kern" 1, "tnum" 1;
+  font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+  touch-action: manipulation;
 
   background-color: var(--bg);
   color: var(--text);
@@ -28,10 +32,11 @@ body
 button { cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
 button, input, textarea, select { font: inherit; }
 img, picture, svg, canvas { display: block; max-inline-size: 100%; }
+img, svg { user-select: none; -webkit-user-drag: none; }
 h1, h2, h3, h4 { margin: 0; font-weight: 500; line-height: 1.05; letter-spacing: -0.035em; }
 p { margin: 0; }
-::selection { background: var(--accent-soft); }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+::selection { background: color-mix(in oklab, var(--accent), transparent 40%); color: white; }
+:focus-visible { outline: 2px solid color-mix(in oklab, var(--accent), white 18%); outline-offset: 4px; }
 
 /* ====================================
    NOSCRIPT MESSAGE STYLES.
@@ -62,8 +67,8 @@ p { margin: 0; }
   html { scroll-behavior: auto; }
   *, *::before, *::after
   {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
   }
 }

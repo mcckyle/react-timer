@@ -7,9 +7,8 @@
 {
   position: relative;
   isolation: isolate;
-
-  inline-size: var(--viewport-width);
-  block-size: var(--viewport-height);
-
   overflow: clip;
+
+  inline-size: 100%;
+  min-block-size: 100dvh;
 }

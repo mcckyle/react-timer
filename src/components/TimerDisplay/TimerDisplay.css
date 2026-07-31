@@ -14,31 +14,14 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    gap: 0.02em;
 
     font-family: var(--font-mono);
     font-size: clamp(6rem, 20vw, 32rem); /* Important: Digits as large as possible. */
     font-weight: 700;
     line-height: 0.72;
+    letter-spacing: -0.045em;
     color: var(--text);
     user-select: none;
-}
-.timer-display::before
-{
-    content: "";
-    position: absolute;
-    inset: -8%;
-    z-index: -1;
-
-    border-radius: 50%;
-    filter: blur(90px);
-    opacity: calc(0.25 + var(--ambient-intensity) * 0.45);
-    background: radial-gradient(
-        ellipse,
-        hsl(var(--ambient-hue) 100% 72% / calc(0.05 + var(--ambient-energy) * 0.12)),
-        transparent 72%
-    );
-    pointer-events: none;
 }
 
 /* ====================================
@@ -46,9 +29,9 @@
 ======================================= */
 .timer.is-running .timer-display
 {
-    text-shadow: 0 0 18px hsl(var(--ambient-hue) 100% 72% / calc(0.14 + var(--ambient-energy) * 0.14)),
-                 0 0 64px hsl(var(--ambient-hue) 100% 72% / calc(0.08 + var(--ambient-energy) * 0.12)),
-                 0 0 180px hsl(var(--ambient-hue) 100% 72% / calc(0.04 + var(--ambient-energy) * 0.08));
+    text-shadow: 0 0 12px hsl(var(--ambient-hue) 100% 72% / calc(0.14 + var(--ambient-energy) * 0.14)),
+                 0 0 36px hsl(var(--ambient-hue) 100% 72% / calc(0.08 + var(--ambient-energy) * 0.12)),
+                 0 0 110px hsl(var(--ambient-hue) 100% 72% / calc(0.04 + var(--ambient-energy) * 0.08));
 }
 
 /* ====================================
@@ -75,10 +58,9 @@
     margin-inline: 0.02em;
 
     color: hsl(var(--ambient-hue) 100% 82% / 0.85);
-    opacity: calc(0.45 + var(--ambient-energy) * 0.40);
-    transform: scale(calc(0.98 + var(--ambient-pulse) * 0.04));
+    filter: brightness(calc(0.90 + var(--ambient-pulse) * 0.30));
 
-    transition: opacity 250ms, transform 250ms;
+    transition: filter 250ms ease;
 }
 
 /* ====================================
@@ -94,14 +76,6 @@
     0% { transform: scale(1); }
     40% { transform: scale(1.025); }
     100% { transform: scale(1); }
-}
-
-/* ====================================
-   TIMERDISPLAY REDUCED MOTION STYLES.
-======================================= */
-@media (prefers-reduced-motion: reduce)
-{
-    .timer-display-digit { filter: none !important; opacity: 1 !important; transform: none !important; }
 }
 
 /* ====================================

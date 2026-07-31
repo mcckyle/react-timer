@@ -11,8 +11,8 @@
   inline-size: 100%;
   min-block-size: 100dvh;
 
-  display: grid;
-  grid-template-rows: auto 1fr;
+  display: flex;
+  flex-direction: column;
   overflow: clip;
 }
 
@@ -33,8 +33,8 @@
 ======================================= */
 .displayRegion
 {
-  width: 100%;
-  height: 100%;
+  inline-size: 100%;
+  block-size: 100%;
 
   display: flex;
   align-items: center;
@@ -45,34 +45,19 @@
 /* ====================================
    TIMER CONTROLS DOCK STYLES.
 ======================================= */
-.controlsRegion { width: 100%; display: flex; justify-content: center; padding-top: clamp(1rem, 4vh, 3rem); }
+.controlsRegion { inline-size: 100%; display: flex; justify-content: center; padding-top: clamp(1rem, 4vh, 3rem); }
 
 /* ====================================
    TIMER SHORTCUTS STYLES.
 ======================================= */
 .timer-shortcuts
 {
-  margin: 0 auto clamp(1rem, 3vh, 2rem);
+  margin: 1rem auto clamp(1rem, 3vh, 2rem);
 
   font-size: 0.7rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   opacity: 0.32;
-}
-
-/* ====================================
-   TIMER COMPLETION FLASH STYLES.
-======================================= */
-.timer.is-complete::before
-{
-  animation: timer-complete 900ms var(--ease-standard);
-}
-
-@keyframes timer-complete
-{
-  0% { opacity: 0.5; transform: scale(0.92); }
-  50% { opacity: 1; transform: scale(1.12); }
-  100% { opacity: 0.5; transform: scale(1); }
 }
 
 /* ====================================
@@ -82,12 +67,4 @@
 {
   .timer { gap: var(--space-md); padding: var(--space-md); }
   .stage { gap: var(--space-lg); }
-}
-
-/* ====================================
-   TIMER REDUCED MOTION STYLES.
-======================================= */
-@media (prefers-reduced-motion: reduce)
-{
-  .timer::before { animation: none; }
 }
