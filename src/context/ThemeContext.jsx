@@ -1,6 +1,6 @@
 //File name: ThemeContext.jsx
 //Author: Kyle McColgan
-//Date: 31 July 2026
+//Date: 5 August 2026
 //Description: This file contains the theming context component for the timer React project.
 
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useLayoutEffect } from "react";
@@ -50,14 +50,8 @@ function applyTheme(theme)
 {
   const root = document.documentElement;
 
-  if (root.dataset.theme !== theme)
-  {
-    root.dataset.theme = theme;
-  }
-  if (root.style.colorScheme !== theme)
-  {
-    root.style.colorScheme = theme;
-  }
+  root.dataset.theme = theme;
+  root.style.colorScheme = theme;
 }
 
 function saveTheme(theme)
@@ -126,13 +120,12 @@ export function ThemeProvider({ children })
     return () => media.removeListener(handleSystemTheme);
   }, []);
 
-  const value = useMemo(() => ({
-    theme,
-    toggleTheme
-  }), [
-    theme,
-    toggleTheme
-  ]);
+  const value = useMemo(
+    () => Object.freeze({
+      theme,
+      toggleTheme
+    }), [theme, toggleTheme]
+  );
 
   return (
     <ThemeContext.Provider value={value}>
