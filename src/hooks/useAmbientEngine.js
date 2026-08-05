@@ -1,6 +1,6 @@
 //File name: useAmbientEngine.js
 //Author: Kyle McColgan
-//Date: 23 July 2026
+//Date: 4 August 2026
 //Description: This file contains the background hook component for the timer React project.
 
 import { useState, useEffect, useMemo, useRef } from "react";
@@ -53,7 +53,7 @@ export function useAmbientEngine({ duration, timeLeft, running })
     const now = performance.now() * 0.00008;
     const t = 1 - progress;
     const energy = t * t * (3 - 2 * t);
-    const hue = 220 - energy * 205 + Math.sin(now * 0.55) * 6 + Math.sin(now * 0.17) * 3 + Math.cos(now * 0.09) * 2;
+    const hue = 220 - energy * 205 + (1 - energy) * (Math.sin(now * 0.45) * 7 + Math.sin(now * 0.11) * 5);
     const secondaryHue = (hue + 65) % 360;
 
     const glow = 0.3 + energy * 0.70;

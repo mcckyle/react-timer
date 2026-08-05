@@ -4,7 +4,7 @@
 
 A simple, modern timer app built with **React** and **Vite**. Designed for focus and clarity.
 
-![Screenshot](./public/images/Screenshot_20260715_175838.png)
+![Screenshot](./public/images/Screenshot_20260804_202810.png)
 *A glimpse of the timer, captured with a screenshot.*
 
 *🌐 [Visit the live site](https://mcckyle.github.io/react-timer/)*
