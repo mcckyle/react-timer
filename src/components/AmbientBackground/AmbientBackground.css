@@ -9,7 +9,7 @@
     pointer-events: none;
     z-index: -2;
 
-    --ambient-stars-speed: 180s;
+    --ambient-stars-speed: 170s;
     --ambient-depth-speed: 60s;
     --ambient-nebula-speed: 36s;
     --ambient-bloom-speed: 20s;
@@ -82,7 +82,7 @@
     animation: ambient-stars var(--ambient-stars-speed) linear infinite,
                ambient-stars-depth var(--ambient-depth-speed) ease-in-out infinite;
 }
-.ambient-stars-near { opacity: 0.52; filter: none; animation-duration: 140s; }
+.ambient-stars-near { opacity: 0.52; filter: none; animation-duration: 110s; }
 .ambient-stars-far { opacity: 0.18; filter: blur(0.40px); animation-duration: 220s; }
 
 /* ====================================
@@ -91,33 +91,38 @@
 .ambient-nebula
 {
     position: absolute;
-    inset: -70%;
+    inset: -95%;
     z-index: 0; /* Invisible when > 0. */
 
     background: radial-gradient(
-        ellipse at 18% 24%,
-        hsl(var(--ambient-hue) 100% 70% / 0.30),
-        transparent 34%
+        circle at 16% 24%,
+        hsl(var(--ambient-hue) 100% 72% / 0.30),
+        transparent 22%
     ),
     radial-gradient(
-        ellipse at 78% 22%,
-        hsl(calc(var(--ambient-hue) + 22) 100% 72% / 0.24),
-        transparent 38%
+        circle at 32% 68%,
+        hsl(calc(var(--ambient-hue) + 14) 100% 70% / 0.18),
+        transparent 24%
     ),
     radial-gradient(
-        ellipse at 64% 72%,
-        hsl(var(--ambient-hue-secondary) 100% 70% / 0.22),
-        transparent 42%
+        circle at 74% 28%,
+        hsl(var(--ambient-hue-secondary) 100% 74% / 0.22),
+        transparent 28%
     ),
     radial-gradient(
-        ellipse at 28% 82%,
-        hsl(calc(var(--ambient-hue-secondary) - 36) 100% 68% / 0.18),
-        transparent 54%
+        circle at 82% 62%,
+        hsl(calc(var(--ambient-hue-secondary) - 20) 100% 70% / 0.24),
+        transparent 24%
     ),
     radial-gradient(
-        ellipse at center,
-        rgb(0 0 0 / 0.22),
-        rgb(0 0 0 / 0.45)
+        circle at 54% 48%,
+        rgb(255 255 255 / 0.035),
+        transparent 18%
+    ),
+    radial-gradient(
+        circle at center,
+        rgb(0 0 0 / 0.15),
+        rgb(0 0 0 / 0.55)
     );
 
     transform: translate3d(0, calc(var(--ambient-motion) * -12px), 0);
@@ -134,6 +139,9 @@
     transform: translate3d(0, calc(var(--ambient-motion) * -12px), 0)
                rotate(calc(var(--ambient-rotation) * 0.40))
                scale(calc(var(--ambient-scale) + 0.06));
+
+    animation: ambient-drift-back 92s ease-in-out infinite,
+               ambient-spectrum 260s linear infinite;
 }
 .ambient-nebula-front
 {
@@ -144,6 +152,9 @@
     transform: translate3d(0, calc(var(--ambient-motion) * -12px), 0)
                rotate(calc(var(--ambient-rotation) * -0.80))
                scale(calc(var(--ambient-scale) * 0.95));
+
+    animation: ambient-drift-front 58s ease-in-out infinite,
+               ambient-spectrum 220s linear infinite reverse;
 }
 .ambient-nebula::before
 {
@@ -171,7 +182,22 @@
     );
     mix-blend-mode: screen;
 
-    animation: ambient-drift 42s ease-in-out infinite reverse;
+    animation: ambient-drift-core 74s ease-in-out infinite;
+}
+.ambient-nebula::after
+{
+    /* Faint Wisps Styles. */
+    content: "";
+    position: absolute;
+    inset: -35%;
+
+    background: radial-gradient(circle at 28% 36%, rgb(255 255 255 / 0.05), transparent 18%),
+                radial-gradient(circle at 70% 62%, rgb(255 255 255 / 0.04), transparent 24%);
+    filter: blur(90px);
+    opacity: 0.50;
+    mix-blend-mode: screen;
+
+    animation: ambient-drift-wisps 48s ease-in-out infinite;
 }
 .ambient-haze
 {
@@ -181,9 +207,9 @@
     filter: blur(120px);
     opacity: calc(0.08 + var(--ambient-energy) * 0.12);
     background: radial-gradient(
-        ellipse at center,
-        hsl(var(--ambient-hue) 100% 75% / 0.12),
-        transparent 70%
+        ellipse at 56% 46%,
+        hsl(var(--ambient-hue) 100% 75% / 0.08) 55%,
+        transparent 100%
     );
     mix-blend-mode: screen;
 
@@ -197,10 +223,16 @@
     filter: blur(var(--ambient-blur-soft));
     opacity: calc(0.16 + var(--ambient-energy) * 0.46 + var(--ambient-shimmer) * 0.12);
     background: radial-gradient(
-        ellipse at 45% 42%,
-        hsl(var(--ambient-hue) 100% 72% / 0.20),
-        transparent 65%
-    );
+        circle at 42% 36%,
+        hsl(var(--ambient-hue) 100% 76% / 0.18),
+        transparent 22%
+    ),
+    radial-gradient(
+        circle at 64% 56%,
+        hsl(var(--ambient-hue-secondary) 100% 74% / 0.14),
+        transparent 28%
+    ),
+    radial-gradient(circle at center, rgb(255 255 255 / 0.05), transparent 55%);
     mix-blend-mode: screen;
     transform: rotate(calc(var(--ambient-rotation) * 0.35));
 
@@ -227,6 +259,11 @@
 }
 
 /* AMBIENTBACKGROUND ANIMATIONS. */
+@keyframes ambient-spectrum
+{
+    0%, 100% { filter: hue-rotate(0deg) saturate(102%); }
+    50% { filter: hue-rotate(9deg) saturate(110%); }
+}
 @keyframes ambient-stars-depth
 {
     0%, 100% { scale: 1; }
@@ -234,8 +271,9 @@
 }
 @keyframes ambient-drift
 {
-    0%, 100% { translate: 0 0; }
-    50% { translate: 0 calc(var(--ambient-motion) * -36px); }
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+    35% { transform: translate3d(18px, -26px, 0) rotate(0.80deg) scale(1.03); }
+    70% { transform: translate3d(-12px, 14px, 0) rotate(-0.60deg) scale(0.98); }
 }
 @keyframes ambient-bloom
 {
