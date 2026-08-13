@@ -1,6 +1,6 @@
 //File name: useAmbientEngine.js
 //Author: Kyle McColgan
-//Date: 5 August 2026
+//Date: 12 August 2026
 //Description: This file contains the background hook component for the timer React project.
 
 import { useState, useEffect, useMemo, useRef } from "react";
