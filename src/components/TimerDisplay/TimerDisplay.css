@@ -1,27 +1,29 @@
 /* Filename: src/components/TimerDisplay/TimerDisplay.css */
 
 /* ====================================
-   TIMERDISPLAY FULL WIDTH CLOCK DISPLAY STYLES.
+   TIMERDISPLAY FULL WIDTH CLOCK STYLES.
 ======================================= */
 .timer-display
 {
     position: relative;
     isolation: isolate;
-    text-rendering: geometricPrecision;
-    font-variant-numeric: tabular-nums lining-nums;
-    inline-size: 100%;
 
     display: inline-flex;
-    justify-content: center;
+    inline-size: 100%;
     align-items: center;
+    justify-content: center;
 
     font-family: var(--font-mono);
     font-size: clamp(6rem, 20vw, 32rem); /* Important: Digits as large as possible. */
     font-weight: 700;
+    font-variant-numeric: tabular-nums lining-nums;
     line-height: 0.72;
     letter-spacing: -0.045em;
+    text-rendering: geometricPrecision;
+
     color: var(--text);
     user-select: none;
+    transform: translateZ(0);
 }
 
 /* ====================================
@@ -29,9 +31,10 @@
 ======================================= */
 .timer.is-running .timer-display
 {
-    text-shadow: 0 0 12px hsl(var(--ambient-hue) 100% 72% / calc(0.14 + var(--ambient-energy) * 0.14)),
-                 0 0 36px hsl(var(--ambient-hue) 100% 72% / calc(0.08 + var(--ambient-energy) * 0.12)),
-                 0 0 110px hsl(var(--ambient-hue) 100% 72% / calc(0.04 + var(--ambient-energy) * 0.08));
+    text-shadow: 0 0 10px hsl(var(--ambient-hue) 100% 72% / calc(0.12 + var(--ambient-energy) * 0.12)),
+                 0 0 32px hsl(var(--ambient-hue) 100% 72% / calc(0.07 + var(--ambient-energy) * 0.11)),
+                 0 0 90px hsl(var(--ambient-hue) 100% 72% / calc(0.035 + var(--ambient-energy) * 0.075)),
+                 0 0 180px hsl(var(--ambient-hue) 100% 72% / calc(0.012 + var(--ambient-energy) * 0.035));
 }
 
 /* ====================================
@@ -45,7 +48,6 @@
 
     min-width: 0.62em;
     transform-origin: center;
-    will-change: opacity;
 }
 
 /* ====================================
@@ -57,10 +59,11 @@
     place-items: center;
     margin-inline: 0.02em;
 
-    color: hsl(var(--ambient-hue) 100% 82% / 0.85);
-    filter: brightness(calc(0.90 + var(--ambient-pulse) * 0.30));
+    color: hsl(var(--ambient-hue) 100% 82% / calc(0.72 + var(--ambient-energy) * 0.18));
+    text-shadow: 0 0 12px hsl(var(--ambient-hue) 100% 78% / calc(0.12 + var(--ambient-energy) * 0.12));
+    filter: brightness(calc(0.94 + var(--ambient-pulse) * 0.18));
 
-    transition: filter 250ms ease;
+    transition: color 700ms var(--ease-fluid), filter 700ms var(--ease-fluid);
 }
 
 /* ====================================

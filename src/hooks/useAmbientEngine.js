@@ -46,12 +46,18 @@ export function useAmbientEngine({ duration, timeLeft, running })
     const progress = Math.min(1, Math.max(0, smoothProgress));
 
     /* Dynamic ambient energy system.
-     220 = cool blue, 160 = teal, 80 = lime, 18 = amber / red. */
+     *    220 = cool blue, 160 = teal, 80 = lime, 18 = amber / red. */
     const now = performance.now() * 0.00008;
     const t = 1 - progress;
+
+    //Smooth timer-driven energy curve.
     const energy = t * t * (3 - 2 * t);
-    const hue = 220 - energy * 205 + (1 - energy) * (Math.sin(now * 0.45) * 7 + Math.sin(now * 0.11) * 5);
-    const secondaryHue = (hue + 65) % 360;
+    const spectral =
+      Math.sin(now * 0.42) * 8 +
+      Math.sin(now * 0.16) * 5 +
+      Math.sin(now * 0.055) * 3;
+    const hue = 220 - energy * 205 + spectral * (0.45 + energy * 0.55);
+    const secondaryHue = (hue + 62 + Math.sin(now * 0.12) * 7) % 360;
 
     const glow = 0.3 + energy * 0.70;
     const motion = running ? energy : energy * 0.25;

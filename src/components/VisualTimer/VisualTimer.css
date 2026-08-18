@@ -16,7 +16,21 @@
 }
 
 /* ====================================
-   VISUALTIMER AMBIENT ENERGY STYLES.
+   VISUALTIMER CORE STYLES.
+======================================= */
+.visual-timer-core
+{
+    position: relative;
+    inline-size: clamp(320px, 34vw, 620px);
+    aspect-ratio: 0.72;
+
+    display: grid;
+    place-items: center;
+    transform: translate3d(0, 0, 0) scale(calc(1 + var(--visual-energy) * 0.04));
+}
+
+/* ====================================
+   VISUALTIMER AMBIENT HALO STYLES.
 ======================================= */
 .visual-timer-core::before
 {
@@ -26,30 +40,16 @@
 
     background: radial-gradient(
         circle,
-        hsl(var(--ambient-hue) 100% 72% / calc(0.12 + var(--ambient-energy) * 0.28)),
-        transparent 65%
+        hsl(var(--ambient-hue) 100% 72% / calc(0.10 + var(--ambient-energy) * 0.22)),
+        transparent 64%
     );
 
-    filter: blur(calc(70px + var(--visual-energy) * 70px));
+    filter: blur(calc(80px + var(--visual-energy) * 60px));
+    opacity: calc(0.55 + var(--visual-energy) * 0.45);
+    transform: translateZ(0);
+    pointer-events: none;
 
-    animation: visual-breathe 8s ease-in-out infinite;
-}
-
-/* ====================================
-   VISUALTIMER HOURGLASS SILHOUETTE STYLES.
-======================================= */
-.visual-timer-core
-{
-    position: relative;
-    inline-size: clamp(320px, 34vw, 620px);
-    aspect-ratio: 0.72;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: scale(calc(1 + var(--visual-energy) * 0.04));
-
-    transition: transform 600ms var(--ease-fluid);
+    animation: visual-breathe 11s var(--ease-fluid) infinite;
 }
 
 /* ====================================
@@ -60,39 +60,56 @@
     position: absolute;
     width: 70%;
     height: 88%;
+    overflow: hidden;
+    isolation: isolate;
 
     border-radius: 40% / 12%;
-    overflow: hidden;
     border: 1px solid color-mix(in srgb, var(--text) 16%, transparent);
     background: linear-gradient(
         180deg,
-        rgb(255 255 255 / 0.14),
-        rgb(255 255 255 / 0.02)
+        rgb(255 255 255 / 0.13),
+        rgb(255 255 255 / 0.018)
     ),
     linear-gradient(
         90deg,
-        rgb(255 255 255 / 0.05),
-        transparent 35%,
-        rgb(255 255 255 / 0.04)
+        rgb(255 255 255 / 0.045),
+        transparent 34%,
+        rgb(255 255 255 / 0.035)
     );
 
     backdrop-filter: blur(12px);
     box-shadow: inset 0 1px 1px rgb(255 255 255 / 0.18),
-                inset 0 0 60px rgb(255 255 255 / 0.04),
+                inset 0 0 60px rgb(255 255 255 / 0.035),
                 0 40px 120px rgb(0 0 0 / 0.42);
 }
 .visual-timer-glass::before
 {
     content: "";
     position: absolute;
-    inset: 0;
+    inset: -20%;
     background: linear-gradient(
         120deg,
-        transparent,
-        rgb(255 255 255 / 0.14),
-        transparent
+        transparent 30%,
+        rgb(255 255 255 / 0.12) 47%,
+        transparent 63%
     );
-    opacity: 0.55;
+    opacity: 0.52;
+    transform: translate3d(0, 0, 0) rotate(2deg);
+    pointer-events: none;
+}
+.visual-timer-glass::before
+{
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: radial-gradient(
+        ellipse 70% 42% at 50% 48%,
+        hsl(var(--ambient-hue) 100% 72% / calc(0.018 + var(--ambient-energy) * 0.035)),
+        transparent 72%
+    );
+
+    mix-blend-mode: screen;
     pointer-events: none;
 }
 
@@ -104,12 +121,13 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 56%;
+    inline-size: 56%;
 
-    background: linear-gradient(180deg, var(--accent-strong), color-mix(in srgb, var(--accent) 88%, black));
-    box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 24%, transparent),
-                0 0 80px color-mix(in srgb, var(--accent) 18%, transparent);
+    background: linear-gradient(180deg, hsl(var(--ambient-hue) 100% 78% / 0.98), hsl(var(--ambient-hue-secondary) 92% 58% / 0.94));
+    box-shadow: 0 0 20px hsl(var(--ambient-hue) 100% 72% / calc(0.16 + var(--visual-energy) * 0.10)),
+                0 0 70px hsl(var(--ambient-hue) 100% 68% / calc(0.07 + var(--visual-energy) * 0.08));
     filter: saturate(1.15);
+    will-change: height, opacity;
 }
 
 /* ====================================
@@ -118,10 +136,10 @@
 .visual-timer-sand-top
 {
     top: 8%;
-    height: calc(38% * var(--visual-progress));
+    block-size: calc(38% * var(--visual-progress));
 
     clip-path: polygon(50% 100%, 0 0, 100% 0);
-    opacity: calc(0.25 + var(--visual-progress));
+    opacity: calc(0.22 + var(--visual-progress) * 0.78);
 }
 
 /* ====================================
@@ -130,14 +148,18 @@
 .visual-timer-sand-flow
 {
     top: 50%;
-    width: clamp(2px, 0.18vw, 4px);
-    height: calc(45% * var(--visual-energy));
+    inline-size: clamp(2px, 0.18vw, 4px);
+    block-size: calc(45% * var(--visual-energy));
 
     border-radius: var(--radius-pill);
-    background: var(--accent-strong);
+    background: hsl(var(--ambient-hue) 100% 82% / 0.96);
 
-    box-shadow: 0 0 30px var(--accent);
-    opacity: calc(0.25 + var(--visual-energy));
+    box-shadow: 0 0 10px hsl(var(--ambient-hue) 100% 78% / 0.55),
+                0 0 30px hsl(var(--ambient-hue) 100% 72% / 0.28);
+    opacity: calc(0.20 + var(--visual-energy) * 0.80);
+    transform-origin: top center;
+
+    animation: visual-stream 3.8s var(--ease-fluid) infinite;
 }
 
 /* ====================================
@@ -146,8 +168,20 @@
 .visual-timer-sand-bottom
 {
     bottom: 8%;
-    height: calc(38% * var(--visual-energy));
+    block-size: calc(38% * var(--visual-energy));
     clip-path: polygon(0 100%, 100% 100%, 50% 0);
+    opacity: calc(0.18 + var(--visual-energy) * 0.82);
+}
+.visual-timer-sand-bottom::after
+{
+    content: "";
+    position: absolute;
+    inset-inline: -12%;
+    top: 0;
+    border-radius: 50%;
+
+    background: hsl(var(--ambient-hue) 100% 82% / 0.40);
+    filter: blur(4px);
 }
 
 @keyframes visual-breathe
@@ -155,16 +189,21 @@
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.025); }
 }
+@keyframes visual-stream
+{
+    0%, 100% { opacity: calc(0.20 + var(--visual-energy) * 0.72); transform: scaleX(0.92); }
+    50% { opacity: calc(0.26 + var(--visual-energy) * 0.80); transform: scaleX(1); }
+}
 
 /* ====================================
    VISUALTIMER MEDIA QUERY STYLES.
 ======================================= */
 @media (max-width: 480px)
 {
-    .visual-timer-core { width: 160px; height: 240px; }
+    .visual-timer-core { inline-size: 160px; block-size: 240px; }
 }
 
 @media (prefers-reduced-motion: reduce)
 {
-    .visual-timer-core, .visual-timer-core::before { transition: none; animation: none; }
+    .visual-timer-core::before, .visual-timer-sand-flow { animation: none; }
 }

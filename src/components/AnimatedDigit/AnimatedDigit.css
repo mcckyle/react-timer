@@ -12,9 +12,10 @@
 
     inline-size: 0.56em;
     block-size: 1em;
-    overflow: clip;
 
+    overflow: clip;
     isolation: isolate;
+
     font-variant-numeric: tabular-nums lining-nums;
 }
 
@@ -29,8 +30,8 @@
     display: grid;
     place-items: center;
     line-height: 1;
+
     transform: translateZ(0);
-    will-change: transform, opacity;
     backface-visibility: hidden;
 }
 
