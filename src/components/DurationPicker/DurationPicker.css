@@ -5,15 +5,22 @@
 ======================================= */
 .duration-picker
 {
+    --picker-glow: hsl(var(--ambient-hue) 100% 72% / calc(0.08 + var(--ambient-energy) * 0.10));
+
     display: flex;
     align-items: center;
-    gap: 0.45rem;
-    padding: 0.3rem;
+    gap: 0.35rem;
+
+    min-height: 2.65rem;
+    padding: 0.28rem;
     border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--surface-glass) 64%, transparent);
-    border: 1px solid color-mix(in srgb, var(--border-subtle) 90%, transparent);
-    backdrop-filter: blur(28px) saturate(105%) brightness(1.05);
-    box-shadow: var(--shadow-soft);
+    background: color-mix(in srgb, var(--surface-glass) 62%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border-subtle) 88%, transparent);
+    backdrop-filter: blur(28px) saturate(150%) brightness(1.04);
+    box-shadow: 0 16px 50px -30px rgb(0 0 0 / 0.70), 0 0 32px -18px var(--picker-glow);
+
+    transition: border-color var(--duration-standard) var(--ease-standard),
+                box-shadow var(--duration-standard) var(--ease-standard);
 }
 
 /* ====================================
@@ -22,7 +29,8 @@
 .duration-picker-presets
 {
     display: flex;
-    gap: 0.15rem;
+    align-items: center;
+    gap: 0.12rem;
 }
 
 /* ====================================
@@ -30,9 +38,16 @@
 ======================================= */
 .duration-pill
 {
-    height: 2rem;
-    min-width: 2.4rem;
+    position: relative;
+
+    min-height: 2.5rem;
+    height: 2.05rem;
     padding-inline: 0.7rem;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
     border: 0;
     border-radius: var(--radius-pill);
     background: transparent;
@@ -40,22 +55,24 @@
 
     font-size: 0.62rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.11em;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
 
-    transition: transform var(--duration-fast),
-                background var(--duration-standard),
-                box-shadow var(--duration-standard),
-                color var(--duration-standard);
+    transition: color var(--duration-fast) var(--ease-standard),
+                background var(--duration-standard) var(--ease-standard),
+                box-shadow var(--duration-standard) var(--ease-standard),
+                transform var(--duration-fast) var(--ease-fluid);
 }
-
 .duration-pill.is-active
 {
-    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 18%, transparent), var(--accent-soft));
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 16%, transparent), color-mix(in srgb, var(--accent) 7%, transparent));
     color: var(--accent);
-    transform: translateY(-1px);
-    box-shadow: 0 0 1px color-mix(in srgb, var(--accent) 28%, transparent),
-                0 0 26px color-mix(in srgb, var(--accent) 20%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent),
+                0 0 28px -14px var(--accent);
+    text-shadow: 0 0 18px color-mix(in srgb, var(--accent) 35%, transparent);
 }
+.duration-pill:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent-muted);}
 
 /* ====================================
    DURATIONPICKER CUSTOM TIME (INLINE GLASS, NOT A BOX) STYLES.
@@ -65,20 +82,21 @@
     position: relative;
     display: flex;
     align-items: center;
-    gap: 0.15rem;
+    gap: 0.12rem;
 
-    padding-inline-start: 0.70rem;
-    padding-left: 0.55rem;
-    border-left: 1px solid var(--border-subtle);
+    min-height: 2.05rem;
+    padding-inline: 0.65rem 0.45rem;
+    border-inline-start: 1px solid color-mix(in srgb, var(--border-subtle) 72%, transparent);
 }
 .duration-custom::before
 {
     content: "";
     position: absolute;
-    inset-block: 0.30rem;
-    inset-inline-start: 0;
+    inset-block: 0.38rem;
+    inset-inline-start: -1px;
     width: 1px;
-    background: linear-gradient(transparent, var(--border-subtle), transparent);
+    background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--ambient-hue) 42%, var(--border-subtle)), transparent);
+    opacity: calc(0.45 + var(--ambient-energy) * 0.35);
 }
 
 /* ====================================
@@ -87,16 +105,24 @@
 .sep
 {
     color: var(--text-muted);
-    opacity: 0.35;
-    font-weight: 600;
+    opacity: 0.28;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+
+    transition: color var(--duration-standard) var(--ease-standard),
+                opacity var(--duration-standard) var(--ease-standard);
 }
+.duration-picker:focus-within .sep { color: hsl(var(--ambient-hue) 100% 78%); opacity: 0.55; }
 
 @media (hover: hover)
 {
-    .duration-pill:hover
+    .duration-picker:hover { border-color: color-mix(in srgb, var(--ambient-hue) 18%, var(--border-subtle)); box-shadow: 0 18px 55px -32px rgb(0 0 0 / 0.72), 0 0 38px -20px var(--picker-glow); }
+    .duration-pill:hover:not(.is-active)
     {
-        color: var(--text);
-        transform: translateY(-2px);
+        color: var(--text-soft);
+        background: rgb(255 255 255 / 0.035);
+        transform: translateY(-1px);
     }
 }
 
@@ -105,7 +131,8 @@
 ======================================= */
 @media (prefers-reduced-motion: reduce)
 {
-    .duration-pill, .duration-custom  { transition: none; }
+    .duration-picker, .duration-pill, .sep  { transition: none; }
+    .duration-pill:hover:not(.is-active) { transform: none; }
 }
 
 /* ====================================
@@ -114,4 +141,10 @@
 @media (max-width: 640px)
 {
     .duration-picker { flex-wrap: wrap; justify-content: center; }
+}
+@media (max-width: 400px)
+{
+    .duration-picker { gap: 0.20rem; }
+    .duration-pill { min-width: 2.25rem; padding-inline: 0.55rem; }
+    .duration-custom { padding-inline-start: 0.50rem; }
 }
