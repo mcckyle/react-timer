@@ -19,12 +19,12 @@
     --accent-strong: hsl(var(--ambient-hue) 100% 72%);
 
     /* Base Color System. */
-    --bg: #04050a;
-    --bg-secondary: #0a1018;
-    --bg-tertiary: #101826;
+    --bg: #03050a;
+    --bg-secondary: #081d15;
+    --bg-tertiary: #0d1521;
     --text: #f5f7fb;
-    --text-muted: color-mix(in srgb, var(--text) 56%, transparent);
     --text-soft: color-mix(in srgb, var(--text) 76%, transparent);
+    --text-muted: color-mix(in srgb, var(--text) 54%, transparent);
 
     /* Surface System. */
     --surface: color-mix(in srgb, var(--bg) 90%, white 10%);
@@ -35,25 +35,32 @@
     --surface-active: color-mix(in srgb, var(--surface-raised) 82%, white 18%);
 
     /* Border System. */
-    --border-subtle: color-mix(in srgb, var(--text) 10%, transparent);
-    --border-medium: color-mix(in srgb, var(--text) 16%, transparent);
-    --border-strong: color-mix(in srgb, var(--text) 24%, transparent);
+    --border-subtle: color-mix(in srgb, var(--text) 9%, transparent);
+    --border-medium: color-mix(in srgb, var(--text) 15%, transparent);
+    --border-strong: color-mix(in srgb, var(--text) 23%, transparent);
 
-    /* Layout System. */
-    --radius: 20px;
+    /* Radius System. */
     --radius-xs: 0.5rem;
     --radius-sm: 0.75rem;
     --radius-md: 1rem;
     --radius-lg: 1.5rem;
     --radius-xl: 2rem;
+
+    --radius: 20px;
     --radius-pill: 999rem;
 
+    /* Layout System. */
     --content-width: 720px;
     --content-max: 1800px;
     --header-height: 72px;
 
+    --viewport-width: 100%;
+    --viewport-height: 100dvh;
+    --viewport-padding: clamp(1rem, 3vw, 3rem);
+    --section-padding: clamp(2rem, 4vw, 5rem);
+
     /* Spacing System. */
-    --space-xs: 0.4rem;
+    --space-xs: 0.40rem;
     --space-sm: 0.75rem;
     --space-md: 1rem;
     --space-lg: 1.5rem;
@@ -63,11 +70,6 @@
     --space-4xl: 6rem;
     --space-5xl: 8rem;
 
-    --viewport-width: 100%;
-    --viewport-height: 100dvh;
-    --viewport-padding: clamp(1rem, 3vw, 3rem);
-    --section-padding: clamp(2rem, 4vw, 5rem);
-
     /* Shadow System. */
     --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.18);
     --shadow-soft: 0 24px 64px -24px rgb(0 0 0 / 0.52);
@@ -76,36 +78,36 @@
     --shadow-glow: 0 0 42px color-mix(in srgb, var(--accent) 10%, transparent);
 
     /* Ambient Lighting System. */
-    --ambient-intensity: 1;
     --ambient-energy: 0;
     --ambient-progress: 1;
+    --ambient-intensity: 1;
 
     --ambient-hue: var(--accent-hue); /* Live hue (Timer can override this). */
     --ambient-hue-secondary: 278;
 
     --ambient-motion: 0;
+    --ambient-drift: 0;
     --ambient-glow: 0.3;
+
+    --ambient-pulse: 0;
+    --ambient-shimmer: 0;
 
     --ambient-scale: 1;
     --ambient-rotation: 0deg;
 
-    --ambient-pulse: 0;
-    --ambient-drift: 0;
-    --ambient-shimmer: 0;
-
     --ambient-blur-soft: 120px;
     --ambient-blur-strong: 180px;
 
-    --ambient-grid-opacity: 0.016;
+    --ambient-grid-opacity: 0.014;
 
     --ambient-color: hsl(var(--ambient-hue) 100% 72%);
-    --ambient-color-soft: hsl(var(--ambient-hue) 100% 72% / 0.08);
-    --ambient-color-medium: hsl(var(--ambient-hue) 100% 72% / 0.18);
-    --ambient-color-strong: hsl(var(--ambient-hue) 100% 72% / 0.34);
+    --ambient-color-soft: hsl(var(--ambient-hue) 100% 72% / 0.07);
+    --ambient-color-medium: hsl(var(--ambient-hue) 100% 72% / 0.16);
+    --ambient-color-strong: hsl(var(--ambient-hue) 100% 72% / 0.30);
 
     /* Glass System. */
-    --glass-highlight: linear-gradient(180deg, rgb(255 255 255 / 0.14), transparent 42%);
-    --glass-noise-opacity: 0.028;
+    --glass-highlight: linear-gradient(180deg, rgb(255 255 255 / 0.13), transparent 42%);
+    --glass-noise-opacity: 0.024;
 
     /* Motion System. */
     --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
@@ -127,9 +129,10 @@
     /* Base Color System. */
     --bg: #f3f7fc;
     --bg-secondary: #fbfdff;
+    --bg-tertiary: #edf2f8;
     --text: #0f1728;
-    --text-muted: color-mix(in srgb, var(--text) 52%, transparent);
     --text-soft: color-mix(in srgb, var(--text) 72%, transparent);
+    --text-muted: color-mix(in srgb, var(--text) 52%, transparent);
 
     /* Surface System. */
     --surface: color-mix(in srgb, white 88%, var(--bg));
@@ -152,14 +155,14 @@
     --shadow-glow: 0 0 28px color-mix(in srgb, var(--accent) 8%, transparent);
 
     /* Ambient Lighting System. */
-    --ambient-intensity: 1;
+    --ambient-intensity: 0.88;
     --ambient-blur-soft: 90px;
     --ambient-blur-strong: 160px;
-    --ambient-grid-opacity: 0.026;
+    --ambient-grid-opacity: 0.022;
 
     /* Glass System. */
-    --glass-highlight: linear-gradient(180deg, rgb(255 255 255 / 0.72), rgb(255 255 255 / 0.08));
-    --glass-noise-opacity: 0.02;
+    --glass-highlight: linear-gradient(180deg, rgb(255 255 255 / 0.70), rgb(255 255 255 / 0.08));
+    --glass-noise-opacity: 0.018;
 }
 
 /* ====================================

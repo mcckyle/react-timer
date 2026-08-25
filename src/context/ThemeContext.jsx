@@ -1,6 +1,6 @@
 //File name: ThemeContext.jsx
 //Author: Kyle McColgan
-//Date: 5 August 2026
+//Date: 24 August 2026
 //Description: This file contains the theming context component for the timer React project.
 
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useLayoutEffect } from "react";
@@ -15,6 +15,11 @@ const THEMES = Object.freeze({
 
 function getSystemTheme()
 {
+  if (typeof window === "undefined")
+  {
+    return THEMES.LIGHT;
+  }
+
   return window.matchMedia(DARK_MEDIA_QUERY).matches
   ? THEMES.DARK
   : THEMES.LIGHT;
@@ -30,14 +35,21 @@ function getInitialTheme()
     };
   }
 
-  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-
-  if ((savedTheme === THEMES.LIGHT) || (savedTheme === THEMES.DARK))
+  try
   {
-    return {
-      theme: savedTheme,
-      manual: true
-    };
+    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+
+    if ((savedTheme === THEMES.LIGHT) || (savedTheme === THEMES.DARK))
+    {
+      return {
+        theme: savedTheme,
+        manual: true
+      };
+    }
+  }
+  catch
+  {
+    //Local storage unavailable...
   }
 
   return {
@@ -80,32 +92,37 @@ export function ThemeProvider({ children })
 
   const toggleTheme = useCallback(() =>
   {
-    setTheme(current =>
+    setTheme(currentTheme =>
     {
-      const next =
-      current === THEMES.DARK
+      const nextTheme =
+      currentTheme === THEMES.DARK
       ? THEMES.LIGHT
       : THEMES.DARK;
 
       hasManualTheme.current = true;
-      saveTheme(next);
-      return next;
+      saveTheme(nextTheme);
+      return nextTheme;
     });
   }, []);
 
-  //Sync With System Theme Until Manual Override Exists.
+  //Follow the OS Theme until the user chooses manually.
   useEffect(() =>
   {
+    if (hasManualTheme.current)
+    {
+      return;
+    }
+
     const media = window.matchMedia(DARK_MEDIA_QUERY);
 
-    function handleSystemTheme(event)
+    const handleSystemTheme = event =>
     {
       if (hasManualTheme.current)
       {
         return;
       }
       setTheme(event.matches ? THEMES.DARK : THEMES.LIGHT);
-    }
+    };
 
     //Gracefully support older browsers.
     if (media.addEventListener)
@@ -121,7 +138,7 @@ export function ThemeProvider({ children })
   }, []);
 
   const value = useMemo(
-    () => Object.freeze({
+    () => ({
       theme,
       toggleTheme
     }), [theme, toggleTheme]
@@ -129,7 +146,7 @@ export function ThemeProvider({ children })
 
   return (
     <ThemeContext.Provider value={value}>
-    {children}
+      {children}
     </ThemeContext.Provider>
   );
 };

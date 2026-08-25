@@ -1,6 +1,6 @@
 //File name: App.jsx
 //Author: Kyle McColgan
-//Date: 29 June 2026
+//Date: 24 August 2026
 //Description: This file contains the App component for the timer React project.
 
 import Timer from "./components/Timer/Timer.jsx";
