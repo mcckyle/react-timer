@@ -10,13 +10,18 @@
     display: inline-grid;
     place-items: center;
 
-    inline-size: 0.56em;
+    inline-size: 0.60em;
     block-size: 1em;
 
     overflow: clip;
     isolation: isolate;
 
     font-variant-numeric: tabular-nums lining-nums;
+
+    /* Prevent the animation from changing the
+     * overall width of the giant clock.
+     */
+    flex: 0 0 0.60em;
 }
 
 /* ====================================
@@ -33,9 +38,15 @@
 
     transform: translateZ(0);
     backface-visibility: hidden;
+    will-change: transform, opacity;
 }
 
 /* ====================================
    ANIMATEDDIGIT CENTISECOND DIGIT STYLE.
 ======================================= */
-.centi { opacity: 0.8; }
+.centi { opacity: 0.78; }
+
+@media (prefers-reduced-motion: reduce)
+{
+    .value { will-change: auto; }
+}

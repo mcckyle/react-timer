@@ -1,6 +1,6 @@
 //File name: useTimer.js
 //Author: Kyle McColgan
-//Date: 12 May 2026
+//Date: 25 August 2026
 //Description: This file contains the custom timekeeping hook for the timer React project.
 
 import { useEffect, useState, useRef, useCallback } from "react";
@@ -13,7 +13,7 @@ const MAX_HISTORY = 50;
 const requestRAF =
   typeof requestAnimationFrame !== "undefined"
     ? requestAnimationFrame
-    : (cb) => setTimeout(cb, 16);
+    : (callback) => setTimeout(callback, 16);
 
 const cancelRAF =
   typeof cancelAnimationFrame !== "undefined"
@@ -57,6 +57,11 @@ export function useTimer()
 {
     const [duration, setDuration] = useState(DEFAULT_DURATION);
     const [timeLeft, setTimeLeft] = useState(DEFAULT_DURATION); //Time in milliseconds.
+
+    //Continous millisecond clock used exclusively
+    //by visual systems such as the ambient nebula.
+    //The normal timer display continues using `timeLeft`.
+    const [visualTimeLeft, setVisualTimeLeft] = useState(DEFAULT_DURATION);
     const [running, setRunning] = useState(false);
     const [pastTimers, setPastTimers] = useState([]);
 
@@ -105,6 +110,8 @@ export function useTimer()
             rafRef.current = null;
         }
 
+        setVisualTimeLeft(0);
+        setTimeLeft(0);
         setRunning(false);
         clearTimerSession();
 
@@ -113,12 +120,12 @@ export function useTimer()
             completedAt: nowEpoch(),
         };
 
-        setPastTimers((prev) =>
+        setPastTimers((previous) =>
         {
-            const next = [entry, ...prev].slice(0, MAX_HISTORY);
+            const next = [entry, ...previous].slice(0, MAX_HISTORY);
 
             //Avoid unnecessary writes.
-            if ( (JSON.stringify(prev)) !== (JSON.stringify(next)))
+            if ((JSON.stringify(previous)) !== (JSON.stringify(next)))
             {
                 try
                 {
@@ -150,6 +157,7 @@ export function useTimer()
 
         if ((typeof storedDuration !== "number") || (typeof storedTimeLeft !== "number"))
         {
+            hydratedRef.current = true;
             return;
         }
 
@@ -159,13 +167,17 @@ export function useTimer()
         if (!storedRunning)
         {
             setTimeLeft(storedTimeLeft);
+            setVisualTimeLeft(storedTimeLeft);
             setRunning(false);
+
+            hydratedRef.current = true;
             return;
         }
 
         //Running persistence.
         if (typeof startEpoch !== "number")
         {
+            hydratedRef.current = true;
             return;
         }
 
@@ -181,13 +193,14 @@ export function useTimer()
 
         startRef.current = nowPerf() - elapsed;
         setTimeLeft(remaining);
+        setVisualTimeLeft(remaining);
         setRunning(true);
     }, [complete]);
 
     //Unlock persistence after restoration finishes.
     useEffect(() =>
     {
-        if ((!hydratedRef.current))
+        if (!hydratedRef.current)
         {
             hydratedRef.current = true;
             return;
@@ -208,6 +221,9 @@ export function useTimer()
         const elapsed = now - startRef.current;
         const remaining = Math.max(0, duration - elapsed);
 
+        //Continous visual clock.
+        setVisualTimeLeft(remaining);
+
         if (remaining <= 0)
         {
             setTimeLeft(0);
@@ -215,6 +231,10 @@ export function useTimer()
             return;
         }
 
+        //The visible timer remains intentionally
+        //second-based.
+        //Only the ambient background receives
+        //the full-resolution value.
         const nextSecond = Math.ceil(remaining / 1000);
 
         //Always update on first frame OR when second changes.
@@ -255,6 +275,7 @@ export function useTimer()
         {
             //Do not reset completedRef yet, require explicit reset.
             setTimeLeft(duration);
+            setVisualTimeLeft(duration);
             return; //Exit early to force the user to reset first.
         }
 
@@ -265,12 +286,9 @@ export function useTimer()
 
         startRef.current = nowP - elapsed;
         lastSecondRef.current = null; //Force first frame update.
+        setVisualTimeLeft(duration - elapsed);
 
-        try
-        {
-            persistTimerSession({ duration, timeLeft, running: true, startEpoch: nowE - elapsed, });
-        }
-        catch {}
+        persistTimerSession({ duration, timeLeft, running: true, startEpoch: nowE - elapsed, });
 
         setRunning(true);
     }, [duration, timeLeft]);
@@ -285,13 +303,23 @@ export function useTimer()
             rafRef.current = null;
         }
 
+        //Capture the precise current position
+        //before stopping the clock.
+        if (startRef.current != null)
+        {
+            const elapsed = nowPerf() - startRef.current;
+            const remaining = Math.max(0, duration - elapsed);
+            setVisualTimeLeft(remaining);
+            setTimeLeft(remaining);
+        }
+
         persistTimerSession({ duration, timeLeft, running: false, });
 
-        const now = nowPerf();
-        const elapsed = duration - timeLeft;
-
-        //Accurate resume position.
-        startRef.current = now - elapsed;
+        if (startRef.current != null)
+        {
+            const elapsed = duration - timeLeft;
+            startRef.current = nowPerf() - elapsed;
+        }
     }, [duration, timeLeft]);
 
     const reset = useCallback(() =>
@@ -308,6 +336,7 @@ export function useTimer()
 
         setRunning(false);
         setTimeLeft(duration);
+        setVisualTimeLeft(duration);
         clearTimerSession();
     }, [duration]);
 
@@ -321,6 +350,7 @@ export function useTimer()
         duration,
         setDuration,
         timeLeft,
+        visualTimeLeft, //Full-resolution timer state for AmbientBackground.
         setTimeLeft,
         running,
         start,

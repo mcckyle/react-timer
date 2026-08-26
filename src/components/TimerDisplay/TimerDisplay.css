@@ -9,21 +9,27 @@
     isolation: isolate;
 
     display: inline-flex;
-    inline-size: 100%;
     align-items: center;
     justify-content: center;
 
-    font-family: var(--font-mono);
-    font-size: clamp(6rem, 20vw, 32rem); /* Important: Digits as large as possible. */
-    font-weight: 700;
-    font-variant-numeric: tabular-nums lining-nums;
-    line-height: 0.72;
-    letter-spacing: -0.045em;
-    text-rendering: geometricPrecision;
+    inline-size: 100%;
+    min-inline-size: 0;
 
+    font-family: var(--font-mono);
+    font-size: clamp(5rem, 19vw, 32rem); /* Important: Digits as large as possible. */
+    font-weight: 600;
+    font-variant-numeric: tabular-nums lining-nums;
+    line-height: 0.78;
+    letter-spacing: -0.055em;
     color: var(--text);
+    text-rendering: geometricPrecision;
     user-select: none;
-    transform: translateZ(0);
+
+    text-shadow: 0 0 12px hsl(var(--ambient-hue) 100% 72% / calc(0.07 + var(--ambient-energy) * 0.08)),
+                 0 0 42px hsl(var(--ambient-hue) 100% 72% / calc(0.025 + var(--ambient-energy) * 0.055)),
+                 0 0 110px hsl(var(--ambient-hue) 100% 72% / calc(0.012 + var(--ambient-energy) * 0.025));
+
+    transition: text-shadow 900ms var(--ease-fluid);
 }
 
 /* ====================================
@@ -31,23 +37,7 @@
 ======================================= */
 .timer.is-running .timer-display
 {
-    text-shadow: 0 0 10px hsl(var(--ambient-hue) 100% 72% / calc(0.12 + var(--ambient-energy) * 0.12)),
-                 0 0 32px hsl(var(--ambient-hue) 100% 72% / calc(0.07 + var(--ambient-energy) * 0.11)),
-                 0 0 90px hsl(var(--ambient-hue) 100% 72% / calc(0.035 + var(--ambient-energy) * 0.075)),
-                 0 0 180px hsl(var(--ambient-hue) 100% 72% / calc(0.012 + var(--ambient-energy) * 0.035));
-}
-
-/* ====================================
-   TIMERDISPLAY DIGITS STYLES.
-======================================= */
-.timer-display-digit
-{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    min-width: 0.62em;
-    transform-origin: center;
+    filter: brightness(calc(1 + var(--ambient-energy) * 0.035));
 }
 
 /* ====================================
@@ -55,21 +45,21 @@
 ======================================= */
 .timer-display-separator
 {
-    display: grid;
+    display: inline-grid;
     place-items: center;
-    margin-inline: 0.02em;
+    margin-inline: 0.015em;
 
-    color: hsl(var(--ambient-hue) 100% 82% / calc(0.72 + var(--ambient-energy) * 0.18));
-    text-shadow: 0 0 12px hsl(var(--ambient-hue) 100% 78% / calc(0.12 + var(--ambient-energy) * 0.12));
-    filter: brightness(calc(0.94 + var(--ambient-pulse) * 0.18));
+    color: hsl(var(--ambient-hue) 100% 82% / calc(0.62 + var(--ambient-energy) * 0.24));
+    text-shadow: 0 0 14px hsl(var(--ambient-hue) 100% 78% / calc(0.07 + var(--ambient-energy) * 0.10));
+    filter: brightness(calc(0.94 + var(--ambient-pulse) * 0.10));
 
-    transition: color 700ms var(--ease-fluid), filter 700ms var(--ease-fluid);
+    transition: color 900ms var(--ease-fluid), text-shadow 900ms var(--ease-fluid), filter 900ms var(--ease-fluid);
 }
 
 /* ====================================
    TIMERDISPLAY COMPLETE STATE STYLES.
 ======================================= */
-.timer.is-complete .timer-display { animation: timer-display-complete 520ms var(--ease-fluid); }
+.timer.is-complete .timer-display { animation: timer-display-complete 620ms var(--ease-fluid); }
 
 /* ====================================
    TIMERDISPLAY ANIMATIONS STYLES.
@@ -77,8 +67,15 @@
 @keyframes timer-display-complete
 {
     0% { transform: scale(1); }
-    40% { transform: scale(1.025); }
+    32% { transform: scale(1.018); }
+    58% { transform: scale(0.998); }
     100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce)
+{
+    .timer-display { transition: none; }
+    .timer.is-complete .timer-display { animation: none; }
 }
 
 /* ====================================
@@ -86,5 +83,5 @@
 ======================================= */
 @media (max-width: 480px)
 {
-    .timer-display { font-size: clamp(2.8rem, 13vw, 8rem); letter-spacing: -0.045em; }
+    .timer-display { font-size: clamp(3rem, 16vw, 8rem); letter-spacing: -0.05em; }
 }

@@ -1,6 +1,6 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 15 July 2026
+//Date: 25 August 2026
 //Description: This file contains the parent timer component for the timer React project.
 
 import { useState, useEffect, useRef } from "react";
@@ -19,15 +19,20 @@ import "./Timer.css";
 
 const Timer = ({ toggleTheme }) =>
 {
-  const { duration, setDuration, timeLeft, setTimeLeft, running, start, pause, reset, pastTimers, clearPastTimers } = useTimer();
+  const { duration, setDuration, timeLeft, visualTimeLeft, setTimeLeft, running, start, pause, reset, pastTimers, clearPastTimers } = useTimer();
   const { theme } = useTheme();
+
   const [showHistory, setShowHistory] = useState(false);
   const [mode, setMode] = useState("digital"); //"digital" || "visual".
   const [completed, setCompleted] = useState(false);
 
   const prevTimeRef = useRef(timeLeft);
   const resetDisabled = (timeLeft === DEFAULT_DURATION) && !running;
-  const ambient = useAmbientEngine({ duration, timeLeft, running });
+
+  //The ambient engine intentionally receives both clocks:
+  //timeLeft -> functional/display timer state.
+  //visualTimeLeft -> continous visual clock.
+  const ambient = useAmbientEngine({ duration, timeLeft, visualTimeLeft, running });
 
   //Completion Detection.
   useEffect(() =>
@@ -73,7 +78,12 @@ const Timer = ({ toggleTheme }) =>
 
   return (
     <section
-      className={`timer${completed ? " is-complete" : ""}${running ? " is-running" : ""}`}
+      className={[
+        "timer",
+        running && "is-running",
+        completed & "is-complete",
+      ]
+      .filter(Boolean).join(" ")}
       style={ambient.style}
     >
       <AmbientBackground />
@@ -107,7 +117,9 @@ const Timer = ({ toggleTheme }) =>
           />
         </section>
         <p className="timer-shortcuts">
-          Space · Start / Pause · R · Reset · M · Mode
+          <span>Space</span> Start / Pause
+          <span>R</span> Reset
+          <span>M</span> Mode
         </p>
       </div>
     </section>

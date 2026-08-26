@@ -10,22 +10,22 @@
 
     display: inline-flex;
     align-items: center;
-    gap: 0.50rem;
+    gap: 0.35rem;
     padding: 0.30rem;
-    border: 1px solid color-mix(in srgb, var(--border-subtle) 82%, hsl(var(--ambient-hue) 100% 72%) 18%);
+    border: 1px solid color-mix(in srgb, var(--border-subtle) 78%, hsl(var(--ambient-hue) 100% 72%) 22%);
     border-radius: var(--radius-pill);
-    background: linear-gradient(180deg, rgb(255 255 255 / 0.075), rgb(255 255 255 / 0.025)), color-mix(in srgb, var(--surface-glass) 76%, transparent);
-    box-shadow: 0 24px 80px -38px rgb(0 0 0 / 0.72), inset 0 1px 0 rgb(255 255 255 / 0.08);
-    backdrop-filter: blur(28px) saturate(160%) brightness(1.05);
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.065), rgb(255 255 255 / 0.018)), color-mix(in srgb, var(--surface-glass) 72%, transparent);
+    box-shadow: 0 22px 70px -34px rgb(0 0 0 / 0.72), inset 0 1px 0 rgb(255 255 255 / 0.075);
+    backdrop-filter: blur(26px) saturate(145%);
 
     transition: border-color 900ms var(--ease-fluid), box-shadow 900ms var(--ease-fluid);
 }
 .timer.is-running .timer-controls
 {
-    border-color: color-mix(in srgb, var(--border-subtle) 68%, hsl(var(--ambient-hue) 100% 72%) 32%);
-    box-shadow: 0 24px 80px -38px rgb(0 0 0 / 0.72),
-                0 0 60px -34px hsl(var(--ambient-hue) 100% 72% / calc(0.18 + var(--ambient-energy) * 0.14)),
-                inset 0 1px 0 rgb(255 255 255 / 0.08);
+    border-color: color-mix(in srgb, var(--border-subtle) 64%, hsl(var(--ambient-hue) 100% 72%) 36%);
+    box-shadow: 0 22px 70px -34px rgb(0 0 0 / 0.72),
+                0 0 58px -34px hsl(var(--ambient-hue) 100% 72% / calc(0.12 + var(--ambient-energy) * 0.14)),
+                inset 0 1px 0 rgb(255 255 255 / 0.075);
 }
 
 /* ====================================
@@ -40,12 +40,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    padding-inline: 1.25rem;
 
     border-radius: var(--radius-pill);
     border: 1px solid transparent;
     background: transparent;
     color: var(--text-soft);
-    font-size: 0.90rem;
+    font-size: 0.88rem;
     font-weight: 600;
     letter-spacing: -0.01em;
 
@@ -54,10 +55,10 @@
     transform: translate3d(0, 0, 0);
 
     transition: transform 180ms var(--ease-fluid),
-                color 300ms var(--ease-standard),
+                color 350ms var(--ease-standard),
                 background 500ms var(--ease-standard),
-                border-color 500ms var(--ease-standard),
-                box-shadow 700ms var(--ease-fluid);
+                border-color 700ms var(--ease-standard),
+                box-shadow 800ms var(--ease-fluid);
 }
 
 /* ====================================
@@ -66,14 +67,14 @@
 .timer-control-primary
 {
     background: linear-gradient(135deg, hsl(var(--ambient-hue) 100% 68%), hsl(var(--ambient-hue-secondary) 100% 62%));
-    border-color: hsl(var(--ambient-hue) 100% 78% / 0.18);
+    border-color: hsl(var(--ambient-hue) 100% 78% / 0.16);
     color: color-mix(in srgb, var(--bg) 82%, white);
-    box-shadow: 0 10px 30px -18px hsl(var(--ambient-hue) 100% 62% / 0.72), inset 0 1px 0 rgb(255 255 255 / 0.22);
+    box-shadow: 0 10px 28px -18px hsl(var(--ambient-hue) 100% 62% / 0.68), inset 0 1px 0 rgb(255 255 255 / 0.22);
 }
 .timer.is-running .timer-control-primary
 {
-    box-shadow: 0 12px 34px -18px hsl(var(--ambient-hue) 100% 62% / 0.78),
-                0 0 55px -28px hsl(var(--ambient-hue) 100% 72% / calc(0.28 + var(--ambient-energy) * 0.26)),
+    box-shadow: 0 12px 34px -20px hsl(var(--ambient-hue) 100% 62% / 0.74),
+                0 0 50px -30px hsl(var(--ambient-hue) 100% 72% / calc(0.20 + var(--ambient-energy) * 0.22)),
                 inset 0 1px 0 rgb(255 255 255 / 0.24);
 }
 
@@ -82,10 +83,10 @@
 ======================================= */
 .timer-control-secondary
 {
-    background: rgb(255 255 255 / 0.035);
+    background: rgb(255 255 255 / 0.025);
     border-color: var(--border-subtle);
 }
-.timer-control-secondary:hover:not(:disabled) { background: rgb(255 255 255 / 0.07); border-color: color-mix(in srgb, var(--border-subtle) 72%, hsl(var(--ambient-hue) 100% 72%) 28%);  }
+.timer-control-secondary:hover:not(:disabled) { background: rgb(255 255 255 / 0.055); border-color: color-mix(in srgb, var(--border-subtle) 68%, hsl(var(--ambient-hue) 100% 72%) 32%);  }
 
 /* ====================================
    TIMERCONTROLS ACTIVE PRESS STYLES.
@@ -103,13 +104,13 @@
     outline: none;
     box-shadow: 0 0 0 2px var(--bg),
                 0 0 0 4px hsl(var(--ambient-hue) 100% 72% / 0.72),
-                0 0 24px -8px hsl(var(--ambient-hue) 100% 72% / 0.48);
+                0 0 24px -8px hsl(var(--ambient-hue) 100% 72% / 0.42);
 }
 
 /* ====================================
    TIMERCONTROLS DISABLED STATE STYLES.
 ======================================= */
-.timer-control:disabled { opacity: 0.32; cursor: not-allowed; }
+.timer-control:disabled { opacity: 0.28; cursor: not-allowed; }
 
 /* TimerControls Hover Lift For Desktop Styles. */
 @media (hover: hover)
@@ -121,8 +122,8 @@
     }
     .timer-control-primary:hover:not(:disabled)
     {
-        box-shadow: 0 14px 38px -20px hsl(var(--ambient-hue) 100% 62% / 0.72),
-                    0 0 46px -30px hsl(var(--ambient-hue) 100% 72% / 0.42),
+        box-shadow: 0 14px 36px -20px hsl(var(--ambient-hue) 100% 62% / 0.70),
+                    0 0 44px -30px hsl(var(--ambient-hue) 100% 72% / 0.38),
                     inset 0 1px 0 rgb(255 255 255 / 0.26);
     }
 }

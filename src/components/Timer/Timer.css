@@ -10,11 +10,13 @@
 
   inline-size: 100%;
   min-block-size: 100dvh;
+  min-block-size: 100svh;
 
   display: flex;
   flex-direction: column;
   overflow: clip;
   user-select: none;
+  background: transparent;
 }
 
 /* ====================================
@@ -23,10 +25,11 @@
 .stage
 {
   flex: 1;
+  min-block-size: 0;
   display: grid;
-  grid-template-rows: minmax(0, 1fr) auto min-content;
+  grid-template-rows: minmax(0, 1fr) auto auto;
   align-items: center;
-  padding-block: clamp(1rem, 3vh, 3rem) clamp(2rem, 5vh, 4rem);
+  padding: clamp(0.5rem, 2vh, 2rem) clamp(1rem, 4vh, 4rem) clamp(1.5rem, 4vh, 3rem);
 }
 
 /* ====================================
@@ -34,31 +37,65 @@
 ======================================= */
 .displayRegion
 {
+  min-inline-size: 0;
+  min-block-size: 0;
   inline-size: 100%;
   block-size: 100%;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-inline: clamp(1rem, 4vw, 5rem);
+  display: grid;
+  place-items: center;
+  padding-inline: clamp(0.25rem, 1.5vw, 2rem);
 }
 
 /* ====================================
    TIMER CONTROLS DOCK STYLES.
 ======================================= */
-.controlsRegion { inline-size: 100%; display: flex; justify-content: center; padding-top: clamp(1rem, 4vh, 3rem); }
+.controlsRegion { inline-size: 100%; display: flex; justify-content: center; align-items: center; padding-block-start: clamp(1rem, 3vh, 2.5rem); }
 
 /* ====================================
    TIMER SHORTCUTS STYLES.
 ======================================= */
 .timer-shortcuts
 {
-  margin: 1rem auto clamp(1rem, 3vh, 2rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.70rem;
+  margin: clamp(0.90rem, 2vh, 1.5rem) auto 0;
 
-  font-size: 0.7rem;
-  letter-spacing: 0.22em;
+  color: var(--text-muted);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  line-height: 1.5;
+  text-align: center;
   text-transform: uppercase;
-  opacity: 0.32;
+  opacity: 0.48;
+
+  transition: opacity 700ms var(--ease-fluid);
+}
+.timer-shortcuts span
+{
+  color: color-mix(in srgb, var(--text-soft) 86%, hsl(var(--ambient-hue) 100% 72%) 14%);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+}
+.timer.is-running .timer-shortcuts { opacity: 0.58; }
+
+.timer.is-complete .controlsRegion { animation: timer-controls-complete 700ms var(--ease-fluid); }
+
+@keyframes timer-controls-complete
+{
+  0% { transform: translateY(0); }
+  35% { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce)
+{
+  .timer-shortcuts, .timer.is-complete .controlsRegion { transition: none; animation: none; }
 }
 
 /* ====================================
@@ -66,6 +103,8 @@
 ======================================= */
 @media (max-width: 480px)
 {
-  .timer { gap: var(--space-md); padding: var(--space-md); }
-  .stage { gap: var(--space-lg); }
+  .stage { padding: 0.50rem 0.75rem 1.25rem; }
+  .displayRegion { padding-inline: 0; }
+  .controlsRegion { padding-block-start: 1.25rem; }
+  .timer-shortcuts { margin-top: 0.85rem; font-size: 0.58rem; letter-spacing: 0.12em; }
 }
