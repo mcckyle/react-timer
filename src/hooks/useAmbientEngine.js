@@ -1,6 +1,6 @@
 //File name: useAmbientEngine.js
 //Author: Kyle McColgan
-//Date: 25 August 2026
+//Date: 28 August 2026
 //Description: This file contains the background hook component for the timer React project.
 
 import { useMemo } from "react";
@@ -8,9 +8,14 @@ import { useMemo } from "react";
 const START_HUE = 220;
 const END_HUE = 18;
 
+function clamp(value, min = 0, max = 1)
+{
+    return Math.min(max, Math.max(min, value));
+}
+
 function smoothstep(value)
 {
-    const t = Math.min(1, Math.max(0, value));
+    const t = clamp(value);
 
     return t * t * (3 - 2 * t);
 }
@@ -25,34 +30,33 @@ export function useAmbientEngine({ duration, timeLeft, visualTimeLeft, running }
     ? visualTimeLeft
     : timeLeft;
 
-    const progress = duration > 0 ? Math.min(1, Math.max(0, currentTime / duration)) : 1;
-
     //0 = timer beginning. 1 = timer completion.
-    const elapsed = 1 - progress;
+    const progress = duration > 0 ? clamp(currentTime / duration) : 1;
 
-    //Continous energy curve.
+    //Convert linear time progress into a deliverately
+    //softer atmospheric response.
+    const elapsed = 1 - progress;
     const energy = smoothstep(elapsed);
 
-    //Atmospheric clock.
-    //This is intentionally calculated once per
-    //render from the same continous animation
-    //updates coming from useTimer.
-    //It adds life without determining timer state.
-    const now = performance.now() * 0.00008;
+    //Slow spectral clock.
+    //These frequencies are intentionally extremely low.
+    //They create continous color drift rather than
+    //an obvious animated hue cycle.
+    const now = performance.now() * 0.00001;
 
     const spectral =
-    Math.sin(now * 0.42) * 8 +
-    Math.sin(now * 0.16) * 5 +
-    Math.sin(now * 0.055) * 3;
+        Math.sin(now * 0.42) * 7 +
+        Math.sin(now * 0.17) * 4 +
+        Math.sin(now * 0.063) * 2.5;
 
     //The timer's continous energy is the dominant
     //influence. Spectral movement merely breathes
     //around the underlying hue.
     const hue = START_HUE - (START_HUE - END_HUE) * energy + spectral * (0.45 + energy * 0.55);
-    const secondaryHue = (hue + 62 + Math.sin(now * 0.12) * 7) % 360;
+    const secondaryHue = (hue + 62 + Math.sin(now * 0.13) * 6) % 360;
 
     const glow = 0.3 + energy * 0.70;
-    const motion = running ? energy : energy * 0.25;
+    const motion = running ? 0.35 + energy * 0.65 : 0.18 + energy * 0.12;
     const blur = 140 - energy * 45;
     const scale = 1 + energy * 0.12;
     const rotation = `${energy * 8}deg`;
