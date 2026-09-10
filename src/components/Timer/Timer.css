@@ -10,7 +10,6 @@
 
   inline-size: 100%;
   min-block-size: 100dvh;
-  min-block-size: 100svh;
 
   display: flex;
   flex-direction: column;
@@ -29,7 +28,7 @@
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto auto;
   align-items: center;
-  padding: clamp(0.5rem, 2vh, 2rem) clamp(1rem, 4vh, 4rem) clamp(1.5rem, 4vh, 3rem);
+  padding: clamp(0.5rem, 2vh, 2rem) clamp(1rem, 4vw, 4rem) clamp(1.5rem, 4vh, 3rem);
 }
 
 /* ====================================
@@ -71,7 +70,7 @@
   line-height: 1.5;
   text-align: center;
   text-transform: uppercase;
-  opacity: 0.48;
+  opacity: 0.42;
 
   transition: opacity 700ms var(--ease-fluid);
 }
@@ -82,7 +81,7 @@
   font-size: 0.62rem;
   letter-spacing: 0.04em;
 }
-.timer.is-running .timer-shortcuts { opacity: 0.58; }
+.timer.is-running .timer-shortcuts { opacity: 0.54; }
 
 .timer.is-complete .controlsRegion { animation: timer-controls-complete 700ms var(--ease-fluid); }
 

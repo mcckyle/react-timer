@@ -9,7 +9,7 @@
 
     display: inline-flex;
     align-items: baseline;
-    gap: 0.10rem;
+    gap: 0.08rem;
 
     font-family: var(--font-mono);
     cursor: ns-resize;
@@ -22,14 +22,14 @@
 }
 .time-field:active { cursor: grabbing; }
 .time-field:active input, .time-field:focus-within input { color: var(--accent); }
-.time-field:focus-within { color: var(--accent); text-shadow: 0 0 16px hsl(var(--ambient-hue) 100% 72% / calc(0.18 + var(--ambient-energy) * 0.18)); }
+.time-field:focus-within { color: var(--accent); text-shadow: 0 0 14px hsl(var(--ambient-hue) 100% 72% / calc(0.14 + var(--ambient-energy) * 0.16)); }
 
 /* ====================================
    TIMEFIELD NUMERIC INPUT STYLES.
 ======================================= */
 .time-field input
 {
-    width: 2.35ch;
+    inline-size: 2.25ch;
     padding: 0;
 
     border: 0;
@@ -40,9 +40,10 @@
     color: var(--text);
 
     font: inherit;
-    font-size: 0.88rem;
-    font-weight: 700;
+    font-size: 0.86rem;
+    font-weight: 650;
     font-variant-numeric: tabular-nums;
+    line-height: 1;
     text-align: center;
     caret-color: var(--accent);
 
@@ -57,18 +58,18 @@
 .time-unit
 {
     font-family: var(--font-sans);
-    font-size: 0.36rem;
-    font-weight: 600;
-    letter-spacing: 0.16em;
+    font-size: 0.35rem;
+    font-weight: 650;
+    letter-spacing: 0.14em;
     line-height: 1;
     text-transform: uppercase;
     color: var(--text-muted);
-    opacity: 0.42;
+    opacity: 0.40;
 
     transition: color var(--duration-standard) var(--ease-standard),
                 opacity var(--duration-standard) var(--ease-standard);
 }
-.time-field:focus-within .time-unit { color: var(--accent); opacity: 0.72; }
+.time-field:focus-within .time-unit { color: var(--accent); opacity: 0.70; }
 
 /* ====================================
    TIMEFIELD NUMBER INPUT NORMALIZATION.
@@ -99,7 +100,7 @@
 @media (hover: hover)
 {
     .time-field:hover input { color: var(--text); }
-    .time-field:hover .time-unit { opacity: 0.62; }
+    .time-field:hover .time-unit { opacity: 0.58; }
 }
 
 /* ====================================

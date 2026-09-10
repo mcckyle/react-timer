@@ -4,12 +4,23 @@
    GLOBAL RESET STYLES.
 ======================================= */
 *, *::before, *::after { box-sizing: border-box; }
-html { font-size: 16px; -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; overflow-x: clip; background: var(--bg); }
-html, body, #root { inline-size: 100%; min-block-size: 100%; min-block-size: 100dvh; }
-#root { isolation: isolate; }
+html
+{
+  inline-size: 100%;
+  min-block-size: 100%;
+  overflow-x: clip;
+  background: var(--bg);
+  font-size: 16px;
+
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
 body
 {
   margin: 0;
+  inline-size: 100%;
   min-block-size: 100dvh;
   overflow: clip;
 
@@ -17,12 +28,16 @@ body
   color: var(--text);
 
   font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
   font-variant-numeric: tabular-nums;
   font-feature-settings: "liga" 1, "kern" 1, "tnum" 1;
   font-synthesis: none;
   overscroll-behavior: none;
   touch-action: manipulation;
 }
+#root { inline-size: 100%; min-block-size: 100dvh; isolation: isolate; }
 /* ====================================
    GLOBAL INTERACTION NORMALIZATION STYLES.
 ======================================= */
@@ -58,6 +73,7 @@ p { margin: 0; }
   text-align: center;
   font-size: 0.95rem;
   font-weight: 500;
+  line-height: 1.45;
 }
 
 /* ====================================

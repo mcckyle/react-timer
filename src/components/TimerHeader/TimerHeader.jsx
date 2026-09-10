@@ -1,6 +1,6 @@
 //File name: TimerHeader.jsx
 //Author: Kyle McColgan
-//Date: 9 July 2026
+//Date: 9 September 2026
 //Description: This file contains the timer header component for the timer React project.
 
 import React from "react";
@@ -42,17 +42,19 @@ export default function TimerHeader({
         >
           <button
             type="button"
+            aria-label="Digital timer"
             aria-pressed={mode === "digital"}
             onClick={() => setMode("digital")}
           >
-            00:00
+            <span aria-hidden="true">00:00</span>
           </button>
           <button
             type="button"
+            aria-label="Visual timer"
             aria-pressed={mode === "visual"}
             onClick={() => setMode("visual")}
           >
-            ◐
+            <span aria-hidden="true">◐</span>
           </button>
         </div>
       </div>
@@ -68,8 +70,13 @@ export default function TimerHeader({
               aria-expanded={showHistory}
               aria-controls="timer-history"
             >
-              History
-              <span>{showHistory ? "×" : pastTimers.length}</span>
+              <span>History</span>
+              <span
+                className="timer-header-history-count"
+                aria-hidden="true"
+              >
+                {showHistory ? "×" : pastTimers.length}
+              </span>
             </button>
             <div
               id="timer-history"
@@ -83,12 +90,13 @@ export default function TimerHeader({
           type="button"
           className="timer-theme-toggle timer-glass"
           onClick={toggleTheme}
+          aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}
           aria-pressed={isDark}
         >
           {isDark ? (
-            <Sun className="toggleIcon" />
+            <Sun className="toggleIcon" aria-hidden="true" />
           ) : (
-            <Moon className="toggleIcon" />
+            <Moon className="toggleIcon" aria-hidden="true" />
           )}
         </button>
       </div>

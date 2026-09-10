@@ -1,6 +1,6 @@
 //File name: VisualTimer.jsx
 //Author: Kyle McColgan
-//Date: 18 August 2026
+//Date: 10 September 2026
 //Description: This file contains the visual timer component for the timer React project.
 
 import "./VisualTimer.css";
@@ -26,6 +26,9 @@ export default function VisualTimer({ progress })
           <div className="visual-timer-sand visual-timer-sand-top" />
           <div className="visual-timer-sand visual-timer-sand-flow" />
           <div className="visual-timer-sand visual-timer-sand-bottom" />
+
+          <span className="visual-timer-highlight" />
+          <span className="visual-timer-edge" />
         </div>
       </div>
     </div>

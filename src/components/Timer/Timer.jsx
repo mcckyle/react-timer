@@ -1,6 +1,6 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 25 August 2026
+//Date: 9 September 2026
 //Description: This file contains the parent timer component for the timer React project.
 
 import { useState, useEffect, useRef } from "react";
@@ -81,7 +81,7 @@ const Timer = ({ toggleTheme }) =>
       className={[
         "timer",
         running && "is-running",
-        completed & "is-complete",
+        completed && "is-complete",
       ]
       .filter(Boolean).join(" ")}
       style={ambient.style}

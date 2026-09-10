@@ -1,6 +1,6 @@
 //File name: DurationPicker.jsx
 //Author: Kyle McColgan
-//Date: 9 July 2026
+//Date: 9 September 2026
 //Description: This file contains the time duration picker for the timer React project.
 
 import { useEffect, useState } from "react";
@@ -25,10 +25,10 @@ export default function DurationPicker({ duration, onSelect })
   /* Sync only when the duration changes externally. */
   useEffect(() =>
   {
-    const { hours, minutes, seconds } = splitDuration(duration);
-    setHours(hours);
-    setMinutes(minutes);
-    setSeconds(seconds);
+    const { hours: nextHours, minutes: nextMinutes, seconds: nextSeconds } = splitDuration(duration);
+    setHours(nextHours);
+    setMinutes(nextMinutes);
+    setSeconds(nextSeconds);
   }, [duration]);
 
   const commit = (h = hours, m = minutes, s = seconds) =>
@@ -65,7 +65,7 @@ export default function DurationPicker({ duration, onSelect })
             <button
               key={ms}
               type="button"
-              className={`duration-pill${isActive ? " is-active" : ""}`}
+              className="duration-pill"
               aria-pressed={isActive}
               onClick={() => onSelect(ms)}
             >
@@ -78,6 +78,7 @@ export default function DurationPicker({ duration, onSelect })
       <div
         className="duration-custom"
         onKeyDown={(e) => e.key === "Enter" && commit()}
+        aria-label="Custom duration"
       >
         <TimeField label="h" value={hours} max={99} onChange={handleChange(setHours, 99)} onBlur={() => commit()} />
         <span className="sep" aria-hidden="true">:</span>

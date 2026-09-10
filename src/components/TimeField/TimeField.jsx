@@ -1,6 +1,6 @@
 //File name: TimeField.jsx
 //Author: Kyle McColgan
-//Date: 19 August 2026
+//Date: 9 September 2026
 //Description: This file contains the time field for the timer React project.
 
 import { useRef } from "react";
@@ -15,33 +15,33 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
   const startValue = useRef(0);
   const dragging = useRef(false);
 
-  const clamp = (v) =>
+  const clamp = (valueToClamp) =>
   {
-    return Math.max(0, Math.min(max, v));
+    return Math.max(0, Math.min(max, valueToClamp));
   };
 
-  function handlePointerDown(e)
+  function handlePointerDown(event)
   {
-    if (e.target instanceof HTMLInputElement)
+    if (event.target instanceof HTMLInputElement)
     {
       return;
     }
 
     dragging.current = true;
-    startY.current = e.clientY;
+    startY.current = event.clientY;
     startValue.current = value;
 
-    e.currentTarget.setPointerCapture(e.pointerId);
+    event.currentTarget.setPointerCapture(event.pointerId);
   }
 
-  function handlePointerMove(e)
+  function handlePointerMove(event)
   {
     if (!dragging.current)
     {
       return;
     }
 
-    const deltaY = startY.current - e.clientY;
+    const deltaY = startY.current - event.clientY;
 
     //Velocity scaling (slow = precise, fast = jump).
     const speed = Math.abs(deltaY);
@@ -55,7 +55,7 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
     onChange(next);
   }
 
-  function handlePointerUp(e)
+  function handlePointerUp(event)
   {
     if (!dragging.current)
     {
@@ -64,17 +64,17 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
 
     dragging.current = false;
 
-    if (e.currentTarget.hasPointerCapture(e.pointerId))
+    if (event.currentTarget.hasPointerCapture(event.pointerId))
     {
-      e.currentTarget.releasePointerCapture(e.pointerId);
+      event.currentTarget.releasePointerCapture(event.pointerId);
     }
 
     onBlur?.();
   }
 
-  function handleChange(e)
+  function handleChange(event)
   {
-    const raw = e.target.value;
+    const raw = event.target.value;
 
     if (raw === "")
     {
@@ -86,27 +86,27 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
     onChange(parsed);
   }
 
-  function handleWheel(e)
+  function handleWheel(event)
   {
-    e.preventDefault();
-    const direction = e.deltaY > 0 ? -1 : 1;
+    event.preventDefault();
+    const direction = event.deltaY > 0 ? -1 : 1;
     onChange(clamp(value + direction));
   }
 
-  function handleKeyDown(e)
+  function handleKeyDown(event)
   {
-    if (e.key === "Enter")
+    if (event.key === "Enter")
     {
       onBlur?.();
     }
-    if (e.key === "ArrowUp")
+    if (event.key === "ArrowUp")
     {
-      e.preventDefault();
+      event.preventDefault();
       onChange(clamp(value + 1));
     }
-    if (e.key === "ArrowDown")
+    if (event.key === "ArrowDown")
     {
-      e.preventDefault();
+      event.preventDefault();
       onChange(clamp(value - 1));
     }
   }
@@ -118,6 +118,7 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerUp}
+      title={`Adjust ${label} by dragging or using the arrow keys`}
     >
       <label id={labelId} htmlFor={id} className="sr-only">
         {label} value
