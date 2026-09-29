@@ -93,28 +93,28 @@
     contain: paint;
     will-change: transform, opacity;
     background: radial-gradient(
-        ellipse 38% 19% at 8% 29%,
-        hsl(var(--ambient-hue) 100% 74% / 0.135),
+        ellipse 40% 18% at 7% 29%,
+        hsl(var(--ambient-hue) 100% 74% / 0.132),
         transparent 73%
     ),
     radial-gradient(
-        ellipse 24% 34% at 29% 72%,
-        hsl(calc(var(--ambient-hue) + 18) 100% 70% / 0.064),
+        ellipse 23% 36% at 29% 73%,
+        hsl(calc(var(--ambient-hue) + 18) 100% 70% / 0.060),
         transparent 78%
     ),
     radial-gradient(
-        ellipse 42% 21% at 78% 20%,
-        hsl(var(--ambient-hue-secondary) 100% 75% / 0.102),
+        ellipse 43% 20% at 79% 19%,
+        hsl(var(--ambient-hue-secondary) 100% 75% / 0.098),
         transparent 74%
     ),
     radial-gradient(
-        ellipse 24% 33% at 90% 69%,
-        hsl(calc(var(--ambient-hue-secondary) - 18) 100% 70% / 0.072),
+        ellipse 23% 35% at 91% 70%,
+        hsl(calc(var(--ambient-hue-secondary) - 18) 100% 70% / 0.068),
         transparent 78%
     ),
     radial-gradient(
-        ellipse 48% 16% at 50% 47%,
-        hsl(var(--ambient-hue) 100% 80% / 0.028),
+        ellipse 52% 13% at 50% 47%,
+        hsl(var(--ambient-hue) 100% 80% / 0.025),
         transparent 77%
     );
 }
