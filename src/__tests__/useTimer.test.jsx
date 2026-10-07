@@ -1,6 +1,6 @@
 //File name: useTimer.test.jsx
 //Author: Kyle McColgan
-//Date: 4 August 2026
+//Date: 7 October 2026
 //Description: This file contains the Vitest unit test suite for the timer React project useTimer hook.
 
 import React from "react";
@@ -8,7 +8,8 @@ import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import { useTimer, DEFAULT_DURATION } from "../hooks/useTimer.js";
 
-describe("useTimer hook", () => {
+describe("useTimer hook", () =>
+{
     beforeEach(() => {
         localStorage.clear(); //Clear timers before each test.
         vi.useFakeTimers();
@@ -56,12 +57,12 @@ describe("useTimer hook", () => {
 
         if (frames >= maxFrames)
         {
-            throw new Error(`flushUtil exceed maxFrames (${maxFrames}) without meeting condition!`);
+            throw new Error(`flushUntil exceed maxFrames (${maxFrames}) without meeting condition!`);
         }
     };
 
     //Test #1
-    test("1. initalizes with default values", () => {
+    test("1. initializes with default values", () => {
         const { result } = renderHook(() => useTimer());
 
         expect(result.current.duration).toBe(DEFAULT_DURATION);
@@ -95,6 +96,11 @@ describe("useTimer hook", () => {
 
         act(() => {
             result.current.start();
+        });
+
+        expect(result.current.running).toBe(true);
+
+        act(() => {
             result.current.pause();
         });
 

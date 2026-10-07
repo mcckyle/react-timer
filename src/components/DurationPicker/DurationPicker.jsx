@@ -33,7 +33,7 @@ export default function DurationPicker({ duration, onSelect })
 
   const commit = (nextHours = hours, nextMinutes = minutes, nextSeconds = seconds) =>
   {
-    const ms = ((nextHours * 3600) + (nextMinutes * 60) + nextSeconds) * 1000;
+    const ms = (nextHours * 3600 + nextMinutes * 60 + nextSeconds) * 1000;
 
     if (ms > 0)
     {

@@ -1,6 +1,6 @@
 //File name: useTimer.js
 //Author: Kyle McColgan
-//Date: 25 August 2026
+//Date: 7 October 2026
 //Description: This file contains the custom timekeeping hook for the timer React project.
 
 import { useEffect, useState, useRef, useCallback } from "react";
@@ -10,22 +10,37 @@ const STORAGE_KEY = "pastTimers";
 const TIMER_SESSION_KEY = "timerSession";
 const MAX_HISTORY = 50;
 
+//Clock Helpers.
+const nowPerf = () =>
+{
+    return typeof performance !== "undefined"
+    ? performance.now()
+    : Date.now()
+};
+const nowEpoch = () =>
+{
+    return Date.now();
+};
+
+//Animation Frame Helpers.
 const requestRAF =
-  typeof requestAnimationFrame !== "undefined"
-    ? requestAnimationFrame
-    : (callback) => setTimeout(callback, 16);
+typeof requestAnimationFrame !== "undefined"
+? requestAnimationFrame
+: (callback) => setTimeout(callback, 16);
 
 const cancelRAF =
-  typeof cancelAnimationFrame !== "undefined"
-    ? cancelAnimationFrame
-    : (id) => clearTimeout(id);
+typeof cancelAnimationFrame !== "undefined"
+? cancelAnimationFrame
+: (id) => clearTimeout(id);
 
-//Bridge: convert performance.now() <-> Date.now().
-const nowPerf = () => performance.now();
-const nowEpoch = () => Date.now();
-
+//Storage Helpers.
 function safeParse(value)
 {
+    if (!value)
+    {
+        return null;
+    }
+
     try
     {
         return JSON.parse(value);
@@ -36,21 +51,53 @@ function safeParse(value)
     }
 }
 
-function persistTimerSession(payload)
+function readStorage(key)
 {
     try
     {
-        localStorage.setItem(TIMER_SESSION_KEY, JSON.stringify(payload));
+        return localStorage.getItem(key);
     }
     catch
     {
-        /* Silent storage failures... */
+        return null;
     }
 }
 
+function writeStorage(key, value)
+{
+    try
+    {
+        localStorage.setItem(key, JSON.stringify(value));
+    }
+    catch
+    {
+        /* Storage may be unavailable or restricted... */
+    }
+}
+
+function removeStorage(key)
+{
+    try
+    {
+        localStorage.removeItem(key);
+    }
+    catch
+    {
+        /* Storage may be unavailable or restricted... */
+    }
+}
+
+function readTimerSession()
+{
+    return safeParse(readStorage(TIMER_SESSION_KEY));
+}
+function persistTimerSession(payload)
+{
+    writeStorage(TIMER_SESSION_KEY, payload);
+}
 function clearTimerSession()
 {
-    localStorage.removeItem(TIMER_SESSION_KEY);
+    removeStorage(TIMER_SESSION_KEY);
 }
 
 export function useTimer()
@@ -58,9 +105,10 @@ export function useTimer()
     const [duration, setDuration] = useState(DEFAULT_DURATION);
     const [timeLeft, setTimeLeft] = useState(DEFAULT_DURATION); //Time in milliseconds.
 
-    //Continous millisecond clock used exclusively
-    //by visual systems such as the ambient nebula.
-    //The normal timer display continues using `timeLeft`.
+    //Full resolution timer state used exclusively by
+    //visual systems such as the ambient nebula.
+    //`timeLeft` intentionally remains second-oriented
+    //for the visible timer display.
     const [visualTimeLeft, setVisualTimeLeft] = useState(DEFAULT_DURATION);
     const [running, setRunning] = useState(false);
     const [pastTimers, setPastTimers] = useState([]);
@@ -70,13 +118,19 @@ export function useTimer()
     const completedRef = useRef(false);
     const lastSecondRef = useRef(null);
 
-    const hydratedRef = useRef(false);
-    const restoringRef = useRef(true);
+    //React state is used for hydration so the persistence
+    //effect cannot write until the restored state
+    //has actually rendered.
+    const [hydrated, setHydrated] = useState(false);
+
+    //Prevents the persistence effect from writing a fresh
+    //session immediately after resets.
+    const skipPersistRef = useRef(true);
 
     //Hydrate past timers once...
     useEffect(() =>
     {
-        const parsed = safeParse(localStorage.getItem(STORAGE_KEY));
+        const parsed = safeParse(readStorage(STORAGE_KEY));
 
         if (Array.isArray(parsed))
         {
@@ -84,18 +138,7 @@ export function useTimer()
         }
     }, []);
 
-    //Persist non-running timer state.
-    useEffect(() =>
-    {
-        if ( (restoringRef.current) || (!hydratedRef.current) || (running))
-        {
-            return;
-        }
-
-        persistTimerSession({ duration, timeLeft, running: false, });
-    }, [duration, timeLeft, running]);
-
-    const complete = useCallback((completedDuration = duration) =>
+    const complete = useCallback((completedDuration) =>
     {
         if (completedRef.current)
         {
@@ -103,12 +146,16 @@ export function useTimer()
         }
 
         completedRef.current = true;
+        skipPersistRef.current = true;
 
-        if (rafRef.current)
+        if (rafRef.current !== null)
         {
             cancelRAF(rafRef.current);
             rafRef.current = null;
         }
+
+        startRef.current = null;
+        lastSecondRef.current = null;
 
         setVisualTimeLeft(0);
         setTimeLeft(0);
@@ -124,27 +171,21 @@ export function useTimer()
         {
             const next = [entry, ...previous].slice(0, MAX_HISTORY);
 
-            //Avoid unnecessary writes.
-            if ((JSON.stringify(previous)) !== (JSON.stringify(next)))
-            {
-                try
-                {
-                    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-                } catch { /* silent storage failure. */ }
-            }
+            writeStorage(STORAGE_KEY, next);
 
             return next;
         });
-    }, [duration]);
+    }, []);
 
     //Restore previous timer session (if one exists).
     useEffect(() =>
     {
-        const parsed = safeParse(localStorage.getItem(TIMER_SESSION_KEY));
+        const session = readTimerSession();
 
-        if (!parsed)
+        //No saved sessions...
+        if (!session)
         {
-            hydratedRef.current = true;
+            setHydrated(true);
             return;
         }
 
@@ -153,11 +194,12 @@ export function useTimer()
             timeLeft: storedTimeLeft,
             running: storedRunning,
             startEpoch,
-        } = parsed;
+        } = session;
 
-        if ((typeof storedDuration !== "number") || (typeof storedTimeLeft !== "number"))
+        if ((typeof storedDuration !== "number") || (!Number.isFinite(storedDuration)) || (storedDuration <= 0) || (typeof storedTimeLeft !== "number") || (!Number.isFinite(storedTimeLeft)) || (storedTimeLeft < 0))
         {
-            hydratedRef.current = true;
+            clearTimerSession();
+            setHydrated(true);
             return;
         }
 
@@ -170,71 +212,86 @@ export function useTimer()
             setVisualTimeLeft(storedTimeLeft);
             setRunning(false);
 
-            hydratedRef.current = true;
+            setHydrated(true);
             return;
         }
 
         //Running persistence.
-        if (typeof startEpoch !== "number")
+        if ((typeof startEpoch !== "number") || (!Number.isFinite(startEpoch)))
         {
-            hydratedRef.current = true;
+            clearTimerSession();
+            setHydrated(true);
             return;
         }
 
-        const now = nowEpoch();
-        const elapsed = now - startEpoch;
-        const remaining = storedDuration - elapsed;
+        const elapsed = Math.max(0, nowEpoch() - startEpoch);
+        const remaining = Math.max(0, storedDuration - elapsed);
 
         if (remaining <= 0)
         {
+            setHydrated(true);
             complete(storedDuration);
             return;
         }
 
         startRef.current = nowPerf() - elapsed;
+        lastSecondRef.current = null;
         setTimeLeft(remaining);
         setVisualTimeLeft(remaining);
         setRunning(true);
+        setHydrated(true);
     }, [complete]);
 
-    //Unlock persistence after restoration finishes.
+    //Persist paused timer state.
     useEffect(() =>
     {
-        if (!hydratedRef.current)
+        //Never persist during the initial hydration render.
+        if (!hydrated)
         {
-            hydratedRef.current = true;
             return;
         }
 
-        restoringRef.current = false;
-    }, [running, timeLeft, duration]);
+        //Completion and reset intentionally clear the session.
+        if (skipPersistRef.current)
+        {
+            skipPersistRef.current = false;
+            return;
+        }
+
+        //Running sessions are persisted explicitly by start().
+        if (running)
+        {
+            return;
+        }
+
+        persistTimerSession({ duration, timeLeft, running: false, });
+    }, [hydrated, duration, timeLeft, running]);
 
     //RAF Loop (peformance.now()).
     const tick = useCallback(() =>
     {
-        if ((!running) || (startRef.current == null))
+        if ((!running) || (startRef.current === null))
         {
             return;
         }
 
-        const now = nowPerf();
-        const elapsed = now - startRef.current;
+        const elapsed = nowPerf() - startRef.current;
         const remaining = Math.max(0, duration - elapsed);
 
-        //Continous visual clock.
+        //Visual systems receive the complete millisecond
+        //resolution on every animation frame.
         setVisualTimeLeft(remaining);
 
         if (remaining <= 0)
         {
-            setTimeLeft(0);
-            complete();
+            complete(duration);
             return;
         }
 
-        //The visible timer remains intentionally
-        //second-based.
-        //Only the ambient background receives
-        //the full-resolution value.
+        //The visible timer only updates when the displayed
+        //second changes. This prevents unnecessary React
+        //renders while preserving a perfectly smooth
+        //visual animation...
         const nextSecond = Math.ceil(remaining / 1000);
 
         //Always update on first frame OR when second changes.
@@ -252,14 +309,14 @@ export function useTimer()
     {
         if (!running)
         {
-            return;
+            return undefined;
         }
 
         rafRef.current = requestRAF(tick);
 
         return () =>
         {
-            if (rafRef.current)
+            if (rafRef.current !== null)
             {
                 cancelRAF(rafRef.current);
                 rafRef.current = null;
@@ -270,7 +327,10 @@ export function useTimer()
     //Handle start timer button click.
     const start = useCallback(() =>
     {
-        //Only reset if we are starting a brand-new timer.
+        //A completed timer remains at zero until the user
+        //explicitly resets it. Starting from zero restores
+        //the selected duration without immediately beginning
+        //another run.
         if (timeLeft <= 0)
         {
             //Do not reset completedRef yet, require explicit reset.
@@ -280,51 +340,53 @@ export function useTimer()
         }
 
         completedRef.current = false; //Reset for a fresh run.
-        const nowP = nowPerf();
-        const nowE = nowEpoch();
-        const elapsed = duration - timeLeft;
+        skipPersistRef.current = false;
 
-        startRef.current = nowP - elapsed;
+        const elapsed = Math.max(0, duration - timeLeft);
+        const currentPerf = nowPerf();
+        const currentEpoch = nowEpoch();
+        const remaining = Math.max(0, duration - elapsed);
+
+        startRef.current = currentPerf - elapsed;
         lastSecondRef.current = null; //Force first frame update.
-        setVisualTimeLeft(duration - elapsed);
 
-        persistTimerSession({ duration, timeLeft, running: true, startEpoch: nowE - elapsed, });
+        setVisualTimeLeft(remaining);
+
+        persistTimerSession({ duration, timeLeft: remaining, running: true, startEpoch: currentEpoch - elapsed, });
 
         setRunning(true);
     }, [duration, timeLeft]);
 
     const pause = useCallback(() =>
     {
-        setRunning(false);
+        if (!running)
+        {
+            return;
+        }
 
-        if (rafRef.current)
+        //Capture the exact timer position before changing
+        //React state so persistence never receives stale `timeLeft`.
+        const elapsed = startRef.current === null ? 0 : nowPerf() - startRef.current;
+        const remaining = Math.max(0, duration - elapsed);
+
+        if (rafRef.current !== null)
         {
             cancelRAF(rafRef.current);
             rafRef.current = null;
         }
 
-        //Capture the precise current position
-        //before stopping the clock.
-        if (startRef.current != null)
-        {
-            const elapsed = nowPerf() - startRef.current;
-            const remaining = Math.max(0, duration - elapsed);
-            setVisualTimeLeft(remaining);
-            setTimeLeft(remaining);
-        }
-
-        persistTimerSession({ duration, timeLeft, running: false, });
-
-        if (startRef.current != null)
-        {
-            const elapsed = duration - timeLeft;
-            startRef.current = nowPerf() - elapsed;
-        }
-    }, [duration, timeLeft]);
+        startRef.current = null;
+        lastSecondRef.current = null;
+        skipPersistRef.current = false;
+        setRunning(false);
+        setVisualTimeLeft(remaining);
+        setTimeLeft(remaining);
+        persistTimerSession({ duration, timeLeft: remaining, running: false, });
+    }, [duration, running]);
 
     const reset = useCallback(() =>
     {
-        if (rafRef.current)
+        if (rafRef.current !== null)
         {
             cancelRAF(rafRef.current);
             rafRef.current = null;
@@ -333,6 +395,10 @@ export function useTimer()
         completedRef.current = false;
         startRef.current = null;
         lastSecondRef.current = null;
+
+        //Tell the persistence effect that this state
+        //was intentionally cleared rather than naturally paused.
+        skipPersistRef.current = true;
 
         setRunning(false);
         setTimeLeft(duration);
@@ -343,7 +409,7 @@ export function useTimer()
     const clearPastTimers = useCallback(() =>
     {
         setPastTimers([]);
-        localStorage.removeItem(STORAGE_KEY);
+        removeStorage(STORAGE_KEY);
     }, []);
 
     return {
