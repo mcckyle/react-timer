@@ -1,42 +1,51 @@
 #Filename: deploy.yml
 #Author: Kyle McColgan
-#Date: 4 August 2026
-#Description: This file contains the GitHub Actions Workflow and GitHub Pages deployment processes for the React timer project.
+#Date: 7 October 2026
+#Description: This file contains the GitHub Actions Workflow and GitHub Pages deployment processes for the timer React project.
 
-name: Deploy to GitHub Pages
+name: main
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
 
 permissions:
   contents: write  # For push to the gh-pages branch...
 
+#Prevents multiple concurrent deployments from stepping on each other...
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v7
 
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '24'
-          cache: 'npm'
+    - name: Set up Node.js
+      uses: actions/setup-node@v7
+      with:
+        node-version: '24'
 
-      - name: Install package dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm ci #Safer/faster alternative to npm install in CI environments.
 
-      - name: Build the project
-        run: npm run build  # Vite outputs to ./dist directory.
+    - name: Run tests
+      run: npm test
 
-      - name: Execute test cases
-        run: npm test -- --run #Tell Vitest to execute once and exit rather than hanging in watch mode.
+    - name: Build the project
+      run: npm run build
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages           # The branch to push to.
+        folder: dist               # Vite's build folder is dist.
+        token: ${{ secrets.GH_TOKEN }}  # Using the PAT secret for deployment.
