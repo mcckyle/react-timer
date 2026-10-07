@@ -20,8 +20,8 @@
 
     /* Base Color System. */
     --bg: #03050a;
-    --bg-secondary: #081d15;
-    --bg-tertiary: #0d1521;
+    --bg-secondary: #071019;
+    --bg-tertiary: #0c1521;
     --text: #f5f7fb;
     --text-soft: color-mix(in srgb, var(--text) 76%, transparent);
     --text-muted: color-mix(in srgb, var(--text) 54%, transparent);
@@ -128,7 +128,7 @@
 
     /* Base Color System. */
     --bg: #f3f7fc;
-    --bg-secondary: #fbfdff;
+    --bg-secondary: #f8fbff;
     --bg-tertiary: #edf2f8;
     --text: #0f1728;
     --text-soft: color-mix(in srgb, var(--text) 72%, transparent);
@@ -155,14 +155,14 @@
     --shadow-glow: 0 0 28px color-mix(in srgb, var(--accent) 8%, transparent);
 
     /* Ambient Lighting System. */
-    --ambient-intensity: 0.88;
-    --ambient-blur-soft: 90px;
-    --ambient-blur-strong: 160px;
+    --ambient-intensity: 0.82;
+    --ambient-blur-soft: 92px;
+    --ambient-blur-strong: 156px;
     --ambient-grid-opacity: 0.022;
 
     /* Glass System. */
     --glass-highlight: linear-gradient(180deg, rgb(255 255 255 / 0.70), rgb(255 255 255 / 0.08));
-    --glass-noise-opacity: 0.018;
+    --glass-noise-opacity: 0.016;
 }
 
 /* ====================================

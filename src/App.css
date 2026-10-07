@@ -15,5 +15,4 @@
   overflow: clip;
   background: var(--bg);
   color: var(--text);
-  contain: paint;
 }

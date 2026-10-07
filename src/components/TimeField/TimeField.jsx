@@ -1,6 +1,6 @@
 //File name: TimeField.jsx
 //Author: Kyle McColgan
-//Date: 9 September 2026
+//Date: 6 October 2026
 //Description: This file contains the time field for the timer React project.
 
 import { useRef } from "react";
@@ -15,9 +15,9 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
   const startValue = useRef(0);
   const dragging = useRef(false);
 
-  const clamp = (valueToClamp) =>
+  const clamp = (nextValue) =>
   {
-    return Math.max(0, Math.min(max, valueToClamp));
+    return Math.max(0, Math.min(max, nextValue));
   };
 
   function handlePointerDown(event)
@@ -44,14 +44,14 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
     const deltaY = startY.current - event.clientY;
 
     //Velocity scaling (slow = precise, fast = jump).
-    const speed = Math.abs(deltaY);
-    const step = Math.trunc(deltaY / 12);
+    const distance = Math.abs(deltaY);
+    const baseStep = Math.trunc(deltaY / 12);
     const multiplier =
-      speed > 140 ? 12 :
-      speed > 80 ? 6 :
-      speed > 30 ? 2 : 1;
+      distance > 140 ? 12 :
+      distance > 80 ? 6 :
+      distance > 30 ? 2 : 1;
 
-    const next = clamp(startValue.current + step * multiplier);
+    const next = clamp(startValue.current + baseStep * multiplier);
     onChange(next);
   }
 
@@ -98,16 +98,19 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
     if (event.key === "Enter")
     {
       onBlur?.();
+      return;
     }
     if (event.key === "ArrowUp")
     {
       event.preventDefault();
       onChange(clamp(value + 1));
+      return;
     }
     if (event.key === "ArrowDown")
     {
       event.preventDefault();
       onChange(clamp(value - 1));
+      return;
     }
   }
 

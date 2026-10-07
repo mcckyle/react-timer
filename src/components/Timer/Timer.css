@@ -28,7 +28,7 @@
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto auto;
   align-items: center;
-  padding: clamp(0.5rem, 2vh, 2rem) clamp(1rem, 4vw, 4rem) clamp(1.5rem, 4vh, 3rem);
+  padding: clamp(0.25rem, 1vh, 1rem) clamp(1rem, 4vw, 4rem) clamp(1.25rem, 3.2vh, 2.5rem);
 }
 
 /* ====================================
@@ -43,13 +43,13 @@
 
   display: grid;
   place-items: center;
-  padding-inline: clamp(0.25rem, 1.5vw, 2rem);
+  padding-inline: clamp(0.25rem, 1.25vw, 1.5rem);
 }
 
 /* ====================================
    TIMER CONTROLS DOCK STYLES.
 ======================================= */
-.controlsRegion { inline-size: 100%; display: flex; justify-content: center; align-items: center; padding-block-start: clamp(1rem, 3vh, 2.5rem); }
+.controlsRegion { inline-size: 100%; display: flex; justify-content: center; align-items: center; padding-block-start: clamp(0.75rem, 2vh, 1.5rem); }
 
 /* ====================================
    TIMER SHORTCUTS STYLES.
@@ -60,28 +60,28 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.25rem 0.70rem;
-  margin: clamp(0.90rem, 2vh, 1.5rem) auto 0;
+  gap: 0.25rem 0.65rem;
+  margin: clamp(0.75rem, 1.6vh, 1.25rem) auto 0;
 
   color: var(--text-muted);
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 500;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.15em;
   line-height: 1.5;
   text-align: center;
   text-transform: uppercase;
-  opacity: 0.42;
+  opacity: 0.34;
 
   transition: opacity 700ms var(--ease-fluid);
 }
 .timer-shortcuts span
 {
-  color: color-mix(in srgb, var(--text-soft) 86%, hsl(var(--ambient-hue) 100% 72%) 14%);
+  color: color-mix(in srgb, var(--text-soft) 84%, hsl(var(--ambient-hue) 100% 72%) 16%);
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.60rem;
   letter-spacing: 0.04em;
 }
-.timer.is-running .timer-shortcuts { opacity: 0.54; }
+.timer.is-running .timer-shortcuts { opacity: 0.46; }
 
 .timer.is-complete .controlsRegion { animation: timer-controls-complete 700ms var(--ease-fluid); }
 
@@ -102,8 +102,8 @@
 ======================================= */
 @media (max-width: 480px)
 {
-  .stage { padding: 0.50rem 0.75rem 1.25rem; }
+  .stage { padding: 0.25rem 0.75rem 1rem; }
   .displayRegion { padding-inline: 0; }
-  .controlsRegion { padding-block-start: 1.25rem; }
-  .timer-shortcuts { margin-top: 0.85rem; font-size: 0.58rem; letter-spacing: 0.12em; }
+  .controlsRegion { padding-block-start: 1rem; }
+  .timer-shortcuts { margin-top: 0.75rem; font-size: 0.56rem; letter-spacing: 0.11em; }
 }

@@ -1,6 +1,6 @@
 //File name: useAmbientEngine.js
 //Author: Kyle McColgan
-//Date: 28 September 2026
+//Date: 6 October 2026
 //Description: This file contains the background hook component for the timer React project.
 
 import { useMemo } from "react";
@@ -59,30 +59,29 @@ export function useAmbientEngine({ duration, timeLeft, visualTimeLeft, running }
     //enough to prevent the atmosphere from becoming static,
     //but slow enough that it never reads as an animation loop...
     const spectralWave =
-        Math.sin(clock * 0.42) * 7 +
-        Math.sin(clock * 0.17) * 4 +
-        Math.sin(clock * 0.063) * 2.5;
+        Math.sin(clock * 0.40) * 6 +
+        Math.sin(clock * 0.16) * 3.5;
 
     //The timer drivers the primary color journey:
     //deep blue -> cyan / violet -> warm amber -> subtle red-orange.
     const baseHue = lerp(START_HUE, END_HUE, energy);
-    const hue = baseHue + spectralWave * (0.38 + energy * 0.50);
-    const secondaryHue = wrapHue(hue + 62 + Math.sin(clock * 0.13) * 5);
+    const hue = baseHue + spectralWave * (0.34 + energy * 0.46);
+    const secondaryHue = wrapHue(hue + 60 + Math.sin(clock * 0.12) * 4);
 
-    const glow = 0.28 + energy * 0.72;
-    const motion = running ? 0.30 + energy * 0.70 : 0.16 + energy * 0.10;
-    const blur = lerp(142, 94, energy);
-    const scale = 1 + energy * 0.12;
-    const rotation = `${energy * 8}deg`;
+    const glow = 0.26 + energy * 0.74;
+    const motion = running ? 0.28 + energy * 0.72 : 0.14 + energy * 0.08;
+    const blur = lerp(146, 96, energy);
+    const scale = 1 + energy * 0.11;
+    const rotation = `${energy * 7}deg`;
 
     //Micro motion.
-    const pulse = 0.50 + Math.sin(clock * 1.6) * 0.50;
-    const drift = Math.sin(clock * 0.45);
-    const shimmer = 0.50 + Math.sin(clock * 4.0) * 0.50;
-    const intensity = 0.20 + energy * 0.80;
+    const pulse = 0.50 + Math.sin(clock * 1.45) * 0.42;
+    const drift = Math.sin(clock * 0.42);
+    const shimmer = 0.50 + Math.sin(clock * 3.6) * 0.50;
+    const intensity = 0.18 + energy * 0.82;
 
     //Keep the complete atmospheric state in one memoized
-    //style object so React performs minimal style work.
+    //style object so React only updates the CSS variables that actually change.
     const style = useMemo(() => ({
         "--ambient-progress": progress,
         "--ambient-energy": energy,

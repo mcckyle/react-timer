@@ -1,6 +1,6 @@
 //File name: TimerHeader.jsx
 //Author: Kyle McColgan
-//Date: 9 September 2026
+//Date: 6 October 2026
 //Description: This file contains the timer header component for the timer React project.
 
 import React from "react";
@@ -38,11 +38,11 @@ export default function TimerHeader({
         <div
           className="timer-header-mode timer-glass"
           role="group"
-          aria-label="Display mode"
+          aria-label="Timer display mode"
         >
           <button
             type="button"
-            aria-label="Digital timer"
+            aria-label="Use digital timer"
             aria-pressed={mode === "digital"}
             onClick={() => setMode("digital")}
           >
@@ -50,7 +50,7 @@ export default function TimerHeader({
           </button>
           <button
             type="button"
-            aria-label="Visual timer"
+            aria-label="Use visual timer"
             aria-pressed={mode === "visual"}
             onClick={() => setMode("visual")}
           >

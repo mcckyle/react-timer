@@ -9,7 +9,6 @@ html
   inline-size: 100%;
   min-block-size: 100%;
   overflow-x: clip;
-  background: var(--bg);
   font-size: 16px;
 
   -webkit-text-size-adjust: 100%;
@@ -24,9 +23,6 @@ body
   min-block-size: 100dvh;
   overflow: clip;
 
-  background: var(--bg);
-  color: var(--text);
-
   font-family: var(--font-sans);
   font-size: 1rem;
   font-weight: 400;
@@ -37,7 +33,7 @@ body
   overscroll-behavior: none;
   touch-action: manipulation;
 }
-#root { inline-size: 100%; min-block-size: 100dvh; isolation: isolate; }
+#root { inline-size: 100%; min-block-size: 100dvh; }
 /* ====================================
    GLOBAL INTERACTION NORMALIZATION STYLES.
 ======================================= */
@@ -49,7 +45,7 @@ img, picture, svg, canvas { display: block; max-inline-size: 100%; }
 img, svg { user-select: none; -webkit-user-drag: none; }
 h1, h2, h3, h4 { margin: 0; font-weight: 500; line-height: 1.05; letter-spacing: -0.035em; }
 p { margin: 0; }
-::selection { background: color-mix(in oklab, var(--accent), transparent 40%); color: white; }
+::selection { background: color-mix(in oklab, var(--accent), transparent 40%); color: var(--text); }
 :focus-visible { outline: 2px solid color-mix(in oklab, var(--accent), white 18%); outline-offset: 4px; }
 
 /* ====================================
