@@ -6,7 +6,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, useLayoutEffect } from "react";
 
 const ThemeContext = createContext(undefined);
-const THEME_STORAGE_KEY = "stopwatch-theme";
+const THEME_STORAGE_KEY = "timer-theme";
 const DARK_MEDIA_QUERY = "(prefers-color-scheme: dark)";
 const THEMES = Object.freeze({
   LIGHT: "light",
