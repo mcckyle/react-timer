@@ -100,7 +100,6 @@ react-timer/
 │   │   │   ├── DurationPicker.jsx
 │   │   │   └── DurationPicker.css
 │   │   │
-│   │   ├── ThemeWrapper.jsx
 │   │   └── theme.css
 │   │
 │   ├── utils/

@@ -1,12 +1,12 @@
 //File name: useAmbientEngine.js
 //Author: Kyle McColgan
-//Date: 6 October 2026
+//Date: 14 October 2026
 //Description: This file contains the background hook component for the timer React project.
 
 import { useMemo } from "react";
 
-const START_HUE = 220;
-const END_HUE = 18;
+const START_HUE = 218;
+const END_HUE = 318;
 
 function clamp(value, min = 0, max = 1)
 {
@@ -59,18 +59,19 @@ export function useAmbientEngine({ duration, timeLeft, visualTimeLeft, running }
     //enough to prevent the atmosphere from becoming static,
     //but slow enough that it never reads as an animation loop...
     const spectralWave =
-        Math.sin(clock * 0.40) * 6 +
-        Math.sin(clock * 0.16) * 3.5;
+        Math.sin(clock * 0.40) * 5 +
+        Math.sin(clock * 0.16) * 3;
 
-    //The timer drivers the primary color journey:
-    //deep blue -> cyan / violet -> warm amber -> subtle red-orange.
+    //Blue -> violet -> pink.
     const baseHue = lerp(START_HUE, END_HUE, energy);
-    const hue = baseHue + spectralWave * (0.34 + energy * 0.46);
-    const secondaryHue = wrapHue(hue + 60 + Math.sin(clock * 0.12) * 4);
+    const hue = baseHue + spectralWave * (0.34 + energy * 0.3);
 
-    const glow = 0.26 + energy * 0.74;
+    //Violet -> cyan.
+    const secondaryHue = wrapHue(lerp(282, 198, energy) + Math.sin(clock * 0.12) * 4);
+
+    const glow = 0.3 + energy * 0.7;
     const motion = running ? 0.28 + energy * 0.72 : 0.14 + energy * 0.08;
-    const blur = lerp(146, 96, energy);
+    const blur = lerp(146, 104, energy);
     const scale = 1 + energy * 0.11;
     const rotation = `${energy * 7}deg`;
 

@@ -1,7 +1,7 @@
 /* Filename: src/components/TimerDisplay/TimerDisplay.css */
 
 /* ====================================
-   TIMERDISPLAY FULL WIDTH CLOCK STYLES.
+   TIMERDISPLAY FULL WIDTH DIGITAL CLOCK STYLES.
 ======================================= */
 .timer-display
 {
@@ -19,15 +19,15 @@
     font-size: clamp(5rem, min(20vw, 34vh), 32rem); /* Important: Digits as large as possible. */
     font-weight: 600;
     font-variant-numeric: tabular-nums lining-nums;
-    line-height: 0.78;
+    line-height: 0.82;
     letter-spacing: -0.055em;
     color: var(--text);
     text-rendering: geometricPrecision;
     user-select: none;
 
-    text-shadow: 0 0 14px hsl(var(--ambient-hue) 100% 72% / calc(0.055 + var(--ambient-energy) * 0.070)),
-                 0 0 44px hsl(var(--ambient-hue) 100% 72% / calc(0.018 + var(--ambient-energy) * 0.048)),
-                 0 0 108px hsl(var(--ambient-hue) 100% 72% / calc(0.008 + var(--ambient-energy) * 0.022));
+    text-shadow: 0 0 14px hsl(var(--ambient-hue) 100% 74% / 0.1),
+                 0 0 42px hsl(var(--ambient-hue-secondary) 100% 72% / 0.065),
+                 0 0 100px hsl(var(--ambient-hue) 100% 72% / 0.035);
 
     transition: text-shadow 1000ms var(--ease-fluid), filter 1000ms var(--ease-fluid);
 }
@@ -37,7 +37,7 @@
 ======================================= */
 .timer.is-running .timer-display
 {
-    filter: brightness(calc(1 + var(--ambient-energy) * 0.032));
+    filter: brightness(calc(1 + var(--ambient-energy) * 0.025));
 }
 
 /* ====================================
@@ -49,9 +49,10 @@
     place-items: center;
     margin-inline: 0.015em;
 
-    color: hsl(var(--ambient-hue) 100% 82% / calc(0.58 + var(--ambient-energy) * 0.22));
-    text-shadow: 0 0 16px hsl(var(--ambient-hue) 100% 78% / calc(0.055 + var(--ambient-energy) * 0.085));
-    filter: brightness(calc(0.94 + var(--ambient-pulse) * 0.080));
+    color: hsl(var(--ambient-hue-secondary) 100% 82% / calc(0.66 + var(--ambient-energy) * 0.16));
+    text-shadow: 0 0 16px hsl(var(--ambient-hue) 100% 76% / 0.12),
+    0 0 34px hsl(var(--ambient-hue-secondary) 100% 72% / 0.08);
+    filter: brightness(calc(0.96 + var(--ambient-pulse) * 0.06));
 
     transition: color 1000ms var(--ease-fluid), text-shadow 1000ms var(--ease-fluid), filter 1000ms var(--ease-fluid);
 }
@@ -74,14 +75,18 @@
 
 @media (prefers-reduced-motion: reduce)
 {
-    .timer-display { transition: none; }
+    .timer-display, .timer-display-separator { transition: none; }
     .timer.is-complete .timer-display { animation: none; }
 }
 
 /* ====================================
    TIMERDISPLAY MEDIA QUERY STYLES.
 ======================================= */
+@media (max-width: 768px)
+{
+    .timer-display { font-size: clamp(3.5rem, 16vw, 12rem); letter-spacing: -0.05em; }
+}
 @media (max-width: 480px)
 {
-    .timer-display { font-size: clamp(3rem, 17vw, 8rem); letter-spacing: -0.05em; }
+    .timer-display { font-size: clamp(3rem, 15.5vw, 8rem); letter-spacing: -0.045em; }
 }

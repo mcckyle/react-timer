@@ -1,6 +1,6 @@
 //File name: TimerDisplay.jsx
 //Author: Kyle McColgan
-//Date: 9 September 2026
+//Date: 14 October 2026
 //Description: This file contains the time display for the timer React project.
 
 import { formatDuration } from "../../utils/formatDuration";
@@ -13,6 +13,7 @@ export default function TimerDisplay({ timeLeft })
   const seconds = Math.max(0, Math.ceil(timeLeft / 1000));
   const display = formatDuration(seconds * 1000);
   const characters = [...display];
+  const timeValue = `PT${seconds}S`;
 
   return (
     <time
@@ -21,6 +22,7 @@ export default function TimerDisplay({ timeLeft })
       aria-live="off"
       aria-atomic="true"
       aria-label={`${display} remaining`}
+      dateTime={timeValue}
     >
       {characters.map((char, index) =>
         char === ":" ? (

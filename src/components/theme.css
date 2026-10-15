@@ -12,17 +12,17 @@
     --font-mono: "JetBrains Mono", Consolas, monospace;
 
     /* Dynamic Accent System. */
-    --accent-hue: 220; /* Base hue (fallback when the timer is not active). */
-    --accent: hsl(var(--ambient-hue) 92% 64%);
-    --accent-soft: hsl(var(--ambient-hue) 92% 64% / 0.12);
-    --accent-muted: hsl(var(--ambient-hue) 92% 64% / 0.42);
-    --accent-strong: hsl(var(--ambient-hue) 100% 72%);
+    --accent-hue: 218; /* Base hue (fallback when the timer is not active). */
+    --accent: hsl(var(--ambient-hue) 92% 68%);
+    --accent-soft: hsl(var(--ambient-hue) 92% 68% / 0.12);
+    --accent-muted: hsl(var(--ambient-hue) 92% 68% / 0.42);
+    --accent-strong: hsl(var(--ambient-hue) 100% 76%);
 
     /* Base Color System. */
-    --bg: #03050a;
-    --bg-secondary: #071019;
-    --bg-tertiary: #0c1521;
-    --text: #f5f7fb;
+    --bg: #040611;
+    --bg-secondary: #080b1b;
+    --bg-tertiary: #10152a;
+    --text: #f5f5ff;
     --text-soft: color-mix(in srgb, var(--text) 76%, transparent);
     --text-muted: color-mix(in srgb, var(--text) 54%, transparent);
 
@@ -83,7 +83,7 @@
     --ambient-intensity: 1;
 
     --ambient-hue: var(--accent-hue); /* Live hue (Timer can override this). */
-    --ambient-hue-secondary: 278;
+    --ambient-hue-secondary: 282;
 
     --ambient-motion: 0;
     --ambient-drift: 0;
@@ -96,7 +96,7 @@
     --ambient-rotation: 0deg;
 
     --ambient-blur-soft: 120px;
-    --ambient-blur-strong: 180px;
+    --ambient-blur-strong: 192px;
 
     --ambient-grid-opacity: 0.014;
 

@@ -1,6 +1,6 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 9 September 2026
+//Date: 14 October 2026
 //Description: This file contains the parent timer component for the timer React project.
 
 import { useState, useEffect, useRef } from "react";
@@ -37,16 +37,21 @@ const Timer = ({ toggleTheme }) =>
   //Completion Detection.
   useEffect(() =>
   {
-    const completedNow = (prevTimeRef.current > 0) && (timeLeft === 0);
-    if (completedNow)
-    {
-      setCompleted(true);
+    const previousTime = prevTimeRef.current;
 
-      //Auto-clear after animation window.
-      const timeout = setTimeout(() => setCompleted(false), 1100);
-      return () => clearTimeout(timeout);
-    }
+    //Update immediately so completion is detected only once.
     prevTimeRef.current = timeLeft;
+
+    const completedNow = (previousTime > 0) && (timeLeft === 0);
+    if (!completedNow)
+    {
+      return;
+    }
+    setCompleted(true);
+
+    //Auto-clear after animation window.
+    const timeout = setTimeout(() => setCompleted(false), 1100);
+    return () => clearTimeout(timeout);
   }, [timeLeft]);
 
   const handleSelectDuration = (value) =>

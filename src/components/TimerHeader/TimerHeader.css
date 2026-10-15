@@ -16,50 +16,53 @@
     padding: max(0.80rem, env(safe-area-inset-top)) clamp(0.90rem, 4vw, 3.25rem) 0.75rem;
     pointer-events: none;
 
-    --glass-opacity: calc(0.50 + var(--ambient-energy) * 0.10);
+    --glass-opacity: calc(0.54 + var(--ambient-energy) * 0.08);
+    --vapor-pink: hsl(320 100% 74%);
+    --vapor-blue: hsl(195 100% 72%);
 }
 
 /* ====================================
-   TIMERHEADER HEADER AREAS STYLES.
+   TIMERHEADER HEADER REGIONS STYLES.
 ======================================= */
 .timer-header-left,
 .timer-header-center,
-.timer-header-right { display: flex; align-items: center; pointer-events: auto; }
+.timer-header-right { display: flex; align-items: center; min-inline-size: 0; pointer-events: auto; }
 .timer-header-left { justify-content: flex-start; }
-.timer-header-center { justify-content: center; gap: 0.25rem; }
-.timer-header-right { justify-content: flex-end; gap: 0.36rem; }
+.timer-header-center { justify-content: center; gap: 0.3rem; }
+.timer-header-right { justify-content: flex-end; gap: 0.4rem; }
 
 /* ====================================
    TIMERHEADER TITLE STYLES.
 ======================================= */
 .timer-header-title
 {
-    margin: 0;
     color: var(--text-soft);
-    font-size: clamp(0.56rem, 0.78vw, 0.66rem);
+    font-size: clamp(0.56rem, 0.78vw, 0.68rem);
     font-weight: 650;
     line-height: 1;
-    letter-spacing: 0.28em;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
-    opacity: 0.30;
+    opacity: 0.62;
 
-    transition: color 800ms var(--ease-fluid), opacity 800ms var(--ease-fluid);
+    transition: color 700ms var(--ease-fluid), opacity 700ms var(--ease-fluid);
 }
-.timer.is-running .timer-header-title { color: hsl(var(--ambient-hue) 70% 88%); opacity: 0.50; }
+.timer.is-running .timer-header-title { color: var(--vapor-pink); opacity: 0.88; }
 
 /* ====================================
    TIMERHEADER SHARED GLASS CONTROL SURFACE STYLES.
 ======================================= */
 .timer-glass
 {
-    background: linear-gradient(180deg, rgb(255 255 255 / 0.045), rgb(255 255 255 / 0.012)),
+    background: linear-gradient(135deg, rgb(255 255 255 / 0.055), rgb(255 255 255 / 0.012)),
                 color-mix(in srgb, var(--surface-glass) calc(var(--glass-opacity) * 100%), transparent);
-    border: 1px solid color-mix(in srgb, var(--border-subtle) 90%, hsl(var(--ambient-hue) 100% 72%) 10%);
-    box-shadow: 0 12px 40px -30px rgb(0 0 0 / 0.72), inset 0 1px 0 rgb(255 255 255 / 0.045);
-    backdrop-filter: blur(24px) saturate(145%);
-    -webkit-backdrop-filter: blur(24px) saturate(145%);
+    border: 1px solid color-mix(in srgb, var(--border-subtle) 78%, var(--vapor-blue) 22%);
+    box-shadow: 0 12px 40px -30px rgb(0 0 0 / 0.72), inset 0 1px 0 rgb(255 255 255 / 0.055);
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+
+    transition: border-color 500ms var(--ease-fluid), box-shadow 500ms var(--ease-fluid);
 }
-.timer.is-running .timer-glass { border-color: color-mix(in srgb, var(--border-subtle) 80%, hsl(var(--ambient-hue) 100% 72%) 20%); }
+.timer.is-running .timer-glass { border-color: color-mix(in srgb, var(--border-subtle) 65%, var(--vapor-pink) 35%); }
 
 /* ====================================
    TIMERHEADER MODE CONTROL STYLES.
@@ -98,9 +101,9 @@
 }
 .timer-header-mode button[aria-pressed="true"]
 {
-    background: linear-gradient(180deg, hsl(var(--ambient-hue) 100% 72% / 0.11), hsl(var(--ambient-hue) 100% 62% / 0.035));
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.060), 0 0 24px -16px hsl(var(--ambient-hue) 100% 72% / calc(0.26 + var(--ambient-energy) * 0.16));
-    color: hsl(var(--ambient-hue) 100% 84%);
+    background: linear-gradient(135deg, rgb(244 100 255 / 0.12), rgb(70 195 255 / 0.09));
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.07), 0 0 22px -14px var(--vapor-blue);
+    color: var(--vapor-blue);
 }
 .timer-header-mode button[aria-pressed="true"]::after
 {
@@ -110,7 +113,8 @@
     inset-block-end: 0.23rem;
     block-size: 1px;
     border-radius: var(--radius-pill);
-    background: hsl(var(--ambient-hue) 100% 78% / calc(0.30 + var(--ambient-energy) * 0.22));
+    background: linear-gradient(90deg, var(--vapor-pink), var(--vapor-blue));
+    box-shadow: 0 0 8px rgb(100 190 255 / 0.25);
 }
 
 /* ====================================
@@ -141,15 +145,12 @@
 .timer-header-history-count
 {
     min-inline-size: 1rem;
-
     display: inline-grid;
     place-items: center;
-    color: hsl(var(--ambient-hue) 100% 78% / 0.84);
+    color: var(--vapor-pink);
     font-family: var(--font-mono);
     font-size: 0.60rem;
     font-variant-numeric: tabular-nums;
-
-    transition: color 400ms var(--ease-fluid);
 }
 
 /* ====================================
@@ -165,14 +166,14 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transform: translate3d(0, 0.45rem, 0) scale(0.985);
+    transform: translate3d(0, 0.4rem, 0) scale(0.985);
     transform-origin: top right;
-    filter: blur(4px);
+    filter: blur(3px);
 
     transition: opacity 180ms var(--ease-standard),
                 visibility 180ms var(--ease-standard),
-                transform 280ms var(--ease-fluid),
-                filter 280ms var(--ease-fluid);
+                transform 260ms var(--ease-fluid),
+                filter 260ms var(--ease-fluid);
 }
 .timer-header-history-panel.is-visible { opacity: 1; visibility: visible; pointer-events: auto; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
 
@@ -194,7 +195,6 @@
                 transform 160ms var(--ease-fluid),
                 box-shadow 400ms var(--ease-fluid);
 }
-.timer.is-running .timer-theme-toggle { color: hsl(var(--ambient-hue) 100% 80% / 0.88); }
 .toggleIcon { inline-size: 0.92rem; block-size: 0.92rem; transition: transform 400ms var(--ease-fluid), filter 400ms var(--ease-fluid); }
 .timer-header-mode button:active,
 .timer-header-history-button:active,
@@ -207,9 +207,8 @@
 .timer-header-history-button:focus-visible,
 .timer-theme-toggle:focus-visible
 {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--bg),
-                0 0 0 4px hsl(var(--ambient-hue) 100% 72% / 0.64);
+    outline: 2px solid var(--vapor-blue);
+    outline-offset: 3px;
 }
 
 @media (hover: hover)
@@ -221,14 +220,13 @@
         color: var(--text);
         transform: translateY(-1px);
     }
-    .timer-header-mode button:hover:not([aria-pressed="true"]) { background: rgb(255 255 255 / 0.025); }
+    .timer-header-mode button:hover:not([aria-pressed="true"]) { background: rgb(255 255 255 / 0.035); }
     .timer-header-history-button:hover,
     .timer-theme-toggle:hover
     {
-        box-shadow: 0 0 0 1px hsl(var(--ambient-hue) 100% 72% / 0.07),
-                    0 14px 34px -26px hsl(var(--ambient-hue) 100% 72% / 0.22);
+        box-shadow: 0 0 24px -14px var(--vapor-blue);
     }
-    .timer-theme-toggle:hover .toggleIcon { transform: rotate(10deg) scale(1.04); filter: drop-shadow(0 0 7px hsl(var(--ambient-hue) 100% 72% / 0.30)); }
+    .timer-theme-toggle:hover .toggleIcon { transform: rotate(10deg) scale(1.04); filter: drop-shadow(0 0 6px rgb(100 190 255 / 0.3)); }
 }
 
 /* ====================================
@@ -245,10 +243,9 @@
 ======================================= */
 @media (max-width: 700px)
 {
-    .timer-header { min-block-size: auto; grid-template-columns: 1fr auto; row-gap: 0.62rem; padding-inline: 1rem; padding-block-end: 0.60rem; }
+    .timer-header { min-block-size: auto; grid-template-columns: minmax(0, 1fr) auto; row-gap: 0.62rem; padding-inline: 1rem; padding-block-end: 0.60rem; }
     .timer-header-center { grid-column: 1 / -1; grid-row: 2; justify-content: center; }
-    .timer-header-title { letter-spacing: 0.24em; }
-    .timer-header-history-panel { inset-inline-start: 50%; inset-inline-end: auto; transform-origin: top center; transform: translate3d(-50%, 0.45rem, 0) scale(0.985); }
+    .timer-header-history-panel { inset-inline-start: 50%; inset-inline-end: auto; transform-origin: top center; transform: translate3d(-50%, 0.4rem, 0) scale(0.985); }
     .timer-header-history-panel.is-visible { transform: translate3d(-50%, 0, 0) scale(1); }
 }
 

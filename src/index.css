@@ -9,17 +9,20 @@ html
   inline-size: 100%;
   min-block-size: 100%;
   overflow-x: clip;
-  font-size: 16px;
 
+  font-size: 16px;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  scrollbar-gutter: stable;
 }
 body
 {
   margin: 0;
   inline-size: 100%;
+  min-block-size: 100vh;
+  min-block-size: 100svh;
   min-block-size: 100dvh;
   overflow: clip;
 
@@ -30,10 +33,10 @@ body
   font-variant-numeric: tabular-nums;
   font-feature-settings: "liga" 1, "kern" 1, "tnum" 1;
   font-synthesis: none;
-  overscroll-behavior: none;
-  touch-action: manipulation;
+  overscroll-behavior-y: none;
+  -webkit-tap-highlight-color: transparent;
 }
-#root { inline-size: 100%; min-block-size: 100dvh; }
+#root { inline-size: 100%; min-block-size: 100vh; min-block-size: 100svh; min-block-size: 100dvh; }
 /* ====================================
    GLOBAL INTERACTION NORMALIZATION STYLES.
 ======================================= */
@@ -54,8 +57,7 @@ p { margin: 0; }
 .noscript
 {
   inline-size: min(calc(100% - 2rem), 28rem);
-  margin-inline: auto;
-  margin-block: 3rem;
+  margin: 3rem auto;
   padding: 1rem 1.25rem;
 
   border: 1px solid var(--border-subtle);
@@ -63,8 +65,6 @@ p { margin: 0; }
   background: var(--surface);
   color: var(--text);
   box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 
   text-align: center;
   font-size: 0.95rem;
