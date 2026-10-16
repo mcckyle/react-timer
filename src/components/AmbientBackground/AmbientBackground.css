@@ -79,78 +79,60 @@
     inset: -12%;
     contain: paint;
     background-repeat: repeat;
-    will-change: transform, opacity;
+    will-change: transform;
 }
+/* Distant stars: a fine, expansive stellar backdrop. */
 .ambient-stars-far
 {
-    opacity: 0.62;
-    filter: blur(0.25px);
-    background-size: 47px 53px, 83px 79px, 127px 113px;
-    background-position: 0 0, 23px 31px, 61px 17px;
-    background-image: radial-gradient(
-        circle,
-        rgb(231 240 255 / 0.56) 0.55px,
-        transparent 1px
-    ),
-    radial-gradient(
-        circle,
-        rgb(156 190 255 / 0.56) 0.70px,
-        transparent 1.15px
-    ),
-    radial-gradient(
-        circle,
-        rgb(255 177 235 / 0.46) 0.65px,
-        transparent 1.1px
-    );
+    opacity: 0.72;
+    background-size: 31px 37px, 53px 61px, 79px 71px, 97px 109px, 137px 127px;
+    background-position: 3px 11px, 29px 7px, 17px 43px, 61px 23px, 83px 59px;
+    background-image:
+      radial-gradient(circle, rgb(231 240 255 / 0.62) 0.55px, transparent 1px),
+      radial-gradient(circle, rgb(156 190 255 / 0.52) 0.65px, transparent 1.1px),
+      radial-gradient(circle, rgb(255 177 235 / 0.48) 0.55px, transparent 1px),
+      radial-gradient(circle, rgb(205 219 255 / 0.38) 0.45px, transparent 0.9px),
+      radial-gradient(circle, rgb(255 255 255 / 0.3) 0.5px, transparent 0.95px);
 
     animation: ambient-stars-far-drift 420s linear infinite;
 }
 .ambient-stars-near
 {
-    opacity: calc(0.54 + var(--ambient-energy) * 0.20);
-    background-size: 109px 103px, 173px 157px, 211px 193px;
-    background-position: 17px 41px, 71px 13px, 39px 89px;
-    background: radial-gradient(
-        circle,
-        rgb(255 255 255 / 0.92) 0.85px,
-        transparent 1.5px
-    ),
-    radial-gradient(
-        circle,
-        rgb(131 177 255 / 0.82) 0.9px,
-        transparent 1.55px
-    ),
-    radial-gradient(
-        circle,
-        rgb(255 133 224 / 0.72) 0.80px,
-        transparent 1.45px
-    );
+    opacity: calc(0.66 + var(--ambient-energy) * 0.18);
+    background-size: 71px 83px, 113px 127px, 149px 137px, 193px 173px, 227px 211px;
+    background-position: 19px 31px, 47px 13px, 71px 89px, 23px 107px, 139px 47px;
+    background-image:
+        radial-gradient(circle, rgb(255 255 255 / 0.90) 0.75px, transparent 1.5px),
+        radial-gradient(circle, rgb(131 177 255 / 0.88) 0.8px, transparent 1.55px),
+        radial-gradient(circle, rgb(255 133 224 / 0.8) 0.75px, transparent 1.5px),
+        radial-gradient(circle, rgb(201 213 255 / 0.72) 0.65px, transparent 1.35px),
+        radial-gradient(circle, rgb(255 190 240 / 0.62) 0.7px, transparent 1.4px);
 
     animation: ambient-stars-near-drift 280s linear infinite;
 }
 .ambient-stars-bright
 {
-    position: absolute;
     inset: -6%;
-    opacity: calc(0.56 + var(--ambient-energy) * 0.16);
+    opacity: calc(0.68 + var(--ambient-energy) * 0.16);
     background-size: 257px 229px, 331px 293px, 419px 367px;
     background-position: 43px 67px, 137px 29px, 211px 173px;
-    background: radial-gradient(
+    background-image: radial-gradient(
         circle,
-        rgb(255 255 255 / 1) 0.9px,
-        rgb(153 187 255 / 0.72) 1.5px,
-        transparent 3px
+        rgb(255 255 255 / 1) 0.7px,
+        rgb(153 187 255 / 0.72) 1.35px,
+        transparent 2.8px
     ),
     radial-gradient(
         circle,
-        rgb(255 218 250 / 0.96) 0.8px,
-        rgb(255 107 220 / 0.6) 1.6px,
-        transparent 3px
+        rgb(255 218 250 / 0.98) 0.75px,
+        rgb(255 107 220 / 0.64) 1.5px,
+        transparent 2.8px
     ),
     radial-gradient(
         circle,
-        rgb(169 203 255 / 0.96) 0.75px,
-        transparent 2.5px
+        rgb(169 203 255 / 0.96) 0.65px,
+        rgb(118 157 255 / 0.35) 1.4px,
+        transparent 2.6px
     );
 
     animation: ambient-stars-bright-drift 360s linear infinite;
