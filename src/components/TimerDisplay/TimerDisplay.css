@@ -16,10 +16,10 @@
     min-inline-size: 0;
 
     font-family: var(--font-mono);
-    font-size: clamp(5rem, min(20vw, 34vh), 32rem); /* Important: Digits as large as possible. */
+    font-size: clamp(3rem, min(20vw, 34vh), 32rem); /* Important: Digits as large as possible. */
     font-weight: 600;
     font-variant-numeric: tabular-nums lining-nums;
-    line-height: 0.82;
+    line-height: 0.88;
     letter-spacing: -0.055em;
     color: var(--text);
     text-rendering: geometricPrecision;
@@ -51,7 +51,7 @@
 
     color: hsl(var(--ambient-hue-secondary) 100% 82% / calc(0.66 + var(--ambient-energy) * 0.16));
     text-shadow: 0 0 16px hsl(var(--ambient-hue) 100% 76% / 0.12),
-    0 0 34px hsl(var(--ambient-hue-secondary) 100% 72% / 0.08);
+                 0 0 34px hsl(var(--ambient-hue-secondary) 100% 72% / 0.08);
     filter: brightness(calc(0.96 + var(--ambient-pulse) * 0.06));
 
     transition: color 1000ms var(--ease-fluid), text-shadow 1000ms var(--ease-fluid), filter 1000ms var(--ease-fluid);

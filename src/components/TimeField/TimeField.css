@@ -19,12 +19,10 @@
     touch-action: none;
     user-select: none;
 
-    transition: color var(--duration-fast) var(--ease-standard),
-                text-shadow var(--duration-standard) var(--ease-standard);
+    transition: color 180ms var(--ease-standard);
 }
 .time-field:active { cursor: grabbing; }
-.time-field:active input, .time-field:focus-within input { color: var(--field-pink); }
-.time-field:focus-within { color: var(--field-blue); text-shadow: 0 0 12px rgb(100 195 255 / 0.12); }
+.time-field:focus-within { color: var(--field-blue); }
 
 /* ====================================
    TIMEFIELD NUMERIC INPUT STYLES.
@@ -48,10 +46,10 @@
     text-align: center;
     caret-color: var(--field-pink);
 
-    transition: color var(--duration-fast) var(--ease-standard),
-                opacity var(--duration-fast) var(--ease-standard);
+    transition: color 180ms var(--ease-standard);
 }
-.time-field input:focus { color: var(--field-pink); opacity: 1; }
+.time-field input:focus { color: var(--field-pink); }
+.time-field input:focus-visible { outline: 1px solid var(--field-blue); outline-offset: 3px; border-radius: 2px; }
 
 /* ====================================
    TIMEFIELD UNIT LABEL STYLES.
@@ -67,8 +65,8 @@
     text-transform: uppercase;
     opacity: 0.5;
 
-    transition: color var(--duration-standard) var(--ease-standard),
-                opacity var(--duration-standard) var(--ease-standard);
+    transition: color 180ms var(--ease-standard),
+                opacity 180ms var(--ease-standard);
 }
 .time-field:focus-within .time-unit { color: var(--field-blue); opacity: 0.9; }
 
@@ -93,7 +91,6 @@
     block-size: 1px;
     margin: -1px;
     padding: 0;
-    border: 0;
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;

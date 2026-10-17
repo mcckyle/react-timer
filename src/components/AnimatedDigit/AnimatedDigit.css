@@ -10,18 +10,13 @@
     display: inline-grid;
     place-items: center;
 
+    flex: 0 0 0.60em; /* Prevent the animation from changing the overall width of the giant clock. */
     inline-size: 0.60em;
     block-size: 1em;
 
     overflow: clip;
     isolation: isolate;
-
     font-variant-numeric: tabular-nums lining-nums;
-
-    /* Prevent the animation from changing the
-     * overall width of the giant clock.
-     */
-    flex: 0 0 0.60em;
 }
 
 /* ====================================

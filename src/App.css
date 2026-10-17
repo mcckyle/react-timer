@@ -9,8 +9,6 @@
   isolation: isolate;
 
   inline-size: 100%;
-  min-block-size: 100vh;
-  min-block-size: 100svh;
   min-block-size: 100dvh;
 
   overflow: clip;

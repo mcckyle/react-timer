@@ -1,6 +1,6 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 14 October 2026
+//Date: 17 October 2026
 //Description: This file contains the parent timer component for the timer React project.
 
 import { useState, useEffect, useRef } from "react";
@@ -17,6 +17,8 @@ import VisualTimer from "../VisualTimer/VisualTimer.jsx";
 import TimerControls from "../TimerControls/TimerControls.jsx";
 import "./Timer.css";
 
+const COMPLETION_DURATION = 1100;
+
 const Timer = ({ toggleTheme }) =>
 {
   const { duration, setDuration, timeLeft, visualTimeLeft, setTimeLeft, running, start, pause, reset, pastTimers, clearPastTimers } = useTimer();
@@ -31,7 +33,7 @@ const Timer = ({ toggleTheme }) =>
 
   //The ambient engine intentionally receives both clocks:
   //timeLeft -> functional/display timer state.
-  //visualTimeLeft -> continous visual clock.
+  //visualTimeLeft -> continuous visual clock.
   const ambient = useAmbientEngine({ duration, timeLeft, visualTimeLeft, running });
 
   //Completion Detection.
@@ -42,15 +44,15 @@ const Timer = ({ toggleTheme }) =>
     //Update immediately so completion is detected only once.
     prevTimeRef.current = timeLeft;
 
-    const completedNow = (previousTime > 0) && (timeLeft === 0);
-    if (!completedNow)
+    if ((previousTime <= 0) && (timeLeft !== 0))
     {
       return;
     }
+
     setCompleted(true);
 
     //Auto-clear after animation window.
-    const timeout = setTimeout(() => setCompleted(false), 1100);
+    const timeout = setTimeout(() => setCompleted(false), COMPLETION_DURATION);
     return () => clearTimeout(timeout);
   }, [timeLeft]);
 
@@ -87,8 +89,7 @@ const Timer = ({ toggleTheme }) =>
         "timer",
         running && "is-running",
         completed && "is-complete",
-      ]
-      .filter(Boolean).join(" ")}
+      ].filter(Boolean).join(" ")}
       style={ambient.style}
     >
       <AmbientBackground />
@@ -121,7 +122,7 @@ const Timer = ({ toggleTheme }) =>
             resetDisabled={resetDisabled}
           />
         </section>
-        <p className="timer-shortcuts">
+        <p className="timer-shortcuts" aria-label="Keyboard shortcuts">
           <span>Space</span> Start / Pause
           <span>R</span> Reset
           <span>M</span> Mode

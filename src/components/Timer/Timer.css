@@ -27,11 +27,10 @@
 ======================================= */
 .stage
 {
-  flex: 1;
+  flex: 1 1 auto;
 
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto auto;
-  align-items: center;
 
   min-inline-size: 0;
   min-block-size: 0;
@@ -47,8 +46,6 @@
   display: grid;
   place-items: center;
 
-  inline-size: 100%;
-  block-size: 100%;
   min-inline-size: 0;
   min-block-size: 0;
 
@@ -76,22 +73,22 @@
   color: var(--text-muted);
   font-size: 0.62rem;
   font-weight: 500;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   line-height: 1.5;
   text-align: center;
   text-transform: uppercase;
-  opacity: 0.34;
+  opacity: 0.38;
 
   transition: opacity 700ms var(--ease-fluid);
 }
 .timer-shortcuts span
 {
-  color: color-mix(in srgb, var(--text-soft) 78%, hsl(var(--ambient-hue-secondary) 100% 75%) 22%);
+  color: var(--text-soft);
   font-family: var(--font-mono);
   font-size: 0.60rem;
   letter-spacing: 0.04em;
 }
-.timer.is-running .timer-shortcuts { opacity: 0.46; }
+.timer.is-running .timer-shortcuts { opacity: 0.52; }
 
 @keyframes timer-controls-complete
 {
@@ -113,7 +110,6 @@
 {
   .stage { padding-inline: clamp(0.75rem, 3vw, 1.5rem); }
   .displayRegion { padding-inline: 0; }
-  .timer-shortcuts { letter-spacing: 0.1em; }
 }
 @media (max-width: 480px)
 {
@@ -124,6 +120,6 @@
 @media (max-height: 600px)
 {
   .stage { padding-block: 0.25rem 0.75rem; }
-  .controlsRegion { padding-block-start: 0.50rem; }
-  .timer-shortcuts { margin-block-start: 0.50rem; }
+  .controlsRegion { padding-block-start: 0.5rem; }
+  .timer-shortcuts { margin-block-start: 0.5rem; }
 }

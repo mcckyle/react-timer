@@ -1,6 +1,6 @@
 //File name: TimerHeader.jsx
 //Author: Kyle McColgan
-//Date: 6 October 2026
+//Date: 17 October 2026
 //Description: This file contains the timer header component for the timer React project.
 
 import React from "react";
@@ -69,8 +69,15 @@ export default function TimerHeader({
               onClick={() => setShowHistory((visible) => !visible)}
               aria-expanded={showHistory}
               aria-controls="timer-history"
+              aria-label={
+                showHistory
+                  ? "Close completed timer history"
+                  : `Show completed timer history, ${pastTimers.length} ${
+                      pastTimers.length === 1 ? "timer" : "timers"
+                  }`
+              }
             >
-              <span>History</span>
+              <span className="timer-header-history-label">History</span>
               <span
                 className="timer-header-history-count"
                 aria-hidden="true"

@@ -1,6 +1,6 @@
 //File name: TimeField.jsx
 //Author: Kyle McColgan
-//Date: 6 October 2026
+//Date: 17 October 2026
 //Description: This file contains the time field for the timer React project.
 
 import { useRef } from "react";
@@ -27,6 +27,11 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
       return;
     }
 
+    if (event.button !== 0)
+    {
+      return;
+    }
+
     dragging.current = true;
     startY.current = event.clientY;
     startValue.current = value;
@@ -41,9 +46,8 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
       return;
     }
 
-    const deltaY = startY.current - event.clientY;
-
     //Velocity scaling (slow = precise, fast = jump).
+    const deltaY = startY.current - event.clientY;
     const distance = Math.abs(deltaY);
     const baseStep = Math.trunc(deltaY / 12);
     const multiplier =
@@ -68,8 +72,6 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
     {
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
-
-    onBlur?.();
   }
 
   function handleChange(event)
@@ -88,6 +90,11 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
 
   function handleWheel(event)
   {
+    if (event.activeElement !== event.currentTarget)
+    {
+      return;
+    }
+
     event.preventDefault();
     const direction = event.deltaY > 0 ? -1 : 1;
     onChange(clamp(value + direction));
@@ -95,22 +102,15 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
 
   function handleKeyDown(event)
   {
-    if (event.key === "Enter")
-    {
-      onBlur?.();
-      return;
-    }
     if (event.key === "ArrowUp")
     {
       event.preventDefault();
       onChange(clamp(value + 1));
-      return;
     }
-    if (event.key === "ArrowDown")
+    else if (event.key === "ArrowDown")
     {
       event.preventDefault();
       onChange(clamp(value - 1));
-      return;
     }
   }
 
@@ -124,7 +124,7 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
       title={`Adjust ${label} by dragging or using the arrow keys`}
     >
       <label id={labelId} htmlFor={id} className="sr-only">
-        {label} value
+        {label === "h" ? "Hours" : label === "m" ? "Minutes" : "Seconds"}
       </label>
 
       <input
@@ -137,14 +137,11 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
 
         inputMode="numeric"
         autoComplete="off"
-        pattern="[0-9]*"
-
         aria-labelledby={labelId}
+
         value={value}
         onChange={handleChange}
-        onBlur={onBlur}
         onKeyDown={handleKeyDown}
-        onWheel={handleWheel}
       />
       <span className="time-unit" aria-hidden="true">{label}</span>
     </div>

@@ -18,6 +18,9 @@
     --accent-muted: hsl(var(--ambient-hue) 92% 68% / 0.42);
     --accent-strong: hsl(var(--ambient-hue) 100% 76%);
 
+    --accent-secondary: hsl(var(--ambient-hue-secondary) 92% 74%);
+    --accent-secondary-soft: hsl(var(--ambient-hue-secondary) 92% 74% / 0.14);
+
     /* Base Color System. */
     --bg: #040611;
     --bg-secondary: #080b1b;

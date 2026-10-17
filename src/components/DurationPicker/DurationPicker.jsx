@@ -1,6 +1,6 @@
 //File name: DurationPicker.jsx
 //Author: Kyle McColgan
-//Date: 6 October 2026
+//Date: 17 October 2026
 //Description: This file contains the time duration picker for the timer React project.
 
 import { useEffect, useState } from "react";
@@ -31,11 +31,11 @@ export default function DurationPicker({ duration, onSelect })
     setSeconds(nextSeconds);
   }, [duration]);
 
-  const commit = (nextHours = hours, nextMinutes = minutes, nextSeconds = seconds) =>
+  const commit = () =>
   {
-    const ms = (nextHours * 3600 + nextMinutes * 60 + nextSeconds) * 1000;
+    const ms = (hours * 3600 + minutes * 60 + seconds) * 1000;
 
-    if (ms > 0)
+    if ((ms > 0) && (ms != duration))
     {
       onSelect(ms);
     }
@@ -47,16 +47,31 @@ export default function DurationPicker({ duration, onSelect })
     setter(parsed);
   };
 
+  const handleCustomKeyDown = (event) =>
+  {
+    if (event.key === "Enter")
+    {
+      event.preventDefault();
+      commit();
+      event.currentTarget.querySelector("input")?.blur();
+    }
+  };
+
+  const handleCustomBlur = (event) =>
+  {
+    if (!event.currentTarget.contains(event.relatedTarget))
+    {
+      commit();
+    }
+  };
+
   return (
     <div
       className={`duration-picker${isCustom ? " is-custom" : ""}`}
       role="group"
       aria-label="Timer duration"
     >
-      <nav
-        className="duration-picker-presets"
-        aria-label="Preset durations"
-      >
+      <nav className="duration-picker-presets" aria-label="Preset durations">
         {PRESETS.map(({ label, ms }) =>
         {
           const isActive = duration === ms;
@@ -77,14 +92,16 @@ export default function DurationPicker({ duration, onSelect })
 
       <div
         className="duration-custom"
-        onKeyDown={(event) => event.key === "Enter" && commit()}
+        role="group"
         aria-label="Custom duration"
+        onKeyDown={handleCustomKeyDown}
+        onBlur={handleCustomBlur}
       >
-        <TimeField label="h" value={hours} max={99} onChange={handleChange(setHours, 99)} onBlur={() => commit()} />
+        <TimeField label="h" value={hours} max={99} onChange={handleChange(setHours, 99)} />
         <span className="sep" aria-hidden="true">:</span>
-        <TimeField label="m" value={minutes} max={59} onChange={handleChange(setMinutes, 59)} onBlur={() => commit()} />
+        <TimeField label="m" value={minutes} max={59} onChange={handleChange(setMinutes, 59)} />
         <span className="sep" aria-hidden="true">:</span>
-        <TimeField label="s" value={seconds} max={59} onChange={handleChange(setSeconds, 59)} onBlur={() => commit()} />
+        <TimeField label="s" value={seconds} max={59} onChange={handleChange(setSeconds, 59)} />
       </div>
     </div>
   );

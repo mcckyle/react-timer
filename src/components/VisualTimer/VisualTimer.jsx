@@ -1,12 +1,13 @@
 //File name: VisualTimer.jsx
 //Author: Kyle McColgan
-//Date: 7 October 2026
+//Date: 17 October 2026
 //Description: This file contains the visual timer component for the timer React project.
 
 import "./VisualTimer.css";
 
 export default function VisualTimer({ progress })
 {
+  //Progress represents the fraction of time remaining.
   const visualProgress = Math.min(1, Math.max(0, Number(progress) || 0));
 
   //Smooth easing curve (replaces CSS pow())
