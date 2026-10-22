@@ -1,17 +1,6 @@
 /* Filename: src/App.css */
 
 /* ====================================
-   APPLICATION VIEWPORT STYLES.
+   APP STYLES.
 ======================================= */
-.app-shell
-{
-  position: relative;
-  isolation: isolate;
-
-  inline-size: 100%;
-  min-block-size: 100dvh;
-
-  overflow: clip;
-  background: var(--bg);
-  color: var(--text);
-}
+.app-shell { min-block-size: 100dvh; }

@@ -15,13 +15,13 @@
     inline-size: 100%;
     min-inline-size: 0;
 
+    color: var(--text);
     font-family: var(--font-mono);
     font-size: clamp(3rem, min(20vw, 34vh), 32rem); /* Important: Digits as large as possible. */
     font-weight: 600;
     font-variant-numeric: tabular-nums lining-nums;
     line-height: 0.88;
     letter-spacing: -0.055em;
-    color: var(--text);
     text-rendering: geometricPrecision;
     user-select: none;
 
@@ -67,10 +67,9 @@
 ======================================= */
 @keyframes timer-display-complete
 {
-    0% { transform: scale(1); }
+    0%, 100% { transform: scale(1); }
     32% { transform: scale(1.016); }
     58% { transform: scale(0.998); }
-    100% { transform: scale(1); }
 }
 
 @media (prefers-reduced-motion: reduce)
@@ -82,11 +81,11 @@
 /* ====================================
    TIMERDISPLAY MEDIA QUERY STYLES.
 ======================================= */
-@media (max-width: 768px)
+/*@media (max-width: 768px)
 {
     .timer-display { font-size: clamp(3.5rem, 16vw, 12rem); letter-spacing: -0.05em; }
 }
 @media (max-width: 480px)
 {
     .timer-display { font-size: clamp(3rem, 15.5vw, 8rem); letter-spacing: -0.045em; }
-}
+}*/

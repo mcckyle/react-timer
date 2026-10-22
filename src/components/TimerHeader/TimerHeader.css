@@ -38,13 +38,13 @@
     font-size: clamp(0.56rem, 0.78vw, 0.68rem);
     font-weight: 650;
     line-height: 1;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    opacity: 0.62;
+    opacity: 0.68;
 
-    transition: color 500ms var(--ease-fluid), opacity 500ms var(--ease-fluid);
+    transition: color 350ms var(--ease-fluid), opacity 350ms var(--ease-fluid);
 }
-.timer.is-running .timer-header-title { color: var(--vapor-pink); opacity: 0.88; }
+.timer.is-running .timer-header-title { color: var(--vapor-pink); opacity: 0.95; }
 
 /* ====================================
    TIMERHEADER SHARED GLASS CONTROL SURFACE STYLES.
@@ -58,7 +58,7 @@
     backdrop-filter: blur(24px) saturate(150%);
     -webkit-backdrop-filter: blur(24px) saturate(150%);
 
-    transition: border-color 400ms var(--ease-fluid), box-shadow 400ms var(--ease-fluid);
+    transition: border-color 350ms var(--ease-fluid), box-shadow 350ms var(--ease-fluid);
 }
 .timer.is-running .timer-glass { border-color: color-mix(in srgb, var(--border-subtle) 65%, var(--vapor-pink) 35%); }
 
@@ -91,8 +91,8 @@
     font-weight: 650;
     line-height: 1;
 
-    transition: color 200ms var(--ease-standard),
-                background 250ms var(--ease-fluid),
+    transition: color 180ms var(--ease-standard),
+                background 220ms var(--ease-standard),
                 transform 160ms var(--ease-fluid);
 }
 .timer-header-mode button[aria-pressed="true"]
@@ -118,31 +118,26 @@
 .timer-header-history { position: relative; }
 .timer-header-history-button
 {
-    min-block-size: 2.5rem;
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.46rem;
 
+    min-block-size: 2.5rem;
     padding-inline: 0.78rem;
     border-radius: var(--radius-pill);
-    color: var(--text-soft);
 
-    font-family: inherit;
+    color: var(--text-soft);
     font-size: 0.65rem;
     font-weight: 600;
     line-height: 1;
-
-    transition: color 200ms var(--ease-standard),
-                transform 160ms var(--ease-fluid),
-                box-shadow 300ms var(--ease-fluid);
 }
 .timer-header-history-count
 {
-    min-inline-size: 1rem;
     display: inline-grid;
     place-items: center;
+    min-inline-size: 1rem;
+
     color: var(--vapor-pink);
     font-family: var(--font-mono);
     font-size: 0.6rem;
@@ -155,8 +150,8 @@
 .timer-header-history-panel
 {
     position: absolute;
-    inset-inline-end: 0;
     inset-block-start: calc(100% + 0.55rem);
+    inset-inline-end: 0;
     inline-size: min(21rem, calc(100vw - 1.5rem));
 
     opacity: 0;
@@ -167,7 +162,7 @@
 
     transition: opacity 180ms var(--ease-standard),
                 visibility 180ms var(--ease-standard),
-                transform 240ms var(--ease-fluid);
+                transform 220ms var(--ease-fluid);
 }
 .timer-header-history-panel.is-visible { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0) scale(1); }
 
@@ -176,33 +171,28 @@
 ======================================= */
 .timer-theme-toggle
 {
-    inline-size: 2.5rem;
-    block-size: 2.5rem;
-
     display: grid;
     place-items: center;
+
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
     padding: 0;
     border-radius: 50%;
     color: var(--text-soft);
-
-    transition: color 220ms var(--ease-fluid),
-                transform 160ms var(--ease-fluid),
-                box-shadow 300ms var(--ease-fluid);
 }
-.toggleIcon { inline-size: 0.92rem; block-size: 0.92rem; transition: transform 300ms var(--ease-fluid); }
-.timer-header-mode button:active,
-.timer-header-history-button:active,
-.timer-theme-toggle:active
-{
-    transform: scale(0.97);
-}
-
+.toggleIcon { inline-size: 0.92rem; block-size: 0.92rem; transition: transform 250ms var(--ease-fluid); }
 .timer-header-mode button:focus-visible,
 .timer-header-history-button:focus-visible,
 .timer-theme-toggle:focus-visible
 {
     outline: 2px solid var(--vapor-blue);
     outline-offset: 3px;
+}
+.timer-header-mode button:active,
+.timer-header-history-button:active,
+.timer-theme-toggle:active
+{
+    transform: scale(0.97);
 }
 
 @media (hover: hover)
@@ -238,7 +228,7 @@
 ======================================= */
 @media (max-width: 700px)
 {
-    .timer-header { min-block-size: auto; grid-template-columns: minmax(0, 1fr) auto; row-gap: 0.62rem; padding-inline: 1rem; padding-block-end: 0.60rem; }
+    .timer-header { grid-template-columns: minmax(0, 1fr) auto; row-gap: 0.62rem; min-block-size: auto; padding-inline: 1rem; padding-block-end: 0.6rem; }
     .timer-header-center { grid-column: 1 / -1; grid-row: 2; justify-content: center; }
     .timer-header-history-panel { inset-inline-start: 50%; inset-inline-end: auto; transform-origin: top center; transform: translate(-50%, 0.35rem) scale(0.985); }
     .timer-header-history-panel.is-visible { transform: translate(-50%, 0) scale(1); }
@@ -247,7 +237,6 @@
 @media (max-width: 430px)
 {
     .timer-header { padding-inline: 0.75rem; }
-    .timer-header-center { gap: 0.3rem; }
     .timer-header-history-button { inline-size: 2.5rem; padding-inline: 0; }
     .timer-header-history-label { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 }

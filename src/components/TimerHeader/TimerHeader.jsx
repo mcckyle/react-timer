@@ -1,6 +1,6 @@
 //File name: TimerHeader.jsx
 //Author: Kyle McColgan
-//Date: 17 October 2026
+//Date: 21 October 2026
 //Description: This file contains the timer header component for the timer React project.
 
 import React from "react";
@@ -24,6 +24,10 @@ export default function TimerHeader({
 {
   const hasHistory = pastTimers.length > 0;
   const isDark = theme === "dark";
+
+  const toggleHistory = () => {
+    setShowHistory((visible) => !visible);
+  };
 
   return (
     <header className="timer-header">
@@ -66,7 +70,7 @@ export default function TimerHeader({
             <button
               type="button"
               className="timer-header-history-button timer-glass"
-              onClick={() => setShowHistory((visible) => !visible)}
+              onClick={toggleHistory}
               aria-expanded={showHistory}
               aria-controls="timer-history"
               aria-label={
@@ -78,16 +82,18 @@ export default function TimerHeader({
               }
             >
               <span className="timer-header-history-label">History</span>
-              <span
-                className="timer-header-history-count"
-                aria-hidden="true"
-              >
+              <span className="timer-header-history-count" aria-hidden="true">
                 {showHistory ? "×" : pastTimers.length}
               </span>
             </button>
             <div
               id="timer-history"
-              className={`timer-header-history-panel${showHistory ? " is-visible" : ""}`}
+              className={[
+                "timer-header-history-panel",
+                showHistory && "is-visible",
+              ].filter(Boolean).join(" ")}
+              aria-hidden={!showHistory}
+              inert={!showHistory}
             >
               <PastTimers timers={pastTimers} onClear={clearPastTimers} />
             </div>

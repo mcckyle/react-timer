@@ -1,6 +1,6 @@
 //File name: TimerDisplay.jsx
 //Author: Kyle McColgan
-//Date: 17 October 2026
+//Date: 21 October 2026
 //Description: This file contains the time display for the timer React project.
 
 import { formatDuration } from "../../utils/formatDuration";
@@ -27,11 +27,11 @@ export default function TimerDisplay({ timeLeft })
             key={`separator-${index}`}
             className="timer-display-separator"
             aria-hidden="true"
-            >
-              :
+          >
+            :
           </span>
         ) : (
-            <AnimatedDigit key={`${index}-${char}`} value={char} />
+          <AnimatedDigit key={`${index}-${char}`} value={char} />
           )
         )}
     </time>

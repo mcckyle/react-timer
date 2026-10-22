@@ -8,14 +8,11 @@
     --history-pink: hsl(320 100% 76%);
     --history-blue: hsl(195 100% 74%);
 
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    inline-size: min(21rem, 90vw);
-
     display: flex;
     flex-direction: column;
     gap: 0.62rem;
+
+    inline-size: 100%;
     padding: 0.78rem;
 
     border: 1px solid color-mix(in srgb, var(--border-subtle) 78%, var(--history-blue) 22%);
@@ -23,20 +20,15 @@
 
     background: radial-gradient(
         ellipse 100% 90% at 100% 0%,
-        rgb(100 175 255 / 0.07),
+        rgb(100 175 255 / 0.06),
         transparent 68%),
-        radial-gradient(
-        ellipse 80% 70% at 0% 100%,
-        rgb(255 100 225 / 0.045),
-        transparent 72%),
-        color-mix(in srgb, var(--surface-glass) 82%, transparent);
+        color-mix(in srgb, var(--surface-glass) 88%, transparent);
     box-shadow: var(--shadow-large);
     backdrop-filter: blur(26px) saturate(150%);
     -webkit-backdrop-filter: blur(26px) saturate(150%);
 }
-.past-timers::before
+/*.past-timers::before
 {
-    /* Subtle Spectral Edge Styles. */
     content: "";
     position: absolute;
     inset: 0;
@@ -48,7 +40,7 @@
         rgb(90 190 255 / 0.045) 58%,
         transparent 82%);
     pointer-events: none;
-}
+}*/
 
 /* ====================================
    PASTTIMERS HEADER STYLES.
@@ -72,7 +64,6 @@
     letter-spacing: 0.16em;
     line-height: 1;
     text-transform: uppercase;
-    opacity: 0.85;
 }
 .past-timers-count { color: var(--history-blue); font-family: var(--font-mono); font-size: 0.59rem; font-variant-numeric: tabular-nums; }
 
@@ -104,14 +95,15 @@
 ======================================= */
 .past-timers-list
 {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    max-block-size: 12rem;
-
     display: flex;
     flex-direction: column;
+
+    max-block-size: 12rem;
+    margin: 0;
+    padding: 0;
     overflow-y: auto;
+
+    list-style: none;
     scrollbar-width: thin;
     scrollbar-color: rgb(120 180 255 / 0.4) transparent;
     overscroll-behavior: contain;
@@ -126,6 +118,7 @@
 .past-timers-list::-webkit-scrollbar-thumb
 {
     background: linear-gradient(180deg, var(--history-pink), var(--history-blue));
+    border-radius: var(--radius-pill);
 }
 
 /* ====================================
@@ -133,19 +126,21 @@
 ======================================= */
 .past-timers-item
 {
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
+
     min-block-size: 2.3rem;
-    padding: 0.4rem 0.42rem 0.4rem 0.66rem;
+    padding: 0.4rem 0.42rem;
+
+    border-block-start: 1px solid transparent;
     border-radius: var(--radius-sm);
 
     transition: background 180ms var(--ease-standard);
 }
-.past-timers-item::before
+/*.past-timers-item::before
 {
-    /* Spectral Completion Filament Styles. */
     content: "";
     position: absolute;
     inset-block: 27%;
@@ -154,18 +149,8 @@
     border-radius: var(--radius-pill);
     background: linear-gradient(180deg, transparent, var(--history-pink), var(--history-blue), transparent);
     opacity: 0.75;
-}
-.past-timers-item + .past-timers-item::after
-{
-    /* Fine Separator Between Entries Styles. */
-    content: "";
-    position: absolute;
-    inset-inline: 0.66rem;
-    inset-block-start: 0;
-    block-size: 1px;
-    background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
-    opacity: 0.5;
-}
+}*/
+.past-timers-item + .past-timers-item { border-block-start-color: var(--border-subtle); }
 
 .past-timers-duration
 {
@@ -184,19 +169,18 @@
 .past-timers-empty
 {
     padding: 0.88rem 0.5rem;
+
     color: var(--text-muted);
     font-size: 0.62rem;
     line-height: 1.6;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
     text-align: center;
-    opacity: 0.72;
 }
 
 @media (hover: hover)
 {
-    .past-timers-clear:hover { color: var(--history-pink); background: rgb(255 100 225 / 0.055); }
-    .past-timers-item:hover { background: linear-gradient(90deg, rgb(255 100 225 / 0.045), rgb(80 190 255 / 0.035), transparent); }
-    .past-timers-item:hover::before { opacity: 1; }
+    .past-timers-clear:hover { background: rgb(255 100 225 / 0.055); color: var(--history-pink); }
+    .past-timers-item:hover { background: linear-gradient(90deg, rgb(255 100 225 / 0.045), rgb(80 190 255 / 0.035)); }
 }
 
 /* ====================================
@@ -212,5 +196,5 @@
 ======================================= */
 @media (max-width: 640px)
 {
-    .past-timers { inline-size: min(94vw, 21rem); }
+    .past-timers { inline-size: 100%; }
 }

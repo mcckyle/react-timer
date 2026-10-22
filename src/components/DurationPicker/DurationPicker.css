@@ -12,8 +12,8 @@
     align-items: center;
     gap: 0.16rem;
 
-    min-block-size: 2.6rem;
     max-inline-size: 100%;
+    min-block-size: 2.6rem;
     padding: 0.18rem;
     border-radius: var(--radius-pill);
     background: color-mix(in srgb, var(--surface-glass) 76%, transparent);
@@ -40,11 +40,12 @@
 ======================================= */
 .duration-pill
 {
-    min-inline-size: 2.4rem;
-    block-size: 2.2rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
+    min-inline-size: 2.4rem;
+    block-size: 2.2rem;
     padding-inline: 0.55rem;
 
     border: 0;
@@ -74,16 +75,15 @@
 ======================================= */
 .duration-custom
 {
-    position: relative;
-    min-block-size: 2.2rem;
     display: flex;
     align-items: center;
     gap: 0.07rem;
 
+    min-block-size: 2.2rem;
     padding-inline: 0.58rem 0.52rem;
     border-inline-start: 1px solid var(--border-subtle);
 }
-.duration-custom::before
+/*.duration-custom::before
 {
     content: "";
     position: absolute;
@@ -93,7 +93,7 @@
     background: linear-gradient(180deg, transparent, var(--picker-blue), var(--picker-pink), transparent);
     opacity: 0.35;
     pointer-events: none;
-}
+}*/
 
 /* ====================================
    DURATIONPICKER TIME SEPARATOR STYLES.
@@ -116,8 +116,8 @@
     .duration-picker:hover { border-color: color-mix(in srgb, var(--border-subtle) 65%, var(--picker-blue) 35%); }
     .duration-pill:hover:not([aria-pressed="true"])
     {
-        color: var(--text-soft);
         background: rgb(255 255 255 / 0.035);
+        color: var(--text-soft);
         transform: translateY(-1px);
     }
 }

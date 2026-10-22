@@ -33,7 +33,7 @@
 
     inline-size: clamp(14rem, 30vw, 28rem);
     aspect-ratio: 0.7;
-    transform: scale(calc(1 + var(--visual-energy) * 0.025));
+    transform: scale(var(--visual-scale));
 
     transition: transform 900ms var(--ease-fluid);
 }
@@ -65,8 +65,8 @@
         transparent 70%
     );
 
-    filter: blur(calc(30px + var(--visual-energy) * 24px));
-    opacity: calc(0.68 + var(--visual-energy) * 0.32);
+    filter: blur(var(--visual-halo-blur));
+    opacity: var(--visual-halo-opacity);
 
     animation: visual-breathe 12s var(--ease-fluid) infinite;
 }
@@ -139,7 +139,7 @@
     position: absolute;
     inset-inline-start: 50%;
     inline-size: 55%;
-    background: linear-gradient(110deg, var(--vapor-pink-bright) 0%, var(--vapor-violet) 48%, var(--vapor-blue) 100%);
+    background: linear-gradient(110deg, var(--vapor-pink-bright), var(--vapor-violet) 48%, var(--vapor-blue));
     box-shadow: 0 0 0.8rem hsl(320 100% 76% / 0.2),
                 0 0 1.8rem hsl(275 100% 72% / 0.14),
                 0 0 3rem hsl(195 100% 70% / 0.1);
@@ -153,10 +153,11 @@
 .visual-timer-sand-top
 {
     inset-block-start: 8%;
-    block-size: calc(38% * var(--visual-progress));
-    transform: translateX(-50%);
+    block-size: 38%;
+    transform: translateX(-50%) scaleY(var(--visual-progress));
+    transform-origin: top center;
     clip-path: polygon(50% 100%, 0 0, 100% 0);
-    opacity: calc(0.16 + var(--visual-progress) * 0.84);
+    opacity: var(--visual-top-opacity);
 }
 
 /* ====================================
@@ -166,14 +167,14 @@
 {
     inset-block-start: 50%;
     inline-size: clamp(2px, 0.14vw, 4px);
-    block-size: calc(45% * var(--visual-energy));
+    block-size: 45%;
     border-radius: var(--radius-pill);
     background: linear-gradient(180deg, hsl(320 100% 88% / 0.96), hsl(285 100% 82% / 0.9) 48%, hsl(195 100% 86% / 0.82));
     box-shadow: 0 0 0.45rem hsl(320 100% 82% / 0.52),
                 0 0 1rem hsl(290 100% 76% / 0.35),
                 0 0 1.8rem hsl(195 100% 76% / 0.22);
-    opacity: calc(0.18 + var(--visual-energy) * 0.68);
-    transform: translateX(-50%) scaleX(0.88);
+    opacity: var(--visual-flow-opacity);
+    transform: translateX(-50%) scaleY(var(--visual-energy)) scaleX(0.88);
     transform-origin: top center;
 
     animation: visual-stream 3.8s var(--ease-fluid) infinite;
@@ -185,10 +186,11 @@
 .visual-timer-sand-bottom
 {
     inset-block-end: 8%;
-    block-size: calc(38% * var(--visual-energy));
-    transform: translateX(-50%);
+    block-size: 38%;
+    transform: translateX(-50%) scaleY(var(--visual-energy));
+    transform-origin: bottom center;
     clip-path: polygon(0 100%, 100% 100%, 50% 0);
-    opacity: calc(0.14 + var(--visual-energy) * 0.86);
+    opacity: var(--visual-bottom-opacity);
 }
 .visual-timer-sand-bottom::after
 {
@@ -201,11 +203,9 @@
     background: linear-gradient(90deg, hsl(320 100% 82% / 0.2), hsl(285 100% 86% / 0.42), hsl(195 100% 86% / 0.3));
     filter: blur(4px);
 }
-
+.visual-timer-highlight, .visual-timer-edge { position: absolute; z-index: 5; pointer-events: none; }
 .visual-timer-highlight
 {
-    position: absolute;
-    z-index: 5;
     inset-block: 5%;
     inset-inline-start: 14%;
     inline-size: 1px;
@@ -217,20 +217,14 @@
         transparent
     );
     opacity: 0.72;
-    pointer-events: none;
 }
 .visual-timer-edge
 {
-    position: absolute;
-    z-index: 5;
     inset: 0;
-
     border: 1px solid rgb(255 255 255 / 0.025);
     border-radius: inherit;
     box-shadow: inset 1px 0 0 hsl(320 100% 82% / 0.12),
                 inset -1px 0 0 hsl(195 100% 82% / 0.12);
-
-    pointer-events: none;
 }
 
 @keyframes visual-breathe
@@ -240,8 +234,8 @@
 }
 @keyframes visual-stream
 {
-    0%, 100% { opacity: calc(0.16 + var(--visual-energy) * 0.52); transform: translateX(-50%) scaleX(0.88); }
-    50% { opacity: calc(0.22 + var(--visual-energy) * 0.64); transform: translateX(-50%) scaleX(1); }
+    0%, 100% { opacity: 0.72; }
+    50% { opacity: 1; }
 }
 
 /* ====================================
@@ -264,6 +258,6 @@
 
 @media (prefers-reduced-motion: reduce)
 {
-    .visual-timer-core { transition: none; }
+    .visual-timer-core { transform: none; stransition: none; }
     .visual-timer-core::before, .visual-timer-sand-flow { animation: none; }
 }

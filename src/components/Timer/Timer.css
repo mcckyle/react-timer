@@ -12,13 +12,10 @@
   flex-direction: column;
 
   inline-size: 100%;
-  min-block-size: 100vh;
-  min-block-size: 100svh;
   min-block-size: 100dvh;
 
   overflow: clip;
   user-select: none;
-  background: transparent;
   color: var(--text);
 }
 
@@ -33,9 +30,9 @@
   grid-template-rows: minmax(0, 1fr) auto auto;
 
   min-inline-size: 0;
-  min-block-size: 0;
+  min-block-size: 0; /* 0 here, avoid vertical scrollbars. */
 
-  padding: clamp(0.25rem, 1vh, 1rem) clamp(1rem, 4vw, 4rem) clamp(1.25rem, 3.2vh, 2.5rem);
+  padding: clamp(0.25rem, 1vh, 1rem) clamp(1rem, 4vw, 4rem) clamp(1rem, 3vh, 2.5rem);
 }
 
 /* ====================================
@@ -85,16 +82,15 @@
 {
   color: var(--text-soft);
   font-family: var(--font-mono);
-  font-size: 0.60rem;
+  font-size: 0.6rem;
   letter-spacing: 0.04em;
 }
 .timer.is-running .timer-shortcuts { opacity: 0.52; }
 
 @keyframes timer-controls-complete
 {
-  0% { transform: translateY(0); }
+  0%, 100% { transform: translateY(0); }
   35% { transform: translateY(-2px); }
-  100% { transform: translateY(0); }
 }
 
 @media (prefers-reduced-motion: reduce)

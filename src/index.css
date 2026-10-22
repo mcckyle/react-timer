@@ -19,9 +19,8 @@ html
 body
 {
   min-inline-size: 0;
-  min-block-size: 100vh;
+  min-block-size: 100%;
   margin: 0;
-  overflow: clip;
 
   background: var(--bg);
   color: var(--text);

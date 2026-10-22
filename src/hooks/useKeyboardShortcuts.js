@@ -1,6 +1,6 @@
 //File name: useKeyboardShortcuts.js
 //Author: Kyle McColgan
-//Date: 24 March 2026
+//Date: 21 October 2026
 //Description: This file contains the keyboard shortcuts implementation for the timer React project.
 
 import { useEffect } from "react";
@@ -15,39 +15,40 @@ export function useKeyboardShortcuts({
 })
 {
     useEffect(() => {
-        function handleKeyDown(e)
+        function handleKeyDown(event)
         {
+            if ((event.defaultPrevented) || (event.repeat) || (event.altKey) || (event.ctrlKey) || (event.metaKey))
+            {
+                return;
+            }
+
             //Ignore typing in inputs.
-            const tag = e.target.tagName;
-            if ( (tag === "INPUT") || (tag === "TEXTAREA") )
+            const target = event.target;
+
+            if ((target instanceof Element) && (target.closest(
+                'input, textarea, select, button, a[href], [contenteditable="true"], [role="button"]'
+            )))
             {
                 return;
             }
 
-            //Prevent page scroll on space.
-            if (e.code === "Space")
+            switch (event.key.toLowerCase())
             {
-                e.preventDefault();
-                running ? onPause() : onStart();
-                return;
-            }
-
-            if (e.key.toLowerCase() === "r")
-            {
-                onReset();
-                return;
-            }
-
-            if (e.key.toLowerCase() === "m")
-            {
-                onToggleMode();
-                return;
-            }
-
-            if (e.key.toLowerCase() === "h")
-            {
-                onToggleHistory();
-                return;
+                case " ":
+                    event.preventDefault();
+                    running ? onPause() : onStart();
+                    break;
+                case "r":
+                    onReset();
+                    break;
+                case "m":
+                    onToggleMode();
+                    break;
+                case "h":
+                    onToggleHistory();
+                    break;
+                default:
+                    break;
             }
         }
 

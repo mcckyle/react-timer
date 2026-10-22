@@ -15,8 +15,6 @@
 
     color: var(--text-soft);
     font-family: var(--font-mono);
-    cursor: ns-resize;
-    touch-action: none;
     user-select: none;
 
     transition: color 180ms var(--ease-standard);
@@ -33,7 +31,7 @@
     padding: 0;
 
     border: 0;
-    outline: 0;
+    border-radius: 2px;
     appearance: textfield;
     background: transparent;
     color: var(--text);
@@ -49,7 +47,13 @@
     transition: color 180ms var(--ease-standard);
 }
 .time-field input:focus { color: var(--field-pink); }
-.time-field input:focus-visible { outline: 1px solid var(--field-blue); outline-offset: 3px; border-radius: 2px; }
+.time-field input:focus-visible { outline: 1px solid var(--field-blue); outline-offset: 3px; }
+.time-field input::-webkit-outer-spin-button,
+.time-field input::-webkit-inner-spin-button
+{
+    appearance: none;
+    margin: 0;
+}
 
 /* ====================================
    TIMEFIELD UNIT LABEL STYLES.
@@ -69,17 +73,6 @@
                 opacity 180ms var(--ease-standard);
 }
 .time-field:focus-within .time-unit { color: var(--field-blue); opacity: 0.9; }
-
-/* ====================================
-   TIMEFIELD NUMBER INPUT NORMALIZATION.
-======================================== */
-.time-field input::-webkit-outer-spin-button,
-.time-field input::-webkit-inner-spin-button
-{
-    appearance: none;
-    margin: 0;
-}
-.time-field input[type="number"] { appearance: textfield; }
 
 /* ====================================
    TIMEFIELD SCREEN READERS ONLY LABEL STYLES.

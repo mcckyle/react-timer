@@ -1,6 +1,6 @@
 //File name: AmbientBackground.jsx
 //Author: Kyle McColgan
-//Date: 14 October 2026
+//Date: 21 October 2026
 //Description: This file contains the background component for the timer React project.
 
 import "./AmbientBackground.css";
@@ -11,6 +11,7 @@ export default function AmbientBackground()
     <div className="ambient" aria-hidden="true">
       <div className="ambient-space" />
       <div className="ambient-stars ambient-stars-far" />
+      <div className="ambient-stars ambient-stars-mid" />
       <div className="ambient-stars ambient-stars-near" />
       <div className="ambient-stars ambient-stars-bright" />
       <div className="ambient-nebula ambient-nebula-back" />

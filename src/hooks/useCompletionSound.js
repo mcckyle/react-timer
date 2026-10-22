@@ -1,69 +1,72 @@
 //File name: useCompletionSound.js
 //Author: Kyle McColgan
-//Date: 28 August 2026
+//Date: 21 October 2026
 //Description: This file contains the completion sound hook implementation for the timer React project.
 
 import { useEffect, useRef } from "react";
 
 const SOUND_PATH = "/react-timer/sounds/bell.mp3";
-const VOLUME_VISIBLE = 0.60;
-const VOLUME_HIDDEN = 0.80;
+const VOLUME_VISIBLE = 0.6;
+const VOLUME_HIDDEN = 0.8;
 
 export function useCompletionSound(trigger)
 {
     const audioRef = useRef(null);
 
-    useEffect(() => {
+    useEffect(() =>
+    {
         //Respect the user's system preferences without
         //touching browser APIs during render.
-        if ((typeof window === "undefined") || (typeof window.matchMedia != "function"))
+        if ((!trigger) || (typeof window === "undefined"))
         {
             return;
         }
 
-        const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-        //Reduced motion is treated as a signal to keep
-        //the completion experience quiet.
-        if (mediaQuery.matches)
+        //Keep the completion experience quiet when reduced motion is preferred.
+        if ((typeof window.matchMedia === "function") && ((window.matchMedia("(prefers-reduced-motion: reduce)").matches)))
         {
             return;
         }
 
-        //Lazily create one reusable audio element.
-        //Keeping the element alive avoids unnecessary
-        //allocations and lets subsequent completions
-        //restart the same sound cleanly.
+        //Create one reusable audio element when first needed.
         if (!audioRef.current)
         {
             const audio = new Audio(SOUND_PATH);
             audio.preload = "auto";
-            audio.volume = VOLUME_VISIBLE;
-
             audioRef.current = audio;
         }
 
         const audio = audioRef.current;
 
-        //Trigger only when completion becomes active.
-        if (!trigger)
+        try
         {
-            return;
+            audio.volume = document.visibilityState === "visible"
+              ? VOLUME_VISIBLE
+              : VOLUME_HIDDEN;
+            audio.currentTime = 0;
+
+            //Playback failure must never interrupt timer completion.
+            const playback = audio.play();
+            playback?.catch(() => {});
         }
-
-        audio.volume = document.visibilityState === "visible" ? VOLUME_VISIBLE : VOLUME_HIDDEN;
-        audio.currentTime = 0;
-
-        //Browsers may reject playback when the user has
-        //not interacted with the page yet. Completion
-        //sound failure should never affect the timer.
-        audio.play().catch(() => {});
-
-
-        if (trigger)
+        catch
         {
-            setTimeout(() => {
-            }, 120);
+            //Audio may be unavailable or blocked by the browser.
         }
     }, [trigger]);
+
+    useEffect(() => {
+        return () => {
+            const audio = audioRef.current;
+
+            if (!audio)
+            {
+                return;
+            }
+
+            audio.pause();
+            audio.currentTime = 0;
+            audioRef.current = null;
+        }
+    }, []);
 }

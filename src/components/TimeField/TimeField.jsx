@@ -1,6 +1,6 @@
 //File name: TimeField.jsx
 //Author: Kyle McColgan
-//Date: 17 October 2026
+//Date: 21 October 2026
 //Description: This file contains the time field for the timer React project.
 
 import { useRef } from "react";
@@ -20,14 +20,9 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
     return Math.max(0, Math.min(max, nextValue));
   };
 
-  function handlePointerDown(event)
+  const handlePointerDown = (event) =>
   {
-    if (event.target instanceof HTMLInputElement)
-    {
-      return;
-    }
-
-    if (event.button !== 0)
+    if ((event.target instanceof HTMLInputElement) || (event.button !== 0))
     {
       return;
     }
@@ -39,7 +34,7 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
     event.currentTarget.setPointerCapture(event.pointerId);
   }
 
-  function handlePointerMove(event)
+  const handlePointerMove = (event) =>
   {
     if (!dragging.current)
     {
@@ -55,11 +50,11 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
       distance > 80 ? 6 :
       distance > 30 ? 2 : 1;
 
-    const next = clamp(startValue.current + baseStep * multiplier);
-    onChange(next);
+    const nextValue = clamp(startValue.current + baseStep * multiplier);
+    onChange(nextValue);
   }
 
-  function handlePointerUp(event)
+  const handlePointerUp = (event) =>
   {
     if (!dragging.current)
     {
@@ -74,23 +69,16 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
     }
   }
 
-  function handleChange(event)
+  const handleChange = (event) =>
   {
     const raw = event.target.value;
 
-    if (raw === "")
-    {
-      onChange(0);
-      return;
-    }
-
-    const parsed = clamp(Number.parseInt(raw, 10) || 0);
-    onChange(parsed);
+    onChange(raw === "" ? 0 : clamp(Number.parseInt(raw, 10) || 0));
   }
 
-  function handleWheel(event)
+  const handleWheel = (event) =>
   {
-    if (event.activeElement !== event.currentTarget)
+    if (document.activeElement !== event.currentTarget)
     {
       return;
     }
@@ -100,18 +88,15 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
     onChange(clamp(value + direction));
   }
 
-  function handleKeyDown(event)
+  const handleKeyDown = (event) =>
   {
-    if (event.key === "ArrowUp")
+    if ((event.key !== "ArrowUp") && (event.key !== "ArrowDown"))
     {
-      event.preventDefault();
-      onChange(clamp(value + 1));
+      return;
     }
-    else if (event.key === "ArrowDown")
-    {
-      event.preventDefault();
-      onChange(clamp(value - 1));
-    }
+
+    event.preventDefault();
+    onChange(clamp(value + (event.key === "ArrowUp" ? 1 : -1)));
   }
 
   return (
@@ -142,6 +127,7 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
         value={value}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
+        onWheel={handleWheel}
       />
       <span className="time-unit" aria-hidden="true">{label}</span>
     </div>

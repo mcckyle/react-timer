@@ -1,6 +1,6 @@
 //File name: useTimer.js
 //Author: Kyle McColgan
-//Date: 17 October 2026
+//Date: 21 October 2026
 //Description: This file contains the custom timekeeping hook for the timer React project.
 
 import { useEffect, useState, useRef, useCallback } from "react";
@@ -12,18 +12,14 @@ const MAX_HISTORY = 50;
 
 //Clock Helpers.
 const nowPerf = () =>
-{
-    return typeof performance !== "undefined"
-      ? performance.now()
-      : Date.now()
-};
+  typeof performance !== "undefined" ? performance.now() : Date.now();
 const nowEpoch = () => Date.now();
 
-//Animation Frame Helpers.
+//Animation-frame Helpers.
 const requestRAF =
     typeof requestAnimationFrame !== "undefined"
       ? requestAnimationFrame
-      : (callback) => setTimeout(callback, 16);
+      : (callback) => setTimeout(() => callback(nowPerf()), 16);
 
 const cancelRAF =
     typeof cancelAnimationFrame !== "undefined"
@@ -31,23 +27,6 @@ const cancelRAF =
       : (id) => clearTimeout(id);
 
 //Storage Helpers.
-function safeParse(value)
-{
-    if (!value)
-    {
-        return null;
-    }
-
-    try
-    {
-        return JSON.parse(value);
-    }
-    catch
-    {
-        return null;
-    }
-}
-
 function readStorage(key)
 {
     try
@@ -84,18 +63,44 @@ function removeStorage(key)
         //Storage may be unavailable or restricted...
     }
 }
+function safeParse(value)
+{
+    if (!value)
+    {
+        return null;
+    }
 
+    try
+    {
+        return JSON.parse(value);
+    }
+    catch
+    {
+        return null;
+    }
+}
 function readTimerSession()
 {
     return safeParse(readStorage(TIMER_SESSION_KEY));
 }
-function persistTimerSession(payload)
+function persistTimerSession(session)
 {
-    writeStorage(TIMER_SESSION_KEY, payload);
+    writeStorage(TIMER_SESSION_KEY, session);
 }
 function clearTimerSession()
 {
     removeStorage(TIMER_SESSION_KEY);
+}
+
+function cancelScheduledFrame(frameRef)
+{
+    if (frameRef.current === null)
+    {
+        return;
+    }
+
+    cancelRAF(frameRef.current);
+    frameRef.current = null;
 }
 
 export function useTimer()
@@ -118,18 +123,23 @@ export function useTimer()
     //Prevents unintended persistence during initial hydration, completion, and reset.
     const skipPersistRef = useRef(true);
 
-    //Hydrate past timers once...
+    //Load timer history.
     useEffect(() =>
     {
-        const parsed = safeParse(readStorage(STORAGE_KEY));
+        const history = safeParse(readStorage(STORAGE_KEY));
 
-        if (Array.isArray(parsed))
+        if (Array.isArray(history))
         {
-            setPastTimers(parsed.slice(0, MAX_HISTORY));
+            setPastTimers(history.slice(0, MAX_HISTORY));
         }
     }, []);
 
-    //Complete a timer exactly once.
+    //Cancel any pending animation frame.
+    const cancelFrame = useCallback(() => {
+        cancelScheduledFrame(rafRef);
+    }, []);
+
+    //Complete the current timer once.
     const complete = useCallback((completedDuration) =>
     {
         if (completedRef.current)
@@ -140,12 +150,7 @@ export function useTimer()
         completedRef.current = true;
         skipPersistRef.current = true;
 
-        if (rafRef.current !== null)
-        {
-            cancelRAF(rafRef.current);
-            rafRef.current = null;
-        }
-
+        cancelFrame();
         startRef.current = null;
         lastSecondRef.current = null;
 
@@ -167,7 +172,7 @@ export function useTimer()
 
             return next;
         });
-    }, []);
+    }, [cancelFrame]);
 
     //Restore previous timer session (if one exists).
     useEffect(() =>
@@ -188,7 +193,12 @@ export function useTimer()
             startEpoch,
         } = session;
 
-        const validSession = (Number.isFinite(storedDuration)) && (storedDuration > 0) && (Number.isFinite(storedTimeLeft)) && (storedTimeLeft >= 0) && (typeof storedRunning === "boolean");
+        const validSession =
+          (Number.isFinite(storedDuration)) &&
+          (storedDuration > 0) &&
+          (Number.isFinite(storedTimeLeft)) &&
+          (storedTimeLeft >= 0) &&
+          (typeof storedRunning === "boolean");
 
         if (!validSession)
         {
@@ -205,7 +215,6 @@ export function useTimer()
             const remaining = Math.min(storedDuration, storedTimeLeft);
             setTimeLeft(remaining);
             setVisualTimeLeft(remaining);
-            setRunning(false);
             setHydrated(true);
             return;
         }
@@ -220,10 +229,10 @@ export function useTimer()
 
         const elapsed = Math.max(0, nowEpoch() - startEpoch);
         const remaining = Math.max(0, storedDuration - elapsed);
+        setHydrated(true);
 
         if (remaining <= 0)
         {
-            setHydrated(true);
             complete(storedDuration);
             return;
         }
@@ -235,27 +244,13 @@ export function useTimer()
         setTimeLeft(remaining);
         setVisualTimeLeft(remaining);
         setRunning(true);
-        setHydrated(true);
     }, [complete]);
 
-    //Persist paused sessions only after hydration.
+    //Persist paused sessions after hydration.
     useEffect(() =>
     {
         //Never persist during the initial hydration render.
-        if (!hydrated)
-        {
-            return;
-        }
-
-        //Completion and reset intentionally clear the session.
-        if (skipPersistRef.current)
-        {
-            skipPersistRef.current = false;
-            return;
-        }
-
-        //Running sessions are persisted explicitly by start().
-        if (running)
+        if ((!hydrated) || (skipPersistRef.current) || (running))
         {
             return;
         }
@@ -310,17 +305,10 @@ export function useTimer()
 
         rafRef.current = requestRAF(tick);
 
-        return () =>
-        {
-            if (rafRef.current !== null)
-            {
-                cancelRAF(rafRef.current);
-                rafRef.current = null;
-            }
-        };
-    }, [running, tick]);
+        return cancelFrame;
+    }, [running, tick, cancelFrame]);
 
-    //Handle start timer button click.
+    //Start or resume the countdown.
     const start = useCallback(() =>
     {
         //A completed timer remains at zero until the user
@@ -332,30 +320,22 @@ export function useTimer()
             return; //Exit early to force the user to reset first.
         }
 
-        const remaining = Math.min(duration, Math.max(0, timeLeft));
-
-        if (remaining <= 0)
-        {
-            return;
-        }
+        const remaining = Math.min(duration, timeLeft);
+        const elapsed = duration - remaining;
+        const currentPerf = nowPerf(0);
 
         completedRef.current = false; //Reset for a fresh run.
         skipPersistRef.current = false;
-
-        const elapsed = duration - remaining;
-        const currentPerf = nowPerf();
-        const currentEpoch = nowEpoch();
-
         startRef.current = currentPerf - elapsed;
         lastSecondRef.current = null; //Force first frame update.
 
         setTimeLeft(remaining);
         setVisualTimeLeft(remaining);
-        persistTimerSession({ duration, timeLeft: remaining, running: true, startEpoch: currentEpoch - elapsed, });
+        persistTimerSession({ duration, timeLeft: remaining, running: true, startEpoch: nowEpoch() - elapsed, });
         setRunning(true);
     }, [duration, timeLeft]);
 
-    //Pause the timer at its precise current position.
+    //Pause the timer at the precise current position.
     const pause = useCallback(() =>
     {
         if (!running)
@@ -368,11 +348,7 @@ export function useTimer()
         const elapsed = startRef.current === null ? 0 : nowPerf() - startRef.current;
         const remaining = Math.max(0, duration - elapsed);
 
-        if (rafRef.current !== null)
-        {
-            cancelRAF(rafRef.current);
-            rafRef.current = null;
-        }
+        cancelFrame();
 
         startRef.current = null;
         lastSecondRef.current = null;
@@ -382,16 +358,12 @@ export function useTimer()
         setVisualTimeLeft(remaining);
 
         persistTimerSession({ duration, timeLeft: remaining, running: false, });
-    }, [duration, running]);
+    }, [running, duration, cancelFrame, complete]);
 
-    //Reset to the currently selected duration.
+    //Reset to the selected duration.
     const reset = useCallback(() =>
     {
-        if (rafRef.current !== null)
-        {
-            cancelRAF(rafRef.current);
-            rafRef.current = null;
-        }
+        cancelFrame();
 
         completedRef.current = false;
         startRef.current = null;
@@ -402,7 +374,7 @@ export function useTimer()
         setTimeLeft(duration);
         setVisualTimeLeft(duration);
         clearTimerSession();
-    }, [duration]);
+    }, [duration, cancelFrame]);
 
     //Clear saved timer history.
     const clearPastTimers = useCallback(() =>

@@ -22,7 +22,7 @@
 {
     border-color: color-mix(in srgb, var(--border-subtle) 62%, hsl(var(--ambient-hue-secondary) 100% 72%) 38%);
     box-shadow: 0 1.5rem 4rem -2rem rgb(0 0 0 / 0.62),
-                0 0 3.5rem -2.2rem hsl(var(--ambient-hue-secondary) 100% 72% / calc(0.08 + var(--ambient-energy) * 0.10)),
+                0 0 3.5rem -2.2rem hsl(var(--ambient-hue-secondary) 100% 72% / calc(0.08 + var(--ambient-energy) * 0.1)),
                 inset 0 1px 0 rgb(255 255 255 / 0.065);
 }
 
@@ -45,16 +45,13 @@
     background: transparent;
     color: var(--text-soft);
 
-    font-size: 0.80rem;
+    font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: -0.01em;
 
-    cursor: pointer;
-    user-select: none;
-
     transition: transform 180ms var(--ease-fluid),
                 color 250ms var(--ease-standard),
-                background 350ms var(--ease-standard),
+                background-color 350ms var(--ease-standard),
                 border-color 350ms var(--ease-standard),
                 box-shadow 500ms var(--ease-fluid);
 }
@@ -67,7 +64,7 @@
     background: linear-gradient(120deg, hsl(var(--ambient-hue) 100% 69%), hsl(var(--ambient-hue-secondary) 100% 64%));
     border-color: hsl(var(--ambient-hue-secondary) 100% 82% / 0.18);
     color: #090817;
-    box-shadow: 0 0.70rem 2rem -1.2rem hsl(var(--ambient-hue-secondary) 100% 68% / 0.48), inset 0 1px 0 rgb(255 255 255 / 0.24);
+    box-shadow: 0 0.7rem 2rem -1.2rem hsl(var(--ambient-hue-secondary) 100% 68% / 0.48), inset 0 1px 0 rgb(255 255 255 / 0.24);
 }
 
 /* ====================================
@@ -111,7 +108,7 @@
     }
     .timer-control-primary:hover:not(:disabled)
     {
-        box-shadow: 0 0.90rem 2.2rem -1.2rem hsl(var(--ambient-hue-secondary) 100% 68% / 0.62),
+        box-shadow: 0 0.9rem 2.2rem -1.2rem hsl(var(--ambient-hue-secondary) 100% 68% / 0.62),
                     0 0 2.5rem -1.8rem hsl(var(--ambient-hue) 100% 72% / 0.24),
                     inset 0 1px 0 rgb(255 255 255 / 0.28);
     }

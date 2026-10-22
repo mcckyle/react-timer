@@ -22,10 +22,10 @@
     --accent-secondary-soft: hsl(var(--ambient-hue-secondary) 92% 74% / 0.14);
 
     /* Base Color System. */
-    --bg: #040611;
-    --bg-secondary: #080b1b;
-    --bg-tertiary: #10152a;
-    --text: #f5f5ff;
+    --bg: #050611;
+    --bg-secondary: #090a1b;
+    --bg-tertiary: #12142b;
+    --text: #f5f3ff;
     --text-soft: color-mix(in srgb, var(--text) 76%, transparent);
     --text-muted: color-mix(in srgb, var(--text) 54%, transparent);
 

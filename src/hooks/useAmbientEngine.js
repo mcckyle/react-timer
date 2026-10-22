@@ -1,6 +1,6 @@
 //File name: useAmbientEngine.js
 //Author: Kyle McColgan
-//Date: 14 October 2026
+//Date: 21 October 2026
 //Description: This file contains the background hook component for the timer React project.
 
 import { useMemo } from "react";
@@ -59,7 +59,7 @@ export function useAmbientEngine({ duration, timeLeft, visualTimeLeft, running }
     //enough to prevent the atmosphere from becoming static,
     //but slow enough that it never reads as an animation loop...
     const spectralWave =
-        Math.sin(clock * 0.40) * 5 +
+        Math.sin(clock * 0.4) * 5 +
         Math.sin(clock * 0.16) * 3;
 
     //Blue -> violet -> pink.
@@ -76,9 +76,9 @@ export function useAmbientEngine({ duration, timeLeft, visualTimeLeft, running }
     const rotation = `${energy * 7}deg`;
 
     //Micro motion.
-    const pulse = 0.50 + Math.sin(clock * 1.45) * 0.42;
+    const pulse = 0.5 + Math.sin(clock * 1.45) * 0.42;
     const drift = Math.sin(clock * 0.42);
-    const shimmer = 0.50 + Math.sin(clock * 3.6) * 0.50;
+    const shimmer = 0.5 + Math.sin(clock * 3.6) * 0.50;
     const intensity = 0.18 + energy * 0.82;
 
     //Keep the complete atmospheric state in one memoized
