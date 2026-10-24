@@ -3,4 +3,4 @@
 /* ====================================
    APP STYLES.
 ======================================= */
-.app-shell { min-block-size: 100dvh; }
+.app-shell { min-block-size: 100vh; min-block-size: 100dvh; }

@@ -83,17 +83,6 @@
     padding-inline: 0.58rem 0.52rem;
     border-inline-start: 1px solid var(--border-subtle);
 }
-/*.duration-custom::before
-{
-    content: "";
-    position: absolute;
-    inset-block: 0.46rem;
-    inset-inline-start: -1px;
-    inline-size: 1px;
-    background: linear-gradient(180deg, transparent, var(--picker-blue), var(--picker-pink), transparent);
-    opacity: 0.35;
-    pointer-events: none;
-}*/
 
 /* ====================================
    DURATIONPICKER TIME SEPARATOR STYLES.

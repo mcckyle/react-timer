@@ -31,9 +31,7 @@
     place-items: center;
     line-height: 1;
 
-    transform: translateZ(0);
     backface-visibility: hidden;
-    will-change: transform, opacity;
 }
 
 /* ====================================

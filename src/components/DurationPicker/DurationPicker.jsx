@@ -1,6 +1,6 @@
 //File name: DurationPicker.jsx
 //Author: Kyle McColgan
-//Date: 21 October 2026
+//Date: 23 October 2026
 //Description: This file contains the time duration picker for the timer React project.
 
 import { useEffect, useState } from "react";
@@ -19,7 +19,6 @@ export default function DurationPicker({ duration, onSelect })
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
-  const isCustom = !PRESETS.some(({ ms }) => ms === duration);
 
   /* Sync only when the duration changes externally. */
   useEffect(() =>
@@ -35,7 +34,17 @@ export default function DurationPicker({ duration, onSelect })
     const totalSeconds = hours * 3600 + minutes * 60 + seconds;
     const nextDuration = totalSeconds * 1000;
 
-    if ((nextDuration > 0) && (nextDuration !== duration))
+    if (nextDuration <= 0)
+    {
+      const current = splitDuration(duration);
+      setHours(current.hours);
+      setMinutes(current.minutes);
+      setSeconds(current.seconds);
+
+      return;
+    }
+
+    if (nextDuration !== duration)
     {
       onSelect(nextDuration);
     }
@@ -43,8 +52,8 @@ export default function DurationPicker({ duration, onSelect })
 
   const handleChange = (setter, max) => (value) =>
   {
-    const parsed = Math.max(0, Math.min(max, Number.parseInt(value, 10) || 0));
-    setter(parsed);
+    const parsed = Number.parseInt(value, 10);
+    setter(Math.max(0, Math.min(max, Number.isFinite(parsed) ? parsed : 0)));
   };
 
   const handleCustomKeyDown = (event) =>
@@ -56,7 +65,7 @@ export default function DurationPicker({ duration, onSelect })
 
     event.preventDefault();
     commit();
-    event.currentTarget.querySelector("input")?.blur();
+    event.target.blur();
   };
 
   const handleCustomBlur = (event) =>
@@ -69,23 +78,27 @@ export default function DurationPicker({ duration, onSelect })
 
   return (
     <div
-      className={`duration-picker${isCustom ? " is-custom" : ""}`}
+      className="duration-picker"
       role="group"
       aria-label="Timer duration"
     >
-      <nav className="duration-picker-presets" aria-label="Preset durations">
+      <div
+        className="duration-picker-presets"
+        role="group"
+        aria-label="Preset durations"
+      >
         {PRESETS.map(({ label, ms }) => (
-            <button
-              key={ms}
-              type="button"
-              className="duration-pill"
-              aria-pressed={duration === ms}
-              onClick={() => onSelect(ms)}
-            >
-              {label}
-            </button>
+          <button
+            key={ms}
+            type="button"
+            className="duration-pill"
+            aria-pressed={duration === ms}
+            onClick={() => onSelect(ms)}
+          >
+            {label}
+          </button>
         ))}
-      </nav>
+      </div>
 
       <div
         className="duration-custom"

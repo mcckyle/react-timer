@@ -77,14 +77,6 @@
 }
 
 /* ====================================
-   TIMERCONTROLS ACTIVE PRESS STYLES.
-======================================= */
-.timer-control:active:not(:disabled)
-{
-    transform: translateY(1px) scale(0.975);
-}
-
-/* ====================================
    TIMERCONTROLS FOCUS ACCESSIBILITY STYLES.
 ======================================= */
 .timer-control:focus-visible
@@ -117,6 +109,8 @@
         background: rgb(255 255 255 / 0.04);
         border-color: color-mix(in srgb, var(--border-subtle) 68%, var(--accent) 32%);
     }
+    /* Pressed state takes precedence over hover. */
+    .timer-control:active:not(:disabled) { transform: translateY(1px) scale(0.975); }
 }
 
 /* ====================================

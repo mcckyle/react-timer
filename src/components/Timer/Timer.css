@@ -12,11 +12,12 @@
   flex-direction: column;
 
   inline-size: 100%;
+  min-block-size: 100vh;
   min-block-size: 100dvh;
 
   overflow: clip;
-  user-select: none;
   color: var(--text);
+  user-select: none;
 }
 
 /* ====================================

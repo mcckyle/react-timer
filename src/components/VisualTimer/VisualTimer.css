@@ -5,10 +5,10 @@
 ======================================= */
 .visual-timer
 {
-    --vapor-pink: hsl(320 100% 74%);
-    --vapor-pink-bright: hsl(315 100% 86%);
-    --vapor-blue: hsl(195 100% 72%);
-    --vapor-violet: hsl(265 100% 78%);
+    --visual-pink: hsl(320 100% 74%);
+    --visual-pink-bright: hsl(315 100% 86%);
+    --visual-blue: hsl(195 100% 72%);
+    --visual-violet: hsl(265 100% 78%);
 
     position: relative;
     display: grid;
@@ -139,7 +139,7 @@
     position: absolute;
     inset-inline-start: 50%;
     inline-size: 55%;
-    background: linear-gradient(110deg, var(--vapor-pink-bright), var(--vapor-violet) 48%, var(--vapor-blue));
+    background: linear-gradient(110deg, var(--visual-pink-bright), var(--visual-violet) 48%, var(--visual-blue));
     box-shadow: 0 0 0.8rem hsl(320 100% 76% / 0.2),
                 0 0 1.8rem hsl(275 100% 72% / 0.14),
                 0 0 3rem hsl(195 100% 70% / 0.1);
@@ -258,6 +258,6 @@
 
 @media (prefers-reduced-motion: reduce)
 {
-    .visual-timer-core { transform: none; stransition: none; }
+    .visual-timer-core { transform: none; transition: none; }
     .visual-timer-core::before, .visual-timer-sand-flow { animation: none; }
 }
