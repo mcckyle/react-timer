@@ -8,13 +8,13 @@ html
 {
   min-block-size: 100%;
   overflow-x: clip;
+  scrollbar-gutter: stable;
 
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  scrollbar-gutter: stable;
 }
 body
 {
@@ -35,12 +35,12 @@ body
   overscroll-behavior-y: none;
   -webkit-tap-highlight-color: transparent;
 }
-#root { min-block-size: 100dvh; }
+#root { min-block-size: 100vh; min-block-size: 100dvh; }
 /* ====================================
    GLOBAL INTERACTION NORMALIZATION STYLES.
 ======================================= */
 button, input, textarea, select { font: inherit; }
-button { cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 button:disabled { cursor: default; }
 input, textarea, select { color: inherit; }
 img, picture, svg, canvas { display: block; max-inline-size: 100%; }
@@ -76,7 +76,6 @@ p { margin: 0; }
 ======================================= */
 @media (prefers-reduced-motion: reduce)
 {
-  html { scroll-behavior: auto; }
   *, *::before, *::after
   {
     scroll-behavior: auto !important;

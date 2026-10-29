@@ -1,6 +1,6 @@
 //File name: useTimer.js
 //Author: Kyle McColgan
-//Date: 21 October 2026
+//Date: 29 October 2026
 //Description: This file contains the custom timekeeping hook for the timer React project.
 
 import { useEffect, useState, useRef, useCallback } from "react";
@@ -24,7 +24,7 @@ const requestRAF =
 const cancelRAF =
     typeof cancelAnimationFrame !== "undefined"
       ? cancelAnimationFrame
-      : (id) => clearTimeout(id);
+      : clearTimeout;
 
 //Storage Helpers.
 function readStorage(key)
@@ -322,11 +322,10 @@ export function useTimer()
 
         const remaining = Math.min(duration, timeLeft);
         const elapsed = duration - remaining;
-        const currentPerf = nowPerf(0);
 
         completedRef.current = false; //Reset for a fresh run.
         skipPersistRef.current = false;
-        startRef.current = currentPerf - elapsed;
+        startRef.current = nowPerf() - elapsed;
         lastSecondRef.current = null; //Force first frame update.
 
         setTimeLeft(remaining);
@@ -358,7 +357,7 @@ export function useTimer()
         setVisualTimeLeft(remaining);
 
         persistTimerSession({ duration, timeLeft: remaining, running: false, });
-    }, [running, duration, cancelFrame, complete]);
+    }, [running, duration, cancelFrame]);
 
     //Reset to the selected duration.
     const reset = useCallback(() =>

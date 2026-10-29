@@ -175,8 +175,3 @@
 {
     color-scheme: dark;
 }
-
-/* ====================================
-   GLOBAL THEME STYLES.
-======================================= */
-html, body { background-color: var(--bg); color: var(--text); }

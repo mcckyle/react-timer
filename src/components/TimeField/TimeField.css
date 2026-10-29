@@ -98,7 +98,7 @@
 /* ====================================
    TIMEFIELD REDUCED MOTION MEDIA QUERY STYLES.
 ======================================= */
-@media (prefers-reduced-motion: reduce)
+/*@media (prefers-reduced-motion: reduce)
 {
     .time-field, .time-field input, .time-unit  { transition: none; }
-}
+}*/

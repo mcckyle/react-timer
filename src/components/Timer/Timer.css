@@ -23,7 +23,7 @@
 /* ====================================
    TIMER MAIN STAGE STYLES.
 ======================================= */
-.stage
+.timer .stage
 {
   flex: 1 1 auto;
 
@@ -31,62 +31,60 @@
   grid-template-rows: minmax(0, 1fr) auto auto;
 
   min-inline-size: 0;
-  min-block-size: 0; /* 0 here, avoid vertical scrollbars. */
-
-  padding: clamp(0.25rem, 1vh, 1rem) clamp(1rem, 4vw, 4rem) clamp(1rem, 3vh, 2.5rem);
+  min-block-size: 0;
+  padding: clamp(0.5rem, 1.5vh, 1.25rem) clamp(1rem, 4vw, 4rem) clamp(1rem, 3vh, 2.5rem);
 }
 
 /* ====================================
    TIMER GIANT CLOCK FIELD STYLES.
 ======================================= */
-.displayRegion
+.timer .displayRegion
 {
   display: grid;
   place-items: center;
 
   min-inline-size: 0;
   min-block-size: 0;
-
   padding-inline: clamp(0.25rem, 1.25vw, 1.5rem);
 }
 
 /* ====================================
    TIMER CONTROLS DOCK STYLES.
 ======================================= */
-.controlsRegion { display: flex; align-items: center; justify-content: center; inline-size: 100%; min-inline-size: 0; padding-block-start: clamp(0.75rem, 2vh, 1.5rem); }
+.timer .controlsRegion { display: flex; align-items: center; justify-content: center; inline-size: 100%; min-inline-size: 0; padding-block-start: clamp(0.75rem, 2vh, 1.5rem); }
 .timer.is-complete .controlsRegion { animation: timer-controls-complete 700ms var(--ease-fluid); }
 
 /* ====================================
    TIMER SHORTCUTS STYLES.
 ======================================= */
-.timer-shortcuts
+.timer .timer-shortcuts
 {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.25rem 0.65rem;
+  gap: 0.3rem 0.65rem;
   margin: clamp(0.75rem, 1.6vh, 1.25rem) auto 0;
 
   color: var(--text-muted);
-  font-size: 0.62rem;
+  font-size: 0.625rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   line-height: 1.5;
   text-align: center;
   text-transform: uppercase;
-  opacity: 0.38;
+  opacity: 0.58;
 
-  transition: opacity 700ms var(--ease-fluid);
+  transition: opacity 500ms var(--ease-fluid);
 }
-.timer-shortcuts span
+.timer .timer-shortcuts span
 {
   color: var(--text-soft);
   font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.04em;
+  font-size: 0.625rem;
+  letter-spacing: 0.025em;
 }
-.timer.is-running .timer-shortcuts { opacity: 0.52; }
+.timer.is-running .timer-shortcuts { opacity: 0.78; }
 
 @keyframes timer-controls-complete
 {
@@ -105,18 +103,18 @@
 ======================================= */
 @media (max-width: 768px)
 {
-  .stage { padding-inline: clamp(0.75rem, 3vw, 1.5rem); }
-  .displayRegion { padding-inline: 0; }
+  .timer .stage { padding-inline: clamp(0.75rem, 3vw, 1.5rem); }
+  .timer .displayRegion { padding-inline: 0; }
 }
 @media (max-width: 480px)
 {
-  .stage { padding: 0.25rem 0.75rem 1rem; }
-  .controlsRegion { padding-block-start: 1rem; }
-  .timer-shortcuts { gap: 0.25rem 0.45rem; margin-block-start: 0.75rem; font-size: 0.56rem; letter-spacing: 0.08em; }
+  .timer .stage { padding: 0.5rem 0.75rem 1rem; }
+  .timer .controlsRegion { padding-block-start: 1rem; }
+  .timer .timer-shortcuts { gap: 0.3rem 0.45rem; margin-block-start: 0.75rem; font-size: 0.575rem; letter-spacing: 0.06em; }
 }
 @media (max-height: 600px)
 {
-  .stage { padding-block: 0.25rem 0.75rem; }
-  .controlsRegion { padding-block-start: 0.5rem; }
-  .timer-shortcuts { margin-block-start: 0.5rem; }
+  .timer .stage { padding-block: 0.25rem 0.75rem; }
+  .timer .controlsRegion { padding-block-start: 0.5rem; }
+  .timer .timer-shortcuts { margin-block-start: 0.5rem; }
 }

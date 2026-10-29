@@ -3,7 +3,7 @@
 /* ====================================
    TIMERDISPLAY FULL WIDTH DIGITAL CLOCK STYLES.
 ======================================= */
-.timer-display
+.timer .timer-display
 {
     position: relative;
     isolation: isolate;
@@ -17,7 +17,7 @@
 
     color: var(--text);
     font-family: var(--font-mono);
-    font-size: clamp(3rem, min(20vw, 34vh), 32rem); /* Important: Digits as large as possible. */
+    font-size: clamp(3rem, min(18vw, 32vh), 32rem); /* Important: Digits as large as possible. */
     font-weight: 600;
     font-variant-numeric: tabular-nums lining-nums;
     line-height: 0.88;
@@ -25,11 +25,10 @@
     text-rendering: geometricPrecision;
     user-select: none;
 
-    text-shadow: 0 0 14px hsl(var(--ambient-hue) 100% 74% / 0.1),
-                 0 0 42px hsl(var(--ambient-hue-secondary) 100% 72% / 0.065),
-                 0 0 100px hsl(var(--ambient-hue) 100% 72% / 0.035);
+    text-shadow: 0 0 18px hsl(var(--ambient-hue) 100% 74% / 0.1),
+                 0 0 52px hsl(var(--ambient-hue-secondary) 100% 72% / 0.055);
 
-    transition: text-shadow 1000ms var(--ease-fluid), filter 1000ms var(--ease-fluid);
+    transition: text-shadow 800ms var(--ease-fluid), filter 800ms var(--ease-fluid);
 }
 
 /* ====================================
@@ -43,18 +42,18 @@
 /* ====================================
    TIMERDISPLAY COLON STYLES.
 ======================================= */
-.timer-display-separator
+.timer .timer-display-separator
 {
     display: inline-grid;
     place-items: center;
     margin-inline: 0.015em;
 
     color: hsl(var(--ambient-hue-secondary) 100% 82% / calc(0.66 + var(--ambient-energy) * 0.16));
-    text-shadow: 0 0 16px hsl(var(--ambient-hue) 100% 76% / 0.12),
-                 0 0 34px hsl(var(--ambient-hue-secondary) 100% 72% / 0.08);
+    text-shadow: 0 0 16px hsl(var(--ambient-hue) 100% 76% / 0.1),
+                 0 0 32px hsl(var(--ambient-hue-secondary) 100% 72% / 0.06);
     filter: brightness(calc(0.96 + var(--ambient-pulse) * 0.06));
 
-    transition: color 1000ms var(--ease-fluid), text-shadow 1000ms var(--ease-fluid), filter 1000ms var(--ease-fluid);
+    transition: color 800ms var(--ease-fluid), text-shadow 800ms var(--ease-fluid), filter 800ms var(--ease-fluid);
 }
 
 /* ====================================
@@ -72,11 +71,11 @@
     58% { transform: scale(0.998); }
 }
 
-@media (prefers-reduced-motion: reduce)
+/*@media (prefers-reduced-motion: reduce)
 {
     .timer-display, .timer-display-separator { transition: none; }
     .timer.is-complete .timer-display { animation: none; }
-}
+}*/
 
 /* ====================================
    TIMERDISPLAY MEDIA QUERY STYLES.

@@ -59,7 +59,7 @@
     font-variant-numeric: tabular-nums;
 
     transition: color 180ms var(--ease-standard),
-                background 220ms var(--ease-standard),
+                background-color 220ms var(--ease-standard),
                 transform 160ms var(--ease-fluid);
 }
 .duration-pill[aria-pressed="true"]
@@ -114,11 +114,11 @@
 /* ====================================
    DURATIONPICKER REDUCED MOTION MEDIA QUERY STYLES.
 ======================================= */
-@media (prefers-reduced-motion: reduce)
+/*@media (prefers-reduced-motion: reduce)
 {
     .duration-picker, .duration-pill, .sep  { transition: none; }
     .duration-pill:hover:not([aria-pressed="true"]) { transform: none; }
-}
+}*/
 
 /* ====================================
    DURATIONPICKERMEDIA QUERY STYLES.

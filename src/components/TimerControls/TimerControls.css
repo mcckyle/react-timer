@@ -16,7 +16,7 @@
     backdrop-filter: blur(24px) saturate(140%);
     -webkit-backdrop-filter: blur(24px) saturate(140%);
 
-    transition: border-color 800ms var(--ease-fluid), box-shadow 800ms var(--ease-fluid);
+    transition: border-color 500ms var(--ease-standard), box-shadow 500ms var(--ease-fluid);
 }
 .timer.is-running .timer-controls
 {
@@ -51,9 +51,9 @@
 
     transition: transform 180ms var(--ease-fluid),
                 color 250ms var(--ease-standard),
-                background-color 350ms var(--ease-standard),
-                border-color 350ms var(--ease-standard),
-                box-shadow 500ms var(--ease-fluid);
+                background-color 300ms var(--ease-standard),
+                border-color 300ms var(--ease-standard),
+                box-shadow 400ms var(--ease-fluid);
 }
 
 /* ====================================
@@ -74,15 +74,6 @@
 {
     background: rgb(255 255 255 / 0.014);
     border-color: var(--border-subtle);
-}
-
-/* ====================================
-   TIMERCONTROLS FOCUS ACCESSIBILITY STYLES.
-======================================= */
-.timer-control:focus-visible
-{
-    outline: 2px solid hsl(var(--ambient-hue-secondary) 100% 76% / 0.82);
-    outline-offset: 3px;
 }
 
 /* ====================================

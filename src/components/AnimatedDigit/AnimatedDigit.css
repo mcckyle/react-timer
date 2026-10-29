@@ -6,6 +6,7 @@
 .digit
 {
     position: relative;
+    isolation: isolate;
 
     display: inline-grid;
     place-items: center;
@@ -15,14 +16,13 @@
     block-size: 1em;
 
     overflow: clip;
-    isolation: isolate;
     font-variant-numeric: tabular-nums lining-nums;
 }
 
 /* ====================================
    ANIMATEDDIGIT DIGIT VALUE STYLE.
 ======================================= */
-.value
+.digit .value
 {
     position: absolute;
     inset: 0;
@@ -37,9 +37,4 @@
 /* ====================================
    ANIMATEDDIGIT CENTISECOND DIGIT STYLE.
 ======================================= */
-.centi { opacity: 0.78; }
-
-@media (prefers-reduced-motion: reduce)
-{
-    .value { will-change: auto; }
-}
+.digit.centi { opacity: 0.78; }

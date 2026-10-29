@@ -216,12 +216,12 @@
 /* ====================================
    TIMERHEADER REDUCED MOTION STYLES.
 ======================================= */
-@media (prefers-reduced-motion: reduce)
+/*@media (prefers-reduced-motion: reduce)
 {
     .timer-header-title, .timer-glass, .timer-header-mode button, .timer-header-history-button, .timer-header-history-panel, .timer-theme-toggle, .toggleIcon { transition: none; }
     .timer-header-mode button, .timer-header-history-button, .timer-theme-toggle { animation: none; }
     .timer-header-mode button:hover, .timer-header-history-button:hover, .timer-theme-toggle:hover, .timer-header-mode button:active, .timer-header-history-button:active, .timer-theme-toggle:active { transform: none; }
-}
+}*/
 
 /* ====================================
    TIMERHEADER MEDIA QUERY STYLES.

@@ -1,6 +1,6 @@
 //File name: TimeField.jsx
 //Author: Kyle McColgan
-//Date: 23 October 2026
+//Date: 29 October 2026
 //Description: This file contains the time field for the timer React project.
 
 import { useRef } from "react";
