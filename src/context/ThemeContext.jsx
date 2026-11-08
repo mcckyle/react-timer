@@ -24,7 +24,7 @@ function getSystemTheme()
     return THEMES.DARK;
   }
 
-  return window.matchMedia(DARK_MEDIA_QUERY).matches
+  return window.matchMedia?.(DARK_MEDIA_QUERY).matches
   ? THEMES.DARK
   : THEMES.LIGHT;
 }
@@ -72,7 +72,7 @@ function applyTheme(theme)
   const themeColor = document.querySelector('meta[name="theme-color"]');
   if (themeColor)
   {
-    themeColor.setAttribute("content", THEME_COLORS[theme]);
+    themeColor.content = THEME_COLORS[theme];
   }
 }
 
@@ -90,7 +90,7 @@ function saveTheme(theme)
 
 export function ThemeProvider({ children })
 {
-  const initialTheme = useMemo(() => getInitialTheme(), []);
+  const initialTheme = useMemo(getInitialTheme, []);
   const [theme, setTheme] = useState(initialTheme.theme);
   const hasManualTheme = useRef(initialTheme.manual);
 
@@ -100,6 +100,7 @@ export function ThemeProvider({ children })
     applyTheme(theme);
   }, [theme]);
 
+  //Toggle and persist the selected theme.
   const toggleTheme = useCallback(() =>
   {
     setTheme(currentTheme =>
@@ -115,8 +116,8 @@ export function ThemeProvider({ children })
     });
   }, []);
 
-  //Follow the operating-system theme until
-  //the user explicitly chooses a theme.
+  //Follow the operating-system preferences until
+  //the user explicitly selects a theme.
   useEffect(() =>
   {
     if (hasManualTheme.current)
@@ -124,7 +125,12 @@ export function ThemeProvider({ children })
       return;
     }
 
-    const media = window.matchMedia(DARK_MEDIA_QUERY);
+    const media = window.matchMedia?.(DARK_MEDIA_QUERY);
+
+    if (!media)
+    {
+      return;
+    }
 
     const handleSystemTheme = event =>
     {
@@ -135,7 +141,7 @@ export function ThemeProvider({ children })
       setTheme(event.matches ? THEMES.DARK : THEMES.LIGHT);
     };
 
-    //Gracefully support older browsers.
+    //Support modern and older browsers.
     if (media.addEventListener)
     {
       media.addEventListener("change", handleSystemTheme);
@@ -157,7 +163,7 @@ export function ThemeProvider({ children })
 
   return (
     <ThemeContext.Provider value={value}>
-      {children}
+    {children}
     </ThemeContext.Provider>
   );
 };
