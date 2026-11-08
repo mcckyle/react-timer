@@ -1,6 +1,6 @@
 //File name: useAmbientEngine.js
 //Author: Kyle McColgan
-//Date: 28 October 2026
+//Date: 7 November 2026
 //Description: This file contains the background hook component for the timer React project.
 
 import { useMemo } from "react";
@@ -40,8 +40,12 @@ export function useAmbientEngine({ duration, timeLeft, visualTimeLeft, running }
       ? visualTimeLeft
       : timeLeft;
 
+    //Normalize timer inputs.
+    const safeDuration = Number.isFinite(duration) && duration > 0 ? duration : 0;
+    const safeTime = Number.isFinite(currentTime) ? Math.max(0, currentTime) : 0;
+
     //0 = timer beginning. 1 = timer completion.
-    const progress = duration > 0 ? clamp(currentTime / duration) : 1;
+    const progress = safeDuration > 0 ? clamp(safeTime / safeDuration) : 1;
 
     //Convert linear timer progress into a
     //softer atmospheric response.
