@@ -11,10 +11,17 @@ import App from "./App.jsx";
 import "./components/theme.css";
 import "./index.css";
 
-createRoot(document.getElementById('root')).render(
+const rootElement = document.getElementById("root");
+
+if (!rootElement)
+{
+  throw new Error("Unable to initialize Focus Timer: root element not found!");
+}
+
+createRoot(rootElement).render(
   <StrictMode>
     <ThemeProvider>
       <App />
-    </ ThemeProvider>
-  </StrictMode>,
+    </ThemeProvider>
+  </StrictMode>
 );

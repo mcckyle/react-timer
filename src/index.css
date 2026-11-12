@@ -8,7 +8,6 @@ html
 {
   min-block-size: 100%;
   overflow-x: clip;
-  scrollbar-gutter: stable;
 
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
@@ -19,7 +18,7 @@ html
 body
 {
   min-inline-size: 0;
-  min-block-size: 100%;
+  min-block-size: 100dvh;
   margin: 0;
 
   background: var(--bg);
@@ -35,7 +34,7 @@ body
   overscroll-behavior-y: none;
   -webkit-tap-highlight-color: transparent;
 }
-#root { min-block-size: 100vh; min-block-size: 100dvh; }
+#root { min-block-size: 100dvh; }
 /* ====================================
    GLOBAL INTERACTION NORMALIZATION STYLES.
 ======================================= */

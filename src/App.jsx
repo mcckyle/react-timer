@@ -5,7 +5,6 @@
 
 import Timer from "./components/Timer/Timer.jsx";
 import { useTheme } from "./context/ThemeContext.jsx";
-import "./App.css";
 
 function App()
 {
