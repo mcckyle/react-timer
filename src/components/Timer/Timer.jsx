@@ -99,7 +99,11 @@ const Timer = ({ toggleTheme }) =>
   useCompletionSound(completed);
 
   return (
-    <section className={className} style={ambient.style}>
+    <section
+      className={className}
+      style={ambient.style}
+      aria-label="Focus timer"
+    >
       <AmbientBackground />
       <TimerHeader
         theme={theme}
@@ -130,10 +134,10 @@ const Timer = ({ toggleTheme }) =>
             resetDisabled={resetDisabled}
           />
         </section>
-        <p className="timer-shortcuts" aria-label="Keyboard shortcuts">
-          <span>Space</span> Start / Pause
-          <span>R</span> Reset
-          <span>M</span> Mode
+        <p className="timer-shortcuts">
+          <kbd>Space</kbd> Start / Pause
+          <kbd>R</kbd> Reset
+          <kbd>M</kbd> Mode
         </p>
       </div>
     </section>

@@ -77,11 +77,14 @@
 
   transition: opacity 500ms var(--ease-fluid);
 }
-.timer .timer-shortcuts span
+.timer .timer-shortcuts kbd
 {
+  padding: 0;
+  background: none;
   color: var(--text-soft);
   font-family: var(--font-mono);
-  font-size: 0.625rem;
+  font-size: inherit;
+  font-weight: inherit;
   letter-spacing: 0.025em;
 }
 .timer.is-running .timer-shortcuts { opacity: 0.78; }
@@ -90,12 +93,6 @@
 {
   0%, 100% { transform: translateY(0); }
   35% { transform: translateY(-2px); }
-}
-
-@media (prefers-reduced-motion: reduce)
-{
-  .timer-shortcuts { transition: none; }
-  .timer.is-complete .controlsRegion { animation: none; }
 }
 
 /* ====================================
