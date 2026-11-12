@@ -1,6 +1,6 @@
 //File name: useTimer.js
 //Author: Kyle McColgan
-//Date: 29 October 2026
+//Date: 12 November 2026
 //Description: This file contains the custom timekeeping hook for the timer React project.
 
 import { useEffect, useState, useRef, useCallback } from "react";
@@ -79,6 +79,8 @@ function safeParse(value)
         return null;
     }
 }
+
+//Session persistence.
 function readTimerSession()
 {
     return safeParse(readStorage(TIMER_SESSION_KEY));
@@ -92,6 +94,27 @@ function clearTimerSession()
     removeStorage(TIMER_SESSION_KEY);
 }
 
+//History validation.
+function readTimerHistory()
+{
+    const history = safeParse(readStorage(STORAGE_KEY));
+
+    if (!Array.isArray(history))
+    {
+        return [];
+    }
+
+    return history
+      .filter((entry) =>
+          entry !== null &&
+          typeof entry === "object" &&
+          Number.isFinite(entry.duration) &&
+          entry.duration > 0 &&
+          Number.isFinite(entry.completedAt)
+    ).slice(0, MAX_HISTORY);
+}
+
+//Animation-frame lifecycle.
 function cancelScheduledFrame(frameRef)
 {
     if (frameRef.current === null)
@@ -120,22 +143,18 @@ export function useTimer()
     const completedRef = useRef(false);
     const lastSecondRef = useRef(null);
 
-    //Prevents unintended persistence during initial hydration, completion, and reset.
+    //Prevents persistence during initial hydration, completion, and reset.
     const skipPersistRef = useRef(true);
 
-    //Load timer history.
+    //Load saved timer history.
     useEffect(() =>
     {
-        const history = safeParse(readStorage(STORAGE_KEY));
-
-        if (Array.isArray(history))
-        {
-            setPastTimers(history.slice(0, MAX_HISTORY));
-        }
+        setPastTimers(readTimerHistory());
     }, []);
 
     //Cancel any pending animation frame.
-    const cancelFrame = useCallback(() => {
+    const cancelFrame = useCallback(() =>
+    {
         cancelScheduledFrame(rafRef);
     }, []);
 
@@ -174,7 +193,7 @@ export function useTimer()
         });
     }, [cancelFrame]);
 
-    //Restore previous timer session (if one exists).
+    //Restore a previously saved timer session (if one exists).
     useEffect(() =>
     {
         const session = readTimerSession();
@@ -258,7 +277,7 @@ export function useTimer()
         persistTimerSession({ duration, timeLeft, running: false, });
     }, [hydrated, duration, timeLeft, running]);
 
-    //Animation-frame loop.
+    //Animation-frame countdown loop.
     const tick = useCallback(() =>
     {
         if ((!running) || (startRef.current === null))
@@ -347,6 +366,13 @@ export function useTimer()
         const elapsed = startRef.current === null ? 0 : nowPerf() - startRef.current;
         const remaining = Math.max(0, duration - elapsed);
 
+        //Do not leave an elapsed timer paused at zero.
+        if (remaining <= 0)
+        {
+            complete(duration);
+            return;
+        }
+
         cancelFrame();
 
         startRef.current = null;
@@ -357,7 +383,7 @@ export function useTimer()
         setVisualTimeLeft(remaining);
 
         persistTimerSession({ duration, timeLeft: remaining, running: false, });
-    }, [running, duration, cancelFrame]);
+    }, [running, duration, cancelFrame, complete]);
 
     //Reset to the selected duration.
     const reset = useCallback(() =>
