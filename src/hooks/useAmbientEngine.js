@@ -1,6 +1,6 @@
 //File name: useAmbientEngine.js
 //Author: Kyle McColgan
-//Date: 7 November 2026
+//Date: 11 November 2026
 //Description: This file contains the background hook component for the timer React project.
 
 import { useMemo } from "react";
@@ -56,7 +56,7 @@ export function useAmbientEngine({ duration, timeLeft, visualTimeLeft, running }
     //Using timer time rather than performance.now()
     //keeps color evolution synchronized with the
     //timer's continous visual state.
-    const clock = Math.max(0, currentTime) * 0.00022;
+    const clock = safeTime * 0.00022;
 
     //Layer several extremely low-frequence waves.
     //Their combined movement is intentionally subtle:
