@@ -11,20 +11,19 @@
     --visual-violet: hsl(265 100% 78%);
 
     position: relative;
+    isolation: isolate;
+
     display: grid;
     place-items: center;
 
     inline-size: 100%;
     block-size: 100%;
-
-    overflow: visible;
-    isolation: isolate;
 }
 
 /* ====================================
    VISUALTIMER CORE STYLES.
 ======================================= */
-.visual-timer-core
+.visual-timer .visual-timer-core
 {
     position: relative;
 
@@ -41,7 +40,7 @@
 /* ====================================
    VISUALTIMER AMBIENT HALO STYLES.
 ======================================= */
-.visual-timer-core::before
+.visual-timer .visual-timer-core::before
 {
     content: "";
     position: absolute;
@@ -74,13 +73,14 @@
 /* ====================================
    VISUALTIMER GLASS VESSEL STYLES.
 ======================================= */
-.visual-timer-glass
+.visual-timer .visual-timer-glass
 {
     position: relative;
+    isolation: isolate;
+
     inline-size: 72%;
     block-size: 88%;
     overflow: hidden;
-    isolation: isolate;
 
     /* The asymmetric radius gives the vessel a subtle
      * hourglass silhouette without introducting another
@@ -111,7 +111,7 @@
                 inset 0 0 2.5rem rgb(255 255 255 / 0.025),
                 0 2rem 5rem -2rem rgb(0 0 0 / 0.48);
 }
-.visual-timer-glass::before
+.visual-timer .visual-timer-glass::before
 {
     content: "";
     position: absolute;
@@ -134,7 +134,7 @@
 /* ====================================
    VISUALTIMER SAND BASE STYLES.
 ======================================= */
-.visual-timer-sand
+.visual-timer .visual-timer-sand
 {
     position: absolute;
     inset-inline-start: 50%;
@@ -150,7 +150,7 @@
 /* ====================================
    VISUALTIMER TOP RESERVOIR STYLES.
 ======================================= */
-.visual-timer-sand-top
+.visual-timer .visual-timer-sand-top
 {
     inset-block-start: 8%;
     block-size: 38%;
@@ -163,7 +163,7 @@
 /* ====================================
    VISUALTIMER SAND STREAM STYLES.
 ======================================= */
-.visual-timer-sand-flow
+.visual-timer .visual-timer-sand-flow
 {
     inset-block-start: 50%;
     inline-size: clamp(2px, 0.14vw, 4px);
@@ -183,7 +183,7 @@
 /* ====================================
    VISUALTIMER BOTTOM RESERVOIR STYLES.
 ======================================= */
-.visual-timer-sand-bottom
+.visual-timer .visual-timer-sand-bottom
 {
     inset-block-end: 8%;
     block-size: 38%;
@@ -192,7 +192,7 @@
     clip-path: polygon(0 100%, 100% 100%, 50% 0);
     opacity: var(--visual-bottom-opacity);
 }
-.visual-timer-sand-bottom::after
+.visual-timer .visual-timer-sand-bottom::after
 {
     content: "";
     position: absolute;
@@ -203,8 +203,8 @@
     background: linear-gradient(90deg, hsl(320 100% 82% / 0.2), hsl(285 100% 86% / 0.42), hsl(195 100% 86% / 0.3));
     filter: blur(4px);
 }
-.visual-timer-highlight, .visual-timer-edge { position: absolute; z-index: 5; pointer-events: none; }
-.visual-timer-highlight
+.visual-timer .visual-timer-highlight, .visual-timer .visual-timer-edge { position: absolute; z-index: 5; pointer-events: none; }
+.visual-timer .visual-timer-highlight
 {
     inset-block: 5%;
     inset-inline-start: 14%;
@@ -218,7 +218,7 @@
     );
     opacity: 0.72;
 }
-.visual-timer-edge
+.visual-timer .visual-timer-edge
 {
     inset: 0;
     border: 1px solid rgb(255 255 255 / 0.025);
@@ -240,8 +240,8 @@
 
 @media (prefers-reduced-motion: reduce)
 {
-    .visual-timer-core { transform: none; transition: none; }
-    .visual-timer-core::before, .visual-timer-sand-flow { animation: none; }
+    .visual-timer .visual-timer-core { transform: scale(1); transition: none; }
+    .visual-timer .visual-timer-core::before, .visual-timer .visual-timer-sand-flow { animation: none; }
 }
 
 /* ====================================
@@ -249,11 +249,11 @@
 ======================================= */
 @media (max-width: 700px)
 {
-    .visual-timer-core { inline-size: clamp(12rem, 42vw, 18rem); }
+    .visual-timer .visual-timer-core { inline-size: clamp(11rem, 42vw, 18rem); }
 }
 @media (max-width: 480px)
 {
-    .visual-timer-core { inline-size: min(10rem, 48vw); }
-    .visual-timer-glass { inline-size: 74%; }
-    .visual-timer-sand { inline-size: 53%; }
+    .visual-timer .visual-timer-core { inline-size: clamp(9rem, 48vw, 12rem); }
+    .visual-timer .visual-timer-glass { inline-size: 74%; }
+    .visual-timer .visual-timer-sand { inline-size: 53%; }
 }

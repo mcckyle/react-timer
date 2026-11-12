@@ -1,6 +1,6 @@
 //File name: TimeField.jsx
 //Author: Kyle McColgan
-//Date: 29 October 2026
+//Date: 11 November 2026
 //Description: This file contains the time field for the timer React project.
 
 import { useRef } from "react";
@@ -66,6 +66,11 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
     }
   };
 
+  const handleLostPointerCapture = () =>
+  {
+    dragging.current = false;
+  };
+
   const handleChange = (event) =>
   {
     const raw = event.target.value;
@@ -98,6 +103,11 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
     onChange(clamp(value + direction));
   };
 
+  const fieldName =
+    label === "h" ? "Hours" :
+    label === "m" ? "Minutes" :
+    "Seconds";
+
   return (
     <div
       className="time-field"
@@ -105,10 +115,11 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerUp}
-      title={`Adjust ${label} by dragging or using the arrow keys`}
+      onLostPointerCapture={handleLostPointerCapture}
+      title={`Adjust ${fieldName.toLowerCase()} by dragging or using the arrow keys`}
     >
       <label id={labelId} htmlFor={id} className="sr-only">
-        {label === "h" ? "Hours" : label === "m" ? "Minutes" : "Seconds"}
+        {fieldName}
       </label>
 
       <input

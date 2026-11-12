@@ -58,7 +58,7 @@
 /* ====================================
    TIMEFIELD UNIT LABEL STYLES.
 ======================================= */
-.time-unit
+.time-field .time-unit
 {
     color: var(--text-muted);
     font-family: var(--font-sans);
@@ -89,16 +89,13 @@
     white-space: nowrap;
 }
 
+@media (prefers-reduced-motion: reduce)
+{
+    .time-field, .time-field input, .time-field .time-unit { transition: none; }
+}
+
 @media (hover: hover)
 {
     .time-field:hover input { color: var(--text); }
     .time-field:hover .time-unit { opacity: 0.7; }
 }
-
-/* ====================================
-   TIMEFIELD REDUCED MOTION MEDIA QUERY STYLES.
-======================================= */
-/*@media (prefers-reduced-motion: reduce)
-{
-    .time-field, .time-field input, .time-unit  { transition: none; }
-}*/

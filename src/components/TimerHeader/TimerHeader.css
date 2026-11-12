@@ -5,8 +5,8 @@
 ======================================= */
 .timer-header
 {
-    --vapor-pink: hsl(320 100% 74%);
-    --vapor-blue: hsl(195 100% 72%);
+    --header-pink: hsl(320 100% 74%);
+    --header-blue: hsl(195 100% 72%);
 
     position: relative;
     z-index: 20;
@@ -44,23 +44,23 @@
 
     transition: color 350ms var(--ease-fluid), opacity 350ms var(--ease-fluid);
 }
-.timer.is-running .timer-header-title { color: var(--vapor-pink); opacity: 0.95; }
+.timer.is-running .timer-header-title { color: var(--header-pink); opacity: 0.95; }
 
 /* ====================================
    TIMERHEADER SHARED GLASS CONTROL SURFACE STYLES.
 ======================================= */
-.timer-glass
+.timer-header .timer-glass
 {
     background: linear-gradient(135deg, rgb(255 255 255 / 0.055), rgb(255 255 255 / 0.012)),
                 color-mix(in srgb, var(--surface-glass) 78%, transparent);
-    border: 1px solid color-mix(in srgb, var(--border-subtle) 78%, var(--vapor-blue) 22%);
+    border: 1px solid color-mix(in srgb, var(--border-subtle) 78%, var(--header-blue) 22%);
     box-shadow: 0 12px 40px -30px rgb(0 0 0 / 0.72), inset 0 1px 0 rgb(255 255 255 / 0.055);
     backdrop-filter: blur(24px) saturate(150%);
     -webkit-backdrop-filter: blur(24px) saturate(150%);
 
     transition: border-color 350ms var(--ease-fluid), box-shadow 350ms var(--ease-fluid);
 }
-.timer.is-running .timer-glass { border-color: color-mix(in srgb, var(--border-subtle) 65%, var(--vapor-pink) 35%); }
+.timer.is-running .timer-glass { border-color: color-mix(in srgb, var(--border-subtle) 65%, var(--header-pink) 35%); }
 
 /* ====================================
    TIMERHEADER MODE CONTROL STYLES.
@@ -92,14 +92,14 @@
     line-height: 1;
 
     transition: color 180ms var(--ease-standard),
-                background 220ms var(--ease-standard),
+                background-color 220ms var(--ease-standard),
                 transform 160ms var(--ease-fluid);
 }
 .timer-header-mode button[aria-pressed="true"]
 {
     background: linear-gradient(135deg, rgb(244 100 255 / 0.12), rgb(70 195 255 / 0.09));
     box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.07);
-    color: var(--vapor-blue);
+    color: var(--header-blue);
 }
 .timer-header-mode button[aria-pressed="true"]::after
 {
@@ -109,7 +109,7 @@
     inset-block-end: 0.23rem;
     block-size: 1px;
     border-radius: var(--radius-pill);
-    background: linear-gradient(90deg, var(--vapor-pink), var(--vapor-blue));
+    background: linear-gradient(90deg, var(--header-pink), var(--header-blue));
 }
 
 /* ====================================
@@ -138,7 +138,7 @@
     place-items: center;
     min-inline-size: 1rem;
 
-    color: var(--vapor-pink);
+    color: var(--header-pink);
     font-family: var(--font-mono);
     font-size: 0.6rem;
     font-variant-numeric: tabular-nums;
@@ -180,12 +180,12 @@
     border-radius: 50%;
     color: var(--text-soft);
 }
-.toggleIcon { inline-size: 0.92rem; block-size: 0.92rem; transition: transform 250ms var(--ease-fluid); }
+.timer-header .toggleIcon { inline-size: 0.92rem; block-size: 0.92rem; transition: transform 250ms var(--ease-fluid); }
 .timer-header-mode button:focus-visible,
 .timer-header-history-button:focus-visible,
 .timer-theme-toggle:focus-visible
 {
-    outline: 2px solid var(--vapor-blue);
+    outline: 2px solid var(--header-blue);
     outline-offset: 3px;
 }
 .timer-header-mode button:active,
@@ -208,20 +208,17 @@
     .timer-header-history-button:hover,
     .timer-theme-toggle:hover
     {
-        box-shadow: 0 0 24px -14px var(--vapor-blue);
+        box-shadow: 0 0 24px -14px var(--header-blue);
     }
     .timer-theme-toggle:hover .toggleIcon { transform: rotate(10deg) scale(1.04); }
 }
 
-/* ====================================
-   TIMERHEADER REDUCED MOTION STYLES.
-======================================= */
-/*@media (prefers-reduced-motion: reduce)
+@media (prefers-reduced-motion: reduce)
 {
-    .timer-header-title, .timer-glass, .timer-header-mode button, .timer-header-history-button, .timer-header-history-panel, .timer-theme-toggle, .toggleIcon { transition: none; }
-    .timer-header-mode button, .timer-header-history-button, .timer-theme-toggle { animation: none; }
-    .timer-header-mode button:hover, .timer-header-history-button:hover, .timer-theme-toggle:hover, .timer-header-mode button:active, .timer-header-history-button:active, .timer-theme-toggle:active { transform: none; }
-}*/
+ .timer-header-title, .timer-header .timer-glass, .timer-header-mode button, .timer-header-history-panel, .timer-header .toggleIcon { transition: none; }
+
+ .timer-header-mode button:active, .timer-header-history-button:active, .timer-theme-toggle:active { transform: none; }
+}
 
 /* ====================================
    TIMERHEADER MEDIA QUERY STYLES.
@@ -230,7 +227,7 @@
 {
     .timer-header { grid-template-columns: minmax(0, 1fr) auto; row-gap: 0.62rem; min-block-size: auto; padding-inline: 1rem; padding-block-end: 0.6rem; }
     .timer-header-center { grid-column: 1 / -1; grid-row: 2; justify-content: center; }
-    .timer-header-history-panel { inset-inline-start: 50%; inset-inline-end: auto; transform-origin: top center; transform: translate(-50%, 0.35rem) scale(0.985); }
+    .timer-header-history-panel { inset-inline-start: 50%; inset-inline-end: auto; transform: translate(-50%, 0.35rem) scale(0.985); transform-origin: top center; }
     .timer-header-history-panel.is-visible { transform: translate(-50%, 0) scale(1); }
 }
 

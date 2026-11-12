@@ -152,6 +152,11 @@
     text-align: center;
 }
 
+@media (prefers-reduced-motion: reduce)
+{
+    .past-timers-clear, .past-timers-item { transition: none; }
+}
+
 @media (hover: hover)
 {
     .past-timers-clear:hover { background: rgb(255 100 225 / 0.055); color: var(--history-pink); }
