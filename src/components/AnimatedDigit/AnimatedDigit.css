@@ -3,16 +3,14 @@
 /* ====================================
    ANIMATEDDIGIT BASE DIGIT WRAPPER STYLE.
 ======================================= */
-.digit
+.timer .digit
 {
     position: relative;
-    isolation: isolate;
 
     display: inline-grid;
     place-items: center;
 
     flex: 0 0 0.6em; /* Prevent the animation from changing the overall width of the giant clock. */
-    inline-size: 0.6em;
     block-size: 1em;
 
     overflow: clip;
@@ -22,7 +20,7 @@
 /* ====================================
    ANIMATEDDIGIT DIGIT VALUE STYLE.
 ======================================= */
-.digit .value
+.timer .digit .value
 {
     position: absolute;
     inset: 0;
@@ -37,4 +35,4 @@
 /* ====================================
    ANIMATEDDIGIT CENTISECOND DIGIT STYLE.
 ======================================= */
-.digit.centi { opacity: 0.78; }
+.timer .digit.centi { opacity: 0.78; }

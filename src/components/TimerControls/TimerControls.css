@@ -3,7 +3,7 @@
 /* ====================================
    TIMERCONTROLS CONTROL DOCK STYLES.
 ======================================= */
-.timer-controls
+.timer .timer-controls
 {
     display: inline-flex;
     align-items: center;
@@ -29,7 +29,7 @@
 /* ====================================
    TIMERCONTROLS BASE CONTROL STYLES.
 ======================================= */
-.timer-control
+.timer .timer-control
 {
     display: inline-flex;
     align-items: center;
@@ -59,7 +59,7 @@
 /* ====================================
    TIMERCONTROLS PRIMARY ACTION STYLES.
 ======================================= */
-.timer-control-primary
+.timer .timer-control-primary
 {
     background: linear-gradient(120deg, hsl(var(--ambient-hue) 100% 69%), hsl(var(--ambient-hue-secondary) 100% 64%));
     border-color: hsl(var(--ambient-hue-secondary) 100% 82% / 0.18);
@@ -70,7 +70,7 @@
 /* ====================================
    TIMERCONTROLS SECONDARY ACTION STYLES.
 ======================================= */
-.timer-control-secondary
+.timer .timer-control-secondary
 {
     background: rgb(255 255 255 / 0.014);
     border-color: var(--border-subtle);
@@ -79,29 +79,29 @@
 /* ====================================
    TIMERCONTROLS DISABLED STATE STYLES.
 ======================================= */
-.timer-control:disabled { opacity: 0.32; cursor: not-allowed; }
+.timer .timer-control:disabled { cursor: not-allowed; opacity: 0.32; }
 
 /* TimerControls Hover Lift For Desktop Styles. */
 @media (hover: hover)
 {
-    .timer-control:hover:not(:disabled)
+    .timer .timer-control:hover:not(:disabled)
     {
         color: var(--text);
         transform: translateY(-1px)
     }
-    .timer-control-primary:hover:not(:disabled)
+    .timer .timer-control-primary:hover:not(:disabled)
     {
         box-shadow: 0 0.9rem 2.2rem -1.2rem hsl(var(--ambient-hue-secondary) 100% 68% / 0.62),
                     0 0 2.5rem -1.8rem hsl(var(--ambient-hue) 100% 72% / 0.24),
                     inset 0 1px 0 rgb(255 255 255 / 0.28);
     }
-    .timer-control-secondary:hover:not(:disabled)
+    .timer .timer-control-secondary:hover:not(:disabled)
     {
         background: rgb(255 255 255 / 0.04);
         border-color: color-mix(in srgb, var(--border-subtle) 68%, var(--accent) 32%);
     }
     /* Pressed state takes precedence over hover. */
-    .timer-control:active:not(:disabled) { transform: translateY(1px) scale(0.975); }
+    .timer .timer-control:active:not(:disabled) { transform: translateY(1px) scale(0.975); }
 }
 
 /* ====================================
@@ -109,8 +109,8 @@
 ======================================= */
 @media (prefers-reduced-motion: reduce)
 {
-    .timer-controls, .timer-control { transition: none; }
-    .timer-control:hover:not(:disabled), .timer-control:active:not(:disabled) { transform: none; }
+    .timer .timer-controls, .timer .timer-control { transition: none; }
+    .timer .timer-control:hover:not(:disabled), .timer .timer-control:active:not(:disabled) { transform: none; }
 }
 
 /* ====================================
@@ -118,6 +118,6 @@
 ======================================= */
 @media (max-width: 480px)
 {
-    .timer-controls { inline-size: min(100%, 22rem); }
-    .timer-control { flex: 1; min-inline-size: 0; }
+    .timer .timer-controls { inline-size: min(100%, 22rem); }
+    .timer .timer-control { flex: 1; min-inline-size: 0; }
 }

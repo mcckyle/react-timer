@@ -1,6 +1,6 @@
 //File name: AnimatedDigit.jsx
 //Author: Kyle McColgan
-//Date: 21 October 2026
+//Date: 11 November 2026
 //Description: This file contains the digits component for the timer React project.
 
 import React from "react";
