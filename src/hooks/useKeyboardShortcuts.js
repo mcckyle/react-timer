@@ -1,6 +1,6 @@
 //File name: useKeyboardShortcuts.js
 //Author: Kyle McColgan
-//Date: 21 October 2026
+//Date: 12 November 2026
 //Description: This file contains the keyboard shortcuts implementation for the timer React project.
 
 import { useEffect } from "react";
@@ -17,7 +17,7 @@ export function useKeyboardShortcuts({
     useEffect(() => {
         function handleKeyDown(event)
         {
-            if ((event.defaultPrevented) || (event.repeat) || (event.altKey) || (event.ctrlKey) || (event.metaKey))
+            if ((event.defaultPrevented) || (event.repeat) || (event.isComposing) || (event.keyCode === 229) || (event.altKey) || (event.ctrlKey) || (event.metaKey))
             {
                 return;
             }
@@ -26,7 +26,8 @@ export function useKeyboardShortcuts({
             const target = event.target;
 
             if ((target instanceof Element) && (target.closest(
-                'input, textarea, select, button, a[href], [contenteditable="true"], [role="button"]'
+                'input, textarea, select, button, a[href], ' + '[contenteditable]:not([contenteditable="false"]), ' +
+                '[role="button"]'
             )))
             {
                 return;
