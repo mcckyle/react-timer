@@ -14,12 +14,14 @@ html
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
 }
 body
 {
-  min-inline-size: 0;
+  min-block-size: 100vh;
   min-block-size: 100dvh;
   margin: 0;
+  overflow-x: clip;
 
   background: var(--bg);
   color: var(--text);
@@ -34,7 +36,7 @@ body
   overscroll-behavior-y: none;
   -webkit-tap-highlight-color: transparent;
 }
-#root { min-block-size: 100dvh; }
+#root { min-block-size: 100vh; min-block-size: 100dvh; }
 /* ====================================
    GLOBAL INTERACTION NORMALIZATION STYLES.
 ======================================= */

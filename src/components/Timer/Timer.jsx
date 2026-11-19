@@ -1,6 +1,6 @@
 //File name: Timer.jsx
 //Author: Kyle McColgan
-//Date: 11 November 2026
+//Date: 18 November 2026
 //Description: This file contains the parent timer component for the timer React project.
 
 import { useState, useEffect, useRef } from "react";
@@ -27,21 +27,20 @@ const Timer = ({ toggleTheme }) =>
   const [showHistory, setShowHistory] = useState(false);
   const [mode, setMode] = useState("digital"); //"digital" || "visual".
   const [completed, setCompleted] = useState(false);
+  const prevTimeRef = useRef(timeLeft);
+  const resetDisabled = (timeLeft === duration) && !running;
   const className = [
     "timer",
     running && "is-running",
     completed && "is-complete",
   ].filter(Boolean).join(" ");
 
-  const prevTimeRef = useRef(timeLeft);
-  const resetDisabled = (timeLeft === duration) && !running;
-
   //The ambient engine intentionally receives both clocks:
   //timeLeft -> functional/display timer state.
   //visualTimeLeft -> continuous visual clock.
   const ambient = useAmbientEngine({ duration, timeLeft, visualTimeLeft, running });
 
-  //Detect the transition from a positive remaining time to zero.
+  //Detect the transition from positive remaining time to zero.
   useEffect(() =>
   {
     const previousTime = prevTimeRef.current;
