@@ -1,10 +1,11 @@
 [![Deploy to GitHub Pages](https://github.com/mcckyle/react-timer/actions/workflows/deploy.yml/badge.svg)](https://github.com/mcckyle/react-timer/actions/workflows/deploy.yml)
+[![License](https://img.shields.io/badge/License-MIT-blue)](./LICENSE)
 
 # react-timer
 
 A simple, modern timer app built with **React** and **Vite**. Designed for focus and clarity.
 
-![Screenshot](./public/images/Screenshot_20261111_201954.png)
+![Screenshot](./public/images/Screenshot_20261125_234635.png)
 *A glimpse of the timer, captured with a screenshot.*
 
 *🌐 [Visit the live site](https://mcckyle.github.io/react-timer/)*
