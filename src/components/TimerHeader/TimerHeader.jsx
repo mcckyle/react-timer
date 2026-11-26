@@ -1,10 +1,9 @@
 //File name: TimerHeader.jsx
 //Author: Kyle McColgan
-//Date: 11 November 2026
+//Date: 25 November 2026
 //Description: This file contains the timer header component for the timer React project.
 
-import React from "react";
-import { Clock, Sun, Moon } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
 import DurationPicker from "../DurationPicker/DurationPicker.jsx";
 import PastTimers from "../PastTimers/PastTimers.jsx";
 import "./TimerHeader.css";
@@ -24,12 +23,6 @@ export default function TimerHeader({
 {
   const hasHistory = pastTimers.length > 0;
   const isDark = theme === "dark";
-
-  const toggleHistory = () =>
-  {
-    setShowHistory((visible) => !visible);
-  };
-
   const historyLabel = showHistory
     ? "Close completed timer history"
     : `Show completed timer history, ${pastTimers.length} ${
@@ -77,7 +70,7 @@ export default function TimerHeader({
             <button
               type="button"
               className="timer-header-history-button timer-glass"
-              onClick={toggleHistory}
+              onClick={() => setShowHistory((visible) => !visible)}
               aria-expanded={showHistory}
               aria-controls="timer-history"
               aria-label={historyLabel}
@@ -89,10 +82,9 @@ export default function TimerHeader({
             </button>
             <div
               id="timer-history"
-              className={[
-                "timer-header-history-panel",
-                showHistory && "is-visible",
-              ].filter(Boolean).join(" ")}
+              className={`timer-header-history-panel${
+                showHistory ? " is-visible" : ""
+              }`}
               aria-hidden={!showHistory}
               inert={!showHistory}
             >
@@ -108,9 +100,9 @@ export default function TimerHeader({
           aria-pressed={isDark}
         >
           {isDark ? (
-            <Sun className="toggleIcon" aria-hidden="true" />
+            <Sun className="timer-theme-icon" aria-hidden="true" />
           ) : (
-            <Moon className="toggleIcon" aria-hidden="true" />
+            <Moon className="timer-theme-icon" aria-hidden="true" />
           )}
         </button>
       </div>
