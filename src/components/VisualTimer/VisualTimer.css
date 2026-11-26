@@ -23,7 +23,7 @@
 /* ====================================
    VISUALTIMER CORE STYLES.
 ======================================= */
-.visual-timer .visual-timer-core
+.visual-timer-core
 {
     position: relative;
 
@@ -32,15 +32,12 @@
 
     inline-size: clamp(8.75rem, 30vw, 28rem);
     aspect-ratio: 0.7;
-    transform: scale(var(--visual-scale));
-
-    transition: transform 900ms var(--ease-fluid);
 }
 
 /* ====================================
    VISUALTIMER AMBIENT HALO STYLES.
 ======================================= */
-.visual-timer .visual-timer-core::before
+.visual-timer-core::before
 {
     content: "";
     position: absolute;
@@ -50,21 +47,21 @@
     pointer-events: none;
     background: radial-gradient(
         ellipse at 34% 38%,
-        hsl(320 100% 68% / 0.2),
-        transparent 48%
+        hsl(320 100% 68% / 0.22),
+        transparent 50%
     ),
     radial-gradient(
         ellipse at 68% 62%,
-        hsl(195 100% 66% / 0.19),
-        transparent 52%
+        hsl(195 100% 66% / 0.2),
+        transparent 54%
     ),
     radial-gradient(
         circle,
-        hsl(265 100% 72% / 0.1),
+        hsl(265 100% 72% / 0.12),
         transparent 70%
     );
 
-    filter: blur(var(--visual-halo-blur));
+    filter: blur(48px);
     opacity: var(--visual-halo-opacity);
 
     animation: visual-breathe 12s var(--ease-fluid) infinite;
@@ -73,7 +70,7 @@
 /* ====================================
    VISUALTIMER GLASS VESSEL STYLES.
 ======================================= */
-.visual-timer .visual-timer-glass
+.visual-timer-glass
 {
     position: relative;
     isolation: isolate;
@@ -87,31 +84,29 @@
      * decorative layer.
      */
     border-radius: 40% / 13%;
-    border: 1px solid rgb(255 255 255 / 0.08);
+    border: 1px solid rgb(255 255 255 / 0.1);
     background: linear-gradient(
         105deg,
         rgb(255 255 255 / 0.055),
-        transparent 27%,
+        transparent 30%,
         rgb(255 255 255 / 0.012) 52%,
         transparent 76%,
-        rgb(255 255 255 / 0.045)
+        rgb(255 255 255 / 0.04)
     ),
     linear-gradient(
         180deg,
-        rgb(255 255 255 / 0.075),
-        rgb(255 255 255 / 0.025) 48%,
+        rgb(255 255 255 / 0.065),
         rgb(255 255 255 / 0.018)
     );
 
-    backdrop-filter: blur(16px) saturate(145%);
-    -webkit-backdrop-filter: blur(16px) saturate(145%);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.24),
+    backdrop-filter: blur(12px) saturate(145%);
+    -webkit-backdrop-filter: blur(12px) saturate(145%);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.22),
                 inset 1px 0 0 rgb(255 255 255 / 0.07),
                 inset -1px 0 0 rgb(255 255 255 / 0.045),
-                inset 0 0 2.5rem rgb(255 255 255 / 0.025),
-                0 2rem 5rem -2rem rgb(0 0 0 / 0.48);
+                0 2rem 5rem -2rem rgb(0 0 0 / 0.42);
 }
-.visual-timer .visual-timer-glass::before
+.visual-timer-glass::before
 {
     content: "";
     position: absolute;
@@ -121,49 +116,48 @@
     pointer-events: none;
     background: radial-gradient(
         ellipse 76% 42% at 30% 30%,
-        hsl(320 100% 76% / 0.085),
+        hsl(320 100% 76% / 0.075),
         transparent 74%
     ),
     radial-gradient(
         ellipse 76% 46% at 72% 72%,
-        hsl(195 100% 72% / 0.075),
+        hsl(195 100% 72% / 0.065),
         transparent 72%
     );
 }
 
 /* ====================================
-   VISUALTIMER SAND BASE STYLES.
+   VISUALTIMER LUMINOUS SAND BASE STYLES.
 ======================================= */
-.visual-timer .visual-timer-sand
+.visual-timer-sand
 {
     position: absolute;
     inset-inline-start: 50%;
     inline-size: 55%;
+    pointer-events: none;
     background: linear-gradient(110deg, var(--visual-pink-bright), var(--visual-violet) 48%, var(--visual-blue));
     box-shadow: 0 0 0.8rem hsl(320 100% 76% / 0.2),
                 0 0 1.8rem hsl(275 100% 72% / 0.14),
                 0 0 3rem hsl(195 100% 70% / 0.1);
-    filter: saturate(1.15);
-    pointer-events: none;
 }
 
 /* ====================================
-   VISUALTIMER TOP RESERVOIR STYLES.
+   VISUALTIMER UPPER SAND RESERVOIR STYLES.
 ======================================= */
-.visual-timer .visual-timer-sand-top
+.visual-timer-sand-top
 {
     inset-block-start: 8%;
     block-size: 38%;
-    transform: translateX(-50%) scaleY(var(--visual-progress));
-    transform-origin: top center;
     clip-path: polygon(50% 100%, 0 0, 100% 0);
     opacity: var(--visual-top-opacity);
+    transform: translateX(-50%) scaleY(var(--visual-progress));
+    transform-origin: top center;
 }
 
 /* ====================================
-   VISUALTIMER SAND STREAM STYLES.
+   VISUALTIMER LUMINOUS SAND STREAM STYLES.
 ======================================= */
-.visual-timer .visual-timer-sand-flow
+.visual-timer-sand-flow
 {
     inset-block-start: 50%;
     inline-size: clamp(2px, 0.14vw, 4px);
@@ -174,7 +168,7 @@
                 0 0 1rem hsl(290 100% 76% / 0.35),
                 0 0 1.8rem hsl(195 100% 76% / 0.22);
     opacity: var(--visual-flow-opacity);
-    transform: translateX(-50%) scaleY(var(--visual-energy)) scaleX(0.88);
+    transform: translateX(-50%) scaleY(var(--visual-energy));
     transform-origin: top center;
 
     animation: visual-stream 3.8s var(--ease-fluid) infinite;
@@ -183,28 +177,28 @@
 /* ====================================
    VISUALTIMER BOTTOM RESERVOIR STYLES.
 ======================================= */
-.visual-timer .visual-timer-sand-bottom
+.visual-timer-sand-bottom
 {
     inset-block-end: 8%;
     block-size: 38%;
-    transform: translateX(-50%) scaleY(var(--visual-energy));
-    transform-origin: bottom center;
     clip-path: polygon(0 100%, 100% 100%, 50% 0);
     opacity: var(--visual-bottom-opacity);
+    transform: translateX(-50%) scaleY(var(--visual-energy));
+    transform-origin: bottom center;
 }
-.visual-timer .visual-timer-sand-bottom::after
+.visual-timer-sand-bottom::after
 {
     content: "";
     position: absolute;
-    inset-inline: -15%;
     inset-block-start: 0;
+    inset-inline: -15%;
     block-size: 0.42rem;
     border-radius: 50%;
     background: linear-gradient(90deg, hsl(320 100% 82% / 0.2), hsl(285 100% 86% / 0.42), hsl(195 100% 86% / 0.3));
     filter: blur(4px);
 }
-.visual-timer .visual-timer-highlight, .visual-timer .visual-timer-edge { position: absolute; z-index: 5; pointer-events: none; }
-.visual-timer .visual-timer-highlight
+.visual-timer-highlight, .visual-timer-edge { position: absolute; z-index: 5; pointer-events: none; }
+.visual-timer-highlight
 {
     inset-block: 5%;
     inset-inline-start: 14%;
@@ -218,7 +212,7 @@
     );
     opacity: 0.72;
 }
-.visual-timer .visual-timer-edge
+.visual-timer-edge
 {
     inset: 0;
     border: 1px solid rgb(255 255 255 / 0.025);
@@ -240,8 +234,7 @@
 
 @media (prefers-reduced-motion: reduce)
 {
-    .visual-timer .visual-timer-core { transform: scale(1); transition: none; }
-    .visual-timer .visual-timer-core::before, .visual-timer .visual-timer-sand-flow { animation: none; }
+    .visual-timer-core::before, .visual-timer-sand-flow { animation: none; }
 }
 
 /* ====================================
@@ -249,11 +242,11 @@
 ======================================= */
 @media (max-width: 700px)
 {
-    .visual-timer .visual-timer-core { inline-size: clamp(11rem, 42vw, 18rem); }
+    .visual-timer-core { inline-size: clamp(11rem, 42vw, 18rem); }
 }
 @media (max-width: 480px)
 {
-    .visual-timer .visual-timer-core { inline-size: clamp(9rem, 48vw, 12rem); }
-    .visual-timer .visual-timer-glass { inline-size: 74%; }
-    .visual-timer .visual-timer-sand { inline-size: 53%; }
+    .visual-timer-core { inline-size: clamp(9rem, 48vw, 12rem); }
+    .visual-timer-glass { inline-size: 74%; }
+    .visual-timer-sand { inline-size: 53%; }
 }
