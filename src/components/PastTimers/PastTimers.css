@@ -5,27 +5,21 @@
 ======================================= */
 .past-timers
 {
-    --history-pink: hsl(320 100% 76%);
-    --history-blue: hsl(195 100% 74%);
-
     display: flex;
     flex-direction: column;
     gap: 0.62rem;
 
     inline-size: 100%;
-    padding: 0.78rem;
+    min-inline-size: 0;
+    padding: 0.8rem;
 
-    border: 1px solid color-mix(in srgb, var(--border-subtle) 78%, var(--history-blue) 22%);
+    border: 1px solid var(--border-subtle);
     border-radius: var(--radius);
 
-    background: radial-gradient(
-        ellipse 100% 90% at 100% 0%,
-        rgb(100 175 255 / 0.06),
-        transparent 68%),
-        color-mix(in srgb, var(--surface-glass) 88%, transparent);
+    background: color-mix(in srgb, var(--surface-glass) 90%, transparent);
     box-shadow: var(--shadow-large);
-    backdrop-filter: blur(26px) saturate(150%);
-    -webkit-backdrop-filter: blur(26px) saturate(150%);
+    backdrop-filter: blur(22px) saturate(135%);
+    -webkit-backdrop-filter: blur(22px) saturate(135%);
 }
 
 /* ====================================
@@ -47,11 +41,11 @@
     color: var(--text-soft);
     font-size: 0.58rem;
     font-weight: 650;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.15em;
     line-height: 1;
     text-transform: uppercase;
 }
-.past-timers-count { color: var(--history-blue); font-family: var(--font-mono); font-size: 0.59rem; font-variant-numeric: tabular-nums; }
+.past-timers-count { color: hsl(var(--ambient-hue) 100% 76%); font-family: var(--font-mono); font-size: 0.59rem; font-variant-numeric: tabular-nums; }
 
 /* ====================================
    PASTTIMERS CLEAR BUTTON STYLES.
@@ -59,7 +53,7 @@
 .past-timers-clear
 {
     min-block-size: 1.7rem;
-    padding-inline: 0.38rem;
+    padding-inline: 0.42rem;
     border: 0;
     border-radius: var(--radius-xs);
     background: transparent;
@@ -67,14 +61,14 @@
 
     font-size: 0.53rem;
     font-weight: 700;
-    letter-spacing: 0.13em;
+    letter-spacing: 0.12em;
     line-height: 1;
     text-transform: uppercase;
 
     transition: color 180ms var(--ease-standard),
                 background-color 180ms var(--ease-standard);
 }
-.past-timers-clear:focus-visible { outline: 2px solid var(--history-blue); outline-offset: 2px; }
+.past-timers-clear:focus-visible { outline: 2px solid hsl(var(--ambient-hue) 100% 76%); outline-offset: 2px; }
 
 /* ====================================
    PASTTIMERS LIST STYLES.
@@ -85,13 +79,15 @@
     flex-direction: column;
 
     max-block-size: 12rem;
+    min-inline-size: 0;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
     overflow-y: auto;
 
     list-style: none;
     scrollbar-width: thin;
-    scrollbar-color: rgb(120 180 255 / 0.4) transparent;
+    scrollbar-color: hsl(var(--ambient-hue) 85% 70% / 0.4) transparent;
     overscroll-behavior: contain;
 }
 .past-timers-list:focus-visible
@@ -103,7 +99,7 @@
 .past-timers-list::-webkit-scrollbar { inline-size: 3px; }
 .past-timers-list::-webkit-scrollbar-thumb
 {
-    background: linear-gradient(180deg, var(--history-pink), var(--history-blue));
+    background: linear-gradient(180deg, hsl(var(--ambient-hue-secondary) 100% 72%), hsl(var(--ambient-hue) 100% 76%));
     border-radius: var(--radius-pill);
 }
 
@@ -136,7 +132,7 @@
     letter-spacing: -0.035em;
     font-variant-numeric: tabular-nums;
 }
-.past-timers-time { color: var(--text-muted); font-size: 0.54rem; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+.past-timers-time { color: var(--text-muted); font-size: 0.54rem; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; white-space: nowrap; }
 
 /* ====================================
    PASTTIMERS EMPTY STATE STYLES.
@@ -152,6 +148,18 @@
     text-align: center;
 }
 
+.past-timers-sr-only
+{
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
 @media (prefers-reduced-motion: reduce)
 {
     .past-timers-clear, .past-timers-item { transition: none; }
@@ -159,6 +167,6 @@
 
 @media (hover: hover)
 {
-    .past-timers-clear:hover { background: rgb(255 100 225 / 0.055); color: var(--history-pink); }
-    .past-timers-item:hover { background: linear-gradient(90deg, rgb(255 100 225 / 0.045), rgb(80 190 255 / 0.035)); }
+    .past-timers-clear:hover { background: hsl(var(--ambient-hue) 100% 72% / 0.07); color: hsl(var(--ambient-hue) 100% 78%); }
+    .past-timers-item:hover { background: hsl(var(--ambient-hue) 100% 72% / 0.045); }
 }
