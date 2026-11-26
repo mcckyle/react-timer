@@ -1,9 +1,9 @@
 //File name: DurationPicker.jsx
 //Author: Kyle McColgan
-//Date: 11 November 2026
+//Date: 25 November 2026
 //Description: This file contains the time duration picker for the timer React project.
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { splitDuration } from "../../utils/formatDuration";
 import TimeField from "../TimeField/TimeField.jsx";
 import "./DurationPicker.css";
@@ -13,6 +13,10 @@ const PRESETS  = [
   { label: "10m", ms: 10 * 60 * 1000 },
   { label: "25m", ms: 25 * 60 * 1000 },
 ];
+
+const MAX_HOURS = 99;
+const MAX_MINUTES = 59;
+const MAX_SECONDS = 59;
 
 export default function DurationPicker({ duration, onSelect })
 {
@@ -29,10 +33,9 @@ export default function DurationPicker({ duration, onSelect })
     setSeconds(next.seconds);
   }, [duration]);
 
-  const commit = () =>
+  const commit = useCallback(() =>
   {
-    const totalSeconds = hours * 3600 + minutes * 60 + seconds;
-    const nextDuration = totalSeconds * 1000;
+    const nextDuration = (hours * 3600 + minutes * 60 + seconds) * 1000;
 
     if (nextDuration <= 0)
     {
@@ -48,16 +51,21 @@ export default function DurationPicker({ duration, onSelect })
     {
       onSelect(nextDuration);
     }
-  };
+  }, [duration, hours, minutes, seconds, onSelect]);
 
-  const handleChange = (setter, max) => (value) =>
-  {
-    const parsed = Number.parseInt(value, 10);
-    const next = Number.isFinite(parsed) ? parsed : 0;
-    setter(Math.max(0, Math.min(max, next)));
-  };
+  const createChangeHandler = useCallback((setter, max) => {
+    return (value) => {
+      const parsed = Number.parseInt(value, 10);
+      const next = Number.isFinite(parsed) ? parsed : 0;
+      setter(Math.min(max, Math.max(0, next)));
+    }
+  }, []);
 
-  const handleCustomKeyDown = (event) =>
+  const handleHoursChange = createChangeHandler(setHours, MAX_HOURS);
+  const handleMinutesChange = createChangeHandler(setMinutes, MAX_MINUTES);
+  const handleSecondsChange = createChangeHandler(setSeconds, MAX_SECONDS);
+
+  const handleKeyDown = (event) =>
   {
     if (event.key !== "Enter")
     {
@@ -69,7 +77,7 @@ export default function DurationPicker({ duration, onSelect })
     event.target.blur();
   };
 
-  const handleCustomBlur = (event) =>
+  const handleBlur = (event) =>
   {
     if (!event.currentTarget.contains(event.relatedTarget))
     {
@@ -105,14 +113,14 @@ export default function DurationPicker({ duration, onSelect })
         className="duration-custom"
         role="group"
         aria-label="Custom duration"
-        onKeyDown={handleCustomKeyDown}
-        onBlur={handleCustomBlur}
+        onKeyDown={handleKeyDown}
+        onBlur={handleBlur}
       >
-        <TimeField label="h" value={hours} max={99} onChange={handleChange(setHours, 99)} />
+        <TimeField label="h" value={hours} max={MAX_HOURS} onChange={handleHoursChange} />
         <span className="duration-picker-separator" aria-hidden="true">:</span>
-        <TimeField label="m" value={minutes} max={59} onChange={handleChange(setMinutes, 59)} />
+        <TimeField label="m" value={minutes} max={MAX_MINUTES} onChange={handleMinutesChange} />
         <span className="duration-picker-separator" aria-hidden="true">:</span>
-        <TimeField label="s" value={seconds} max={59} onChange={handleChange(setSeconds, 59)} />
+        <TimeField label="s" value={seconds} max={MAX_SECONDS} onChange={handleSecondsChange} />
       </div>
     </div>
   );
