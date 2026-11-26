@@ -85,7 +85,7 @@
     --ambient-progress: 1;
     --ambient-intensity: 1;
 
-    --ambient-hue: var(--accent-hue); /* Live hue (Timer can override this). */
+    --ambient-hue: 218;
     --ambient-hue-secondary: 282;
 
     --ambient-motion: 0;
