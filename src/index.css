@@ -14,7 +14,6 @@ html
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  scroll-behavior: smooth;
 }
 body
 {
@@ -33,7 +32,7 @@ body
   font-variant-numeric: tabular-nums;
   font-feature-settings: "liga" 1, "kern" 1, "tnum" 1;
   font-synthesis: none;
-  overscroll-behavior-y: none;
+  overscroll-behavior: none;
   -webkit-tap-highlight-color: transparent;
 }
 #root { min-block-size: 100vh; min-block-size: 100dvh; }

@@ -27,8 +27,8 @@
 
     display: grid;
     place-items: center;
-    line-height: 1;
 
+    line-height: 1;
     backface-visibility: hidden;
 }
 

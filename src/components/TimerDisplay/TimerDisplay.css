@@ -23,21 +23,10 @@
     font-variant-numeric: tabular-nums lining-nums;
     line-height: 0.88;
     letter-spacing: -0.055em;
-    text-rendering: geometricPrecision;
     user-select: none;
 
     text-shadow: 0 0 18px hsl(var(--ambient-hue) 100% 74% / 0.1),
                  0 0 52px hsl(var(--ambient-hue-secondary) 100% 72% / 0.055);
-
-    transition: text-shadow 800ms var(--ease-fluid), filter 800ms var(--ease-fluid);
-}
-
-/* ====================================
-   TIMERDISPLAY ACTIVE TIMER LUMINOSITY STYLES.
-======================================= */
-.timer.is-running .timer-display
-{
-    filter: brightness(calc(1 + var(--ambient-energy) * 0.025));
 }
 
 /* ====================================
@@ -52,9 +41,6 @@
     color: hsl(var(--ambient-hue-secondary) 100% 82% / calc(0.66 + var(--ambient-energy) * 0.16));
     text-shadow: 0 0 16px hsl(var(--ambient-hue) 100% 76% / 0.1),
                  0 0 32px hsl(var(--ambient-hue-secondary) 100% 72% / 0.06);
-    filter: brightness(calc(0.96 + var(--ambient-pulse) * 0.06));
-
-    transition: color 800ms var(--ease-fluid), text-shadow 800ms var(--ease-fluid), filter 800ms var(--ease-fluid);
 }
 
 /* ====================================
