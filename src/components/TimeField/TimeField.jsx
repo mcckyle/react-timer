@@ -1,21 +1,27 @@
 //File name: TimeField.jsx
 //Author: Kyle McColgan
-//Date: 11 November 2026
+//Date: 25 November 2026
 //Description: This file contains the time field for the timer React project.
 
-import { useRef } from "react";
+import { useRef, useId } from "react";
 import "./TimeField.css";
 
 export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER, onChange })
 {
-  const id = `time-${label}`;
+  const generatedId = useId();
+  const id = `time-${label}-${generatedId}`;
   const labelId = `${id}-label`;
+  const descriptionId = `${id}-description`;
 
   const startY = useRef(0);
   const startValue = useRef(0);
-  const dragging = useRef(false);
+  const activePointerId = useRef(null);
 
   const clamp = (nextValue) => Math.max(0, Math.min(max, nextValue));
+  const fieldName =
+    label === "h" ? "Hours" :
+    label === "m" ? "Minutes" :
+    "Seconds";
 
   const handlePointerDown = (event) =>
   {
@@ -24,7 +30,7 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
       return;
     }
 
-    dragging.current = true;
+    activePointerId.current = event.pointerId;
     startY.current = event.clientY;
     startValue.current = value;
 
@@ -33,7 +39,7 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
 
   const handlePointerMove = (event) =>
   {
-    if (!dragging.current)
+    if (event.pointerId !== activePointerId.current)
     {
       return;
     }
@@ -53,12 +59,12 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
 
   const handlePointerUp = (event) =>
   {
-    if (!dragging.current)
+    if (event.pointerId !== activePointerId.current)
     {
       return;
     }
 
-    dragging.current = false;
+    activePointerId.current = null;
 
     if (event.currentTarget.hasPointerCapture(event.pointerId))
     {
@@ -68,20 +74,18 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
 
   const handleLostPointerCapture = () =>
   {
-    dragging.current = false;
+    activePointerId.current = null;
   };
 
   const handleChange = (event) =>
   {
-    const raw = event.target.value;
-    const parsed = Number.parseInt(raw, 10);
-
-    onChange(raw === "" ? 0 : clamp(Number.isFinite(parsed) ? parsed : 0));
+    const nextValue = event.currentTarget.valueAsNumber;
+    onChange(Number.isFinite(nextValue) ? clamp(Math.trunc(nextValue)) : 0);
   };
 
   const handleWheel = (event) =>
   {
-    if (document.activeElement !== event.currentTarget)
+    if (!event.currentTarget.matches(":focus"))
     {
       return;
     }
@@ -103,11 +107,6 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
     onChange(clamp(value + direction));
   };
 
-  const fieldName =
-    label === "h" ? "Hours" :
-    label === "m" ? "Minutes" :
-    "Seconds";
-
   return (
     <div
       className="time-field"
@@ -118,10 +117,12 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
       onLostPointerCapture={handleLostPointerCapture}
       title={`Adjust ${fieldName.toLowerCase()} by dragging or using the arrow keys`}
     >
-      <label id={labelId} htmlFor={id} className="sr-only">
+      <label id={labelId} htmlFor={id} className="time-field-sr-only">
         {fieldName}
       </label>
-
+      <span id={descriptionId} className="time-field-sr-only">
+        Use the arrow keys to adjust by one, or drag vertically to adjust faster.
+      </span>
       <input
         id={id}
         type="number"
@@ -132,7 +133,7 @@ export default function TimeField({ label, value, max = Number.MAX_SAFE_INTEGER,
 
         inputMode="numeric"
         autoComplete="off"
-        aria-labelledby={labelId}
+        aria-describedby={descriptionId}
 
         value={value}
         onChange={handleChange}
